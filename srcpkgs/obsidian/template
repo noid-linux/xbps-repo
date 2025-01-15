@@ -1,0 +1,26 @@
+# Template file for 'obsidian'
+pkgname=obsidian
+version=1.7.7
+revision=1
+only_for_archs="x86_64"
+hostmakedepends="tar xz"
+short_desc="Private and flexible writing app that adapts to the way you think."
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="Proprietary"
+homepage="https://obsidian.md"
+distfiles="https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/obsidian_${version}_amd64.deb"
+checksum=e41269fa5f120612cb8ba3cbb8a22b1d5c5d9969c4e9b2f9f802fd0141de6a89
+
+do_extract() {
+  mkdir -p ${DESTDIR}
+  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/obsidian_${version}_amd64.deb
+  tar xf data.tar.xz -C ${DESTDIR}
+}
+
+do_install() {
+	vmkdir usr/bin
+  ln -sf /opt/Obsidian/obsidian ${DESTDIR}/usr/bin/obsidian
+
+  # Cleanup up
+  rm -rf ${DESTDIR}/etc
+}

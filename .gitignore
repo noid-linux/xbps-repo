@@ -1,0 +1,13 @@
+# Build artifacts
+*.xbps
+*.tar.gz
+*.sig
+
+# Temp files
+*~
+.*.swp
+.DS_Store
+
+# Build directories
+/hostdir/
+/masterdir/
