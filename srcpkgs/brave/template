@@ -1,6 +1,6 @@
 # Template file for 'brave'
 pkgname=brave
-version=1.74.47
+version=1.74.48
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
