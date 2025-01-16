@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://brave.com"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb"
-checksum=78421ac3a8fa457bb8816f3ace983a5f583bdaca8083a78e1bf982c6246d17c1
+checksum=a8d3f7c2cab2b3c898fc642d0c12f6396f3e8dcdac676d027deb6147e2f77371
 nostrip=yes
 
 do_extract() {
