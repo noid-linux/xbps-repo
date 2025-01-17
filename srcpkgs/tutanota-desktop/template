@@ -1,0 +1,20 @@
+# Template file for 'tutanota-desktop'
+pkgname=tutanota-desktop
+version=261.250116.0
+revision=1
+only_for_archs="x86_64"
+create_wrksrc=yes
+short_desc="The desktop client for Tutanota, the secure e-mail service."
+maintainer="ndpm13 <ndpm13@ch-naseem.com>"
+license="GPL-3.0"
+homepage="https://tuta.com/"
+distfiles="https://github.com/tutao/tutanota/releases/download/tutanota-desktop-release-${version}/tutanota-desktop-${version}-unpacked-linux.tar.gz"
+checksum=849bc66ff30735988cacad240e275fd8ef346a2ca0368008dd016335b9a05771
+
+do_install() {
+	vmkdir usr/lib/tutanota-desktop
+	vcopy linux-unpacked/* usr/lib/tutanota-desktop
+  vbin ${FILESDIR}/tutanota-desktop.sh tutanota-desktop
+	vinstall ${FILESDIR}/tutanota-desktop.desktop 644 usr/share/applications
+	vinstall linux-unpacked/resources/icons/icon/512.png 644 usr/share/pixmaps tutanota.png
+}
