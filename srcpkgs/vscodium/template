@@ -11,7 +11,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MIT"
 homepage="https://vscodium.com/"
 distfiles="https://github.com/VSCodium/vscodium/releases/download/${version}/codium_${version}_amd64.deb"
-checksum=9859e8b37cabe0bfd7922c55faca5ff0adb8f714d6edb64398b4109e25bc3303
+checksum=789ae1eef12e523fb03b97c9e18af2b35339984452bcdc89453f773d992afa2e
 
 do_extract() {
   mkdir -p ${DESTDIR}
