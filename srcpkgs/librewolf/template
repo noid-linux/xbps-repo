@@ -1,6 +1,6 @@
 # Template file for 'librewolf'
 pkgname=librewolf
-version=135.0.1
+version=135.0
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
