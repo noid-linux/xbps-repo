@@ -1,0 +1,18 @@
+# Template file for 'sklauncher'
+pkgname=sklauncher
+version=3.2.12
+revision=1
+only_for_archs="x86_64"
+depends="openjdk21 openjdk21-jre"
+short_desc="Secure and modern Minecraft Launcher"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="custom:Proprietary"
+homepage="https://skmedix.pl"
+
+do_install() {
+    vmkdir usr/share/java/$pkgname
+    vmkdir usr/bin
+
+    vinstall ${FILESDIR}/SKlauncher-$version.jar 644 usr/share/java/$pkgname $pkgname.jar
+    vinstall ${FILESDIR}/$pkgname 755 usr/bin
+}
