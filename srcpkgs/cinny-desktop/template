@@ -1,0 +1,25 @@
+# Template file for 'cinny-desktop'
+pkgname=cinny-desktop
+version=4.3.2
+revision=1
+only_for_archs="x86_64"
+hostmakedepends="tar xz "
+depends="libssl1.1 libcrypto1.1 webkit2gtk"
+short_desc="Yet another matrix client for desktop"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="AGPL-3.0"
+homepage="https://cinny.in/"
+distfiles="https://github.com/cinnyapp/cinny-desktop/releases/download/v${version}/Cinny_desktop-x86_64.deb"
+checksum=f017b3735aa80de3888dda00322b70f33abb48a73f89a3660a517559605090d6
+nostrip=yes
+noverifyrdeps=yes
+
+do_extract() {
+  mkdir -p ${DESTDIR}
+  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/Cinny_desktop-x86_64.deb
+  tar xf data.tar.gz -C ${DESTDIR}
+}
+
+do_install() {
+  rm -rf ${DESTDIR}/etc
+}
