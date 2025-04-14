@@ -20,7 +20,8 @@ jobs:
   build-packages:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/void-linux/void-buildroot-glibc:latest
+      image: ghcr.io/void-linux/void-glibc-full:20250227R1
+      options: --privileged
 
     steps:
       - name: Setup environment
@@ -31,7 +32,8 @@ jobs:
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           xbps-install -Syu xbps
           xbps-install -Syu
-          xbps-install -y tar curl openssh unzip git jq github-cli
+          xbps-install -y tar curl openssh unzip git jq github-cli bash shadow sudo
+          useradd -G xbuilder -M builder
 
       - name: Checkout repositories
         uses: actions/checkout@v4
@@ -79,17 +81,21 @@ jobs:
           # Setup void-packages
           cp -r custom-packages/srcpkgs/* void-packages/srcpkgs/
           cd void-packages
+          chown -R builder:builder . &&
           ln -s "$(pwd)" /hostrepo
-          ./common/travis/set_mirror.sh
-          ./common/travis/prepare.sh
-          ./common/travis/fetch-xtools.sh
+
+          # Use the scripts from common/travis
+          sudo -Eu builder bash common/travis/set_mirror.sh &&
+          sudo -Eu builder bash common/travis/prepare.sh &&
+          bash common/travis/fetch-xtools.sh
 
           # Build packages
-          mkdir -p ~/packages
-          IFS=',' read -ra PKGS <<< "${PACKAGES}"
-          for pkg in "${PKGS[@]}"; do
+          mkdir -p ~/packages ~/hostdir
+          chown -R builder:builder ~/packages &&
+          chown -R builder:builder ~/hostdir &&
+          for pkg in `echo ${PACKAGES} | tr ',' ' '`; do
             pkg_trim=$(echo "$pkg" | xargs)
-            ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg_trim"
+            sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg_trim"
             cp ~/hostdir/binpkgs/"$pkg_trim"*.xbps ~/packages/
           done
 
@@ -108,7 +114,6 @@ jobs:
           xbps-rindex --privkey "$temp_key" --sign-pkg ~/packages/*.xbps
           rm -f "$temp_key"
           tar -czvf xbps_packages.tar.gz *
-          ls -lah
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
