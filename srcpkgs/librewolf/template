@@ -1,6 +1,6 @@
 # Template file for 'librewolf'
 pkgname=librewolf
-version=135.0
+version=137.0.1
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://librewolf.net/"
 distfiles="https://repo.librewolf.net/pool/librewolf-${version}-${revision}-linux-x86_64-deb.deb"
-checksum=4fef972de27fe55277ebd6dada6d213b6428261933fbbeecef67615faf9d453a
+checksum=cb2a54ee5cca71e488fca60c8d09af495ef196915493a6be08cafa10ac042c4e
 nostrip=yes
 
 do_extract() {

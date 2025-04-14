@@ -1,6 +1,6 @@
 # Template file for 'obsidian'
 pkgname=obsidian
-version=1.8.7
+version=1.8.9
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="Proprietary"
 homepage="https://obsidian.md"
 distfiles="https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/obsidian_${version}_amd64.deb"
-checksum=39ed20205fc2abc9f98275bb890eb182856231a4359df5f2fbd3672c8ac99a74
+checksum=eda25a4a390427555d3ce89c96289557bdc69beb900e85aed33e66072c97e2fe
 
 do_extract() {
   mkdir -p ${DESTDIR}
