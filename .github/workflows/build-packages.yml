@@ -2,9 +2,9 @@ name: Build XBPS Packages
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "srcpkgs/**"
+  schedule:
+    # Runs at 00:00 UTC every Friday
+    - cron: '0 0 * * 5'
 
 permissions:
   contents: write
