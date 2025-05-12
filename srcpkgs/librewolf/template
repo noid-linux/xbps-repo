@@ -1,7 +1,7 @@
 # Template file for 'librewolf'
 pkgname=librewolf
-version=137.0.1
-revision=1
+version=138.0.1
+revision=2
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
 short_desc="Community-maintained fork of Firefox, focused on privacy, security and freedom."
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://librewolf.net/"
 distfiles="https://repo.librewolf.net/pool/librewolf-${version}-${revision}-linux-x86_64-deb.deb"
-checksum=cb2a54ee5cca71e488fca60c8d09af495ef196915493a6be08cafa10ac042c4e
+checksum=24c5590d3b1a874add3aa66f50a6b0358cec9c17c6ad27dbc434b0a84b5f9ca5
 nostrip=yes
 
 do_extract() {
