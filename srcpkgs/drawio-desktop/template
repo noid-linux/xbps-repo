@@ -1,6 +1,6 @@
 # Template file for 'drawio-desktop'
 pkgname=drawio-desktop
-version=26.2.15
+version=27.0.2
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="ndpm13 <ndpm13@ch-naseem.com>"
 license="Apache-2.0"
 homepage="https://www.diagrams.net/"
 distfiles="https://github.com/jgraph/drawio-desktop/releases/download/v${version}/drawio-amd64-${version}.deb"
-checksum=e0a26a0ca268fdc0fb00241a485a39030799fe0504b1fb7a574c241f31819af4
+checksum=723abf660a496713772971392c5f504dfc9f3976c39aa7d91c7592347b632b8b
 nostrip=yes
 
 do_extract() {
