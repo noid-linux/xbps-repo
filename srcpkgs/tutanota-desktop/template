@@ -1,6 +1,6 @@
 # Template file for 'tutanota-desktop'
 pkgname=tutanota-desktop
-version=275.250324.1
+version=284.250513.1
 revision=1
 only_for_archs="x86_64"
 create_wrksrc=yes
@@ -9,7 +9,7 @@ maintainer="ndpm13 <ndpm13@ch-naseem.com>"
 license="GPL-3.0"
 homepage="https://tuta.com/"
 distfiles="https://github.com/tutao/tutanota/releases/download/tutanota-desktop-release-${version}/tutanota-desktop-${version}-unpacked-linux.tar.gz"
-checksum=9fc128f477b6a3043b9bb1f552e45f2e3810eefa4d9aed145fda01e7bc13824b
+checksum=e572a378b2345ee1e7a2db25ea0ac415149ecbc61056af901bd9eb1b09b0ca00
 
 do_install() {
 	vmkdir usr/lib/tutanota-desktop
