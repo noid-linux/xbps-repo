@@ -15,7 +15,7 @@ nostrip=yes
 
 do_extract() {
   mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/librewolf-${version}-${revision}-linux-x86_64-deb.deb
+  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/librewolf-${version}-${rev}-linux-x86_64-deb.deb
   tar xf data.tar.xz -C ${DESTDIR}
 }
 
