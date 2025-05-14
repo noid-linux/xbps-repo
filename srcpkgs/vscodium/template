@@ -25,6 +25,9 @@ do_install() {
 	vmkdir usr/bin
 	ln -sf /usr/lib/codium/codium ${DESTDIR}/usr/bin/codium
 
+	vmkdir usr/share/applications
+	vinstall "${FILESDIR}/vscodium.desktop" 644 usr/share/applications
+
   # Cleanup up
   rm -rf ${DESTDIR}/etc
   rm -rf ${DESTDIR}/usr/share/codium
