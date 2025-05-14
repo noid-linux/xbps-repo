@@ -46,36 +46,6 @@ jobs:
         with:
           path: custom-packages
 
-      - name: Delete existing release assets
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Get the release ID for the 'latest' tag
-          RELEASE_ID=$(gh api \
-            -H "Accept: application/vnd.github+json" \
-            /repos/$GITHUB_REPOSITORY/releases/tags/latest \
-            --jq '.id' || echo "")
-
-          if [ ! -z "$RELEASE_ID" ]; then
-            # Get all assets for this release
-            assets=$(gh api \
-              -H "Accept: application/vnd.github+json" \
-              /repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID/assets \
-              --jq '.[].id' || echo "")
-            
-            # Delete each asset
-            for asset_id in $assets; do
-              gh api \
-                --method DELETE \
-                -H "Accept: application/vnd.github+json" \
-                /repos/$GITHUB_REPOSITORY/releases/assets/$asset_id
-            done
-            
-            echo "All assets from the latest release have been deleted"
-          else
-            echo "No release with tag 'latest' found or unable to access release"
-          fi
-
       - name: Setup and build packages
         run: |
           # Setup void-packages
@@ -114,6 +84,36 @@ jobs:
           xbps-rindex --privkey "$temp_key" --sign-pkg ~/packages/*.xbps
           rm -f "$temp_key"
           tar -czvf xbps_packages.tar.gz *
+
+      - name: Delete existing release assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the release ID for the 'latest' tag
+          RELEASE_ID=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            /repos/$GITHUB_REPOSITORY/releases/tags/latest \
+            --jq '.id' || echo "")
+
+          if [ ! -z "$RELEASE_ID" ]; then
+            # Get all assets for this release
+            assets=$(gh api \
+              -H "Accept: application/vnd.github+json" \
+              /repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID/assets \
+              --jq '.[].id' || echo "")
+            
+            # Delete each asset
+            for asset_id in $assets; do
+              gh api \
+                --method DELETE \
+                -H "Accept: application/vnd.github+json" \
+                /repos/$GITHUB_REPOSITORY/releases/assets/$asset_id
+            done
+            
+            echo "All assets from the latest release have been deleted"
+          else
+            echo "No release with tag 'latest' found or unable to access release"
+          fi
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
