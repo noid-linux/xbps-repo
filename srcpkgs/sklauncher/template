@@ -15,4 +15,7 @@ do_install() {
 
     vinstall ${FILESDIR}/SKlauncher-$version.jar 644 usr/share/java/$pkgname $pkgname.jar
     vinstall ${FILESDIR}/$pkgname 755 usr/bin
+
+	  vmkdir usr/share/applications
+	  vinstall "${FILESDIR}/sklauncher.desktop" 644 usr/share/applications
 }
