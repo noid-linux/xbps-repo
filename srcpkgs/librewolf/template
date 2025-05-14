@@ -1,14 +1,15 @@
 # Template file for 'librewolf'
 pkgname=librewolf
 version=138.0.1
-revision=2
+rev=2
+revision=3
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
 short_desc="Community-maintained fork of Firefox, focused on privacy, security and freedom."
 maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://librewolf.net/"
-distfiles="https://repo.librewolf.net/pool/librewolf-${version}-${revision}-linux-x86_64-deb.deb"
+distfiles="https://repo.librewolf.net/pool/librewolf-${version}-${rev}-linux-x86_64-deb.deb"
 checksum=24c5590d3b1a874add3aa66f50a6b0358cec9c17c6ad27dbc434b0a84b5f9ca5
 nostrip=yes
 
@@ -21,6 +22,10 @@ do_extract() {
 do_install() {
 	vcopy ${DESTDIR}/usr/share/librewolf /usr/lib/
   ln -sf /usr/lib/librewolf/librewolf ${DESTDIR}/usr/bin/librewolf
+
+	vmkdir usr/share/applications
+	vinstall "${FILESDIR}/librewolf.desktop" 644 usr/share/applications
+
   # Cleanup up
   rm -rf ${DESTDIR}/etc
   rm -rf ${DESTDIR}/usr/share/librewolf
