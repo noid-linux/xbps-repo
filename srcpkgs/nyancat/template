@@ -1,0 +1,24 @@
+# Template file for 'nyancat'
+pkgname=nyancat
+version=1.2.1
+revision=1
+only_for_archs="x86_64"
+build_style=gnu-makefile
+short_desc="Nyancat rendered in your terminal"
+maintainer="Naz <ndpm13@ch-naeseem.com>"
+license="NCSA"
+homepage="https://nyancat.dakko.us/"
+distfiles="https://github.com/klange/nyancat/archive/refs/tags/${version}.tar.gz"
+checksum=a5bfafb6ea69917071aa05f9a52db43e47e97272eb2f4c6c827630cddb015972
+
+do_build() {
+	cd src
+	make CC="${CC}" CFLAGS="${CFLAGS}" LDFLAGS="${LDFLAGS}"
+}
+
+do_install() {
+	# Install the binary
+	vbin src/nyancat
+	# Install the man page
+	vman nyancat.1
+}
