@@ -1,6 +1,6 @@
 # Template file for 'ferdium'
 pkgname=ferdium
-version=7.0.1
+version=7.1.0
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="Apache-2.0"
 homepage="https://ferdium.org/"
 distfiles="https://github.com/ferdium/ferdium-app/releases/download/v${version}/Ferdium-linux-${version}-amd64.deb"
-checksum=7b93bc72f42abf2987422bbb918d4084a7e854eb032d82bc8435fe3ca8193c5b
+checksum=f385b8d3ef94fb9fe44c8f38bc612a0156fddd30a014f76e06484c406d320d1a
 
 do_extract() {
   mkdir -p ${DESTDIR}
