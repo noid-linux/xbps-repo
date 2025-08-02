@@ -1,0 +1,88 @@
+name: Test Build XBPS Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: "Packages to build"
+        required: true
+        default: "brave"
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+
+env:
+  ARCH: x86_64
+  HOST: x86_64
+  PLATFORM: linux/amd64
+
+jobs:
+  build-packages:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/void-linux/void-glibc-full:20250227R1
+      options: --privileged
+
+    steps:
+      - name: Setup environment
+        run: |
+          export PATH="/usr/libexec/chroot-git:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/usr/local/bin:/tmp/bin"
+          mkdir -p /etc/xbps.d
+          cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          xbps-install -Syu xbps
+          xbps-install -Syu
+          xbps-install -y tar curl openssh unzip git jq github-cli bash shadow sudo
+          useradd -G xbuilder -M builder
+
+      - name: Checkout repositories
+        uses: actions/checkout@v4
+        with:
+          repository: void-linux/void-packages
+          path: void-packages
+
+      - name: Checkout custom packages
+        uses: actions/checkout@v4
+        with:
+          path: custom-packages
+
+      - name: Setup and build packages
+        run: |
+          # Setup void-packages
+          cp -r custom-packages/srcpkgs/* void-packages/srcpkgs/
+          cd void-packages
+          chown -R builder:builder . &&
+          ln -s "$(pwd)" /hostrepo
+
+          # Use the scripts from common/travis
+          sudo -Eu builder bash common/travis/set_mirror.sh &&
+          sudo -Eu builder bash common/travis/prepare.sh &&
+          bash common/travis/fetch-xtools.sh
+
+          # Build packages
+          mkdir -p ~/packages ~/hostdir
+          chown -R builder:builder ~/packages &&
+          chown -R builder:builder ~/hostdir &&
+          for pkg in `echo ${{ github.event.inputs.packages }} | tr ',' ' '`; do
+            pkg_trim=$(echo "$pkg" | xargs)
+            sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg_trim"
+            cp ~/hostdir/binpkgs/"$pkg_trim"*.xbps ~/packages/
+          done
+
+      - name: Sign and package
+        env:
+          PRIVATE_PEM: ${{ secrets.PRIVATE_PEM }}
+          PRIVATE_PEM_PASSPHRASE: ${{ secrets.PRIVATE_PEM_PASSPHRASE }}
+        run: |
+          cd ~/packages
+          xbps-rindex -a *
+          temp_key=$(mktemp)
+          echo "$PRIVATE_PEM" > "$temp_key"
+          export XBPS_PASSPHRASE=$PRIVATE_PEM_PASSPHRASE
+          chmod 600 "$temp_key"
+          xbps-rindex --privkey "$temp_key" --sign --signedby "void-packages-github-actions" ~/packages
+          xbps-rindex --privkey "$temp_key" --sign-pkg ~/packages/*.xbps
+          rm -f "$temp_key"
+          tar -czvf xbps_packages.tar.gz *
