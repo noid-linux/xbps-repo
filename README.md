@@ -3,6 +3,9 @@
 
 This repository contains custom XBPS packages.
 
+> [!NOTE]
+> Some packages in this repository are repackaged from official upstream binaries (e.g., Brave, LibreWolf, VSCodium) while others are built from source (e.g., Pika Backup). Check individual package templates in `srcpkgs/` for build details.
+
 ## Installation Instructions
 
 The easiest way is by adding our repository, which includes pre-built binaries. You can do so by creating a new file and specifying the repository URL.
