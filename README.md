@@ -15,7 +15,7 @@ Once you've created file above, proceed with installing any packages you want us
 
 ```bash
 doas xbps-install -Su
-doas xbps-install brave librewolf vscodium ferdium obsidian onlyoffice freetube tutanota-desktop drawio-desktop sklauncher cinny-desktop PrismLauncher-Cracked
+doas xbps-install brave librewolf vscodium ferdium obsidian onlyoffice freetube tutanota-desktop drawio-desktop sklauncher cinny-desktop PrismLauncher-Cracked intel-media-driver-nonfree
 ```
 
 ## License
