@@ -1,0 +1,19 @@
+# Template file for 'gruvbox-bibata-cursor-theme'
+pkgname=gruvbox-bibata-cursor-theme
+version=1.0.1
+revision=1
+hostmakedepends="tar xz"
+short_desc="Gruvbox-themed Bibata Cursor"
+maintainer="Naz <ndpm13@ch-naeseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://www.bibata.live/"
+
+do_extract() {
+  tar xf ${FILESDIR}/gruvbox-bibata-cursor-theme.tar.xz
+}
+
+do_install() {
+	vmkdir usr/share/icons
+
+	vcopy Bibata-Gruvbox usr/share/icons/
+}
