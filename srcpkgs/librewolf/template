@@ -23,10 +23,8 @@ do_install() {
 	vcopy ${DESTDIR}/usr/share/librewolf /usr/lib/
   ln -sf /usr/lib/librewolf/librewolf ${DESTDIR}/usr/bin/librewolf
 
-	vmkdir usr/share/applications
-	vinstall "${FILESDIR}/librewolf.desktop" 644 usr/share/applications
+	sed -i 's|/usr/share/librewolf|/usr/lib/librewolf|g' \
+		${DESTDIR}/usr/share/applications/librewolf.desktop
 
-  # Cleanup up
-  rm -rf ${DESTDIR}/etc
   rm -rf ${DESTDIR}/usr/share/librewolf
 }
