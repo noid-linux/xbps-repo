@@ -1,0 +1,29 @@
+# Template file for 'gruvbox-material-theme'
+pkgname=gruvbox-material-theme
+version=1.0.0
+revision=1
+hostmakedepends="unzip"
+depends="gtk-engine-murrine"
+short_desc="Gruvbox Material theme for GTK, Gnome, Cinnamon, XFCE, Unity and Plank"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://github.com/TheGreatMcPain/gruvbox-material-gtk"
+distfiles="https://github.com/TheGreatMcPain/gruvbox-material-gtk/archive/refs/heads/master.zip"
+checksum=7a19430b9ef305a66e5d42d8a04e216d5be0b474447817294f94b7a628004781
+nostrip=yes
+
+do_extract() {
+	unzip ${XBPS_SRCDISTDIR}/${pkgname}-${version}/master.zip
+}
+
+post_install() {
+	vlicense gruvbox-material-gtk-master/LICENSE
+}
+
+do_install() {
+	vmkdir usr/share/themes
+	vmkdir usr/share/icons
+
+	vcopy gruvbox-material-gtk-master/themes/* usr/share/themes/
+	vcopy gruvbox-material-gtk-master/icons/* usr/share/icons/
+}
