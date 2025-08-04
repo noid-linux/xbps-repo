@@ -12,6 +12,7 @@ license="MIT"
 homepage="https://vscodium.com/"
 distfiles="https://github.com/VSCodium/vscodium/releases/download/${version}/codium_${version}_amd64.deb"
 checksum=3d428abe4e5728dc21b3f6ad3e334af9b8825bbf9aebd7e7dcae847cdfdc3cc5
+nostrip=yes
 
 do_extract() {
   mkdir -p ${DESTDIR}
@@ -21,14 +22,16 @@ do_extract() {
 
 do_install() {
 	vcopy ${DESTDIR}/usr/share/codium /usr/lib/
+	vcopy ${DESTDIR}/usr/share/zsh/vendor-completions /usr/share/zsh/site-functions
 
 	vmkdir usr/bin
-	ln -sf /usr/lib/codium/codium ${DESTDIR}/usr/bin/codium
+  ln -sf /usr/lib/codium/bin/codium ${DESTDIR}/usr/bin/codium
 
-	vmkdir usr/share/applications
-	vinstall "${FILESDIR}/vscodium.desktop" 644 usr/share/applications
+	sed -i 's|/usr/share/codium|/usr/lib/codium|g' \
+		${DESTDIR}/usr/lib/codium/bin/codium \
+		${DESTDIR}/usr/share/applications/codium.desktop \
+		${DESTDIR}/usr/share/applications/codium-url-handler.desktop
 
-  # Cleanup up
-  rm -rf ${DESTDIR}/etc
   rm -rf ${DESTDIR}/usr/share/codium
+	rm -rf ${DESTDIR}/usr/share/zsh/vendor-completions
 }
