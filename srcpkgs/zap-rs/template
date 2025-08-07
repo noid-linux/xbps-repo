@@ -1,0 +1,18 @@
+# Template file for 'zap-rs'
+pkgname=zap-rs
+version=0.1.0
+revision=1
+only_for_archs="x86_64"
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="openssl-devel"
+short_desc="Rust-based AppImage package manager inspired by Zap"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://git.ch-naseem.com/ndpm13/zap-rs"
+distfiles="https://github.com/ndpm13/zap-rs/archive/refs/tags/v${version}.tar.gz"
+checksum="f2d95e2222ba28231cb5069fc099da90ae8d0d63be70719ee8a8f49ee10cce3f"
+
+post_install() {
+    vlicense LICENSE
+}
