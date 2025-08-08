@@ -1,5 +1,6 @@
 # Custom XBPS Repository
-[![Build Packages](https://github.com/ndpm13/xbps-repo/actions/workflows/build-packages.yml/badge.svg)](https://github.com/ndpm13/xbps-repo/actions/workflows/build-packages.yml)
+
+[![Build Packages](https://github.com/noid-linux/xbps-repo/actions/workflows/build-packages.yml/badge.svg)](https://github.com/noid-linux/xbps-repo/actions/workflows/build-packages.yml)
 
 This repository contains custom XBPS packages.
 
@@ -11,7 +12,7 @@ This repository contains custom XBPS packages.
 The easiest way is by adding our repository, which includes pre-built binaries. You can do so by creating a new file and specifying the repository URL.
 
 ```bash
-echo "repository=https://github.com/ndpm13/xbps-repo/releases/latest/download" | doas tee /etc/xbps.d/ndpm13-xbps-repo.conf
+echo "repository=https://github.com/noid-linux/xbps-repo/releases/latest/download" | doas tee /etc/xbps.d/noid-xbps-repo.conf
 ```
 
 Once you've created file above, proceed with installing any packages you want using xbps
