@@ -1,0 +1,19 @@
+# Template file for 'ndpm'
+pkgname=ndpm
+version=0.1.0
+revision=1
+only_for_archs="x86_64"
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="openssl-devel"
+depends="sudo"
+short_desc="A user-friendly package manager wrapper for XBPS with AppImage support"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://git.ch-naseem.com/noid-linux/ndpm"
+distfiles="https://github.com/noid-linux/ndpm/archive/refs/tags/v${version}.tar.gz"
+checksum="b12913f1d978338ff8f3196e005c62db255816dee534e37efdcfdece9c7c67b8"
+
+post_install() {
+    vlicense LICENSE
+}
