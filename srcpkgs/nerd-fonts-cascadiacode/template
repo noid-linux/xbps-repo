@@ -1,0 +1,28 @@
+# Template file for 'nerd-fonts-cascadiacode'
+pkgname=nerd-fonts-cascadiacode
+version=3.4.0
+revision=1
+create_wrksrc=yes
+depends="font-util"
+short_desc="CascadiaCode Nerd Font - monospaced font with programming ligatures and glyphs"
+maintainer="Naz <ndpm13@ch-naeseem.com>"
+license="MIT"
+homepage="https://nerdfonts.com"
+changelog="https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/changelog.md"
+distfiles="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/CascadiaCode.tar.xz>CascadiaCode-${version}.tar.xz"
+checksum="804b3d311665a059140466fe142cc76cf14ef0695b7c4d3a174f7f8fba46b6e3"
+font_dirs="/usr/share/fonts/NerdFonts/CascadiaCode"
+
+do_extract() {
+	vsrcextract --no-strip-components -C "${wrksrc}/CascadiaCode" "CascadiaCode-${version}.tar.xz"
+}
+
+do_install() {
+	vmkdir usr/share/fonts/NerdFonts/CascadiaCode
+
+	for f in CascadiaCode/*.ttf; do
+		[ -f "$f" ] && vinstall "$f" 644 usr/share/fonts/NerdFonts/CascadiaCode
+	done
+
+	vlicense CascadiaCode/LICENSE
+}
