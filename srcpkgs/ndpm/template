@@ -1,6 +1,6 @@
 # Template file for 'ndpm'
 pkgname=ndpm
-version=0.1.0
+version=0.1.1
 revision=1
 only_for_archs="x86_64"
 build_style=cargo
@@ -12,7 +12,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
 homepage="https://git.ch-naseem.com/noid-linux/ndpm"
 distfiles="https://github.com/noid-linux/ndpm/archive/refs/tags/v${version}.tar.gz"
-checksum="b12913f1d978338ff8f3196e005c62db255816dee534e37efdcfdece9c7c67b8"
+checksum="6e5ef1d3a1d8df9c589492c01f5a97ebbde15ffca5134b693fa468b8ee4cfa76"
 
 post_install() {
     vlicense LICENSE
