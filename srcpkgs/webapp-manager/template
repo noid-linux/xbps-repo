@@ -1,0 +1,24 @@
+# Template file for 'webapp-manager'
+pkgname=webapp-manager
+version=1.4.2
+revision=1
+only_for_archs="x86_64"
+hostmakedepends="tar xz"
+depends="python3-tldextract python3-xapp"
+short_desc="Run websites as if they were apps"
+maintainer="Naz <ndpm13@ch-naeseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/linuxmint/webapp-manager"
+distfiles="http://packages.linuxmint.com/pool/main/w/webapp-manager/webapp-manager_${version}_all.deb"
+checksum=f737744cb9fdf16f713f9a5f35383b9f745c3aa9652e0c1084ffa41072b67d25
+nostrip=yes
+
+do_extract() {
+  mkdir -p ${DESTDIR}
+  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/webapp-manager_${version}_all.deb
+  tar xf data.tar.xz -C ${DESTDIR}
+}
+
+do_install() {
+	:
+}
