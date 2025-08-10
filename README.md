@@ -49,5 +49,5 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | tutanota-desktop                 | 301.250806.1         |
 | vscodium                         | 1.103.05312          |
 | webapp-manager                   | 1.4.2                |
-| zap-rs                           | 0.2.0                |
+| zap-rs                           | 0.2.1                |
 | zen-browser                      | 1.14.10b             |
