@@ -1,0 +1,31 @@
+# Template file for 'spotify-client'
+pkgname=spotify-client
+version=1.2.63.394.g126b0d89
+revision=1
+only_for_archs="x86_64"
+hostmakedepends="tar"
+short_desc="Spotify desktop client"
+maintainer="Naz <ndpm13@ch-naeseem.com>"
+license="Proprietary"
+homepage="https://www.spotify.com/"
+distfiles="https://repository.spotify.com/pool/non-free/s/spotify-client/spotify-client_${version}_amd64.deb"
+checksum=99c229f829ccb9c2a188be80d1241d2b8c8fd35f1e8d773438c0f612d68e940e
+nostrip=yes
+
+do_extract() {
+  mkdir -p ${DESTDIR}
+  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/spotify-client_${version}_amd64.deb
+  tar xf data.tar.gz -C ${DESTDIR}
+}
+
+do_install() {
+	vcopy ${DESTDIR}/usr/share/spotify /usr/lib/
+
+  ln -sf /usr/lib/spotify/spotify ${DESTDIR}/usr/bin/spotify
+
+	vmkdir usr/share/applications
+  ln -sf /usr/lib/spotify/spotify.desktop ${DESTDIR}/usr/share/applications/spotify.desktop
+
+  rm -rf ${DESTDIR}/usr/share/spotify
+}
+
