@@ -1,10 +1,7 @@
-name: Build XBPS Packages
+name: Build All XBPS Packages
 
 on:
   workflow_dispatch:
-  schedule:
-    # Runs at 00:00 UTC every Friday
-    - cron: '0 0 * * 5'
 
 permissions:
   contents: write
@@ -86,34 +83,11 @@ jobs:
           tar -czvf xbps_packages.tar.gz *
 
       - name: Delete existing release assets
+        run: |
+          gh release view latest --repo noid-linux/xbps-repo --json assets --jq '.assets[].name' \
+          | xargs -I {} gh release delete-asset latest {} --repo noid-linux/xbps-repo --yes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Get the release ID for the 'latest' tag
-          RELEASE_ID=$(gh api \
-            -H "Accept: application/vnd.github+json" \
-            /repos/$GITHUB_REPOSITORY/releases/tags/latest \
-            --jq '.id' || echo "")
-
-          if [ ! -z "$RELEASE_ID" ]; then
-            # Get all assets for this release
-            assets=$(gh api \
-              -H "Accept: application/vnd.github+json" \
-              /repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID/assets \
-              --jq '.[].id' || echo "")
-            
-            # Delete each asset
-            for asset_id in $assets; do
-              gh api \
-                --method DELETE \
-                -H "Accept: application/vnd.github+json" \
-                /repos/$GITHUB_REPOSITORY/releases/assets/$asset_id
-            done
-            
-            echo "All assets from the latest release have been deleted"
-          else
-            echo "No release with tag 'latest' found or unable to access release"
-          fi
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
