@@ -40,7 +40,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | ndpm                             | 0.1.2                |
 | nerd-fonts-cascadiacode          | 3.4.0                |
 | nyancat                          | 1.2.1                |
-| obsidian                         | 1.8.10               |
+| obsidian                         | 1.9.10               |
 | onlyoffice                       | 9.0.4                |
 | pika-backup                      | 0.7.4                |
 | PrismLauncher-Cracked            | 9.4                  |
