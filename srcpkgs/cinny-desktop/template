@@ -1,6 +1,6 @@
 # Template file for 'cinny-desktop'
 pkgname=cinny-desktop
-version=4.9.1
+version=4.10.0
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz "
@@ -10,7 +10,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0"
 homepage="https://cinny.in/"
 distfiles="https://github.com/cinnyapp/cinny-desktop/releases/download/v${version}/Cinny_desktop-x86_64.deb"
-checksum=06d50da52b54c7d2d08ec8c6cd7bd61fe2e7a45df67e23968686d81ff9a26660
+checksum=aa4378bc8349fb96032506a45183b8d6504d0da6cdd30061930d6d675e2daa0e
 nostrip=yes
 noverifyrdeps=yes
 
