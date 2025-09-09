@@ -46,7 +46,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | PrismLauncher-Cracked            | 9.4                  |
 | proton-authenticator             | 1.0.0                |
 | spotify-client                   | 1.2.63.394.g126b0d89 |
-| tutanota-desktop                 | 304.250825.0         |
+| tutanota-desktop                 | 304.250901.0         |
 | vscodium                         | 1.103.25610          |
 | webapp-manager                   | 1.4.2                |
 | zap-rs                           | 0.2.1                |
