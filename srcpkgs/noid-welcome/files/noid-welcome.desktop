@@ -1,0 +1,10 @@
+[Desktop Entry]
+Exec=noid-welcome
+Icon=noid-welcome
+Terminal=false
+Type=Application
+Encoding=UTF-8
+Categories=Settings;DesktopSettings;
+StartupNotify=false
+Name=Welcome Screen
+Comment=Introduction to Noid Linux
