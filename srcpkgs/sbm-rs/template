@@ -1,0 +1,19 @@
+# Template file for 'sbm-rs'
+pkgname=sbm-rs
+version=0.1.0
+revision=1
+only_for_archs="x86_64"
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="openssl-devel"
+depends=""
+short_desc="Simple bookmarks manager written in Rust"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://git.ch-naseem.com/ndpm13/sbm-rs"
+distfiles="https://github.com/ndpm13/sbm-rs/archive/refs/tags/v${version}.tar.gz"
+checksum="f630ba58d04816f482d95f0a191c48f186e4ea89fe950f4902bfcfe9a6678b97"
+
+post_install() {
+    vlicense LICENSE
+}
