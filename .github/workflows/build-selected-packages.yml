@@ -34,7 +34,7 @@ jobs:
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           xbps-install -Syu xbps
           xbps-install -Syu
-          xbps-install -y curl openssh unzip git jq github-cli bash sudo
+          xbps-install -y curl openssh unzip git jq github-cli bash sudo tea
           useradd -G xbuilder -M builder
 
       - name: Checkout repositories
@@ -125,3 +125,33 @@ jobs:
             Latest build of XBPS packages
             Built on: ${{ github.event.repository.updated_at }}
           prerelease: false
+
+      - name: Delete existing release (Forgejo)
+        run: |
+          tea login add --name github-actions --url https://git.ch-naseem.com --token "$FORGEJO_TOKEN"
+          tea release delete --repo noid-linux/xbps-repo -y --delete-tag latest
+        env:
+          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
+
+      - name: Create Release (Forgejo)
+        shell: bash
+        env:
+          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
+        run: |
+          assets=$(ls -1 /github/home/packages/ | grep '.xbps' | tr '\n' ' ')
+
+          args=()
+
+          for asset in $assets;
+          do
+            args+=(--asset "/github/home/packages/$asset")
+          done
+
+          args+=(--asset /github/home/packages/x86_64-repodata)
+
+          tea release create \
+            --repo noid-linux/xbps-repo \
+            --title "Latest Build" \
+            --note "Latest build of XBPS packages Built on: ${{ github.event.repository.updated_at }}" \
+            "${args[@]}" \
+            latest
