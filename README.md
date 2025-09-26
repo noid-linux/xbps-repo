@@ -45,7 +45,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | onlyoffice                       | 9.0.4                |
 | pika-backup                      | 0.7.4                |
 | PrismLauncher-Cracked            | 9.4                  |
-| proton-authenticator             | 1.0.0                |
+| proton-authenticator             | 1.1.4                |
 | sbm-rs                           | 0.1.0                |
 | spotify-client                   | 1.2.63.394.g126b0d89 |
 | tutanota-desktop                 | 304.250901.0         |
