@@ -1,6 +1,6 @@
 # Template file for 'proton-authenticator'
 pkgname=proton-authenticator
-version=1.0.0
+version=1.1.4
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://proton.me/authenticator"
 distfiles="https://proton.me/download/authenticator/linux/ProtonAuthenticator_${version}_amd64.deb"
-checksum=462e94eedb906b99dd7b8be36a040a7df5a01976d9b4034d99ea61d57e8f16e3
+checksum=4a84deaa76033200a858b19a4195da1e244a1ab7859fb14f4b3e42d0ef3cb963
 nostrip=yes
 
 do_extract() {
