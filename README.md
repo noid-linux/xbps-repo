@@ -34,7 +34,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | freetube                         | 0.23.9               |
 | gruvbox-bibata-cursor-theme      | /                    |
 | gruvbox-material-theme           | /                    |
-| intel-media-driver-nonfree       | 25.2.6               |
+| intel-media-driver-nonfree       | 25.3.4               |
 | intel-media-driver-nonfree-devel | /                    |
 | librewolf                        | 143.0.1              |
 | ndpm                             | 0.1.2                |
