@@ -34,7 +34,7 @@ jobs:
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           xbps-install -Syu xbps
           xbps-install -Syu
-          xbps-install -y curl openssh unzip git jq github-cli bash sudo tea
+          xbps-install -y curl openssh unzip git github-cli bash sudo
           useradd -G xbuilder -M builder
 
       - name: Checkout repositories
@@ -102,6 +102,32 @@ jobs:
           rm -f "$temp_key"
           tar -czvf xbps_packages.tar.gz *
 
+      - name: Upload built packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-packages
+          path: /github/home/packages/
+          retention-days: 1
+
+  create-github-release:
+    needs: build-packages
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/void-linux/void-glibc-full:20250227R1
+
+    steps:
+      - name: Install dependencies
+        run: |
+          xbps-install -Syu xbps
+          xbps-install -Syu
+          xbps-install -Syu && xbps-install -y curl git jq github-cli
+
+      - name: Download built packages
+        uses: actions/download-artifact@v4
+        with:
+          name: built-packages
+          path: ~/packages
+
       - name: Delete existing release assets
         run: |
           gh release view latest --repo noid-linux/xbps-repo --json assets --jq '.assets[].name' \
@@ -126,14 +152,33 @@ jobs:
             Built on: ${{ github.event.repository.updated_at }}
           prerelease: false
 
-      - name: Delete existing release (Forgejo)
+  create-forgejo-release:
+    needs: build-packages
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/void-linux/void-glibc-full:20250227R1
+
+    steps:
+      - name: Install dependencies
+        run: |
+          xbps-install -Syu xbps
+          xbps-install -Syu
+          xbps-install -Syu && xbps-install -y bash curl git tea
+
+      - name: Download built packages
+        uses: actions/download-artifact@v4
+        with:
+          name: built-packages
+          path: ~/packages
+
+      - name: Delete existing release
         run: |
           tea login add --name github-actions --url https://git.ch-naseem.com --token "$FORGEJO_TOKEN"
           tea release delete --repo noid-linux/xbps-repo -y --delete-tag latest
         env:
           FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
 
-      - name: Create Release (Forgejo)
+      - name: Create Release
         shell: bash
         env:
           FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
