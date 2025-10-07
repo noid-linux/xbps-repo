@@ -1,6 +1,6 @@
 # Template file for 'brave'
 pkgname=brave
-version=1.82.172
+version=1.83.109
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://brave.com"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb"
-checksum=b530728cecb34d73eed300733661f64c44ea144013cdfc4333a408920af1a470
+checksum=6690740615de4dad120518760e3fea2c38bc7000545665bca3968ad2444f1143
 nostrip=yes
 
 do_extract() {
@@ -27,9 +27,6 @@ do_install() {
 		# Copy the brave browser icon
 		mv ${DESTDIR}/opt/brave.com/brave/product_logo_${size}.png ${DESTDIR}/usr/share/icons/hicolor/${size}x${size}/apps/brave-browser.png
 	done
-
-	# Remove unused icons
-	rm ${DESTDIR}/opt/brave.com/brave/*.xpm
 
 	# Remove the Debian/Ubuntu crontab
 	rm -rf ${DESTDIR}/etc
