@@ -1,6 +1,6 @@
 # Template file for 'vscodium'
 pkgname=vscodium
-version=1.104.36664
+version=1.105.06808
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -11,7 +11,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MIT"
 homepage="https://vscodium.com/"
 distfiles="https://github.com/VSCodium/vscodium/releases/download/${version}/codium_${version}_amd64.deb"
-checksum=cfcd5819b83ec04bc7a2690f6fb84a67e3827ee38c562d7b03626cecdd6b3691
+checksum=acce675a6ea14760ae93655998748c154053194176c8d7db2cf5c94c91c66585
 nostrip=yes
 
 do_extract() {
