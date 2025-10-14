@@ -74,15 +74,16 @@ jobs:
 
       - name: Download the rest of the packages
         run: |
-          gh release download latest --repo noid-linux/xbps-repo --dir ./releases
+          gh release download latest --repo noid-linux/xbps-repo --dir ./old_releases
 
-          rm ./releases/x86_64-repodata ./releases/xbps_packages.tar.gz ./releases/*.sig2
+          rm -f ./old_releases/x86_64-repodata ./old_releases/*.sig2
 
           for pkg in `echo ${{ github.event.inputs.packages }} | tr ',' ' '`; do
-            rm -f ./releases/"$pkg"*
+            rm -f ./old_releases/"$pkg"*
           done
 
-          mv releases/* ~/packages/
+          cp -r ~/packages ~/release
+          mv old_releases/* ~/packages/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -100,13 +101,18 @@ jobs:
           xbps-rindex --privkey "$temp_key" --sign --signedby "void-packages-github-actions" ~/packages
           xbps-rindex --privkey "$temp_key" --sign-pkg ~/packages/*.xbps
           rm -f "$temp_key"
-          tar -czvf xbps_packages.tar.gz *
+
+          for pkg in $(ls -1 ~/release); do
+            cp "$pkg".sig2 ~/release
+          done
+
+          cp x86_64-repodata ~/release
 
       - name: Upload built packages
         uses: actions/upload-artifact@v4
         with:
           name: built-packages
-          path: /github/home/packages/
+          path: /github/home/release/
           retention-days: 1
 
   create-github-release:
@@ -120,18 +126,21 @@ jobs:
         run: |
           xbps-install -Syu xbps
           xbps-install -Syu
-          xbps-install -Syu && xbps-install -y curl git jq github-cli
+          xbps-install -Syu && xbps-install -y curl git jq github-cli ripgrep
 
       - name: Download built packages
         uses: actions/download-artifact@v4
         with:
           name: built-packages
-          path: ~/packages
+          path: ~/release
 
       - name: Delete existing release assets
         run: |
           gh release view latest --repo noid-linux/xbps-repo --json assets --jq '.assets[].name' \
+          | rg "$(echo ${{ github.event.inputs.packages }} | tr ',' '|')" \
           | xargs -I {} gh release delete-asset latest {} --repo noid-linux/xbps-repo --yes
+
+          gh release delete-asset latest "x86_64-repodata" --repo noid-linux/xbps-repo --yes || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -141,10 +150,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
-            /github/home/packages/*.xbps
-            /github/home/packages/*.sig2
-            /github/home/packages/x86_64-repodata
-            /github/home/packages/xbps_packages.tar.gz
+            /github/home/release/*.xbps
+            /github/home/release/*.sig2
+            /github/home/release/x86_64-repodata
           tag_name: latest
           name: Latest Build
           body: |
@@ -152,51 +160,51 @@ jobs:
             Built on: ${{ github.event.repository.updated_at }}
           prerelease: false
 
-  create-forgejo-release:
-    needs: build-packages
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/void-linux/void-glibc-full:20250227R1
+  # create-forgejo-release:
+  #   needs: build-packages
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: ghcr.io/void-linux/void-glibc-full:20250227R1
 
-    steps:
-      - name: Install dependencies
-        run: |
-          xbps-install -Syu xbps
-          xbps-install -Syu
-          xbps-install -Syu && xbps-install -y bash curl git tea
+  #   steps:
+  #     - name: Install dependencies
+  #       run: |
+  #         xbps-install -Syu xbps
+  #         xbps-install -Syu
+  #         xbps-install -Syu && xbps-install -y bash curl git tea
 
-      - name: Download built packages
-        uses: actions/download-artifact@v4
-        with:
-          name: built-packages
-          path: ~/packages
+  #     - name: Download built packages
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: built-packages
+  #         path: ~/packages
 
-      - name: Delete existing release
-        run: |
-          tea login add --name github-actions --url https://git.ch-naseem.com --token "$FORGEJO_TOKEN"
-          tea release delete --repo noid-linux/xbps-repo -y --delete-tag latest
-        env:
-          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
+  #     - name: Delete existing release
+  #       run: |
+  #         tea login add --name github-actions --url https://git.ch-naseem.com --token "$FORGEJO_TOKEN"
+  #         tea release delete --repo noid-linux/xbps-repo -y --delete-tag latest
+  #       env:
+  #         FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
 
-      - name: Create Release
-        shell: bash
-        env:
-          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
-        run: |
-          assets=$(ls -1 /github/home/packages/ | grep '.xbps' | tr '\n' ' ')
+  #     - name: Create Release
+  #       shell: bash
+  #       env:
+  #         FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
+  #       run: |
+  #         assets=$(ls -1 /github/home/release/ | grep '.xbps' | tr '\n' ' ')
 
-          args=()
+  #         args=()
 
-          for asset in $assets;
-          do
-            args+=(--asset "/github/home/packages/$asset")
-          done
+  #         for asset in $assets;
+  #         do
+  #           args+=(--asset "/github/home/release/$asset")
+  #         done
 
-          args+=(--asset /github/home/packages/x86_64-repodata)
+  #         args+=(--asset /github/home/packages/x86_64-repodata)
 
-          tea release create \
-            --repo noid-linux/xbps-repo \
-            --title "Latest Build" \
-            --note "Latest build of XBPS packages Built on: ${{ github.event.repository.updated_at }}" \
-            "${args[@]}" \
-            latest
+  #         tea release create \
+  #           --repo noid-linux/xbps-repo \
+  #           --title "Latest Build" \
+  #           --note "Latest build of XBPS packages Built on: ${{ github.event.repository.updated_at }}" \
+  #           "${args[@]}" \
+  #           latest
