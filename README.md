@@ -31,7 +31,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | drawio-desktop                   | 28.2.5               |
 | discord                          | 0.0.104              |
 | ferdium                          | 7.1.1                |
-| freetube                         | 0.23.9               |
+| freetube                         | 0.23.11              |
 | gruvbox-bibata-cursor-theme      | /                    |
 | gruvbox-material-theme           | /                    |
 | intel-media-driver-nonfree       | 25.3.4               |

@@ -1,6 +1,6 @@
 # Template file for 'freetube'
 pkgname=freetube
-version=0.23.9
+version=0.23.11
 revision=0
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0"
 homepage="https://freetubeapp.io/"
 distfiles="https://github.com/FreeTubeApp/FreeTube/releases/download/v${version}-beta/freetube_${version}_beta_amd64.deb"
-checksum=bb18ee3cfadcddf71ee050bc9162f8ad71152754d8dafcf873e042f170929d94
+checksum=eaa3781cac79e760f71ddd3b56bcbf95e6b7e9d7610e309d1b535d53d806b836
 nostrip=yes
 
 do_extract() {
