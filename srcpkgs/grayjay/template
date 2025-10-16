@@ -1,6 +1,6 @@
 # Template file for 'grayjay'
 pkgname=grayjay
-version=10
+version=11
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="unzip"
@@ -11,7 +11,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="Source First License 1.1"
 homepage="https://grayjay.app/"
 distfiles="https://updater.grayjay.app/Apps/Grayjay.Desktop/${version}/Grayjay.Desktop-linux-x64-v${version}.zip"
-checksum=bcdac4760b2026672e8d911f4e5dcda9db240df93f766a872e33a29ef065ce2d
+checksum=5f35bdd2da2b25b91841f28acc38e23674700dca527e0aa07428fb572cb04648
 nostrip=yes
 
 do_extract() {
