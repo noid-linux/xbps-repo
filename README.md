@@ -45,7 +45,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | nwm                              | 1                    |
 | obsidian                         | 1.9.14               |
 | onlyoffice                       | 9.1.0                |
-| pika-backup                      | 0.7.4                |
+| pika-backup                      | 0.7.5                |
 | PrismLauncher-Cracked            | 9.4                  |
 | proton-authenticator             | 1.1.4                |
 | sbm-rs                           | 0.1.0                |
