@@ -1,0 +1,26 @@
+# Template file for 'nwm'
+pkgname=nwm
+version=1
+_dwm_version=6.6
+revision=1
+makedepends="libXinerama-devel libXft-devel freetype-devel"
+short_desc="Custom Build of DWM - a Dynamic window manager for X"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="git.ch-naseem.com/ndpm13/dwm"
+distfiles="https://github.com/ndpm13/dwm/archive/refs/tags/${_dwm_version}-custom.${version}.tar.gz"
+checksum=48a597c0b638460f449e51f1c0744d3e2937094db7aba6a1c3ec8af4e16e9757
+conflicts="dwm>=0"
+replaces="dwm>=0"
+
+do_build() {
+	[ -e ${FILESDIR}/config.h ] && cp ${FILESDIR}/config.h config.h
+	vsed -e "/CFLAGS/s|\${CPPFLAGS}|& $CFLAGS|g" -i config.mk
+	make CC=$CC INCS="-I. -I${XBPS_CROSS_BASE}/usr/include/freetype2"
+}
+
+do_install() {
+	make PREFIX=/usr DESTDIR=$DESTDIR install
+	vinstall ${FILESDIR}/dwm.desktop 644 usr/share/xsessions
+	vlicense LICENSE
+}
