@@ -50,7 +50,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | proton-authenticator             | 1.1.4                |
 | sbm-rs                           | 0.1.0                |
 | spotify-client                   | 1.2.63.394.g126b0d89 |
-| tutanota-desktop                 | 310.251008.0         |
+| tutanota-desktop                 | 310.251016.1         |
 | vscodium                         | 1.105.16954          |
 | webapp-manager                   | 1.4.2                |
 | zap-rs                           | 0.2.1                |
