@@ -1,0 +1,34 @@
+# Template file for 'calamares'
+pkgname=calamares
+version=3.4.0
+_patch_version=1
+revision=4
+build_style=cmake
+configure_args="-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+-DCMAKE_INSTALL_LIBDIR=lib -DWITH_PYTHONQT:BOOL=ON -DINSTALL_CONFIG:BOOL=ON
+-DINSTALL_POLKIT:BOOL=ON -DBoost_NO_BOOST_CMAKE=ON
+-DSKIP_MODULES='webview;interactiveterminal;services-systemd;dummyprocess;dummypython;dummycpp;dummypythonqt'"
+hostmakedepends="git extra-cmake-modules pkg-config gettext ckbcomp kcoreaddons
+python3-QtPy libpwquality AppStream-qt python3-yaml
+python3-jsonschema"
+makedepends="python3-devel python3-jsonschema yaml-cpp-devel python3-yaml
+boost-devel qt6-base-devel python3-devel kpmcore-devel qt6-tools qt6-translations
+boost boost-python3 python3-QtPy qt6-svg-devel libpwquality qt6-webengine
+AppStream-qt plasma-framework-devel qt6-webengine"
+depends="kconfig kcoreaddons kiconthemes ki18n kio ksolid yaml-cpp kpmcore boost
+ckbcomp qt6-svg polkit-qt6 gtk-update-icon-cache plasma-framework
+squashfs-tools libpwquality AppStream-qt icu rsync"
+short_desc="Distribution-independent installer framework"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://calamares.io"
+distfiles="https://github.com/noid-linux/calamares/archive/refs/tags/v${version}-noid.${_patch_version}.tar.gz"
+checksum=07c78fe2a15f107ea0eb9e36f20155ea96ed1424869fe87f1837fa07b2e1f498
+
+
+post_install() {
+	vinstall calamares.desktop 644 usr/share/applications
+
+    vmkdir etc/polkit-1/rules.d/
+    vinstall ${FILESDIR}/49-nopasswd-calamares.rules 644 etc/polkit-1/rules.d/
+}
