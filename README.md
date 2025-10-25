@@ -27,6 +27,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | Package                          | Version              |
 | -------------------------------- | -------------------- |
 | brave                            | 1.83.120             |
+| calamares                        | 3.4.0                |
 | cinny-desktop                    | 4.10.1               |
 | drawio-desktop                   | 28.2.7               |
 | discord                          | 0.0.104              |
