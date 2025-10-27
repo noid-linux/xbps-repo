@@ -1,6 +1,6 @@
 [Desktop Entry]
-Exec=noid-welcome
-Icon=noid-welcome
+Exec=noid-welcome.sh
+Icon=noid
 Terminal=false
 Type=Application
 Encoding=UTF-8

@@ -1,41 +1,19 @@
 # Template file for 'noid-welcome'
 pkgname=noid-welcome
-version=0.1.0
-revision=1
+version=0.2.0
+revision=2
 only_for_archs="x86_64"
-hostmakedepends="cargo pkg-config nodejs"
-makedepends="openssl-devel libwebkit2gtk41-devel"
-depends="libwebkit2gtk41 alacritty sudo curl"
+depends="yad alacritty sudo curl"
 short_desc="Noid Linux Welcome Screen"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
 homepage="https://git.ch-naseem.com/noid-linux/noid-welcome"
 distfiles="https://github.com/noid-linux/noid-welcome/archive/refs/tags/v${version}.tar.gz"
-checksum=60a2049ec4e9124b15cbbb835350c8f65d9c4d368af7b60ee1f4e9482b0efdfd
-
-do_configure() {
-    sed -i "s/bun\ run/npm\ run/" src-tauri/tauri.conf.json
-    npm install -g npm@11.6.0
-    npm install
-}
-
-do_build() {
-    npm run tauri build -- --no-bundle
-}
+checksum=edf66bbc5dd68ca296530b9cecf63f6909be0347b65e4eafab85cc48aa719a4d
 
 do_install() {
     vmkdir usr/bin
-    ln -sf /opt/noid-welcome/noid-welcome ${DESTDIR}/usr/bin/noid-welcome
-
-    vinstall src-tauri/target/release/noid-welcome 755 opt/noid-welcome
-
-    vcopy scripts opt/noid-welcome
-    chmod +x ${DESTDIR}/opt/noid-welcome/scripts/*
+    vinstall noid-welcome.sh 755 usr/bin
 
     vinstall ${FILESDIR}/noid-welcome.desktop 644 usr/share/applications
-    vinstall src-tauri/icons/icon.png 644 usr/share/pixmaps noid-welcome.png
-}
-
-post_install() {
-    vlicense LICENSE
 }
