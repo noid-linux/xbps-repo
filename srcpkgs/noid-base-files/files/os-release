@@ -1,0 +1,9 @@
+NAME="Noid"
+ID="noid"
+PRETTY_NAME="Noid Linux"
+HOME_URL="https://git.ch-naseem.com/noid-linux/"
+DOCUMENTATION_URL="https://git.ch-naseem.com/noid-linux/"
+LOGO="noid-logo"
+ANSI_COLOR="0;38;2;71;128;97"
+
+DISTRIB_ID="noid"

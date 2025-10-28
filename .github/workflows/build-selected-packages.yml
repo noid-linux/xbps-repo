@@ -51,6 +51,7 @@ jobs:
       - name: Setup and build packages
         run: |
           # Setup void-packages
+          find void-packages -type f -exec sed -i "s/base-files/noid-base-files/g" {} +
           cp -r custom-packages/srcpkgs/* void-packages/srcpkgs/
           cd void-packages
           chown -R builder:builder . &&
