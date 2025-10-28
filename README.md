@@ -41,6 +41,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | librewolf                        | 144.0                |
 | ndpm                             | 0.1.2                |
 | nerd-fonts-cascadiacode          | 3.4.0                |
+| noid-base-files                  | 0.1                  |
 | noid-welcome                     | 0.1.0                |
 | nyancat                          | 1.2.1                |
 | nwm                              | 1                    |
