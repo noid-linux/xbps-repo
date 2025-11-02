@@ -51,6 +51,7 @@ jobs:
       - name: Setup and build packages
         run: |
           # Setup void-packages
+          find void-packages -type f -exec sed -i "s/base-files/noid-base-files/g" {} +
           cp -r custom-packages/srcpkgs/* void-packages/srcpkgs/
           cd void-packages
           chown -R builder:builder . &&
@@ -65,11 +66,27 @@ jobs:
           mkdir -p ~/packages ~/hostdir
           chown -R builder:builder ~/packages &&
           chown -R builder:builder ~/hostdir &&
+
           for pkg in `echo ${{ github.event.inputs.packages }} | tr ',' ' '`; do
             pkg_trim=$(echo "$pkg" | xargs)
             sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg_trim"
             cp ~/hostdir/binpkgs/"$pkg_trim"*.xbps ~/packages/
           done
+
+      - name: Download the rest of the packages
+        run: |
+          gh release download latest --repo noid-linux/xbps-repo --dir ./old_releases
+
+          rm -f ./old_releases/x86_64-repodata ./old_releases/*.sig2
+
+          for pkg in `echo ${{ github.event.inputs.packages }} | tr ',' ' '`; do
+            rm -f ./old_releases/"$pkg"*
+          done
+
+          cp -r ~/packages ~/release
+          mv old_releases/* ~/packages/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Sign and package
         env:
@@ -85,4 +102,9 @@ jobs:
           xbps-rindex --privkey "$temp_key" --sign --signedby "void-packages-github-actions" ~/packages
           xbps-rindex --privkey "$temp_key" --sign-pkg ~/packages/*.xbps
           rm -f "$temp_key"
-          tar -czvf xbps_packages.tar.gz *
+
+          for pkg in $(ls -1 ~/release); do
+            cp "$pkg".sig2 ~/release
+          done
+
+          cp x86_64-repodata ~/release
