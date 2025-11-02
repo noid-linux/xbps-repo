@@ -39,6 +39,8 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | intel-media-driver-nonfree       | 25.3.4               |
 | intel-media-driver-nonfree-devel | /                    |
 | librewolf                        | 144.0.2              |
+| lutgen-cli                       | 1.0.1                |
+| lutgen-studio                    | 0.3.0                |
 | ndpm                             | 0.1.2                |
 | nerd-fonts-cascadiacode          | 3.4.0                |
 | noid-base-files                  | 0.1                  |
