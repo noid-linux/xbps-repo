@@ -1,25 +1,53 @@
 # Template file for 'ferdium'
 pkgname=ferdium
 version=7.1.1
-revision=1
-only_for_archs="x86_64"
-hostmakedepends="tar xz"
-short_desc="A messaging browser that allows you to combine your favorite messaging services into one application"
+revision=2
+archs="x86_64"
+hostmakedepends="pnpm git"
+depends="glib gtk+3 nss dbus atk at-spi2-core libcups cairo pango libX11
+libXcomposite libXdamage libXext libXfixes libXrandr mesa libxcb libxkbcommon
+eudev-libudev alsa-lib"
+short_desc="Messaging app for WhatsApp, Slack, Telegram, Hangouts and many many more."
 maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="Apache-2.0"
 homepage="https://ferdium.org/"
-distfiles="https://github.com/ferdium/ferdium-app/releases/download/v${version}/Ferdium-linux-${version}-amd64.deb"
-checksum=d635e8f0c324d841242e8d27e080a6189b5e28fae82d82a4305fff83addfac7b
+distfiles="https://github.com/ferdium/ferdium-app/archive/refs/tags/v${version}.tar.gz"
+checksum=7188b16736da9d2925980c148a867848c9ad23e0531fb965f82808b7ce567741
 
-do_extract() {
-  mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/Ferdium-linux-${version}-amd64.deb
-  tar xf data.tar.xz -C ${DESTDIR}
+export ELECTRON_CACHE="${XBPS_BUILDDIR}/electron-cache"
+export ELECTRON_BUILDER_CACHE="${XBPS_BUILDDIR}/electron-builder-cache"
+export CSC_IDENTITY_AUTO_DISCOVERY=false
+export CI=true
+
+post_extract() {
+    git clone --depth 1 https://github.com/ferdium/ferdium-recipes.git recipes
+
+    vsed -i 's/22\.18\.0/22.15.0/' .nvmrc
+    vsed -i 's/"node": "22\.18\.0"/"node": "22.15.0"/' package.json recipes/package.json
+}
+
+pre_build() {
+	cd recipes
+	pnpm i
+	pnpm package
+	cd ..
+	
+	pnpm i
+	pnpm prepare-code
+}
+
+do_build() {
+	pnpm build --x64 --linux --dir
 }
 
 do_install() {
+	vmkdir usr/lib/ferdium
+	vcopy "out/linux-unpacked/*" usr/lib/ferdium
+	
 	vmkdir usr/bin
-  ln -sf /opt/Ferdium/ferdium ${DESTDIR}/usr/bin/ferdium
-  # Cleanup up
-  rm -rf ${DESTDIR}/etc
+	ln -sf /usr/lib/ferdium/ferdium "${DESTDIR}/usr/bin/ferdium"
+	
+	vinstall ${FILESDIR}/ferdium.desktop 644 usr/share/applications
+
+    vinstall build-helpers/images/icon.png 644 usr/share/pixmaps ferdium.png
 }

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Ferdium
+Exec=/usr/bin/ferdium %U
+Terminal=false
+Type=Application
+Icon=ferdium
+StartupWMClass=Ferdium
+Comment=Messaging app for WhatsApp, Slack, Telegram, Hangouts and many many more.
+MimeType=x-scheme-handler/ferdium;
+Categories=Network;InstantMessaging;
