@@ -6,6 +6,7 @@ only_for_archs="x86_64"
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="openssl-devel"
+depends="openssl"
 short_desc="Rust-based AppImage package manager inspired by Zap"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
