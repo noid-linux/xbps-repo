@@ -1,7 +1,7 @@
 # Template file for 'noid-welcome'
 pkgname=noid-welcome
-version=0.2.0
-revision=2
+version=0.2.1
+revision=1
 only_for_archs="x86_64"
 depends="yad alacritty sudo curl"
 short_desc="Noid Linux Welcome Screen"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
 homepage="https://git.ch-naseem.com/noid-linux/noid-welcome"
 distfiles="https://github.com/noid-linux/noid-welcome/archive/refs/tags/v${version}.tar.gz"
-checksum=edf66bbc5dd68ca296530b9cecf63f6909be0347b65e4eafab85cc48aa719a4d
+checksum=92017e0875b7eb5868fd0ef8ea5da67ee9821af3c94492956e761f6507666845
 
 do_install() {
     vmkdir usr/bin
