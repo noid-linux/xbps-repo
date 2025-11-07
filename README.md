@@ -29,7 +29,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | android-studio                   | 2025.2.1.7           | ❌       |
 | brave                            | 1.84.135             | ❌       |
 | calamares                        | 3.4.0                | ✅       |
-| cinny-desktop                    | 4.10.1               | ❌       |
+| cinny-desktop                    | 4.10.2               | ✅       |
 | drawio-desktop                   | 28.2.7               | ❌       |
 | discord                          | 0.0.104              | ❌       |
 | ferdium                          | 7.1.1                | ✅       |
