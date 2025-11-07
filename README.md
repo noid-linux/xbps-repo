@@ -26,7 +26,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 
 | Package                          | Version              | Compiled |
 | -------------------------------- | -------------------- | -------- |
-| android-studio                   | 2025.1.1.13          | ❌       |
+| android-studio                   | 2025.2.1.7           | ❌       |
 | brave                            | 1.84.132             | ❌       |
 | calamares                        | 3.4.0                | ✅       |
 | cinny-desktop                    | 4.10.1               | ❌       |
