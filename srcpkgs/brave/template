@@ -1,6 +1,6 @@
 # Template file for 'brave'
 pkgname=brave
-version=1.84.132
+version=1.84.135
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://brave.com"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser_${version}_amd64.deb"
-checksum=50f57892b2388e75cd34be918ef84efdfb714b9dde59eae71b5615548d805db8
+checksum=98f66ab3348f90c0bbede518f82a53cd86db0ca30ab7b2e833a96772006a485a
 nostrip=yes
 
 do_extract() {
