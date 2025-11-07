@@ -1,25 +1,46 @@
 # Template file for 'cinny-desktop'
 pkgname=cinny-desktop
-version=4.10.1
+version=4.10.2
 revision=1
-only_for_archs="x86_64"
-hostmakedepends="tar xz "
-depends="libssl1.1 libcrypto1.1 libwebkit2gtk41"
+archs="x86_64"
+hostmakedepends="nodejs cargo git pkg-config"
+makedepends="openssl-devel libwebkit2gtk41-devel"
+depends="libwebkit2gtk41"
 short_desc="Yet another matrix client for desktop"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0"
 homepage="https://cinny.in/"
-distfiles="https://github.com/cinnyapp/cinny-desktop/releases/download/v${version}/Cinny_desktop-x86_64.deb"
-checksum=005e5602510189d4b44ce3961ad92492f7e39e001eeb34ed0e572fe64edc6215
-nostrip=yes
-noverifyrdeps=yes
+distfiles="https://github.com/ndpm13/cinny-desktop/archive/refs/tags/v${version}.tar.gz"
+checksum=5f5dcb3164a4bd2cbd7a7655455bcb0f197e99df64ddbcc8966436b9da461c9d
 
-do_extract() {
-  mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/Cinny_desktop-x86_64.deb
-  tar xf data.tar.gz -C ${DESTDIR}
+post_extract() {
+    git clone --depth 1 https://github.com/cinnyapp/cinny.git cinny
+    cd cinny
+    git checkout c88cb4bca93e3a376836b8880e5e4c1fa5c7eba2
+}
+
+pre_build() {
+    cd cinny
+    npm ci
+    cd ..
+    npm ci
+}
+
+do_build() {
+	npm run tauri build -- --no-bundle
 }
 
 do_install() {
-  rm -rf ${DESTDIR}/etc
+    vmkdir opt/cinny-desktop
+    vinstall src-tauri/target/release/cinny 755 opt/cinny-desktop
+
+    vmkdir usr/bin
+    ln -sf /opt/cinny-desktop/cinny ${DESTDIR}/usr/bin/cinny
+
+    vinstall ${FILESDIR}/cinny.desktop 644 usr/share/applications
+    vinstall src-tauri/icons/icon.png 644 usr/share/pixmaps cinny.png
+}
+
+post_install() {
+    vlicense LICENSE
 }
