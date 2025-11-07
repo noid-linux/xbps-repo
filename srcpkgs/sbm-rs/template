@@ -1,10 +1,9 @@
 # Template file for 'sbm-rs'
 pkgname=sbm-rs
 version=0.1.0
-revision=1
+revision=2
 only_for_archs="x86_64"
 build_style=cargo
-hostmakedepends="pkg-config"
 makedepends="openssl-devel"
 depends=""
 short_desc="Simple bookmarks manager written in Rust"
