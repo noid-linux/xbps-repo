@@ -1,0 +1,27 @@
+# Template file for 'rustdesk'
+pkgname=rustdesk
+version=1.4.3
+revision=1
+archs="x86_64"
+hostmakedepends="tar xz"
+short_desc="An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer."
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="AGPL-3.0"
+homepage="https://rustdesk.com/"
+distfiles="https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.deb"
+checksum=084013ed7f619ab7b8cb0fdaf5b24e2b00e773bf3de31d4a365a97879891fedb
+nostrip=yes
+
+do_extract() {
+  mkdir -p ${DESTDIR}
+  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/rustdesk-${version}-x86_64.deb
+  tar xf data.tar.xz -C ${DESTDIR}
+}
+
+do_install() {
+  vmkdir opt
+  mv ${DESTDIR}/usr/share/rustdesk ${DESTDIR}/opt
+
+  vmkdir usr/bin
+  ln -sf /opt/rustdesk/rustdesk ${DESTDIR}/usr/bin/rustdesk
+}
