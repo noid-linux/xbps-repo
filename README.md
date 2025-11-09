@@ -53,6 +53,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | pika-backup                      | 0.7.5                | ✅       |
 | PrismLauncher-Cracked            | 9.4                  | ✅       |
 | proton-authenticator             | 1.1.4                | ❌       |
+| rustdesk                         | 1.4.3                | ❌       |
 | sbm-rs                           | 0.1.0                | ✅       |
 | spotify-client                   | 1.2.63.394.g126b0d89 | ❌       |
 | tutanota-desktop                 | 314.251030.0         | ❌       |
