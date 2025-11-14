@@ -11,7 +11,7 @@ env:
   ARCH: x86_64
   HOST: x86_64
   PLATFORM: linux/amd64
-  PACKAGES: "brave,ferdium,librewolf,vscodium,obsidian,onlyoffice,freetube,tutanota-desktop,drawio-desktop,cinny-desktop,pika-backup,PrismLauncher-Cracked,nyancat,intel-media-driver-nonfree,intel-media-driver-nonfree-devel,proton-authenticator,gruvbox-material-theme,gruvbox-bibata-cursor-theme,zap-rs,ndpm,nerd-fonts-cascadiacode,webapp-manager,spotify-client,zen-browser,discord,noid-welcome,sbm-rs,grayjay,nwm,calamares,noid-base-files,lutgen-cli,lutgen-studio,lutgen-rs,android-studio,rustdesk"
+  PACKAGES: "brave,ferdium,librewolf,vscodium,obsidian,onlyoffice,freetube,tutanota-desktop,drawio-desktop,cinny-desktop,pika-backup,PrismLauncher-Cracked,nyancat,intel-media-driver-nonfree,intel-media-driver-nonfree-devel,proton-authenticator,gruvbox-material-theme,gruvbox-bibata-cursor-theme,zap-rs,ndpm,nerd-fonts-cascadiacode,webapp-manager,spotify-client,zen-browser,discord,noid-welcome,sbm-rs,grayjay,nwm,calamares,noid-base-files,lutgen-cli,lutgen-studio,lutgen-rs,android-studio,rustdesk,kanata"
 
 jobs:
   build-packages:

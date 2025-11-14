@@ -1,0 +1,17 @@
+# Template file for 'kanata'
+pkgname=kanata
+version=1.10.0
+revision=1
+archs="x86_64"
+build_style=cargo
+short_desc="Improve keyboard comfort and usability with advanced customization"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="LGPL-3.0"
+homepage="https://github.com/jtroo/kanata"
+distfiles="https://github.com/jtroo/kanata/archive/refs/tags/v${version}.tar.gz"
+checksum=6c2d0bec8390cd0d7807aeb2550d0888434cd71d3e8c89a2765c18dd53b946ac
+
+post_install() {
+    vinstall ${FILESDIR}/99-kanata.rules 644 usr/lib/udev/rules.d
+    vlicense LICENSE
+}
