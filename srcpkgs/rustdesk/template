@@ -1,6 +1,6 @@
 # Template file for 'rustdesk'
 pkgname=rustdesk
-version=1.4.3
+version=1.4.4
 revision=1
 archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0"
 homepage="https://rustdesk.com/"
 distfiles="https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.deb"
-checksum=084013ed7f619ab7b8cb0fdaf5b24e2b00e773bf3de31d4a365a97879891fedb
+checksum=db722ef63ee3e1e410ab34aba7b6dd3b416a61516f3b744f9b9707ee9639e46c
 nostrip=yes
 
 do_extract() {
