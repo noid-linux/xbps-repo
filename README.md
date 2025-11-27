@@ -59,7 +59,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | sbm-rs                           | 0.1.0                | ✅       |
 | spotify-client                   | 1.2.63.394.g126b0d89 | ❌       |
 | tutanota-desktop                 | 315.251125.0         | ❌       |
-| vscodium                         | 1.106.27818          | ❌       |
+| vscodium                         | 1.106.37943          | ❌       |
 | webapp-manager                   | 1.4.2                | ❌       |
 | zap-rs                           | 0.3.0                | ✅       |
 | zen-browser                      | 1.17.10b             | ❌       |
