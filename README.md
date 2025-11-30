@@ -41,7 +41,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | intel-media-driver-nonfree       | 25.3.4               | ✅       |
 | intel-media-driver-nonfree-devel | /                    | ✅       |
 | kanata                           | 1.10.0               | ✅       |
-| librewolf                        | 145.0.1-2            | ❌       |
+| librewolf                        | 145.0.2-1            | ❌       |
 | lutgen-cli                       | 1.0.1                | ✅       |
 | lutgen-studio                    | 0.3.0                | ✅       |
 | ndpm                             | 0.1.3                | ✅       |
