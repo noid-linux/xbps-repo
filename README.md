@@ -51,7 +51,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | nyancat                          | 1.2.1                | ✅       |
 | nwm                              | 1                    | ✅       |
 | obsidian                         | 1.10.6               | ❌       |
-| onlyoffice                       | 9.1.0                | ❌       |
+| onlyoffice                       | 9.2.0                | ❌       |
 | pika-backup                      | 0.7.5                | ✅       |
 | PrismLauncher-Cracked            | 9.4                  | ✅       |
 | proton-authenticator             | 1.1.4                | ❌       |
