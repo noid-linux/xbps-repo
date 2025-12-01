@@ -5,7 +5,7 @@
 This repository contains custom XBPS packages.
 
 > [!NOTE]
-> Some packages in this repository are repackaged from official upstream binaries (e.g., Brave, LibreWolf, VSCodium) while others are built from source (e.g., Pika Backup). Check individual package templates in `srcpkgs/` for build details.
+> Some packages in this repository are repackaged from official upstream binaries (e.g., Brave, LibreWolf, VSCodium) while others are built from source (e.g., Ferdium). Check individual package templates in `srcpkgs/` for build details.
 
 ## Installation Instructions
 
@@ -52,7 +52,6 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | nwm                              | 1                    | ✅       |
 | obsidian                         | 1.10.6               | ❌       |
 | onlyoffice                       | 9.2.0                | ❌       |
-| pika-backup                      | 0.7.5                | ✅       |
 | PrismLauncher-Cracked            | 9.4                  | ✅       |
 | proton-authenticator             | 1.1.4                | ❌       |
 | rustdesk                         | 1.4.4                | ❌       |
