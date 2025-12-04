@@ -1,6 +1,6 @@
 # Template file for 'zen-browser'
 pkgname=zen-browser
-version=1.15.3b
+version=1.15.4b
 revision=1
 hostmakedepends="tar xz"
 short_desc="Performance oriented Firefox-based web browser"
@@ -8,7 +8,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://zen-browser.app/"
 distfiles="https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz"
-checksum=8c1c22449dcd46dfa4a2dc079bda0cd8da1f7cd70b83a5b40a0b6d611d025528
+checksum=8d8f5e4bf9df9ce10e5c3f57369c54c9fe8ea070017139d8edec0334699a081e
 nostrip=yes
 
 do_extract() {
