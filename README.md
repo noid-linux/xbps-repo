@@ -62,6 +62,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | webapp-manager                   | 1.4.2                | ❌       |
 | zap-rs                           | 0.3.0                | ✅       |
 | zen-browser                      | 1.17.12b             | ❌       |
+| zig                              | 0.15.2               | ❌       |
 
 ## License
 

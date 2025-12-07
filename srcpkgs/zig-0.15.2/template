@@ -1,0 +1,24 @@
+# Template file for 'zig-0.15.2'
+pkgname=zig-0.15.2
+version=0.15.2
+revision=9
+archs="x86_64"
+short_desc="Programming language designed for robustness, optimality, and clarity"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://ziglang.org"
+distfiles="https://ziglang.org/download/${version}/zig-x86_64-linux-${version}.tar.xz"
+checksum=02aa270f183da276e5b5920b1dac44a63f1a49e55050ebde3aecc9eb82f93239
+nostrip=yes
+conflicts="zig>=0"
+replaces="zig>=0"
+
+do_install() {
+	vbin zig
+
+	vmkdir usr/lib/zig
+	vcopy ./lib/* usr/lib/zig
+
+	vlicense LICENSE
+	vdoc README.md
+}
