@@ -51,6 +51,7 @@ jobs:
       - name: Setup and build packages
         run: |
           # Setup void-packages
+          echo "repository=https://github.com/noid-linux/xbps-repo/releases/latest/download" | tee -a void-packages/etc/xbps.d/repos-remote.conf
           find void-packages -type f -exec sed -i "s/base-files/noid-base-files/g" {} +
           cp -r custom-packages/srcpkgs/* void-packages/srcpkgs/
           cd void-packages
@@ -69,7 +70,7 @@ jobs:
 
           for pkg in `echo ${{ github.event.inputs.packages }} | tr ',' ' '`; do
             pkg_trim=$(echo "$pkg" | xargs)
-            sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg_trim"
+            yes | sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg_trim"
             cp ~/hostdir/binpkgs/"$pkg_trim"*.xbps ~/packages/
           done
 
