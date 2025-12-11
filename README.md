@@ -28,7 +28,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | -------------------------------- | -------------------- | -------- |
 | android-studio                   | 2025.2.1.8           | ❌       |
 | bitwarden-desktop                | 2025.11.0            | ❌       |
-| brave                            | 1.85.111             | ❌       |
+| brave                            | 1.85.116             | ❌       |
 | calamares                        | 3.4.0                | ✅       |
 | cinny-desktop                    | 4.10.2               | ✅       |
 | drawio-desktop                   | 28.2.7               | ❌       |
