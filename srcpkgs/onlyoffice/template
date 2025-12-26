@@ -1,6 +1,6 @@
 # Template file for 'onlyoffice'
 pkgname=onlyoffice
-version=9.2.0
+version=9.2.1
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0-only"
 homepage="https://www.onlyoffice.com/"
 distfiles="https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb"
-checksum=1dbda5db273673c19803609ff738dbe3afc086c680097c76f611771ad377f2c7
+checksum=ae453f124249e5dfa99601b71d5e00f655adc890158130d439467d7741e3969e
 nostrip=yes
 
 do_extract() {
