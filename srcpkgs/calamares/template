@@ -2,7 +2,7 @@
 pkgname=calamares
 version=3.4.0
 _patch_version=1
-revision=4
+revision=5
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
 -DCMAKE_INSTALL_LIBDIR=lib -DWITH_PYTHONQT:BOOL=ON -DINSTALL_CONFIG:BOOL=ON
