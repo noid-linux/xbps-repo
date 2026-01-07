@@ -1,6 +1,6 @@
 # Template file for 'zap-rs'
 pkgname=zap-rs
-version=0.3.0
+version=0.3.1
 revision=1
 only_for_archs="x86_64"
 build_style=cargo
@@ -12,7 +12,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
 homepage="https://git.ch-naseem.com/ndpm13/zap-rs"
 distfiles="https://github.com/ndpm13/zap-rs/archive/refs/tags/v${version}.tar.gz"
-checksum="60c91ccd5e676a6424aad3ad7cc6a02ee94a8f5df21eac5fed16da5150bd2e45"
+checksum="1dfd14e1aef1d54402228a21b2365ee7d7aa5dd77c01696723add3afd8083eda"
 
 post_install() {
     vlicense LICENSE
