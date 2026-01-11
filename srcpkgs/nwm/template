@@ -1,6 +1,6 @@
 # Template file for 'nwm'
 pkgname=nwm
-version=1
+version=2
 _dwm_version=6.6
 revision=1
 makedepends="libXinerama-devel libXft-devel freetype-devel"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
 homepage="git.ch-naseem.com/ndpm13/dwm"
 distfiles="https://github.com/ndpm13/dwm/archive/refs/tags/${_dwm_version}-custom.${version}.tar.gz"
-checksum=48a597c0b638460f449e51f1c0744d3e2937094db7aba6a1c3ec8af4e16e9757
+checksum=b3b0ff8bf2f71e45140ab075eb4a024f79a7e4dfe7c7740806acbd0fb2afc008
 conflicts="dwm>=0"
 replaces="dwm>=0"
 
