@@ -50,7 +50,7 @@ doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | noid-base-files                  | 0.1                  | /        |
 | noid-welcome                     | 0.2.1                | ✅       |
 | nyancat                          | 1.2.1                | ✅       |
-| nwm                              | 2                    | ✅       |
+| nwm                              | 6.6                  | ✅       |
 | obsidian                         | 1.11.4               | ❌       |
 | onlyoffice                       | 9.2.1                | ❌       |
 | PrismLauncher-Cracked            | 9.4                  | ✅       |

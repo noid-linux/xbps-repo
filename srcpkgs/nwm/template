@@ -1,15 +1,14 @@
 # Template file for 'nwm'
 pkgname=nwm
-version=2
-_dwm_version=6.6
-revision=2
+version=6.6
+revision=1
 makedepends="libXinerama-devel libXft-devel freetype-devel"
 short_desc="Custom Build of DWM - a Dynamic window manager for X"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
-homepage="git.ch-naseem.com/ndpm13/dwm"
-distfiles="https://github.com/ndpm13/dwm/archive/refs/tags/${_dwm_version}-custom.${version}.tar.gz"
-checksum=529349026f4c4e9e28fb9a03dd0f16c8f778a7eb5434e0ad50b844fe1a372d1d
+homepage="https://git.ch-naseem.com/ndpm13/dwm"
+distfiles="https://dl.suckless.org/dwm/dwm-${version}.tar.gz"
+checksum=7cfc2c6d9386c07c49e2c906f209c18ba3364ce0b4872eae39f56efdb7fc00a3
 conflicts="dwm>=0"
 replaces="dwm>=0"
 
