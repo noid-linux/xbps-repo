@@ -12,14 +12,14 @@ This repository contains custom XBPS packages.
 The easiest way is by adding our repository, which includes pre-built binaries. You can do so by creating a new file and specifying the repository URL.
 
 ```bash
-echo "repository=https://github.com/noid-linux/xbps-repo/releases/latest/download" | doas tee /etc/xbps.d/noid-xbps-repo.conf
+echo "repository=https://github.com/noid-linux/xbps-repo/releases/latest/download" | sudo tee /etc/xbps.d/noid-xbps-repo.conf
 ```
 
 Once you've created file above, proceed with installing any packages you want using xbps
 
 ```bash
-doas xbps-install -Su
-doas xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
+sudo xbps-install -Su
+sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 ```
 
 ## Available Packages
