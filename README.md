@@ -27,6 +27,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | Package                          | Version              | Compiled |
 | -------------------------------- | -------------------- | -------- |
 | android-studio                   | 2025.2.1.8           | ❌       |
+| bazaar                           | 0.7.5                | ✅       |
 | bitwarden-desktop                | 2025.11.0            | ❌       |
 | brave                            | 1.86.139             | ❌       |
 | calamares                        | 3.4.0                | ✅       |
