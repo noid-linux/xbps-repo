@@ -58,6 +58,10 @@ jobs:
           chown -R builder:builder . &&
           ln -s "$(pwd)" /hostrepo
 
+          # TEMPORARY STEP TO FIX SHILIBS FOR BAZAAR
+          echo "libglycin-2.so.0 glycin-2.0.7_1" | tee -a common/shlibs
+          echo "libglycin-gtk4-2.so.0 glycin-gtk4-2.0.7_1" | tee -a common/shlibs
+
           # Use the scripts from common/travis
           sudo -Eu builder bash common/travis/set_mirror.sh &&
           sudo -Eu builder bash common/travis/prepare.sh &&
