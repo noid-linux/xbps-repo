@@ -1,202 +1,55 @@
-From 74edc27caa65aba9ea8d1fe03d26e3b449f79590 Mon Sep 17 00:00:00 2001
-From: Hiltjo Posthuma <hiltjo@codemadness.org>
-Date: Tue, 12 Aug 2025 19:17:20 +0200
-Subject: [PATCH 01/18] config: make refreshrate for mouse move/resize a config
- option
+From a9aa0d8ffbb548b0b1f9f755557aef2482c0f820 Mon Sep 17 00:00:00 2001
+From: Chris Down <chris@chrisdown.name>
+Date: Wed, 14 Jan 2026 14:58:05 +0800
+Subject: [PATCH 01/15] dwm: Fix getatomprop regression from heap overflow fix
 
-Bump the default from 60 to 120.
+Commit 244fa852fe27 ("dwm: Fix heap buffer overflow in getatomprop")
+introduced a check for dl > 0 before dereferencing the property pointer.
+However, I missed that the variable dl is passed to XGetWindowProperty
+for both nitems_return and bytes_after_return parameters:
+
+    XGetWindowProperty(..., &dl, &dl, &p)
+
+The final value in dl is bytes_after_return, not nitems_return. For a
+successfully read property, bytes_after is typically 0 (indicating all
+data was retrieved), so the check `dl > 0` is always false and dwm never
+reads any atom properties. So this is safe, but not very helpful :-)
+
+dl is probably just a dummy variable anyway, so fix by using a separate
+variable for nitems, and check nitems > 0 as originally intended.
 ---
- config.def.h | 1 +
- dwm.c        | 4 ++--
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ dwm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/config.def.h b/config.def.h
-index 9efa774..81c3fc0 100644
---- a/config.def.h
-+++ b/config.def.h
-@@ -36,6 +36,7 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95]
- static const int nmaster     = 1;    /* number of clients in master area */
- static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
- static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
-+static const int refreshrate = 120;  /* refresh rate (per second) for client move/resize */
- 
- static const Layout layouts[] = {
- 	/* symbol     arrange function */
 diff --git a/dwm.c b/dwm.c
-index 1443802..4cf07eb 100644
+index 8f4fa75..53b393e 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -1171,7 +1171,7 @@ movemouse(const Arg *arg)
- 			handler[ev.type](&ev);
- 			break;
- 		case MotionNotify:
--			if ((ev.xmotion.time - lasttime) <= (1000 / 60))
-+			if ((ev.xmotion.time - lasttime) <= (1000 / refreshrate))
- 				continue;
- 			lasttime = ev.xmotion.time;
- 
-@@ -1325,7 +1325,7 @@ resizemouse(const Arg *arg)
- 			handler[ev.type](&ev);
- 			break;
- 		case MotionNotify:
--			if ((ev.xmotion.time - lasttime) <= (1000 / 60))
-+			if ((ev.xmotion.time - lasttime) <= (1000 / refreshrate))
- 				continue;
- 			lasttime = ev.xmotion.time;
- 
--- 
-2.51.2
-
-
-From 93f26863d14666e56e992de3670a77178e66ddf2 Mon Sep 17 00:00:00 2001
-From: Hiltjo Posthuma <hiltjo@codemadness.org>
-Date: Sat, 27 Sep 2025 12:10:17 +0200
-Subject: [PATCH 02/18] cleanup schemes and colors
-
----
- drw.c | 28 +++++++++++++++++++++++++---
- drw.h |  2 ++
- dwm.c |  4 +++-
- 3 files changed, 30 insertions(+), 4 deletions(-)
-
-diff --git a/drw.c b/drw.c
-index c41e6af..98dbaa8 100644
---- a/drw.c
-+++ b/drw.c
-@@ -178,8 +178,7 @@ drw_clr_create(Drw *drw, Clr *dest, const char *clrname)
- 		die("error, cannot allocate color '%s'", clrname);
- }
- 
--/* Wrapper to create color schemes. The caller has to call free(3) on the
-- * returned color scheme when done using it. */
-+/* Create color schemes. */
- Clr *
- drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount)
+@@ -864,13 +864,13 @@ Atom
+ getatomprop(Client *c, Atom prop)
  {
-@@ -187,7 +186,7 @@ drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount)
- 	Clr *ret;
+ 	int di;
+-	unsigned long dl;
++	unsigned long nitems, dl;
+ 	unsigned char *p = NULL;
+ 	Atom da, atom = None;
  
- 	/* need at least two colors for a scheme */
--	if (!drw || !clrnames || clrcount < 2 || !(ret = ecalloc(clrcount, sizeof(XftColor))))
-+	if (!drw || !clrnames || clrcount < 2 || !(ret = ecalloc(clrcount, sizeof(Clr))))
- 		return NULL;
- 
- 	for (i = 0; i < clrcount; i++)
-@@ -195,6 +194,29 @@ drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount)
- 	return ret;
- }
- 
-+void
-+drw_clr_free(Drw *drw, Clr *c)
-+{
-+	if (!drw || !c)
-+		return;
-+
-+	/* c is typedef XftColor Clr */
-+	XftColorFree(drw->dpy, DefaultVisual(drw->dpy, drw->screen),
-+	             DefaultColormap(drw->dpy, drw->screen), c);
-+}
-+
-+void
-+drw_scm_free(Drw *drw, Clr *scm, size_t clrcount)
-+{
-+	size_t i;
-+
-+	if (!drw || !scm)
-+		return;
-+
-+	for (i = 0; i < clrcount; i++)
-+		drw_clr_free(drw, &scm[i]);
-+}
-+
- void
- drw_setfontset(Drw *drw, Fnt *set)
- {
-diff --git a/drw.h b/drw.h
-index 6471431..bda06f9 100644
---- a/drw.h
-+++ b/drw.h
-@@ -40,7 +40,9 @@ void drw_font_getexts(Fnt *font, const char *text, unsigned int len, unsigned in
- 
- /* Colorscheme abstraction */
- void drw_clr_create(Drw *drw, Clr *dest, const char *clrname);
-+void drw_clr_free(Drw *drw, Clr *c);
- Clr *drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount);
-+void drw_scm_free(Drw *drw, Clr *scm, size_t clrcount);
- 
- /* Cursor abstraction */
- Cur *drw_cur_create(Drw *drw, int shape);
-diff --git a/dwm.c b/dwm.c
-index 4cf07eb..21cf8fd 100644
---- a/dwm.c
-+++ b/dwm.c
-@@ -485,8 +485,10 @@ cleanup(void)
- 		cleanupmon(mons);
- 	for (i = 0; i < CurLast; i++)
- 		drw_cur_free(drw, cursor[i]);
--	for (i = 0; i < LENGTH(colors); i++)
-+	for (i = 0; i < LENGTH(colors); i++) {
-+		drw_scm_free(drw, scheme[i], 3);
- 		free(scheme[i]);
-+	}
- 	free(scheme);
- 	XDestroyWindow(dpy, wmcheckwin);
- 	drw_free(drw);
+ 	if (XGetWindowProperty(dpy, c->win, prop, 0L, sizeof atom, False, XA_ATOM,
+-		&da, &di, &dl, &dl, &p) == Success && p) {
+-		if (dl > 0)
++		&da, &di, &nitems, &dl, &p) == Success && p) {
++		if (nitems > 0)
+ 			atom = *(Atom *)p;
+ 		XFree(p);
+ 	}
 -- 
-2.51.2
+2.52.0
 
 
-From 7c3abae4e68b6a21f05cb04f3af31217259c0aa9 Mon Sep 17 00:00:00 2001
-From: Hiltjo Posthuma <hiltjo@codemadness.org>
-Date: Mon, 29 Sep 2025 18:48:27 +0200
-Subject: [PATCH 03/18] drw.c: drw_scm_free: call free inside
-
-Because drw_scm_create() allocates it.
----
- drw.c | 1 +
- dwm.c | 4 +---
- 2 files changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drw.c b/drw.c
-index 98dbaa8..9fdd1a4 100644
---- a/drw.c
-+++ b/drw.c
-@@ -215,6 +215,7 @@ drw_scm_free(Drw *drw, Clr *scm, size_t clrcount)
- 
- 	for (i = 0; i < clrcount; i++)
- 		drw_clr_free(drw, &scm[i]);
-+	free(scm);
- }
- 
- void
-diff --git a/dwm.c b/dwm.c
-index 21cf8fd..4f345ee 100644
---- a/dwm.c
-+++ b/dwm.c
-@@ -485,10 +485,8 @@ cleanup(void)
- 		cleanupmon(mons);
- 	for (i = 0; i < CurLast; i++)
- 		drw_cur_free(drw, cursor[i]);
--	for (i = 0; i < LENGTH(colors); i++) {
-+	for (i = 0; i < LENGTH(colors); i++)
- 		drw_scm_free(drw, scheme[i], 3);
--		free(scheme[i]);
--	}
- 	free(scheme);
- 	XDestroyWindow(dpy, wmcheckwin);
- 	drw_free(drw);
--- 
-2.51.2
-
-
-From e550b92ab187142ce4db02963dae84d5055d6306 Mon Sep 17 00:00:00 2001
+From be8a1fdf1a58597321c2ea8f758601327b7debfa Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 14:07:11 +0100
-Subject: [PATCH 04/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-vanitygaps-2?=
- =?UTF-8?q?0200610-f09418b=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 11:23:24 +0100
+Subject: [PATCH 02/15] feat(patch): apply dwm-vanitygaps-20200610-f09418b
 
 ---
  config.def.h |  21 +++++++
@@ -243,7 +96,7 @@ index 81c3fc0..e3ad7fe 100644
  	{ MODKEY,                       XK_Tab,    view,           {0} },
  	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 diff --git a/dwm.c b/dwm.c
-index 4f345ee..e24988d 100644
+index 53b393e..4dd37c6 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -118,6 +118,10 @@ struct Monitor {
@@ -293,7 +146,7 @@ index 4f345ee..e24988d 100644
  	m->lt[0] = &layouts[0];
  	m->lt[1] = &layouts[1 % LENGTH(layouts)];
  	strncpy(m->ltsymbol, layouts[0].symbol, sizeof m->ltsymbol);
-@@ -1506,6 +1525,111 @@ setfullscreen(Client *c, int fullscreen)
+@@ -1507,6 +1526,111 @@ setfullscreen(Client *c, int fullscreen)
  	}
  }
  
@@ -405,7 +258,7 @@ index 4f345ee..e24988d 100644
  void
  setlayout(const Arg *arg)
  {
-@@ -1686,28 +1810,34 @@ tagmon(const Arg *arg)
+@@ -1687,28 +1811,34 @@ tagmon(const Arg *arg)
  void
  tile(Monitor *m)
  {
@@ -453,17 +306,13 @@ index 4f345ee..e24988d 100644
  }
  
 -- 
-2.51.2
+2.52.0
 
 
-From 052ce50c39347270ea15ebbde8305eed8198d007 Mon Sep 17 00:00:00 2001
+From dfbbd35b0919ed7e9aeec3b3f7bf0338d4438f9c Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 14:10:04 +0100
-Subject: [PATCH 05/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-swallow-6.3.?=
- =?UTF-8?q?diff=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 11:42:50 +0100
+Subject: [PATCH 03/15] feat(patch): apply dwm-swallow-6.3
 
 ---
  config.def.h |   9 +-
@@ -472,17 +321,17 @@ Content-Transfer-Encoding: 8bit
  3 files changed, 237 insertions(+), 10 deletions(-)
 
 diff --git a/config.def.h b/config.def.h
-index e3ad7fe..00656dd 100644
+index e3ad7fe..253a0b9 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -8,6 +8,7 @@ static const unsigned int gappiv    = 10;       /* vert inner gap between window
- static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
- static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
- static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
+@@ -3,6 +3,7 @@
+ /* appearance */
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
 +static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
- static const int showbar            = 1;        /* 0 means no bar */
- static const int topbar             = 1;        /* 0 means bottom bar */
- static const char *fonts[]          = { "monospace:size=10" };
+ static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
+ static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
+ static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
 @@ -31,9 +32,11 @@ static const Rule rules[] = {
  	 *	WM_CLASS(STRING) = instance, class
  	 *	WM_NAME(STRING) = title
@@ -499,7 +348,7 @@ index e3ad7fe..00656dd 100644
  
  /* layout(s) */
 diff --git a/config.mk b/config.mk
-index b469a2b..93f9739 100644
+index 6e875f1..f7a1bb2 100644
 --- a/config.mk
 +++ b/config.mk
 @@ -20,10 +20,11 @@ FREETYPEINC = /usr/include/freetype2
@@ -516,7 +365,7 @@ index b469a2b..93f9739 100644
  # flags
  CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_XOPEN_SOURCE=700L -DVERSION=\"${VERSION}\" ${XINERAMAFLAGS}
 diff --git a/dwm.c b/dwm.c
-index e24988d..6494780 100644
+index 4dd37c6..d78beb6 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -40,6 +40,12 @@
@@ -649,7 +498,7 @@ index e24988d..6494780 100644
  }
  
  void
-@@ -1049,12 +1119,13 @@ killclient(const Arg *arg)
+@@ -1050,12 +1120,13 @@ killclient(const Arg *arg)
  void
  manage(Window w, XWindowAttributes *wa)
  {
@@ -664,7 +513,7 @@ index e24988d..6494780 100644
  	/* geometry */
  	c->x = c->oldx = wa->x;
  	c->y = c->oldy = wa->y;
-@@ -1069,6 +1140,7 @@ manage(Window w, XWindowAttributes *wa)
+@@ -1070,6 +1141,7 @@ manage(Window w, XWindowAttributes *wa)
  	} else {
  		c->mon = selmon;
  		applyrules(c);
@@ -672,7 +521,7 @@ index e24988d..6494780 100644
  	}
  
  	if (c->x + WIDTH(c) > c->mon->wx + c->mon->ww)
-@@ -1103,6 +1175,8 @@ manage(Window w, XWindowAttributes *wa)
+@@ -1104,6 +1176,8 @@ manage(Window w, XWindowAttributes *wa)
  	c->mon->sel = c;
  	arrange(c->mon);
  	XMapWindow(dpy, c->win);
@@ -681,7 +530,7 @@ index e24988d..6494780 100644
  	focus(NULL);
  }
  
-@@ -1910,6 +1984,20 @@ unmanage(Client *c, int destroyed)
+@@ -1911,6 +1985,20 @@ unmanage(Client *c, int destroyed)
  	Monitor *m = c->mon;
  	XWindowChanges wc;
  
@@ -702,7 +551,7 @@ index e24988d..6494780 100644
  	detach(c);
  	detachstack(c);
  	if (!destroyed) {
-@@ -1925,9 +2013,12 @@ unmanage(Client *c, int destroyed)
+@@ -1926,9 +2014,12 @@ unmanage(Client *c, int destroyed)
  		XUngrabServer(dpy);
  	}
  	free(c);
@@ -718,7 +567,7 @@ index e24988d..6494780 100644
  }
  
  void
-@@ -2191,6 +2282,136 @@ view(const Arg *arg)
+@@ -2192,6 +2283,136 @@ view(const Arg *arg)
  	arrange(selmon);
  }
  
@@ -855,7 +704,7 @@ index e24988d..6494780 100644
  Client *
  wintoclient(Window w)
  {
-@@ -2280,10 +2501,12 @@ main(int argc, char *argv[])
+@@ -2281,10 +2502,12 @@ main(int argc, char *argv[])
  		fputs("warning: no locale support\n", stderr);
  	if (!(dpy = XOpenDisplay(NULL)))
  		die("dwm: cannot open display");
@@ -870,17 +719,13 @@ index e24988d..6494780 100644
  #endif /* __OpenBSD__ */
  	scan();
 -- 
-2.51.2
+2.52.0
 
 
-From a5a5787425d7cb420d5d14109221b48362168766 Mon Sep 17 00:00:00 2001
+From 3a5246c2963d451f8413d388ce7748fce6d078ef Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 15:23:39 +0100
-Subject: [PATCH 06/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-splitstatus-?=
- =?UTF-8?q?20201114-61bb8b2=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 11:47:48 +0100
+Subject: [PATCH 04/15] feat(patch): apply dwm-splitstatus-20201114-61bb8b2
 
 ---
  config.def.h |  2 ++
@@ -888,11 +733,11 @@ Content-Transfer-Encoding: 8bit
  2 files changed, 17 insertions(+), 15 deletions(-)
 
 diff --git a/config.def.h b/config.def.h
-index 00656dd..27eedf8 100644
+index 253a0b9..13c770f 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -11,6 +11,8 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
- static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
+@@ -11,6 +11,8 @@ static const unsigned int gappov    = 10;       /* vert outer gap between window
+ static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
  static const int showbar            = 1;        /* 0 means no bar */
  static const int topbar             = 1;        /* 0 means bottom bar */
 +static const int splitstatus        = 1;        /* 1 for split status items */
@@ -901,7 +746,7 @@ index 00656dd..27eedf8 100644
  static const char dmenufont[]       = "monospace:size=10";
  static const char col_gray1[]       = "#222222";
 diff --git a/dwm.c b/dwm.c
-index 6494780..3ceee57 100644
+index d78beb6..f0c006f 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -795,12 +795,9 @@ drawbar(Monitor *m)
@@ -951,24 +796,20 @@ index 6494780..3ceee57 100644
  }
  
 -- 
-2.51.2
+2.52.0
 
 
-From aecc9962d9bee5c32ee2fc98eb2e13069bee6770 Mon Sep 17 00:00:00 2001
+From 1ac8e74da4a71933c28cc14859dc4af1b1ee8ece Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 15:28:34 +0100
-Subject: [PATCH 07/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-smartborders?=
- =?UTF-8?q?-6.2.diff=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 11:51:56 +0100
+Subject: [PATCH 05/15] feat(patch): apply dwm-smartborders-6.2
 
 ---
  dwm.c | 68 +++++++++++++++++++++++++++++++++++------------------------
  1 file changed, 40 insertions(+), 28 deletions(-)
 
 diff --git a/dwm.c b/dwm.c
-index 3ceee57..e38ff11 100644
+index f0c006f..ed30689 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -156,7 +156,7 @@ typedef struct {
@@ -1058,7 +899,7 @@ index 3ceee57..e38ff11 100644
  				XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, m->ww, bh);
  			}
  			focus(NULL);
-@@ -1214,7 +1221,7 @@ monocle(Monitor *m)
+@@ -1215,7 +1222,7 @@ monocle(Monitor *m)
  	if (n > 0) /* override layout symbol */
  		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
  	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
@@ -1067,7 +908,7 @@ index 3ceee57..e38ff11 100644
  }
  
  void
-@@ -1282,7 +1289,7 @@ movemouse(const Arg *arg)
+@@ -1283,7 +1290,7 @@ movemouse(const Arg *arg)
  			&& (abs(nx - c->x) > snap || abs(ny - c->y) > snap))
  				togglefloating(NULL);
  			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
@@ -1076,7 +917,7 @@ index 3ceee57..e38ff11 100644
  			break;
  		}
  	} while (ev.type != ButtonRelease);
-@@ -1368,14 +1375,14 @@ recttomon(int x, int y, int w, int h)
+@@ -1369,14 +1376,14 @@ recttomon(int x, int y, int w, int h)
  }
  
  void
@@ -1095,7 +936,7 @@ index 3ceee57..e38ff11 100644
  {
  	XWindowChanges wc;
  
-@@ -1383,7 +1390,7 @@ resizeclient(Client *c, int x, int y, int w, int h)
+@@ -1384,7 +1391,7 @@ resizeclient(Client *c, int x, int y, int w, int h)
  	c->oldy = c->y; c->y = wc.y = y;
  	c->oldw = c->w; c->w = wc.width = w;
  	c->oldh = c->h; c->h = wc.height = h;
@@ -1104,7 +945,7 @@ index 3ceee57..e38ff11 100644
  	XConfigureWindow(dpy, c->win, CWX|CWY|CWWidth|CWHeight|CWBorderWidth, &wc);
  	configure(c);
  	XSync(dpy, False);
-@@ -1432,7 +1439,7 @@ resizemouse(const Arg *arg)
+@@ -1433,7 +1440,7 @@ resizemouse(const Arg *arg)
  					togglefloating(NULL);
  			}
  			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
@@ -1113,7 +954,7 @@ index 3ceee57..e38ff11 100644
  			break;
  		}
  	} while (ev.type != ButtonRelease);
-@@ -1579,22 +1586,20 @@ setfullscreen(Client *c, int fullscreen)
+@@ -1580,22 +1587,20 @@ setfullscreen(Client *c, int fullscreen)
  			PropModeReplace, (unsigned char*)&netatom[NetWMFullscreen], 1);
  		c->isfullscreen = 1;
  		c->oldstate = c->isfloating;
@@ -1139,7 +980,7 @@ index 3ceee57..e38ff11 100644
  		arrange(c->mon);
  	}
  }
-@@ -1832,7 +1837,7 @@ showhide(Client *c)
+@@ -1833,7 +1838,7 @@ showhide(Client *c)
  		/* show clients top down */
  		XMoveWindow(dpy, c->win, c->x, c->y);
  		if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
@@ -1148,7 +989,7 @@ index 3ceee57..e38ff11 100644
  		showhide(c->snext);
  	} else {
  		/* hide clients bottom up */
-@@ -1884,13 +1889,18 @@ tagmon(const Arg *arg)
+@@ -1885,7 +1890,7 @@ tagmon(const Arg *arg)
  void
  tile(Monitor *m)
  {
@@ -1157,18 +998,19 @@ index 3ceee57..e38ff11 100644
  	Client *c;
  
  	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
- 	if (n == 0)
- 		return;
+@@ -1896,6 +1901,11 @@ tile(Monitor *m)
+ 		oe = 0; // outer gaps disabled
+ 	}
  
 + 	if (n == 1)
 + 		bw = 0;
 + 	else
 + 		bw = borderpx;
 +
- 	if (smartgaps == n) {
- 		oe = 0; // outer gaps disabled
- 	}
-@@ -1903,13 +1913,13 @@ tile(Monitor *m)
+ 	if (n > m->nmaster)
+ 		mw = m->nmaster ? (m->ww + m->gappiv*ie) * m->mfact : 0;
+ 	else
+@@ -1904,13 +1914,13 @@ tile(Monitor *m)
  		if (i < m->nmaster) {
  			r = MIN(n, m->nmaster) - i;
  			h = (m->wh - my - m->gappoh*oe - m->gappih*ie * (r - 1)) / r;
@@ -1184,7 +1026,7 @@ index 3ceee57..e38ff11 100644
  			if (ty + HEIGHT(c) + m->gappih*ie < m->wh)
  				ty += HEIGHT(c) + m->gappih*ie;
  		}
-@@ -1934,7 +1944,9 @@ togglefloating(const Arg *arg)
+@@ -1935,7 +1945,9 @@ togglefloating(const Arg *arg)
  	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
  	if (selmon->sel->isfloating)
  		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
@@ -1196,17 +1038,13 @@ index 3ceee57..e38ff11 100644
  }
  
 -- 
-2.51.2
+2.52.0
 
 
-From 402911149a1ee208c1b77219168aea5186c783ac Mon Sep 17 00:00:00 2001
+From 651b1ca3b1f014f718336050547c4878d113971e Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 15:52:26 +0100
-Subject: [PATCH 08/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-scratchpads-?=
- =?UTF-8?q?20200414-728d397b=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 12:21:14 +0100
+Subject: [PATCH 06/15] feat(patch): apply dwm-scratchpads-20200414-728d397b
 
 ---
  config.def.h | 22 +++++++++++++++++++++-
@@ -1214,7 +1052,7 @@ Content-Transfer-Encoding: 8bit
  2 files changed, 62 insertions(+), 3 deletions(-)
 
 diff --git a/config.def.h b/config.def.h
-index 27eedf8..6ec5002 100644
+index 13c770f..4140097 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -26,6 +26,20 @@ static const char *colors[][3]      = {
@@ -1242,9 +1080,9 @@ index 27eedf8..6ec5002 100644
  	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
  	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
  	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
-+ 	{ NULL,		 "spterm",		NULL,       SPTAG(0), 1,          0,           0,        -1 },
-+ 	{ NULL,		 "spfm",		NULL,       SPTAG(1), 1,          0,           0,        -1 },
-+ 	{ NULL,		 "keepassxc",	NULL,       SPTAG(2), 0,          0,           0,        -1 },
++ 	{ NULL,		 "spterm",		NULL,	SPTAG(0),		1,			1,			0,		 -1 },
++ 	{ NULL,		 "spfm",		NULL,	SPTAG(1),		1,			1,			0,		 -1 },
++ 	{ NULL,		 "keepassxc",	NULL,	SPTAG(2),		0,			0,			0,		 -1 },
  };
  
  /* layout(s) */
@@ -1268,7 +1106,7 @@ index 27eedf8..6ec5002 100644
  	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
  	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 diff --git a/dwm.c b/dwm.c
-index e38ff11..2b5dd07 100644
+index ed30689..31030d6 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -59,7 +59,10 @@
@@ -1312,7 +1150,7 @@ index e38ff11..2b5dd07 100644
  }
  
  int
-@@ -1834,6 +1843,10 @@ showhide(Client *c)
+@@ -1835,6 +1844,10 @@ showhide(Client *c)
  	if (!c)
  		return;
  	if (ISVISIBLE(c)) {
@@ -1323,7 +1161,7 @@ index e38ff11..2b5dd07 100644
  		/* show clients top down */
  		XMoveWindow(dpy, c->win, c->x, c->y);
  		if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
-@@ -1950,6 +1963,32 @@ togglefloating(const Arg *arg)
+@@ -1951,6 +1964,32 @@ togglefloating(const Arg *arg)
  	arrange(selmon);
  }
  
@@ -1357,24 +1195,20 @@ index e38ff11..2b5dd07 100644
  toggletag(const Arg *arg)
  {
 -- 
-2.51.2
+2.52.0
 
 
-From 3d6a4cd879c3d123104861d0b20d2351cdd91aca Mon Sep 17 00:00:00 2001
+From 8bcb75d3db017756066b200d86321c6b3018ba9a Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 15:53:23 +0100
-Subject: [PATCH 09/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-push=5Fno=5F?=
- =?UTF-8?q?master-6.4=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 12:23:31 +0100
+Subject: [PATCH 07/15] feat(patch): apply dwm-push_no_master-6.4
 
 ---
  dwm.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
  1 file changed, 44 insertions(+)
 
 diff --git a/dwm.c b/dwm.c
-index 2b5dd07..ef5976a 100644
+index 31030d6..63a000b 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -202,7 +202,10 @@ static void motionnotify(XEvent *e);
@@ -1388,7 +1222,7 @@ index 2b5dd07..ef5976a 100644
  static void quit(const Arg *arg);
  static Monitor *recttomon(int x, int y, int w, int h);
  static void resize(Client *c, int x, int y, int w, int h, int bw, int interact);
-@@ -1326,6 +1329,16 @@ pop(Client *c)
+@@ -1327,6 +1330,16 @@ pop(Client *c)
  	arrange(c->mon);
  }
  
@@ -1405,7 +1239,7 @@ index 2b5dd07..ef5976a 100644
  void
  propertynotify(XEvent *e)
  {
-@@ -1363,6 +1376,37 @@ propertynotify(XEvent *e)
+@@ -1364,6 +1377,37 @@ propertynotify(XEvent *e)
  	}
  }
  
@@ -1444,17 +1278,13 @@ index 2b5dd07..ef5976a 100644
  quit(const Arg *arg)
  {
 -- 
-2.51.2
+2.52.0
 
 
-From 3d7f602eb4e6d0fa3a0aebc3cbc6a2880fc650dc Mon Sep 17 00:00:00 2001
+From 6e6d165f182038c5347fdb1a3bc40fff23635e63 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 15:54:21 +0100
-Subject: [PATCH 10/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-autostart-20?=
- =?UTF-8?q?210120-cb3f58a=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 12:50:08 +0100
+Subject: [PATCH 08/15] feat(patch): apply dwm-autostart-20210120-cb3f58a
 
 ---
  dwm.1 | 23 ++++++++++++++++
@@ -1503,7 +1333,7 @@ index ddc8321..86e73f9 100644
  dwm is customized by creating a custom config.h and (re)compiling the source
  code. This keeps it fast, secure and simple.
 diff --git a/dwm.c b/dwm.c
-index ef5976a..04a065b 100644
+index 63a000b..a967f65 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -29,6 +29,7 @@
@@ -1534,7 +1364,7 @@ index ef5976a..04a065b 100644
  static char stext[256];
  static int screen;
  static int sw, sh;           /* X display screen geometry width, height */
-@@ -1542,6 +1548,83 @@ run(void)
+@@ -1543,6 +1549,83 @@ run(void)
  			handler[ev.type](&ev); /* call handler */
  }
  
@@ -1618,7 +1448,7 @@ index ef5976a..04a065b 100644
  void
  scan(void)
  {
-@@ -2605,6 +2688,7 @@ main(int argc, char *argv[])
+@@ -2606,6 +2689,7 @@ main(int argc, char *argv[])
  		die("pledge");
  #endif /* __OpenBSD__ */
  	scan();
@@ -1627,27 +1457,23 @@ index ef5976a..04a065b 100644
  	cleanup();
  	XCloseDisplay(dpy);
 -- 
-2.51.2
+2.52.0
 
 
-From 69bcd6cd7920c39a973d8f9ef22e81be74d22a31 Mon Sep 17 00:00:00 2001
+From 0aa4c943c089050c86b5c54b2f3c4b92e4ca2c78 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 15:55:12 +0100
-Subject: [PATCH 11/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-alwayscenter?=
- =?UTF-8?q?-20200625-f04cac6=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 12:51:31 +0100
+Subject: [PATCH 09/15] feat(patch): apply dwm-alwayscenter-20200625-f04cac6
 
 ---
  dwm.c | 2 ++
  1 file changed, 2 insertions(+)
 
 diff --git a/dwm.c b/dwm.c
-index 04a065b..6c38cc9 100644
+index a967f65..b604ec8 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -1183,6 +1183,8 @@ manage(Window w, XWindowAttributes *wa)
+@@ -1184,6 +1184,8 @@ manage(Window w, XWindowAttributes *wa)
  	updatewindowtype(c);
  	updatesizehints(c);
  	updatewmhints(c);
@@ -1657,17 +1483,14 @@ index 04a065b..6c38cc9 100644
  	grabbuttons(c, 0);
  	if (!c->isfloating)
 -- 
-2.51.2
+2.52.0
 
 
-From 103a95ab30f8058620c9679b433964860427a340 Mon Sep 17 00:00:00 2001
+From 217c1b10ab0f18fb7dfb20bb70942ccf8bdf39a1 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 15:57:37 +0100
-Subject: [PATCH 12/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-actualfullsc?=
- =?UTF-8?q?reen-20211013-cb3f58a=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 12:53:02 +0100
+Subject: [PATCH 10/15] feat(patch): apply
+ dwm-actualfullscreen-20211013-cb3f58a
 
 ---
  config.def.h | 1 +
@@ -1676,7 +1499,7 @@ Content-Transfer-Encoding: 8bit
  3 files changed, 12 insertions(+)
 
 diff --git a/config.def.h b/config.def.h
-index 6ec5002..27d966c 100644
+index 4140097..38f1059 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -123,6 +123,7 @@ static const Key keys[] = {
@@ -1702,18 +1525,18 @@ index 86e73f9..d04bec6 100644
  Toggle focused window between tiled and floating state.
  .TP
 diff --git a/dwm.c b/dwm.c
-index 6c38cc9..4f615f3 100644
+index b604ec8..5935533 100644
 --- a/dwm.c
 +++ b/dwm.c
-@@ -242,6 +242,7 @@ static void tagmon(const Arg *arg);
- static void tile(Monitor *m);
+@@ -243,6 +243,7 @@ static void tile(Monitor *m);
  static void togglebar(const Arg *arg);
  static void togglefloating(const Arg *arg);
-+static void togglefullscr(const Arg *arg);
  static void togglescratch(const Arg *arg);
++static void togglefullscr(const Arg *arg);
  static void toggletag(const Arg *arg);
  static void toggleview(const Arg *arg);
-@@ -2118,6 +2119,13 @@ togglescratch(const Arg *arg)
+ static void unfocus(Client *c, int setfocus);
+@@ -2119,6 +2120,13 @@ togglescratch(const Arg *arg)
  	}
  }
  
@@ -1728,24 +1551,20 @@ index 6c38cc9..4f615f3 100644
  toggletag(const Arg *arg)
  {
 -- 
-2.51.2
+2.52.0
 
 
-From 9af4c2957939aa4b7864a04115c10262f9762a7d Mon Sep 17 00:00:00 2001
+From bea321da0b4533d5c97ca734128474e885be8127 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 15 Oct 2025 15:59:32 +0100
-Subject: [PATCH 13/18] =?UTF-8?q?=E2=9C=A8feat:=20apply=20dwm-6.1-pertag?=
- =?UTF-8?q?=5Fwithout=5Fbar=20patch?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Tue, 20 Jan 2026 12:55:19 +0100
+Subject: [PATCH 11/15] feat(patch): apply dwm-6.1-pertag_without_bar
 
 ---
  dwm.c | 79 ++++++++++++++++++++++++++++++++++++++++++++++++++++++-----
  1 file changed, 73 insertions(+), 6 deletions(-)
 
 diff --git a/dwm.c b/dwm.c
-index 4f615f3..c5e87ae 100644
+index 5935533..c618952 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -122,6 +122,7 @@ typedef struct {
@@ -1809,7 +1628,7 @@ index 4f615f3..c5e87ae 100644
  	return m;
  }
  
-@@ -1094,7 +1120,7 @@ grabkeys(void)
+@@ -1095,7 +1121,7 @@ grabkeys(void)
  void
  incnmaster(const Arg *arg)
  {
@@ -1818,7 +1637,7 @@ index 4f615f3..c5e87ae 100644
  	arrange(selmon);
  }
  
-@@ -1851,10 +1877,13 @@ incrivgaps(const Arg *arg)
+@@ -1852,10 +1878,13 @@ incrivgaps(const Arg *arg)
  void
  setlayout(const Arg *arg)
  {
@@ -1835,16 +1654,16 @@ index 4f615f3..c5e87ae 100644
  	strncpy(selmon->ltsymbol, selmon->lt[selmon->sellt]->symbol, sizeof selmon->ltsymbol);
  	if (selmon->sel)
  		arrange(selmon);
-@@ -1873,7 +1902,7 @@ setmfact(const Arg *arg)
+@@ -1874,7 +1903,7 @@ setmfact(const Arg *arg)
  	f = arg->f < 1.0 ? arg->f + selmon->mfact : arg->f - 1.0;
  	if (f < 0.05 || f > 0.95)
  		return;
 -	selmon->mfact = f;
-+	selmon->mfact = selmon->pertag->mfacts[selmon->pertag->curtag] = f;
++ 	selmon->mfact = selmon->pertag->mfacts[selmon->pertag->curtag] = f;
  	arrange(selmon);
  }
  
-@@ -2145,9 +2174,27 @@ void
+@@ -2146,9 +2175,27 @@ void
  toggleview(const Arg *arg)
  {
  	unsigned int newtagset = selmon->tagset[selmon->seltags] ^ (arg->ui & TAGMASK);
@@ -1872,7 +1691,7 @@ index 4f615f3..c5e87ae 100644
  		focus(NULL);
  		arrange(selmon);
  	}
-@@ -2461,11 +2508,31 @@ updatewmhints(Client *c)
+@@ -2462,11 +2509,31 @@ updatewmhints(Client *c)
  void
  view(const Arg *arg)
  {
@@ -1906,38 +1725,39 @@ index 4f615f3..c5e87ae 100644
  	arrange(selmon);
  }
 -- 
-2.51.2
+2.52.0
 
 
-From bb6d5e0b220dfcb8449bced1cfc0b56c36b192ff Mon Sep 17 00:00:00 2001
+From 8a31563a4818070a1e570dc9634540e516c8c8d7 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Sun, 11 Jan 2026 13:16:14 +0100
-Subject: [PATCH 14/18] feat: apply dwm-tab-i3like-20211121-a786211 patch
+Date: Tue, 20 Jan 2026 13:04:31 +0100
+Subject: [PATCH 12/15] feat(patch): apply dwm-tab-i3like-20211121-a786211
 
 ---
- config.def.h |   8 +++
+ config.def.h |   9 +++
  dwm.1        |  33 ++++++++---
  dwm.c        | 160 ++++++++++++++++++++++++++++++++++++++++++++++++---
- 3 files changed, 184 insertions(+), 17 deletions(-)
+ 3 files changed, 185 insertions(+), 17 deletions(-)
 
 diff --git a/config.def.h b/config.def.h
-index 27d966c..9fc3252 100644
+index 38f1059..70d3904 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -11,6 +11,12 @@ static const int smartgaps          = 0;        /* 1 means no outer gap when the
- static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
- static const int showbar            = 1;        /* 0 means no bar */
+@@ -13,6 +13,13 @@ static const int showbar            = 1;        /* 0 means no bar */
  static const int topbar             = 1;        /* 0 means bottom bar */
+ static const int splitstatus        = 1;        /* 1 for split status items */
+ static const char *splitdelim        = ";";       /* Character used for separating status */
 +/*  Display modes of the tab bar: never shown, always shown, shown only in  */
 +/*  monocle mode in the presence of several windows.                        */
 +/*  Modes after showtab_nmodes are disabled.                                */
 +enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
 +static const int showtab			= showtab_auto;        /* Default tab bar show mode */
 +static const int toptab				= False;               /* False means bottom tab bar */
- static const int splitstatus        = 1;        /* 1 for split status items */
- static const char *splitdelim        = ";";       /* Character used for separating status */
++
  static const char *fonts[]          = { "monospace:size=10" };
-@@ -93,6 +99,7 @@ static const Key keys[] = {
+ static const char dmenufont[]       = "monospace:size=10";
+ static const char col_gray1[]       = "#222222";
+@@ -93,6 +100,7 @@ static const Key keys[] = {
  	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
  	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
  	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -1945,7 +1765,7 @@ index 27d966c..9fc3252 100644
  	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
  	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
  	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-@@ -160,5 +167,6 @@ static const Button buttons[] = {
+@@ -160,5 +168,6 @@ static const Button buttons[] = {
  	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
  	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
  	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
@@ -2011,7 +1831,7 @@ index d04bec6..deb1dfd 100644
  Zooms/cycles focused window to/from master area (tiled layouts only).
  .TP
 diff --git a/dwm.c b/dwm.c
-index c5e87ae..feb0e0f 100644
+index c618952..24b9af9 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -73,7 +73,7 @@ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
@@ -2082,14 +1902,14 @@ index c5e87ae..feb0e0f 100644
  static void tag(const Arg *arg);
  static void tagmon(const Arg *arg);
  static void tile(Monitor *m);
-@@ -285,6 +297,7 @@ static char stext[256];
- static int screen;
+@@ -286,6 +298,7 @@ static int screen;
  static int sw, sh;           /* X display screen geometry width, height */
  static int bh;               /* bar height */
-+static int th = 0;           /* tab bar geometry */
  static int enablegaps = 1;   /* enables gaps, used by togglegaps */
++static int th = 0;           /* tab bar geometry */
  static int lrpad;            /* sum of left and right padding for text */
  static int (*xerrorxlib)(Display *, XErrorEvent *);
+ static unsigned int numlockmask = 0;
 @@ -461,6 +474,9 @@ arrangemon(Monitor *m)
  {
      Client *c;
@@ -2255,7 +2075,7 @@ index c5e87ae..feb0e0f 100644
  Atom
  getatomprop(Client *c, Atom prop)
  {
-@@ -1399,12 +1504,14 @@ propertynotify(XEvent *e)
+@@ -1400,12 +1505,14 @@ propertynotify(XEvent *e)
  		case XA_WM_HINTS:
  			updatewmhints(c);
  			drawbars();
@@ -2270,7 +2090,7 @@ index c5e87ae..feb0e0f 100644
  		}
  		if (ev->atom == netatom[NetWMWindowType])
  			updatewindowtype(c);
-@@ -1549,6 +1656,7 @@ restack(Monitor *m)
+@@ -1550,6 +1657,7 @@ restack(Monitor *m)
  	XWindowChanges wc;
  
  	drawbar(m);
@@ -2278,7 +2098,7 @@ index c5e87ae..feb0e0f 100644
  	if (!m->sel)
  		return;
  	if (m->sel->isfloating || !m->lt[m->sellt]->arrange)
-@@ -1933,6 +2041,7 @@ setup(void)
+@@ -1934,6 +2042,7 @@ setup(void)
  		die("no fonts could be loaded.");
  	lrpad = drw->fonts->h;
  	bh = drw->fonts->h + 2;
@@ -2286,7 +2106,7 @@ index c5e87ae..feb0e0f 100644
  	updategeom();
  	/* init atoms */
  	utf8string = XInternAtom(dpy, "UTF8_STRING", False);
-@@ -2106,6 +2215,17 @@ togglebar(const Arg *arg)
+@@ -2107,6 +2216,17 @@ togglebar(const Arg *arg)
  	arrange(selmon);
  }
  
@@ -2304,7 +2124,7 @@ index c5e87ae..feb0e0f 100644
  void
  togglefloating(const Arg *arg)
  {
-@@ -2288,6 +2408,11 @@ updatebars(void)
+@@ -2289,6 +2409,11 @@ updatebars(void)
  				CWOverrideRedirect|CWBackPixmap|CWEventMask, &wa);
  		XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
  		XMapRaised(dpy, m->barwin);
@@ -2316,7 +2136,7 @@ index c5e87ae..feb0e0f 100644
  		XSetClassHint(dpy, m->barwin, &ch);
  	}
  }
-@@ -2295,14 +2420,33 @@ updatebars(void)
+@@ -2296,14 +2421,33 @@ updatebars(void)
  void
  updatebarpos(Monitor *m)
  {
@@ -2352,7 +2172,7 @@ index c5e87ae..feb0e0f 100644
  }
  
  void
-@@ -2690,7 +2834,7 @@ wintomon(Window w)
+@@ -2691,7 +2835,7 @@ wintomon(Window w)
  	if (w == root && getrootptr(&x, &y))
  		return recttomon(x, y, 1, 1);
  	for (m = mons; m; m = m->next)
@@ -2362,42 +2182,37 @@ index c5e87ae..feb0e0f 100644
  	if ((c = wintoclient(w)))
  		return c->mon;
 -- 
-2.51.2
+2.52.0
 
 
-From 93e85ba76a6eae51d5e22638d1c43f497c66f488 Mon Sep 17 00:00:00 2001
+From 14481059b265a57302add3dc26fcb58ef83ed694 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Mon, 12 Jan 2026 11:33:02 +0100
-Subject: [PATCH 15/18] feat: apply dwm-colorbar-6.3 patch
+Date: Tue, 20 Jan 2026 13:13:28 +0100
+Subject: [PATCH 13/15] feat(apply): apply dwm-colorbar-6.3
 
 ---
- config.def.h | 6 +++++-
+ config.def.h | 5 +++++
  dwm.c        | 9 +++++----
- 2 files changed, 10 insertions(+), 5 deletions(-)
+ 2 files changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/config.def.h b/config.def.h
-index 9fc3252..dbad9c8 100644
+index 70d3904..1363b3d 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -30,6 +30,11 @@ static const char *colors[][3]      = {
+@@ -31,6 +31,11 @@ static const char *colors[][3]      = {
  	/*               fg         bg         border   */
  	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
  	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
-+	[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-+	[SchemeTagsSel]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-+	[SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-+	[SchemeInfoSel]  = { col_gray4, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-+	[SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
++ 	[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
++ 	[SchemeTagsSel]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
++ 	[SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
++ 	[SchemeInfoSel]  = { col_gray4, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
++ 	[SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
  };
  
  typedef struct {
-@@ -169,4 +174,3 @@ static const Button buttons[] = {
- 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
- 	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
- };
--
 diff --git a/dwm.c b/dwm.c
-index feb0e0f..ea6f54b 100644
+index 24b9af9..71d9da6 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -68,7 +68,7 @@
@@ -2423,7 +2238,7 @@ index feb0e0f..ea6f54b 100644
  	}
  	w = TEXTW(m->ltsymbol);
 -	drw_setscheme(drw, scheme[SchemeNorm]);
-+	drw_setscheme(drw, scheme[SchemeTagsNorm]);
++ 	drw_setscheme(drw, scheme[SchemeTagsNorm]);
  	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
  
 -	drw_setscheme(drw, scheme[SchemeNorm]);
@@ -2440,117 +2255,21 @@ index feb0e0f..ea6f54b 100644
  		drw_text(drw, m->ww - tw, 0, tw, bh, 0, rstext, 0);
  	}
 -- 
-2.51.2
+2.52.0
 
 
-From a3cf7f8a83edf056d164b740dc34769409a33f97 Mon Sep 17 00:00:00 2001
+From 71af4d877b2ec983ea95ffdfa36670944f11f5e5 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Mon, 12 Jan 2026 18:32:20 +0100
-Subject: [PATCH 16/18] feat: apply dwm-windowmap-20221026 patch
-
----
- dwm.c | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 50 insertions(+), 4 deletions(-)
-
-diff --git a/dwm.c b/dwm.c
-index ea6f54b..bde54cb 100644
---- a/dwm.c
-+++ b/dwm.c
-@@ -274,6 +274,9 @@ static void updatetitle(Client *c);
- static void updatewindowtype(Client *c);
- static void updatewmhints(Client *c);
- static void view(const Arg *arg);
-+static void window_set_state(Display *dpy, Window win, long state);
-+static void window_map(Display *dpy, Client *c, int deiconify);
-+static void window_unmap(Display *dpy, Window win, Window root, int iconify);
- static Client *wintoclient(Window w);
- static Monitor *wintomon(Window w);
- static int xerror(Display *dpy, XErrorEvent *ee);
-@@ -2117,14 +2120,12 @@ showhide(Client *c)
- 			c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
- 		}
- 		/* show clients top down */
--		XMoveWindow(dpy, c->win, c->x, c->y);
--		if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
--			resize(c, c->x, c->y, c->w, c->h, c->bw, 0);
-+ 		window_map(dpy, c, 1);
- 		showhide(c->snext);
- 	} else {
- 		/* hide clients bottom up */
- 		showhide(c->snext);
--		XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
-+ 		window_unmap(dpy, c->win, root, 1);
- 	}
- }
- 
-@@ -2650,6 +2651,51 @@ updatewmhints(Client *c)
- 	}
- }
- 
-+void
-+window_set_state(Display *dpy, Window win, long state)
-+{
-+	long data[] = { state, None };
-+
-+	XChangeProperty(dpy, win, wmatom[WMState], wmatom[WMState], 32,
-+		PropModeReplace, (unsigned char*)data, 2);
-+}
-+
-+void
-+window_map(Display *dpy, Client *c, int deiconify)
-+{
-+	Window win = c->win;
-+
-+	if (deiconify)
-+		window_set_state(dpy, win, NormalState);
-+
-+	XMoveResizeWindow(dpy, c->win, c->x, c->y, c->w, c->h);
-+	XSetInputFocus(dpy, win, RevertToPointerRoot, CurrentTime);
-+	XMapWindow(dpy, win);
-+}
-+
-+void
-+window_unmap(Display *dpy, Window win, Window root, int iconify)
-+{
-+	static XWindowAttributes ca, ra;
-+
-+	XGrabServer(dpy);
-+	XGetWindowAttributes(dpy, root, &ra);
-+	XGetWindowAttributes(dpy, win, &ca);
-+
-+	/* Prevent UnmapNotify events */
-+	XSelectInput(dpy, root, ra.your_event_mask & ~SubstructureNotifyMask);
-+	XSelectInput(dpy, win, ca.your_event_mask & ~StructureNotifyMask);
-+
-+	XUnmapWindow(dpy, win);
-+
-+	if (iconify)
-+		window_set_state(dpy, win, IconicState);
-+
-+	XSelectInput(dpy, root, ra.your_event_mask);
-+	XSelectInput(dpy, win, ca.your_event_mask);
-+	XUngrabServer(dpy);
-+}
-+
- void
- view(const Arg *arg)
- {
--- 
-2.51.2
-
-
-From f1104e25b5f6a2387a796a89efb92dfe95d4fe81 Mon Sep 17 00:00:00 2001
-From: Naz <ndpm13@ch-naseem.com>
-Date: Mon, 12 Jan 2026 18:36:40 +0100
-Subject: [PATCH 17/18] feat: add my own customizations
+Date: Tue, 20 Jan 2026 13:27:09 +0100
+Subject: [PATCH 14/15] feat: add my own customizations
 
 ---
  .gitignore   |   5 ++
  README       |  48 -------------
  README.md    |   5 ++
- config.def.h | 192 +++++++++++++++++++++++----------------------------
- dwm.c        |   4 +-
- 5 files changed, 99 insertions(+), 155 deletions(-)
+ config.def.h | 193 +++++++++++++++++++++++----------------------------
+ dwm.c        |   2 -
+ 5 files changed, 98 insertions(+), 155 deletions(-)
  create mode 100644 .gitignore
  delete mode 100644 README
  create mode 100644 README.md
@@ -2633,23 +2352,25 @@ index 0000000..dfd9243
 +
 +This project is licensed under the same terms as Suckless's dwm.
 diff --git a/config.def.h b/config.def.h
-index dbad9c8..ccc8104 100644
+index 1363b3d..fc33375 100644
 --- a/config.def.h
 +++ b/config.def.h
-@@ -1,90 +1,99 @@
+@@ -1,91 +1,99 @@
  /* See LICENSE file for copyright and license details. */
  
  /* appearance */
 -static const unsigned int borderpx  = 1;        /* border pixel of windows */
 -static const unsigned int snap      = 32;       /* snap pixel */
+-static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 -static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 -static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
 -static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
 -static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
 -static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
--static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 -static const int showbar            = 1;        /* 0 means no bar */
 -static const int topbar             = 1;        /* 0 means bottom bar */
+-static const int splitstatus        = 1;        /* 1 for split status items */
+-static const char *splitdelim        = ";";       /* Character used for separating status */
 -/*  Display modes of the tab bar: never shown, always shown, shown only in  */
 -/*  monocle mode in the presence of several windows.                        */
 -/*  Modes after showtab_nmodes are disabled.                                */
@@ -2666,8 +2387,7 @@ index dbad9c8..ccc8104 100644
  enum showtab_modes { showtab_never, showtab_auto, showtab_nmodes, showtab_always};
 -static const int showtab			= showtab_auto;        /* Default tab bar show mode */
 -static const int toptab				= False;               /* False means bottom tab bar */
--static const int splitstatus        = 1;        /* 1 for split status items */
--static const char *splitdelim        = ";";       /* Character used for separating status */
+-
 -static const char *fonts[]          = { "monospace:size=10" };
 -static const char dmenufont[]       = "monospace:size=10";
 -static const char col_gray1[]       = "#222222";
@@ -2679,7 +2399,7 @@ index dbad9c8..ccc8104 100644
 +static const int toptab				= False;		/* False means bottom tab bar */
 +static const int splitstatus        = 1;			/* 1 for split status items */
 +static const char *splitdelim        = ";";			/* Character used for separating status */
-+static const char *fonts[]          = { "CaskaydiaCoveNerdFont:size=10" };
++static const char *fonts[]          = { "CaskaydiaCoveNerdFont:size=10", "Sarasa Gothic:size=10" };
 +static const char col_light[]       = "#ebdbb2";
 +static const char col_dark[]        = "#282828";
 +static const char col_darker[]      = "#1d2021";
@@ -2688,19 +2408,19 @@ index dbad9c8..ccc8104 100644
 -	/*               fg         bg         border   */
 -	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 -	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
--	[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
--	[SchemeTagsSel]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
--	[SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
--	[SchemeInfoSel]  = { col_gray4, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
--	[SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+- 	[SchemeStatus]  = { col_gray3, col_gray1,  "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
+- 	[SchemeTagsSel]  = { col_gray4, col_cyan,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
+- 	[SchemeTagsNorm]  = { col_gray3, col_gray1,  "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
+- 	[SchemeInfoSel]  = { col_gray4, col_cyan,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
+- 	[SchemeInfoNorm]  = { col_gray3, col_gray1,  "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
 +	/*						fg			bg			border   */
-+	[SchemeNorm]		= { col_light,	col_dark,	col_dark },
-+	[SchemeSel]			= { col_dark,	col_accent,	col_accent },
-+	[SchemeStatus]		= { col_light,	col_dark,	"#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-+	[SchemeTagsSel]		= { col_dark,	col_accent,	"#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-+	[SchemeTagsNorm]	= { col_light,	col_dark,	"#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-+	[SchemeInfoSel]		= { col_dark,	col_light,	"#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-+	[SchemeInfoNorm]	= { col_light,	col_darker,	"#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
++	[SchemeNorm]		= { col_light,	col_dark,	col_dark	},
++	[SchemeSel]			= { col_dark,	col_accent,	col_accent	},
++	[SchemeStatus]		= { col_light,	col_dark,	"#000000"	}, // Statusbar right {text,background, useless can't be empty}
++	[SchemeTagsSel]		= { col_dark,	col_accent,	"#000000"	}, // Tagbar left selected {text,background, useless can't be empty}
++	[SchemeTagsNorm]	= { col_light,	col_dark,	"#000000"	}, // Tagbar left unselected {text,background, useless can't be empty}
++	[SchemeInfoSel]		= { col_dark,	col_light,	"#000000"	}, // infobar middle selected {text,background, useless can't be empty}
++	[SchemeInfoNorm]	= { col_light,	col_darker,	"#000000"	}, // infobar middle unselected {text,background, useless can't be empty}
  };
  
  typedef struct {
@@ -2711,7 +2431,7 @@ index dbad9c8..ccc8104 100644
 -const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger", NULL };
 -const char *spcmd3[] = {"keepassxc", NULL };
 +const char *spcmd1[] = {"bash", "-c", "$HOME/.local/share/dwm/scratchpads/sp-ncmpcpp.sh",       NULL };
-+const char *spcmd2[] = {"bash", "-c", "$HOME/.local/share/dwm/scratchpads/sp-pulsemixer.sh",    NULL };
++const char *spcmd2[] = {"bash", "-c", "$HOME/.local/share/dwm/scratchpads/sp-pulsemixer.sh",	NULL };
 +const char *spcmd3[] = {"bash", "-c", "$HOME/.local/share/dwm/scratchpads/sp-term.sh",          NULL };
 +const char *spcmd4[] = {"bash", "-c", "$HOME/.local/share/dwm/scratchpads/sp-lf.sh",            NULL };
  static Sp scratchpads[] = {
@@ -2740,9 +2460,9 @@ index dbad9c8..ccc8104 100644
 -	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 -	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 -	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
-- 	{ NULL,		 "spterm",		NULL,       SPTAG(0), 1,          0,           0,        -1 },
-- 	{ NULL,		 "spfm",		NULL,       SPTAG(1), 1,          0,           0,        -1 },
-- 	{ NULL,		 "keepassxc",	NULL,       SPTAG(2), 0,          0,           0,        -1 },
+- 	{ NULL,		 "spterm",		NULL,	SPTAG(0),		1,			1,			0,		 -1 },
+- 	{ NULL,		 "spfm",		NULL,	SPTAG(1),		1,			1,			0,		 -1 },
+- 	{ NULL,		 "keepassxc",	NULL,	SPTAG(2),		0,			0,			0,		 -1 },
 +	/* class                        instance          title                 tags mask      isfloating  isterminal   noswallow monitor */
 +	{ "Alacritty",                  NULL,             NULL,                 0,             0,          1,           0,        -1 },
 +	{ "Brave-browser",              NULL,             NULL,                 1 << 0,        0,          0,           0,        -1 },
@@ -2790,7 +2510,7 @@ index dbad9c8..ccc8104 100644
  #define TAGKEYS(KEY,TAG) \
  	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
  	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-@@ -94,83 +103,58 @@ static const Layout layouts[] = {
+@@ -95,84 +103,59 @@ static const Layout layouts[] = {
  /* helper for spawning shell commands in the pre dwm-5.0 fashion */
  #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
  
@@ -2899,8 +2619,9 @@ index dbad9c8..ccc8104 100644
 +    { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
  	{ ClkTabBar,            0,              Button1,        focuswin,       {0} },
  };
+ 
 diff --git a/dwm.c b/dwm.c
-index bde54cb..a88f3e4 100644
+index 71d9da6..d22a381 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -2134,8 +2134,6 @@ spawn(const Arg *arg)
@@ -2912,31 +2633,21 @@ index bde54cb..a88f3e4 100644
  	if (fork() == 0) {
  		if (dpy)
  			close(ConnectionNumber(dpy));
-@@ -2724,8 +2722,8 @@ view(const Arg *arg)
- 	selmon->sellt = selmon->pertag->sellts[selmon->pertag->curtag];
- 	selmon->lt[selmon->sellt] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt];
- 	selmon->lt[selmon->sellt^1] = selmon->pertag->ltidxs[selmon->pertag->curtag][selmon->sellt^1];
--	focus(NULL);
- 	arrange(selmon);
-+	focus(NULL);
- }
- 
- pid_t
 -- 
-2.51.2
+2.52.0
 
 
-From 440e9077fff5b71c416ca651f40fb1dc90d0a186 Mon Sep 17 00:00:00 2001
+From 541fda8a9749a039d971065a848a7eb7be2b7ef9 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Mon, 12 Jan 2026 18:38:10 +0100
-Subject: [PATCH 18/18] fix: remove unused functions
+Date: Tue, 20 Jan 2026 13:31:08 +0100
+Subject: [PATCH 15/15] chore: remove unused functions
 
 ---
  dwm.c | 79 -----------------------------------------------------------
  1 file changed, 79 deletions(-)
 
 diff --git a/dwm.c b/dwm.c
-index a88f3e4..25e8d9e 100644
+index d22a381..dbf2d7e 100644
 --- a/dwm.c
 +++ b/dwm.c
 @@ -220,7 +220,6 @@ static Client *prevtiled(Client *c);
@@ -2961,7 +2672,7 @@ index a88f3e4..25e8d9e 100644
  static void togglegaps(const Arg *arg);
  static void defaultgaps(const Arg *arg);
  static void setlayout(const Arg *arg);
-@@ -1553,12 +1546,6 @@ pushup(const Arg *arg) {
+@@ -1551,12 +1544,6 @@ pushup(const Arg *arg) {
  	arrange(selmon);
  }
  
@@ -2974,7 +2685,7 @@ index a88f3e4..25e8d9e 100644
  Monitor *
  recttomon(int x, int y, int w, int h)
  {
-@@ -1909,28 +1896,6 @@ defaultgaps(const Arg *arg)
+@@ -1907,28 +1894,6 @@ defaultgaps(const Arg *arg)
  	setgaps(gappoh, gappov, gappih, gappiv);
  }
  
@@ -3003,7 +2714,7 @@ index a88f3e4..25e8d9e 100644
  void
  incrogaps(const Arg *arg)
  {
-@@ -1942,50 +1907,6 @@ incrogaps(const Arg *arg)
+@@ -1940,50 +1905,6 @@ incrogaps(const Arg *arg)
  	);
  }
  
@@ -3055,5 +2766,5 @@ index a88f3e4..25e8d9e 100644
  setlayout(const Arg *arg)
  {
 -- 
-2.51.2
+2.52.0
 
