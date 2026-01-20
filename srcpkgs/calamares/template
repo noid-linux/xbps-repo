@@ -1,8 +1,7 @@
 # Template file for 'calamares'
 pkgname=calamares
 version=3.4.0
-_patch_version=1
-revision=5
+revision=6
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
 -DCMAKE_INSTALL_LIBDIR=lib -DWITH_PYTHONQT:BOOL=ON -DINSTALL_CONFIG:BOOL=ON
@@ -22,8 +21,8 @@ short_desc="Distribution-independent installer framework"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://calamares.io"
-distfiles="https://github.com/noid-linux/calamares/archive/refs/tags/v${version}-noid.${_patch_version}.tar.gz"
-checksum=07c78fe2a15f107ea0eb9e36f20155ea96ed1424869fe87f1837fa07b2e1f498
+distfiles="https://codeberg.org/Calamares/calamares/archive/v${version}.tar.gz"
+checksum=45de0214f4a16095374e2ed3982032c34f0f2c2104987089152e4b928dd0548f
 
 
 post_install() {
