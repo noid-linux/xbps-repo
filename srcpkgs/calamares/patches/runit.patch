@@ -1,0 +1,236 @@
+From 5f5cbba40321f684b14fe59890fa6aa73b2f5d70 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Tue, 20 Jan 2026 17:00:31 +0100
+Subject: [PATCH] feat: add init services module for Runit
+
+---
+ src/modules/services-runit/main.py            | 159 ++++++++++++++++++
+ src/modules/services-runit/module.desc        |   5 +
+ .../services-runit/services-runit.conf        |  35 ++++
+ 3 files changed, 199 insertions(+)
+ create mode 100644 src/modules/services-runit/main.py
+ create mode 100644 src/modules/services-runit/module.desc
+ create mode 100644 src/modules/services-runit/services-runit.conf
+
+diff --git a/src/modules/services-runit/main.py b/src/modules/services-runit/main.py
+new file mode 100644
+index 000000000..8a631a8ea
+--- /dev/null
++++ b/src/modules/services-runit/main.py
+@@ -0,0 +1,159 @@
++#!/usr/bin/env python3
++# -*- coding: utf-8 -*-
++#
++# === This file is part of Calamares - <https://github.com/calamares> ===
++#
++#   Copyright 2018-2019, Adriaan de Groot <groot@kde.org>
++#   Copyright 2019, Artoo <artoo@artixlinux.org>
++#
++#   Calamares is free software: you can redistribute it and/or modify
++#   it under the terms of the GNU General Public License as published by
++#   the Free Software Foundation, either version 3 of the License, or
++#   (at your option) any later version.
++#
++#   Calamares is distributed in the hope that it will be useful,
++#   but WITHOUT ANY WARRANTY; without even the implied warranty of
++#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
++#   GNU General Public License for more details.
++#
++#   You should have received a copy of the GNU General Public License
++#   along with Calamares. If not, see <http://www.gnu.org/licenses/>.
++
++import libcalamares
++
++from libcalamares.utils import target_env_call, warning
++from os.path import exists, join
++
++
++import gettext
++
++_ = gettext.translation(
++    "calamares-python",
++    localedir=libcalamares.utils.gettext_path(),
++    languages=libcalamares.utils.gettext_languages(),
++    fallback=True,
++).gettext
++
++
++def pretty_name():
++    return _("Configure Runit services")
++
++
++class RunitController:
++    """
++    This is the runit service controller.
++    All of its state comes from global storage and the job
++    configuration at initialization time.
++    """
++
++    def __init__(self):
++        self.root = libcalamares.globalstorage.value("rootMountPoint")
++
++        # Translate the entries in the config to the actions passed to sv-helper
++        self.services = dict()
++        self.services["enable"] = libcalamares.job.configuration.get("services", [])
++        self.services["disable"] = libcalamares.job.configuration.get("disable", [])
++
++        self.svDir = libcalamares.job.configuration["svDir"]
++        self.runsvDir = libcalamares.job.configuration["runsvDir"]
++
++    def make_failure_description(self, state, name):
++        """
++        Returns a generic "could not <foo>" failure message, specialized
++        for the action @p state and the specific service @p name.
++        """
++        if state == "enable":
++            description = _("Cannot enable service {name!s}.")
++        elif state == "disable":
++            description = _("Cannot disable service {name!s}.")
++        else:
++            description = _(
++                "Unknown service-action <code>{arg!s}</code> for service {name!s}."
++            )
++
++        return description.format(arg=state, name=name)
++
++    def update(self, state):
++        """
++        Call sv-helper for each service listed
++        in services for the given @p state.
++        """
++
++        for svc in self.services.get(state, []):
++            if isinstance(svc, str):
++                name = svc
++                mandatory = False
++            else:
++                name = svc["name"]
++                mandatory = svc.get("mandatory", False)
++
++            service_path = self.root + self.svDir + "/" + name
++            runsvdir_path = self.root + self.runsvDir
++            src = self.svDir + "/" + name
++            dest = self.runsvDir + "/" + name
++
++            if state == "enable":
++                cmd = ["ln", "-sv", src, dest]
++            elif state == "disable":
++                cmd = ["rm", "-v", dest]
++
++            if exists(service_path):
++                if exists(runsvdir_path):
++                    ec = target_env_call(cmd)
++                    if ec != 0:
++                        warning("Cannot {} service {}".format(state, name))
++                        warning("{} returned error code {!s}".format(cmd, ec))
++                        if mandatory:
++                            title = _("Cannot modify service")
++                            diagnostic = _(
++                                "<code>cmd {arg!s}</code> call in chroot returned error code {num!s}."
++                            ).format(arg=state, num=ec)
++                            return (
++                                title,
++                                self.make_failure_description(state, name)
++                                + " "
++                                + diagnostic,
++                            )
++                else:
++                    warning("Target directory {} does not exist.".format(runsvdir_path))
++                    if mandatory:
++                        title = _("Target directory does not exist")
++                        diagnostic = _(
++                            "The path <code>{path!s}</code> does not exist."
++                        ).format(path=runsvdir_path)
++
++                        return (
++                            title,
++                            self.make_failure_description(state, name)
++                            + " "
++                            + diagnostic,
++                        )
++            else:
++                warning(
++                    "Target service {} does not exist in {}.".format(name, self.svDir)
++                )
++                if mandatory:
++                    title = _("Target service does not exist")
++                    diagnostic = _(
++                        "The path for service {name!s} is <code>{path!s}</code>, which does not exist."
++                    ).format(name=name, path=service_path)
++                    return (
++                        title,
++                        self.make_failure_description(state, name) + " " + diagnostic,
++                    )
++
++    def run(self):
++        """Run the controller"""
++
++        for state in ("enable", "disable"):
++            r = self.update(state)
++            if r is not None:
++                return r
++
++
++def run():
++    """
++    Setup services
++    """
++
++    return RunitController().run()
+diff --git a/src/modules/services-runit/module.desc b/src/modules/services-runit/module.desc
+new file mode 100644
+index 000000000..82c8f3750
+--- /dev/null
++++ b/src/modules/services-runit/module.desc
+@@ -0,0 +1,5 @@
++---
++type:       "job"
++name:       "services-runit"
++interface:  "python"
++script:     "main.py"
+\ No newline at end of file
+diff --git a/src/modules/services-runit/services-runit.conf b/src/modules/services-runit/services-runit.conf
+new file mode 100644
+index 000000000..34b40c85a
+--- /dev/null
++++ b/src/modules/services-runit/services-runit.conf
+@@ -0,0 +1,35 @@
++# runit services module to manage services via symlinks in the chroot
++# Modified for Noid Linux (no runlevel support)
++#
++# Services can be added or deleted from /var/service.
++# Handle disable with care and only use it if absolutely necessary.
++#
++# If a service is listed but not present in /etc/sv, it will be ignored; a warning is logged.
++#
++---
++# svDir: holds the runit service directory location
++svDir: /etc/sv
++
++# runsvDir: holds the service directory location
++runsvDir: /var/service
++
++# services: a list of entries to **enable**
++# disable: a list of entries to **disable**
++#
++# Each entry has two fields:
++#   - name: the service name
++#   - (optional) mandatory: if set to true, a failure to modify
++#     the service will result in installation failure, rather than just
++#     a warning. The default is false.
++#
++# An entry may also be a single string, which is interpreted as the name field.
++#
++# Example:
++# services:
++#     - name: dhcpcd
++#       mandatory: true
++#     - sshd
++# disable:
++#     - agetty-tty3
++services: []
++disable: []
+\ No newline at end of file
+-- 
+2.52.0
+
