@@ -35,7 +35,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | drawio-desktop                   | 29.3.0               | ❌       |
 | discord                          | 0.0.104              | ❌       |
 | ferdium                          | 7.1.1                | ✅       |
-| freetube                         | 0.23.12              | ❌       |
+| freetube                         | 0.23.13              | ❌       |
 | grayjay                          | 13                   | ❌       |
 | gruvbox-bibata-cursor-theme      | /                    | ❌       |
 | gruvbox-material-theme           | /                    | ❌       |
