@@ -1,7 +1,7 @@
 # Template file for 'cinny-desktop'
 pkgname=cinny-desktop
 version=4.10.2
-revision=1
+revision=2
 archs="x86_64"
 hostmakedepends="nodejs cargo git pkg-config"
 makedepends="openssl-devel libwebkit2gtk41-devel"
@@ -10,13 +10,11 @@ short_desc="Yet another matrix client for desktop"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0"
 homepage="https://cinny.in/"
-distfiles="https://github.com/ndpm13/cinny-desktop/archive/refs/tags/v${version}.tar.gz"
-checksum=5f5dcb3164a4bd2cbd7a7655455bcb0f197e99df64ddbcc8966436b9da461c9d
+distfiles="https://github.com/cinnyapp/cinny-desktop/archive/refs/tags/v${version}.tar.gz"
+checksum=4afad8c4f0c0205f7c714d7bf4389fa835cbe19d668035a281aa8e285e84ab77
 
 post_extract() {
-    git clone --depth 1 https://github.com/cinnyapp/cinny.git cinny
-    cd cinny
-    git checkout c88cb4bca93e3a376836b8880e5e4c1fa5c7eba2
+	git clone --depth 1 https://github.com/cinnyapp/cinny.git cinny --revision refs/tags/v${version}
 }
 
 pre_build() {
