@@ -1,0 +1,245 @@
+From 77f96d704bd16b04fe731da815a4e76c4e62decb Mon Sep 17 00:00:00 2001
+From: Hiltjo Posthuma <hiltjo@codemadness.org>
+Date: Sat, 27 Sep 2025 12:10:37 +0200
+Subject: [PATCH 1/3] cleanup schemes and colors
+
+---
+ dmenu.c |  4 +++-
+ drw.c   | 28 +++++++++++++++++++++++++---
+ drw.h   |  2 ++
+ 3 files changed, 30 insertions(+), 4 deletions(-)
+
+diff --git a/dmenu.c b/dmenu.c
+index fd49549..9bad959 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -101,8 +101,10 @@ cleanup(void)
+ 	size_t i;
+ 
+ 	XUngrabKeyboard(dpy, CurrentTime);
+-	for (i = 0; i < SchemeLast; i++)
++	for (i = 0; i < SchemeLast; i++) {
++		drw_scm_free(drw, scheme[i], 2);
+ 		free(scheme[i]);
++	}
+ 	for (i = 0; items && items[i].text; ++i)
+ 		free(items[i].text);
+ 	free(items);
+diff --git a/drw.c b/drw.c
+index c41e6af..98dbaa8 100644
+--- a/drw.c
++++ b/drw.c
+@@ -178,8 +178,7 @@ drw_clr_create(Drw *drw, Clr *dest, const char *clrname)
+ 		die("error, cannot allocate color '%s'", clrname);
+ }
+ 
+-/* Wrapper to create color schemes. The caller has to call free(3) on the
+- * returned color scheme when done using it. */
++/* Create color schemes. */
+ Clr *
+ drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount)
+ {
+@@ -187,7 +186,7 @@ drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount)
+ 	Clr *ret;
+ 
+ 	/* need at least two colors for a scheme */
+-	if (!drw || !clrnames || clrcount < 2 || !(ret = ecalloc(clrcount, sizeof(XftColor))))
++	if (!drw || !clrnames || clrcount < 2 || !(ret = ecalloc(clrcount, sizeof(Clr))))
+ 		return NULL;
+ 
+ 	for (i = 0; i < clrcount; i++)
+@@ -195,6 +194,29 @@ drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount)
+ 	return ret;
+ }
+ 
++void
++drw_clr_free(Drw *drw, Clr *c)
++{
++	if (!drw || !c)
++		return;
++
++	/* c is typedef XftColor Clr */
++	XftColorFree(drw->dpy, DefaultVisual(drw->dpy, drw->screen),
++	             DefaultColormap(drw->dpy, drw->screen), c);
++}
++
++void
++drw_scm_free(Drw *drw, Clr *scm, size_t clrcount)
++{
++	size_t i;
++
++	if (!drw || !scm)
++		return;
++
++	for (i = 0; i < clrcount; i++)
++		drw_clr_free(drw, &scm[i]);
++}
++
+ void
+ drw_setfontset(Drw *drw, Fnt *set)
+ {
+diff --git a/drw.h b/drw.h
+index fd7631b..2ed77be 100644
+--- a/drw.h
++++ b/drw.h
+@@ -40,7 +40,9 @@ void drw_font_getexts(Fnt *font, const char *text, unsigned int len, unsigned in
+ 
+ /* Colorscheme abstraction */
+ void drw_clr_create(Drw *drw, Clr *dest, const char *clrname);
++void drw_clr_free(Drw *drw, Clr *c);
+ Clr *drw_scm_create(Drw *drw, const char *clrnames[], size_t clrcount);
++void drw_scm_free(Drw *drw, Clr *scm, size_t clrcount);
+ 
+ /* Cursor abstraction */
+ Cur *drw_cur_create(Drw *drw, int shape);
+-- 
+2.52.0
+
+
+From 8b48986f4c730725367e2865e5ea24931855018f Mon Sep 17 00:00:00 2001
+From: Hiltjo Posthuma <hiltjo@codemadness.org>
+Date: Mon, 29 Sep 2025 18:47:16 +0200
+Subject: [PATCH 2/3] drw.c: drw_scm_free: call free inside
+
+Because drw_scm_create() allocates it.
+---
+ dmenu.c | 4 +---
+ drw.c   | 1 +
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/dmenu.c b/dmenu.c
+index 9bad959..9577b37 100644
+--- a/dmenu.c
++++ b/dmenu.c
+@@ -101,10 +101,8 @@ cleanup(void)
+ 	size_t i;
+ 
+ 	XUngrabKeyboard(dpy, CurrentTime);
+-	for (i = 0; i < SchemeLast; i++) {
++	for (i = 0; i < SchemeLast; i++)
+ 		drw_scm_free(drw, scheme[i], 2);
+-		free(scheme[i]);
+-	}
+ 	for (i = 0; items && items[i].text; ++i)
+ 		free(items[i].text);
+ 	free(items);
+diff --git a/drw.c b/drw.c
+index 98dbaa8..9fdd1a4 100644
+--- a/drw.c
++++ b/drw.c
+@@ -215,6 +215,7 @@ drw_scm_free(Drw *drw, Clr *scm, size_t clrcount)
+ 
+ 	for (i = 0; i < clrcount; i++)
+ 		drw_clr_free(drw, &scm[i]);
++	free(scm);
+ }
+ 
+ void
+-- 
+2.52.0
+
+
+From 653ff23fcc83dd06781fd2cc54f9647e850caba1 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Tue, 20 Jan 2026 19:54:05 +0100
+Subject: [PATCH 3/3] feat: add my own customizations (gruvbox)
+
+---
+ .gitignore   |  4 ++++
+ README       | 24 ------------------------
+ README.md    |  5 +++++
+ config.def.h | 18 +++++++++---------
+ 4 files changed, 18 insertions(+), 33 deletions(-)
+ create mode 100644 .gitignore
+ delete mode 100644 README
+ create mode 100644 README.md
+
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..cc472d9
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,4 @@
++*.h
++*.o
++stest
++dmenu
+\ No newline at end of file
+diff --git a/README b/README
+deleted file mode 100644
+index a8fcdfe..0000000
+--- a/README
++++ /dev/null
+@@ -1,24 +0,0 @@
+-dmenu - dynamic menu
+-====================
+-dmenu is an efficient dynamic menu for X.
+-
+-
+-Requirements
+-------------
+-In order to build dmenu you need the Xlib header files.
+-
+-
+-Installation
+-------------
+-Edit config.mk to match your local setup (dmenu is installed into
+-the /usr/local namespace by default).
+-
+-Afterwards enter the following command to build and install dmenu
+-(if necessary as root):
+-
+-    make clean install
+-
+-
+-Running dmenu
+--------------
+-See the man page for details.
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..fb826e7
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,5 @@
++My build of [dmenu](https://tools.suckless.org/dmenu/).
++
++## License
++
++This project is licensed under the same terms as Suckless's dmenu.
+diff --git a/config.def.h b/config.def.h
+index 1edb647..ef166df 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -1,20 +1,20 @@
+ /* See LICENSE file for copyright and license details. */
+ /* Default settings; can be overriden by command line. */
+ 
+-static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
++static int topbar			= 1;                      /* -b  option; if 0, dmenu appears at bottom     */
+ /* -fn option overrides fonts[0]; default X11 font or font set */
+-static const char *fonts[] = {
+-	"monospace:size=10"
++static const char *fonts[]	= {
++	"CaskaydiaCoveNerdFont:size=10:Bold"
+ };
+-static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
++static const char *prompt	= NULL;      /* -p  option; prompt to the left of input field */
+ static const char *colors[SchemeLast][2] = {
+-	/*     fg         bg       */
+-	[SchemeNorm] = { "#bbbbbb", "#222222" },
+-	[SchemeSel] = { "#eeeeee", "#005577" },
+-	[SchemeOut] = { "#000000", "#00ffff" },
++	/*								fg			bg			*/
++    [SchemeNorm]			=	{	"#ebdbb2",	"#282828"	},
++    [SchemeSel]				=	{	"#282828",	"#a89984"	},
++    [SchemeOut]				=	{	"#ebdbb2",	"#282828"	},
+ };
+ /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+-static unsigned int lines      = 0;
++static unsigned int lines	= 0;
+ 
+ /*
+  * Characters not considered part of a word while deleting words
+-- 
+2.52.0
+
