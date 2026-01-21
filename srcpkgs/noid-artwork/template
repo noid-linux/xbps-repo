@@ -1,0 +1,17 @@
+# Template file for 'noid-artwork'
+pkgname=noid-artwork
+version=20260121
+revision=1
+short_desc="Noid Linux artwork"
+maintainer="Naz <ndpm13@ch-naeseem.com>"
+license="custom:Public Domain" #no vlicense check
+homepage="https://git.ch-naseem.com/noid-linux"
+
+do_install() {
+	vinstall ${FILESDIR}/splash.png 644 usr/share/noid-artwork
+	vinstall ${FILESDIR}/noid-logo.png 644 usr/share/noid-artwork
+	for size in 16 32 64 128 256 512; do
+		vinstall ${FILESDIR}/icons/noid-logo-${size}.png 644 usr/share/icons/hicolor/${size}x${size}/apps noid-logo.png
+		vinstall ${FILESDIR}/icons/noid-logo-notext-${size}.png 644 usr/share/icons/hicolor/${size}x${size}/apps noid-logo-notext.png
+	done
+}
