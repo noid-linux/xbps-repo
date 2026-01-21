@@ -48,6 +48,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | ly                               | 1.3.1                | ✅       |
 | ndpm                             | 0.1.5                | ✅       |
 | nerd-fonts-cascadiacode          | 3.4.0                | ❌       |
+| nmenu                            | 5.4                  | ✅       |
 | noid-base-files                  | 0.1                  | /        |
 | noid-welcome                     | 0.2.1                | ✅       |
 | nyancat                          | 1.2.1                | ✅       |
