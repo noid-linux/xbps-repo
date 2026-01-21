@@ -1,0 +1,28 @@
+# Template file for 'base-system'
+pkgname=noid-base-system
+version=0.1
+revision=2
+metapackage=yes
+short_desc="Noid Linux base system meta package"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="Public Domain"
+homepage="https://git.ch-naseem.com/noid-linux"
+conflicts="base-system>=0"
+replaces="base-system>=0"
+
+depends="
+ noid-base-files ncurses coreutils findutils diffutils libgcc
+ dash bash grep gzip file sed gawk less util-linux which tar man-pages
+ mdocml>=1.13.3 shadow e2fsprogs btrfs-progs xfsprogs f2fs-tools dosfstools
+ procps-ng tzdata pciutils usbutils iana-etc openssh dhcpcd
+ kbd iproute2 iputils iw wpa_supplicant xbps nvi sudo wifi-firmware
+ void-artwork traceroute ethtool kmod acpid eudev runit-void removed-packages"
+
+case "$XBPS_TARGET_MACHINE" in
+	*-musl) depends+=" musl";;
+	*) depends+=" glibc-locales";;
+esac
+
+case "$XBPS_TARGET_MACHINE" in
+	i686*|x86_64*|ppc*) depends+=" linux";;
+esac
