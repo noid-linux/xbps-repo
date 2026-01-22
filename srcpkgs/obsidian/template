@@ -1,6 +1,6 @@
 # Template file for 'obsidian'
 pkgname=obsidian
-version=1.11.4
+version=1.11.5
 revision=1
 only_for_archs="x86_64"
 hostmakedepends="tar xz"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="Proprietary"
 homepage="https://obsidian.md"
 distfiles="https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/obsidian_${version}_amd64.deb"
-checksum=fe979b8bdf9480a0656e30eb230a09631443d5c4c7a384f60eda9afb3373d760
+checksum=1842b343f33c1dfebd05397d54c0c55bf1c7b6a54ef72663b100df3eb67e67e9
 nostrip=yes
 
 do_extract() {
