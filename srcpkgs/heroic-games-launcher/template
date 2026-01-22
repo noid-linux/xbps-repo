@@ -1,0 +1,36 @@
+# Template file for 'heroic-games-launcher'
+pkgname=heroic-games-launcher
+version=2.18.1
+revision=3
+nopie=yes
+archs="x86_64"
+hostmakedepends="pnpm python3"
+makedepends="electron35-devel"
+depends="wine winetricks curl zenity gamemode"
+short_desc="A games launcher for GOG, Amazon and Epic Games."
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://heroicgameslauncher.com/"
+distfiles="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/archive/refs/tags/v${version}.tar.gz"
+checksum=03eee57a2345bab465b6e15546526e5ae82b52106b69bd03663a70cc4e34b06e
+
+do_build() {
+	export CFLAGS="${CFLAGS//-fno-PIE/}"
+	export CXXFLAGS="${CXXFLAGS//-fno-PIE/}"
+	export LDFLAGS="${LDFLAGS//-no-pie/}"
+
+	pnpm install
+	pnpm download-helper-binaries
+	pnpm dist:linux tar.xz
+}
+
+do_install() {
+	vcopy dist/linux-unpacked /usr/lib/heroic
+
+	vmkdir usr/bin
+	ln -sf /usr/lib/heroic/heroic ${DESTDIR}/usr/bin/heroic
+	
+	sed -i 's/heroic-run/heroic/' flatpak/com.heroicgameslauncher.hgl.desktop
+	vinstall flatpak/com.heroicgameslauncher.hgl.desktop 644 usr/share/applications
+	vinstall flatpak/com.heroicgameslauncher.hgl.png 644 usr/share/pixmaps
+}
