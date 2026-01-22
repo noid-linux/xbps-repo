@@ -29,7 +29,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | android-studio                   | 2025.2.3.9           | ❌       |
 | bazaar                           | 0.7.5                | ✅       |
 | bitwarden-desktop                | 2025.11.0            | ❌       |
-| brave                            | 1.86.139             | ❌       |
+| brave                            | 1.86.142             | ❌       |
 | calamares                        | 3.4.0                | ✅       |
 | cinny-desktop                    | 4.10.2               | ✅       |
 | drawio-desktop                   | 29.3.0               | ❌       |
