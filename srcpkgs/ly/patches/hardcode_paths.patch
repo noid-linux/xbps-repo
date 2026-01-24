@@ -1,0 +1,97 @@
+From a221c1aead4a1fd72c9aa77d77f9960db15583f2 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Sat, 24 Jan 2026 20:49:25 +0100
+Subject: [PATCH] fix: replace variable with hardcoded system paths
+
+---
+ res/config.ini | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/res/config.ini b/res/config.ini
+index 06d6a2f..80c79b4 100644
+--- a/res/config.ini
++++ b/res/config.ini
+@@ -99,13 +99,13 @@ border_fg = 0x00FFFFFF
+ box_title = null
+ 
+ # Brightness decrease command
+-brightness_down_cmd = $PREFIX_DIRECTORY/bin/brightnessctl -q -n s 10%-
++brightness_down_cmd = /usr/bin/brightnessctl -q -n s 10%-
+ 
+ # Brightness decrease key, or null to disable
+ brightness_down_key = F5
+ 
+ # Brightness increase command
+-brightness_up_cmd = $PREFIX_DIRECTORY/bin/brightnessctl -q -n s +10%
++brightness_up_cmd = /usr/bin/brightnessctl -q -n s +10%
+ 
+ # Brightness increase key, or null to disable
+ brightness_up_key = F6
+@@ -142,8 +142,8 @@ colormix_col3 = 0x20000000
+ 
+ # Custom sessions directory
+ # You can specify multiple directories,
+-# e.g. $CONFIG_DIRECTORY/ly/custom-sessions:$PREFIX_DIRECTORY/share/custom-sessions
+-custom_sessions = $CONFIG_DIRECTORY/ly/custom-sessions
++# e.g. /etc/ly/custom-sessions:/usr/share/custom-sessions
++custom_sessions = /etc/ly/custom-sessions
+ 
+ # Input box active by default on startup
+ # Available inputs: info_line, session, login, password
+@@ -165,7 +165,7 @@ doom_middle_color = 0x00C78F17
+ doom_bottom_color = 0x00FFFFFF
+ 
+ # Dur file path
+-dur_file_path = $CONFIG_DIRECTORY/ly/example.dur
++dur_file_path = /etc/ly/example.dur
+ 
+ # Dur offset x direction
+ dur_x_offset = 0
+@@ -258,7 +258,7 @@ initial_info_text = null
+ input_len = 34
+ 
+ # Active language
+-# Available languages are found in $CONFIG_DIRECTORY/ly/lang/
++# Available languages are found in /etc/ly/lang/
+ lang = en
+ 
+ # Command executed when logging in
+@@ -317,7 +317,7 @@ service_name = ly
+ session_log = .local/state/ly-session.log
+ 
+ # Setup command
+-setup_cmd = $CONFIG_DIRECTORY/ly/setup.sh
++setup_cmd = /etc/ly/setup.sh
+ 
+ # Command executed when pressing shutdown_key
+ shutdown_cmd = /sbin/shutdown $PLATFORM_SHUTDOWN_ARG now
+@@ -348,14 +348,14 @@ vi_mode = false
+ 
+ # Wayland desktop environments
+ # You can specify multiple directories,
+-# e.g. $PREFIX_DIRECTORY/share/wayland-sessions:$PREFIX_DIRECTORY/local/share/wayland-sessions
+-waylandsessions = $PREFIX_DIRECTORY/share/wayland-sessions
++# e.g. /usr/share/wayland-sessions:/usr/local/share/wayland-sessions
++waylandsessions = /usr/share/wayland-sessions
+ 
+ # Xorg server command
+-x_cmd = $PREFIX_DIRECTORY/bin/X
++x_cmd = /usr/bin/X
+ 
+ # Xorg xauthority edition tool
+-xauth_cmd = $PREFIX_DIRECTORY/bin/xauth
++xauth_cmd = /usr/bin/xauth
+ 
+ # xinitrc
+ # If null, the xinitrc session will be hidden
+@@ -363,5 +363,5 @@ xinitrc = ~/.xinitrc
+ 
+ # Xorg desktop environments
+ # You can specify multiple directories,
+-# e.g. $PREFIX_DIRECTORY/share/xsessions:$PREFIX_DIRECTORY/local/share/xsessions
+-xsessions = $PREFIX_DIRECTORY/share/xsessions
++# e.g. /usr/share/xsessions:/usr/local/share/xsessions
++xsessions = /usr/share/xsessions
+-- 
+2.52.0
+
