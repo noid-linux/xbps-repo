@@ -39,7 +39,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | grayjay                          | 13                   | ❌       |
 | gruvbox-bibata-cursor-theme      | /                    | ❌       |
 | gruvbox-material-theme           | /                    | ❌       |
-| heroic-games-launcher            | 2.18.1               | ✅       |
+| heroic-games-launcher            | 2.19.0               | ✅       |
 | intel-media-driver-nonfree       | 25.3.4               | ✅       |
 | intel-media-driver-nonfree-devel | /                    | ✅       |
 | kanata                           | 1.10.1               | ✅       |
