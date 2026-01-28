@@ -66,7 +66,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | vscodium                         | 1.108.10359          | ❌       |
 | webapp-manager                   | 1.4.2                | ❌       |
 | zap-rs                           | 0.3.1                | ✅       |
-| zen-browser                      | 1.18.1b              | ❌       |
+| zen-browser                      | 1.18.2b              | ❌       |
 | zig                              | 0.15.2               | ❌       |
 
 ## License
