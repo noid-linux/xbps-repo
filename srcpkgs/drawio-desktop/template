@@ -2,25 +2,33 @@
 pkgname=drawio-desktop
 version=29.3.6
 revision=1
-only_for_archs="x86_64"
-hostmakedepends="tar xz"
-short_desc="Official electron build of draw.io, a client-side JavaScript editor for general diagramming."
-maintainer="ndpm13 <ndpm13@ch-naseem.com>"
-license="Apache-2.0"
+build_wrksrc="drawio-desktop-${version}"
+archs="x86_64"
+hostmakedepends="nodejs"
+short_desc="Official electron build of draw.io, a JS editor for general diagramming"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
 homepage="https://www.diagrams.net/"
-distfiles="https://github.com/jgraph/drawio-desktop/releases/download/v${version}/drawio-amd64-${version}.deb"
-checksum=ff13b6604806faa3f1cfe169ef940a1358914c83905edf2cda9afb939a0fb3f4
-nostrip=yes
+distfiles="https://github.com/jgraph/drawio-desktop/archive/refs/tags/v${version}.tar.gz>drawio-desktop-v${version}.tar.gz
+	https://github.com/jgraph/drawio/archive/refs/tags/v${version}.tar.gz>drawio-v${version}.tar.gz"
+checksum="14829ee5661137cc60db8f096e2c0adf7ce9616b9ef59e3cda9f88ee415b8ea6
+	e235c3e003c2049245411954439e4342bbbb2312e2e10878ae675509391a0e4a"
 
-do_extract() {
-  mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/drawio-amd64-${version}.deb
-  tar xf data.tar.xz -C ${DESTDIR}
+post_extract() {
+	mv drawio-${version}/* drawio-desktop-${version}/drawio/
+}
+
+pre_build() {
+	npm i
+}
+
+do_build() {
+	npm run release-linux -- --linux dir
 }
 
 do_install() {
+	vcopy dist/linux-unpacked /usr/lib/drawio-desktop
 	vmkdir usr/bin
-  ln -sf /opt/drawio/drawio ${DESTDIR}/usr/bin/drawio
-  # Cleanup up
-  rm -rf ${DESTDIR}/etc
+	ln -sf /usr/lib/drawio-desktop/drawio ${DESTDIR}/usr/bin/drawio
+	vinstall ${FILESDIR}/drawio.desktop 644 usr/share/applications
 }
