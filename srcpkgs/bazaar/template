@@ -1,6 +1,6 @@
 # Template file for 'bazaar'
 pkgname=bazaar
-version=0.7.5
+version=0.7.6
 revision=1
 archs="x86_64"
 build_style=meson
@@ -14,4 +14,4 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/kolunmi/bazaar"
 distfiles="https://github.com/kolunmi/bazaar/archive/refs/tags/v${version}.tar.gz"
-checksum=59c2cb08a68fc207be6af89fc063731cb3ca1360fb2c7970c725c6ed5527c6b5
+checksum=11f2ac4c2d6f6d315d3303b6f104d63ad3510da648043bb05b8f187ba22af02a
