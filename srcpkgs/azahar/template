@@ -1,0 +1,14 @@
+# Template file for 'azahar'
+pkgname=azahar
+version=2124.3
+revision=1
+archs="x86_64"
+build_style=cmake
+hostmakedepends="pkg-config git clang-tools-extra doxygen"
+makedepends="qt6-base-devel qt6-multimedia-devel SDL2-devel qt6-base-private-devel jack-devel portaudio-devel"
+short_desc="An open-source 3DS emulator project based on Citra."
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-2.0-only"
+homepage="https://azahar-emu.org/"
+distfiles="https://github.com/azahar-emu/azahar/releases/download/${version}/azahar-unified-source-${version}.tar.xz"
+checksum=b43191b613ed67072af037f9c8d89c1460d5532cc8381757a875f656bb6a10b1
