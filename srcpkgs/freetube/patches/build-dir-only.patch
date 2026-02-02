@@ -1,0 +1,25 @@
+From 26ae402f2579ef35c536df0ace8706c71b9ec9d8 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Mon, 2 Feb 2026 12:15:26 +0100
+Subject: [PATCH] refactor: change Linux build target to dir only
+
+---
+ _scripts/build.js | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/_scripts/build.js b/_scripts/build.js
+index ee1b7fa1c..c4aaee380 100644
+--- a/_scripts/build.js
++++ b/_scripts/build.js
+@@ -36,7 +36,7 @@ if (platform === 'darwin') {
+     arch = Arch.armv7l
+   }
+ 
+-  targets = Platform.LINUX.createTarget(['deb', 'zip', '7z', 'rpm', 'AppImage', 'pacman'], arch)
++  targets = Platform.LINUX.createTarget(['dir'], arch)
+ }
+ 
+ builder
+-- 
+2.52.0
+
