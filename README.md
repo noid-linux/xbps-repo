@@ -64,7 +64,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | sbm-rs                           | 0.1.0                | ✅       |
 | spotify-client                   | 1.2.63.394.g126b0d89 | ❌       |
 | tutanota-desktop                 | 325.260127.0         | ❌       |
-| vscodium                         | 1.108.10359          | ❌       |
+| vscodium                         | 1.108.20787          | ❌       |
 | webapp-manager                   | 1.4.2                | ❌       |
 | zap-rs                           | 0.3.1                | ✅       |
 | zen-browser                      | 1.18.3b              | ❌       |
