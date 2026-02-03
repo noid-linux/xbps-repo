@@ -70,7 +70,7 @@ jobs:
 
           for pkg in `echo ${{ github.event.inputs.packages }} | tr ',' ' '`; do
             pkg_trim=$(echo "$pkg" | xargs)
-            yes | sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg_trim"
+            echo y | sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg_trim"
             cp ~/hostdir/binpkgs/"$pkg_trim"*.xbps ~/packages/
           done
 
