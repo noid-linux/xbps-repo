@@ -1,0 +1,23 @@
+# Template file for 'kaidan'
+pkgname=kaidan
+version=0.14.0
+biconsver=6.22.0
+revision=1
+archs="x86_64"
+build_wrksrc="${pkgname}-v${version}"
+build_style=cmake
+hostmakedepends="extra-cmake-modules qt6-base qt6-tools pkg-config"
+makedepends="qt6-base-devel qt6-declarative-devel qt6-svg-devel qt6-multimedia-devel qt6-location-devel qtkeychain-qt6-devel KDSingleApplication kf6-kcrash-devel kf6-kio-devel kquickimageeditor-devel kf6-kirigami-devel kirigami-addons-devel kf6-knotifications-devel kf6-prison-devel icu-devel qt6-base-private-devel qxmpp-devel libomemo-c-devel kf6-qqc2-desktop-style-devel gstreamer1-devel"
+depends="qt6-quickeffectmaker qt6-location kf6-prison kio-extras breeze-icons noto-fonts-emoji kquickimageeditor gst-plugins-good1"
+short_desc="Modern chat app for every device"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-only"
+homepage="https://www.kaidan.im"
+distfiles="https://invent.kde.org/network/kaidan/-/archive/v${version}/kaidan-v${version}.tar.gz>${pkgname}-v${version}.tar.gz
+	https://invent.kde.org/frameworks/breeze-icons/-/archive/v${biconsver}/breeze-icons-v${biconsver}.tar.gz>breeze-icons-v${biconsver}.tar.gz"
+checksum="7d03b23cf1b6b4a34affb1c514069d38906763571f2888543e698aafa1b7503a
+ abce4abef474469246e87d0513d6a11f12f852e5996b982c417f581f6fe2471b"
+
+post_extract() {
+	mv breeze-icons-v${biconsver}/* ${pkgname}-v${version}/3rdparty/breeze-icons
+}

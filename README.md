@@ -44,6 +44,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | heroic-games-launcher            | 2.19.1               | ✅       |
 | intel-media-driver-nonfree       | 25.3.4               | ✅       |
 | intel-media-driver-nonfree-devel | /                    | ✅       |
+| kaidan                           | 0.14.0               | ✅       |
 | kanata                           | 1.10.1               | ✅       |
 | librewolf                        | 146.0.1-1            | ❌       |
 | lutgen-cli                       | 1.0.1                | ✅       |
