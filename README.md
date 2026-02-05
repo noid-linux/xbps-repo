@@ -31,7 +31,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | azaharplus                       | 2124.3-A             | ✅       |
 | bazaar                           | 0.7.6                | ✅       |
 | bitwarden-desktop                | 2025.11.0            | ❌       |
-| brave                            | 1.86.146             | ❌       |
+| brave                            | 1.86.148             | ❌       |
 | calamares                        | 3.4.0                | ✅       |
 | cinny-desktop                    | 4.10.2               | ✅       |
 | drawio-desktop                   | 29.3.6               | ✅       |
