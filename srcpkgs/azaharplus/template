@@ -1,0 +1,17 @@
+# Template file for 'azaharplus'
+pkgname=azaharplus
+version=2124.3
+revision=1
+_variant=A
+archs="x86_64"
+build_style=cmake
+hostmakedepends="pkg-config git clang-tools-extra doxygen"
+makedepends="qt6-base-devel qt6-multimedia-devel SDL2-devel qt6-base-private-devel jack-devel portaudio-devel"
+short_desc="A fork of the Azahar 3DS emulator with extra features"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-2.0-or-later"
+homepage="https://github.com/AzaharPlus/AzaharPlus"
+distfiles="https://github.com/AzaharPlus/AzaharPlus/releases/download/AZAHAR_PLUS_${version//./_}_${_variant}/azaharplus-${version}-${_variant}-unified-source.tar.xz"
+checksum=b1314a9f352361d522045dbef979c7e419b7b913ed4fe40d52461066719a44ed
+conflicts="azahar>=0"
+replaces="azahar>=0"
