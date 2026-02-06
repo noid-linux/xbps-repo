@@ -1,7 +1,7 @@
 # Template file for 'ly'
 pkgname=ly
-version=1.3.1
-revision=4
+version=1.3.2
+revision=1
 archs="x86_64"
 hostmakedepends="pkg-config zig-0.15.2"
 makedepends="pam-devel libxcb-devel"
@@ -11,7 +11,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="WTFPL"
 homepage="https://codeberg.org/fairyglade/ly"
 distfiles="https://codeberg.org/fairyglade/ly/archive/v${version}.tar.gz"
-checksum=4d1742691abf8f43ecde389760ddd69140996eeacc0485728f09b27d8f99c6d7
+checksum=db069cc2dcacc64b2890552a10ec8547aee4f9b9e5b0bc6b07c3d5d431a757e6
 conf_files="
 /etc/ly/config.ini
 /etc/pam.d/ly

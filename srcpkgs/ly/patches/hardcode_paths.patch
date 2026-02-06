@@ -1,6 +1,6 @@
-From a221c1aead4a1fd72c9aa77d77f9960db15583f2 Mon Sep 17 00:00:00 2001
+From afd61e4d6c3ec879c1a2d606b472c5288f1df8da Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Sat, 24 Jan 2026 20:49:25 +0100
+Date: Fri, 6 Feb 2026 11:30:57 +0100
 Subject: [PATCH] fix: replace variable with hardcoded system paths
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH] fix: replace variable with hardcoded system paths
  1 file changed, 13 insertions(+), 13 deletions(-)
 
 diff --git a/res/config.ini b/res/config.ini
-index 06d6a2f..80c79b4 100644
+index 83e4ab5..a0063c7 100644
 --- a/res/config.ini
 +++ b/res/config.ini
 @@ -99,13 +99,13 @@ border_fg = 0x00FFFFFF
@@ -65,7 +65,7 @@ index 06d6a2f..80c79b4 100644
  
  # Command executed when pressing shutdown_key
  shutdown_cmd = /sbin/shutdown $PLATFORM_SHUTDOWN_ARG now
-@@ -348,14 +348,14 @@ vi_mode = false
+@@ -348,11 +348,11 @@ vi_mode = false
  
  # Wayland desktop environments
  # You can specify multiple directories,
@@ -78,13 +78,18 @@ index 06d6a2f..80c79b4 100644
 -x_cmd = $PREFIX_DIRECTORY/bin/X
 +x_cmd = /usr/bin/X
  
+ # Xorg virtual terminal number
+ # Mostly useful for FreeBSD where choosing the current TTY causes issues
+@@ -360,7 +360,7 @@ x_cmd = $PREFIX_DIRECTORY/bin/X
+ x_vt = null
+ 
  # Xorg xauthority edition tool
 -xauth_cmd = $PREFIX_DIRECTORY/bin/xauth
 +xauth_cmd = /usr/bin/xauth
  
  # xinitrc
  # If null, the xinitrc session will be hidden
-@@ -363,5 +363,5 @@ xinitrc = ~/.xinitrc
+@@ -368,5 +368,5 @@ xinitrc = ~/.xinitrc
  
  # Xorg desktop environments
  # You can specify multiple directories,

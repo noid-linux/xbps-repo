@@ -49,7 +49,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | librewolf                        | 146.0.1-1            | ❌       |
 | lutgen-cli                       | 1.0.1                | ✅       |
 | lutgen-studio                    | 0.3.0                | ✅       |
-| ly                               | 1.3.1                | ✅       |
+| ly                               | 1.3.2                | ✅       |
 | ndpm                             | 0.1.5                | ✅       |
 | nerd-fonts-cascadiacode          | 3.4.0                | ❌       |
 | nmenu                            | 5.4                  | ✅       |
