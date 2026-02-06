@@ -34,6 +34,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | brave                            | 1.86.148             | ❌       |
 | calamares                        | 3.4.0                | ✅       |
 | cinny-desktop                    | 4.10.2               | ✅       |
+| dgop                             | 0.2.0                | ✅       |
 | drawio-desktop                   | 29.3.6               | ✅       |
 | discord                          | 0.0.104              | ❌       |
 | ferdium                          | 7.1.1                | ✅       |

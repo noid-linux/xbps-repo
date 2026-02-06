@@ -1,0 +1,21 @@
+# Template file for 'dgop'
+pkgname=dgop
+version=0.2.0
+revision=1
+archs="x86_64"
+build_style=gnu-makefile
+hostmakedepends="go"
+short_desc="API & CLI for System & Process Monitoring"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://github.com/AvengeMedia/dgop"
+distfiles="https://github.com/AvengeMedia/dgop/archive/refs/tags/v${version}.tar.gz"
+checksum=09ad169203b22412b98e59d3f3fcd22acb28abd6fc0c3321dc57902c49de805f
+
+do_install() {
+	vbin bin/dgop
+}
+
+post_install() {
+	vlicense LICENSE
+}
