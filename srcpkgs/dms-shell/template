@@ -1,0 +1,32 @@
+# Template file for 'dms-shell'
+pkgname=dms-shell
+version=1.2.3
+revision=1
+archs="x86_64"
+build_style=gnu-makefile
+configure_args="${pkgname}-${version}/core"
+hostmakedepends="go"
+depends="dgop quickshell font-inter font-firacode ttf-material-icons niri"
+short_desc="A Quickshell-based desktop shell with Material 3 design principles"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://danklinux.com/"
+distfiles="https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v${version}.tar.gz"
+checksum=ce3d098441db44c835437f810e042c55aca97752bf2244d3d50ac83caf79b337
+
+do_install() {
+	vbin core/bin/dms
+	vmkdir etc/xdg/quickshell/dms
+	vcopy quickshell/* etc/xdg/quickshell/dms/
+}
+
+post_install() {
+	vlicense LICENSE
+	vdoc README.md
+}
+
+dms-shell-niri_package() {
+	depends="${sourcepkg}>=${version}_${revision} niri"
+	short_desc+=" - Niri compositor support"
+	metapackage=yes
+}
