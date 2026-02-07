@@ -1,0 +1,22 @@
+# Template file for 'dsearch'
+pkgname=dsearch
+version=0.1.1
+revision=1
+archs="x86_64"
+build_style=gnu-makefile
+hostmakedepends="go"
+short_desc="Fast filesystem search service"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://github.com/AvengeMedia/danksearch"
+distfiles="https://github.com/AvengeMedia/danksearch/archive/refs/tags/v${version}.tar.gz"
+checksum=3901b5c096b6e2fdfd79454ab7dd59fe510c4e9ef748184358d6e80625b7ea06
+
+do_install() {
+	vbin bin/dsearch
+	vsv dsearch
+}
+
+post_install() {
+	vlicense LICENSE
+}
