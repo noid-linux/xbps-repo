@@ -1,0 +1,176 @@
+name: Build Packages
+
+on:
+  push:
+    paths:
+      - "srcpkgs/**"
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Build changed packages.
+  build:
+    name: Build packages
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/void-linux/void-glibc-full:20250616R1
+      options: --platform linux/amd64 --privileged
+      volumes:
+        - /dev:/dev
+      env:
+        ARCH: "x86_64"
+        BOOTSTRAP: "x86_64"
+        TEST: 1
+
+    steps:
+      - name: Prepare container
+        run: |
+          # switch to repo-ci mirror
+          mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          # install dependencies
+          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y sudo bash curl git github-cli ripgrep
+          # create non-root user
+          useradd -G xbuilder -M builder
+
+      - name: Clone and checkout
+        run: git clone --depth=1 --branch=master https://github.com/void-linux/void-packages
+
+      - name: Checkout custom packages
+        run: git clone --depth=1 --branch=main https://github.com/${{ github.repository }} noid-packages
+
+      - name: Merge custom repositories
+        run: |
+          cp -f noid-packages/changed_templates.sh void-packages/common/travis/changed_templates.sh
+          cp -r noid-packages/srcpkgs/* void-packages/srcpkgs/
+
+      - name: Prepare masterdir
+        run: |
+          cd void-packages
+          sed -i '1i repository=https://github.com/noid-linux/xbps-repo/releases/latest/download' \
+            etc/xbps.d/repos-remote.conf
+          find . -type f -exec sed -i "s/base-files/noid-base-files/g" {} +
+          chown -R builder:builder . &&
+          sudo -Eu builder common/travis/set_mirror.sh &&
+          echo y | sudo -Eu builder common/travis/prepare.sh &&
+          common/travis/fetch-xtools.sh
+
+      - name: Find changed templates
+        run: |
+          cd noid-packages && sudo -Eu builder ./changed_templates.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and check packages
+        shell: bash
+        run: |
+          # Build packages
+          mkdir -p ~/packages ~/hostdir
+          chown -R builder:builder ~/packages &&
+          chown -R builder:builder ~/hostdir &&
+
+          cd void-packages
+          for pkg in $(< /tmp/templates); do
+            echo y | sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg"
+          done
+
+          cp ~/hostdir/binpkgs/*.xbps ~/packages/
+
+      - name: Download the rest of the packages
+        run: |
+          gh release download latest \
+            --repo noid-linux/xbps-repo \
+            --dir ~/all_packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge packages
+        shell: bash
+        run: |
+          rm -f ~/all_packages/*.sig2
+          for pkg in $(< /tmp/templates); do
+            rm -f ~/all_packages/"$pkg"*.xbps
+          done
+          cp -r ~/packages ~/new_packages
+          cp ~/all_packages/*.xbps ~/packages/
+
+      - name: Sign and package
+        env:
+          PRIVATE_PEM: ${{ secrets.PRIVATE_PEM }}
+          PRIVATE_PEM_PASSPHRASE: ${{ secrets.PRIVATE_PEM_PASSPHRASE }}
+        run: |
+          cd ~/packages
+          xbps-rindex -a *
+          temp_key=$(mktemp)
+          echo "$PRIVATE_PEM" > "$temp_key"
+          export XBPS_PASSPHRASE=$PRIVATE_PEM_PASSPHRASE
+          chmod 600 "$temp_key"
+          xbps-rindex --privkey "$temp_key" --sign --signedby "void-packages-github-actions" ~/packages
+          xbps-rindex --privkey "$temp_key" --sign-pkg ~/packages/*.xbps
+          rm -f "$temp_key"
+
+      - name: Prepare release files
+        shell: bash
+        run: |
+          mkdir ~/release
+          cp ~/new_packages/* ~/release/
+          cp ~/packages/x86_64-repodata ~/release
+          for pkg in $(< /tmp/templates); do
+            cp ~/packages/"$pkg"*.xbps.sig2 ~/release
+          done
+
+      - name: Upload built packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: built-packages
+          path: /github/home/release/
+          retention-days: 1
+
+      - name: Delete existing release assets
+        shell: bash
+        run: |
+          for pkg in $(< /tmp/templates); do
+            gh release view latest --repo noid-linux/xbps-repo --json assets --jq '.assets[].name' \
+            | grep "^${pkg}-" | xargs -I {} gh release delete-asset latest {} --repo noid-linux/xbps-repo --yes || true
+          done
+
+          gh release delete-asset latest "x86_64-repodata" --repo noid-linux/xbps-repo --yes || true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  create-github-release:
+    needs: build
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/void-linux/void-glibc-full:20250227R1
+
+    steps:
+      - name: Install dependencies
+        run: |
+          xbps-install -Syu xbps && xbps-install -yu
+
+      - name: Download built packages
+        uses: actions/download-artifact@v4
+        with:
+          name: built-packages
+          path: /github/home/release/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: /github/home/release/*
+          tag_name: latest
+          name: Latest Build
+          body: |
+            Latest build of XBPS packages
+            Built on: ${{ github.event.repository.updated_at }}
+          prerelease: false

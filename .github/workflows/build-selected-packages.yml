@@ -34,7 +34,7 @@ jobs:
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           xbps-install -Syu xbps
           xbps-install -Syu
-          xbps-install -y curl openssh unzip git github-cli bash sudo
+          xbps-install -y curl openssh unzip git github-cli bash sudo nodejs
           useradd -G xbuilder -M builder
 
       - name: Checkout repositories
@@ -128,7 +128,7 @@ jobs:
         run: |
           xbps-install -Syu xbps
           xbps-install -Syu
-          xbps-install -Syu && xbps-install -y curl git jq github-cli ripgrep
+          xbps-install -Syu && xbps-install -y curl git jq github-cli ripgrep nodejs
 
       - name: Download built packages
         uses: actions/download-artifact@v4
