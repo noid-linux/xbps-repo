@@ -1,6 +1,6 @@
 # Template file for 'kanata'
 pkgname=kanata
-version=1.10.1
+version=1.11.0
 revision=1
 archs="x86_64"
 build_style=cargo
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="LGPL-3.0"
 homepage="https://github.com/jtroo/kanata"
 distfiles="https://github.com/jtroo/kanata/archive/refs/tags/v${version}.tar.gz"
-checksum=c61ea1405e2822ee7c2ab151d8b6160b9061d8bd89abf7ce6abf0da1ce91cea5
+checksum=42e71c76202ab1d39a4898851558deca277fc3619f11a7dcf0e376c5ffc287bb
 
 post_install() {
     vinstall ${FILESDIR}/99-kanata.rules 644 usr/lib/udev/rules.d
