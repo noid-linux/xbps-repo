@@ -1,7 +1,7 @@
 # Template file for 'bazaar'
 pkgname=bazaar
-version=0.7.6
-revision=1
+version=0.7.8
+revision=2
 archs="x86_64"
 build_style=meson
 hostmakedepends="pkg-config glib-devel gettext cmake blueprint-compiler desktop-file-utils"
@@ -14,4 +14,4 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/kolunmi/bazaar"
 distfiles="https://github.com/kolunmi/bazaar/archive/refs/tags/v${version}.tar.gz"
-checksum=11f2ac4c2d6f6d315d3303b6f104d63ad3510da648043bb05b8f187ba22af02a
+checksum=a3048cca4759ad1000fb47145c1cfe8fd08d8dd39329de5ae4b94e45e271d4c0
