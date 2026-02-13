@@ -71,7 +71,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | slack-desktop                    | 4.47.69      | ❌       |
 | spotify                          | 1.2.82       | ❌       |
 | tutanota-desktop                 | 327.260210.0 | ❌       |
-| vscodium                         | 1.109.21026  | ❌       |
+| vscodium                         | 1.109.31074  | ❌       |
 | webapp-manager                   | 1.4.2        | ❌       |
 | zap-rs                           | 0.3.1        | ✅       |
 | zen-browser                      | 1.18.6b      | ❌       |
