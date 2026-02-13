@@ -1,0 +1,27 @@
+From 7534ea3db0f3be8830c30e6524ca4f2861b1e612 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Fri, 13 Feb 2026 12:32:37 +0100
+Subject: [PATCH] refactor: change Linux build target to dir only
+
+---
+ electron-builder.yml | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/electron-builder.yml b/electron-builder.yml
+index 26f597b..a8c1c17 100644
+--- a/electron-builder.yml
++++ b/electron-builder.yml
+@@ -49,9 +49,7 @@ dmg:
+ 
+ linux:
+     target:
+-        - AppImage
+-        - deb
+-        - tar.xz
++        - dir
+     category: AudioVideo;Audio;Player
+     icon: assets/icons/icon.png
+     artifactName: ${productName}-${os}-${arch}.${ext}
+-- 
+2.52.0
+

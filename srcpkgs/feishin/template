@@ -1,0 +1,30 @@
+# Template file for 'feishin'
+pkgname=feishin
+version=1.5.0
+revision=1
+archs="x86_64"
+hostmakedepends="pnpm"
+short_desc="Full-featured Subsonic/Jellyfin compatible desktop music player"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://feishin.vercel.app/"
+distfiles="https://github.com/jeffvli/feishin/archive/refs/tags/v${version}.tar.gz"
+checksum=0d868fed3f68a437e40199ad56c672454955e7df0e72781957c02607aa5efde2
+
+pre_build() {
+	pnpm install
+}
+
+do_build() {
+	pnpm package:linux
+}
+
+do_install() {
+	vcopy dist/linux-unpacked/ /usr/lib/${pkgname}
+
+	vmkdir usr/bin
+	ln -sf /usr/lib/${pkgname}/${pkgname} ${DESTDIR}/usr/bin/${pkgname}
+
+	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
+	vinstall resources/icon.png 644 usr/share/pixmaps ${pkgname}.png
+}
