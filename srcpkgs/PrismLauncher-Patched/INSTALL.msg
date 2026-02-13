@@ -1,0 +1,1 @@
+You MUST get a legal copy of Minecraft to use this package. This package is intended to be used in order to allow legal players to play in places where Microsoft authentication servers are inaccessible.

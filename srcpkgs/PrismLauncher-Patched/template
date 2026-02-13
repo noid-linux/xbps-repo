@@ -1,18 +1,21 @@
-# Template file for 'PrismLauncher-Cracked'
-pkgname=PrismLauncher-Cracked
-version=9.4
+# Template file for 'PrismLauncher-Patched'
+pkgname=PrismLauncher-Patched
+version=10.0.2
 revision=1
+archs="x86_64"
 build_style=cmake
 configure_args="-DLauncher_BUILD_PLATFORM=Void"
 hostmakedepends="extra-cmake-modules openjdk17 pkg-config qt6-tools qt6-base scdoc"
-makedepends="qt6-base-devel qt6-qt5compat-devel zlib-devel quazip-qt6-devel qt6-networkauth-devel"
+makedepends="qt6-base-devel qt6-qt5compat-devel zlib-devel quazip-qt6-devel
+ qt6-networkauth-devel cmark-devel libgamemode-devel qrencode-devel
+ libarchive-devel tomlplusplus-devel"
 depends="virtual?java-runtime qt6-svg qt6-imageformats qt6-plugin-tls-openssl"
 short_desc="Custom launcher for Minecraft"
-maintainer="Naz <ndpm13@ch-naeseem.com>"
-license="GPL-3.0-or-later"
-homepage="https://github.com/Diegiwg/PrismLauncher-Cracked"
-distfiles="https://github.com/Diegiwg/PrismLauncher-Cracked/releases/download/${version}/PrismLauncher-${version}.tar.gz"
-checksum=c49d5787882116f1f4a86eb55da888bd84d96efbd0647413064aba3cee9b9515
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-only"
+homepage="https://prismlauncher.org/"
+distfiles="https://github.com/PrismLauncher/PrismLauncher/releases/download/${version}/PrismLauncher-${version}.tar.gz"
+checksum=4b36e8b0345a21a9a8da36633fa5bf4d8f44d992da1529cdfb6bf52a0ff7f33c
 
 if [ -z "$XBPS_CHECK_PKGS" ]; then
 	configure_args+=" -DBUILD_TESTING=0"
