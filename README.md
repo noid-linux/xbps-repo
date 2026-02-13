@@ -67,6 +67,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | proton-authenticator             | 1.1.4        | ❌       |
 | rustdesk                         | 1.4.4        | ❌       |
 | sbm-rs                           | 0.1.0        | ✅       |
+| slack-desktop                    | 4.47.69      | ❌       |
 | spotify                          | 1.2.82       | ❌       |
 | tutanota-desktop                 | 327.260210.0 | ❌       |
 | vscodium                         | 1.109.21026  | ❌       |
