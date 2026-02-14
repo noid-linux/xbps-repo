@@ -1,9 +1,5 @@
 # Custom XBPS Repository
 
-<div align="center">
-    <img src="https://files.catbox.moe/oyr4v0.jpg" alt="Banner">
-</div>
-
 [![Build Packages](https://github.com/noid-linux/xbps-repo/actions/workflows/build.yaml/badge.svg)](https://github.com/noid-linux/xbps-repo/actions/workflows/build.yaml) [![Build Selected XBPS Package](https://github.com/noid-linux/xbps-repo/actions/workflows/build-selected-packages.yml/badge.svg)](https://github.com/noid-linux/xbps-repo/actions/workflows/build-selected-packages.yml) [![Test Build XBPS Packages](https://github.com/noid-linux/xbps-repo/actions/workflows/test-build-packages.yml/badge.svg)](https://github.com/noid-linux/xbps-repo/actions/workflows/test-build-packages.yml)
 
 This repository contains custom XBPS packages.
