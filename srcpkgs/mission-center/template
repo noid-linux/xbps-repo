@@ -1,8 +1,8 @@
 # Template file for 'mission-center'
 pkgname=mission-center
 version=1.1.0
-gngver=1.1.0
-revision=1
+_gngver=1.1.0
+revision=2
 archs="x86_64"
 build_wrksrc="${pkgname}-v${version}"
 build_style=meson
@@ -16,10 +16,10 @@ license="GPL-3.0-only"
 homepage="https://missioncenter.io/"
 _gitlab_url="https://gitlab.com/mission-center-devs"
 distfiles="${_gitlab_url}/mission-center/-/archive/v${version}/mission-center-v${version}.tar.gz>${pkgname}-v${version}.tar.gz
-	${_gitlab_url}/gng/-/archive/v${gngver}/gng-v${gngver}.tar.gz>gng-v${gngver}.tar.gz"
+	${_gitlab_url}/gng/-/archive/v${_gngver}/gng-v${_gngver}.tar.gz>gng-v${_gngver}.tar.gz"
 checksum="7c634958158ab47c9a46445380314d3550382965b192a28de9253a3a83a2b7ee
 	92c10d2ec0820e610e2df67649bcc72b6e3b289c9e562c5d7e90c199781b138f"
 
 post_extract() {
-	mv gng-v${gngver}/* ${pkgname}-v${version}/subprojects/magpie/
+	mv gng-v${_gngver}/* ${pkgname}-v${version}/subprojects/magpie/
 }
