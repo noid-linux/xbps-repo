@@ -1,6 +1,6 @@
 # Template file for 'dgop'
 pkgname=dgop
-version=0.2.1
+version=0.2.2
 revision=1
 archs="x86_64"
 build_style=gnu-makefile
@@ -10,7 +10,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
 homepage="https://github.com/AvengeMedia/dgop"
 distfiles="https://github.com/AvengeMedia/dgop/archive/refs/tags/v${version}.tar.gz"
-checksum=ddaa56b1fb523f37fc1b032690f04f3c84c9ddc024d456863d10a08fd11d7a9d
+checksum=2e45d94d2227bb596844681e66f948aeea4a09be3f7ee88dcbbf38938cabec32
 
 do_install() {
 	vbin bin/dgop
