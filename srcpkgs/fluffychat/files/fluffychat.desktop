@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=FluffyChat
+Comment=The cutest instant messenger in the [matrix]
+Exec=/usr/bin/fluffychat
+Icon=fluffychat
+Terminal=false
+Categories=Network;InstantMessaging;Chat;MatrixClient

@@ -46,6 +46,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | dsearch                          | 0.1.2        | ✅       |
 | feishin                          | 1.5.0        | ✅       |
 | ferdium                          | 7.1.1        | ✅       |
+| fluffychat                       | 2.4.1        | ❌       |
 | freetube                         | 0.23.13      | ✅       |
 | grayjay                          | 14           | ❌       |
 | gruvbox-bibata-cursor-theme      | /            | ❌       |
