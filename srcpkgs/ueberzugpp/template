@@ -1,0 +1,21 @@
+# Template file for 'ueberzugpp'
+pkgname=ueberzugpp
+version=2.9.8
+revision=1
+archs="x86_64"
+build_style=cmake
+configure_args="-DFETCHCONTENT_FULLY_DISCONNECTED=ON"
+hostmakedepends="pkg-config"
+makedepends="cli11 openssl-devel tbb-devel xcb-util-devel
+xcb-util-image-devel libopencv-devel libvips-devel libsixel-devel
+chafa-devel spdlog range-v3 fmt-devel json-c++"
+short_desc="Drop in replacement for ueberzug written in C++"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-only"
+homepage="https://github.com/jstkdng/ueberzugpp"
+distfiles="https://github.com/jstkdng/ueberzugpp/archive/refs/tags/v${version}.tar.gz"
+checksum="96bf3a16af7be233be2706481e340d5e085d7eb555f660062652358315085075"
+
+post_install() {
+	vlicense LICENSE
+}

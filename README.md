@@ -73,6 +73,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | spotify                          | 1.2.82       | ❌       |
 | tenacity                         | 1.3.4        | ✅       |
 | tutanota-desktop                 | 327.260210.0 | ❌       |
+| ueberzugpp                       | 2.9.8        | ✅       |
 | vscodium                         | 1.109.31074  | ❌       |
 | webapp-manager                   | 1.4.2        | ❌       |
 | zap-rs                           | 0.3.1        | ✅       |
