@@ -1,6 +1,6 @@
 # Template file for 'brave'
 pkgname=brave
-version=1.87.186
+version=1.87.188
 revision=2
 archs="x86_64"
 short_desc="Web browser that blocks ads and trackers by default"
@@ -8,7 +8,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MPL-2.0"
 homepage="https://brave.com"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser-${version}-linux-amd64.zip"
-checksum=a50b4e999a3c1c4b2ccb26b0b6975cd48a8edd72ec3454e37b40e9017b4e742e
+checksum=9c80f829f0a78903c8cff30abbee68b1b87c4839506ba528052a47aeead5d167
 nostrip=yes
 
 do_install() {
