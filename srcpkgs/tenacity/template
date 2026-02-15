@@ -1,0 +1,28 @@
+# Template file for 'tenacity'
+pkgname=tenacity
+version=1.3.4
+_libnyquist_hash=d4fe08b079538a2fd79277ef1a83434663562f04
+revision=1
+archs="x86_64"
+build_wrksrc=${pkgname}
+build_style=cmake
+configure_args="-DVCPKG=OFF"
+hostmakedepends="pkg-config"
+makedepends="wxWidgets-devel alsa-lib-devel expat-devel libflac-devel lame-devel libid3tag-devel libmad-devel libogg-devel libsndfile-devel libvorbis-devel lilv-devel lv2 portaudio-devel portmidi-devel libsoxr-devel soundtouch-devel sqlite-devel suil-devel twolame-devel vamp-plugin-sdk-devel zlib-devel ffmpeg-devel jack-devel serd-devel sord-devel"
+short_desc="An easy-to-use multi-track audio editor and recorder, forked from Audacity"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-2.0-or-later"
+homepage="https://tenacityaudio.org/"
+_codeberg_url="https://codeberg.org/tenacityteam"
+distfiles="${_codeberg_url}/tenacity/archive/v${version}.tar.gz>${pkgname}-v${version}.tar.gz
+	${_codeberg_url}/libnyquist/archive/${_libnyquist_hash}.tar.gz>libnyquist-${_libnyquist_hash}.tar.gz"
+checksum="75329d2ecdee1a48c1a13f2727bc10b6fd2fe1057d5a4f80f989b67e33240f86
+	27630884fa1c9302cd7b7c0252c2e8bcd52dfde481b3f464ed1ccc75c313827d"
+
+pre_configure() {
+	export WX_CONFIG=/usr/bin/wx-config-gtk3
+}
+
+post_extract() {
+	mv libnyquist/* ${pkgname}/lib-src/libnyquist/
+}
