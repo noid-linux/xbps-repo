@@ -67,6 +67,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | onlyoffice                       | 9.2.1        | ❌       |
 | PrismLauncher-Patched            | 10.0.2       | ✅       |
 | proton-authenticator             | 1.1.4        | ❌       |
+| qt6gtk2                          | 0.7          | ✅       |
 | rustdesk                         | 1.4.4        | ❌       |
 | sbm-rs                           | 0.1.0        | ✅       |
 | slack-desktop                    | 4.47.69      | ❌       |
