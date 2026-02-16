@@ -33,7 +33,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | bitwarden-desktop                | 2026.1.0     | ❌       |
 | brave                            | 1.87.188     | ❌       |
 | calamares                        | 3.4.0        | ✅       |
-| cinny-desktop                    | 4.10.2       | ✅       |
+| cinny-desktop                    | 4.10.3       | ✅       |
 | dgop                             | 0.2.2        | ✅       |
 | dms-shell                        | 1.2.3        | ✅       |
 | dms-shell-niri                   | /            | ✅       |

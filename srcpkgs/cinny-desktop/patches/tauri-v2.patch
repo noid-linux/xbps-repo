@@ -1,11 +1,7 @@
-From d7b9a349f783ca4cb88727f256e8921d1505908d Mon Sep 17 00:00:00 2001
+From 1a93c20f0627317094c5c8ad97cad7063cc2bbc5 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Wed, 5 Nov 2025 10:40:11 +0100
-Subject: [PATCH] =?UTF-8?q?=F0=9F=9B=A0=EF=B8=8Fchore:=20upgrade=20Tauri?=
- =?UTF-8?q?=20from=20v1=20to=20v2?=
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Date: Mon, 16 Feb 2026 15:58:30 +0100
+Subject: [PATCH] chore: upgrade Tauri from v1 to v2
 
 ---
  package-lock.json                   |  134 +-
@@ -20,12 +16,12 @@ Content-Transfer-Encoding: 8bit
  create mode 100644 src-tauri/capabilities/default.json
 
 diff --git a/package-lock.json b/package-lock.json
-index d514114..447411e 100644
+index 021e50a..8e3b6a8 100644
 --- a/package-lock.json
 +++ b/package-lock.json
 @@ -8,12 +8,9 @@
        "name": "cinny",
-       "version": "4.10.2",
+       "version": "4.10.3",
        "license": "AGPL-3.0-only",
 -      "dependencies": {
 -        "@tauri-apps/api": "1.6.0"
@@ -289,7 +285,7 @@ index d514114..447411e 100644
        "os": [
          "win32"
 diff --git a/package.json b/package.json
-index dcf0b28..13fc388 100644
+index 737298e..4e382d2 100644
 --- a/package.json
 +++ b/package.json
 @@ -13,12 +13,9 @@
@@ -317,7 +313,7 @@ index c123704..474fd57 100644
 +/gen/schemas
  WixTools
 diff --git a/src-tauri/Cargo.lock b/src-tauri/Cargo.lock
-index 6071da8..2bf604f 100644
+index 1f33fed..aba05ae 100644
 --- a/src-tauri/Cargo.lock
 +++ b/src-tauri/Cargo.lock
 @@ -8,15 +8,6 @@ version = "1.0.2"
@@ -6077,7 +6073,7 @@ index 6071da8..2bf604f 100644
 + "syn 2.0.108",
  ]
 diff --git a/src-tauri/Cargo.toml b/src-tauri/Cargo.toml
-index 25934d8..9f626f0 100644
+index 8c98f61..2184b42 100644
 --- a/src-tauri/Cargo.toml
 +++ b/src-tauri/Cargo.toml
 @@ -12,14 +12,14 @@ edition = "2021"
@@ -6137,14 +6133,14 @@ index 4231f30..7be48b1 100644
  
      #[cfg(target_os = "macos")]
 diff --git a/src-tauri/tauri.conf.json b/src-tauri/tauri.conf.json
-index 26e394d..71dcdee 100644
+index 1cd8f41..71dcdee 100644
 --- a/src-tauri/tauri.conf.json
 +++ b/src-tauri/tauri.conf.json
 @@ -1,64 +1,15 @@
  {
 -  "package": {
 -    "productName": "Cinny",
--    "version": "4.10.2"
+-    "version": "4.10.3"
 -  },
 +  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
 +  "productName": "Cinny",
