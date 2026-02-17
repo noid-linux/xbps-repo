@@ -1,7 +1,7 @@
 # Template file for 'noid-base-files'
 pkgname=noid-base-files
 version=0.1
-revision=1
+revision=2
 bootstrap=yes
 depends="xbps-triggers"
 short_desc="Noid Linux base system files"
