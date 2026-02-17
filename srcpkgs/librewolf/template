@@ -1,22 +1,22 @@
 # Template file for 'librewolf'
 pkgname=librewolf
-version=146.0.1
+version=147.0.4
 rev=1
 revision=1
 only_for_archs="x86_64"
-hostmakedepends="tar xz"
+hostmakedepends="tar"
 short_desc="Community-maintained fork of Firefox, focused on privacy, security and freedom."
 maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://librewolf.net/"
 distfiles="https://repo.librewolf.net/pool/librewolf-${version}-${rev}-linux-x86_64-deb.deb"
-checksum=ab5e1bedb6affbd1ff8ca1944a99edc6a040d2b8b2af59aedd6a83168ff9ded9
+checksum=c200ef76b773021708b0cd5b7c816d90fa35bd8214f6d69689778dbad4cab680
 nostrip=yes
 
 do_extract() {
   mkdir -p ${DESTDIR}
   ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/librewolf-${version}-${rev}-linux-x86_64-deb.deb
-  tar xf data.tar.xz -C ${DESTDIR}
+  tar xf data.tar.gz -C ${DESTDIR}
 }
 
 do_install() {
