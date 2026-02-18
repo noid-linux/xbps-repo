@@ -1,30 +1,40 @@
 # Template file for 'librewolf'
 pkgname=librewolf
-version=147.0.4
-rev=1
+version=147.0.4.1
 revision=1
-only_for_archs="x86_64"
-hostmakedepends="tar"
-short_desc="Community-maintained fork of Firefox, focused on privacy, security and freedom."
+_version="${version%.*}-${version##*.}"
+build_wrksrc="${pkgname}"
+archs="x86_64"
+depends="desktop-file-utils hicolor-icon-theme pciutils"
+short_desc="Fork of Firefox, focused on privacy, security and freedom"
 maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://librewolf.net/"
-distfiles="https://repo.librewolf.net/pool/librewolf-${version}-${rev}-linux-x86_64-deb.deb"
-checksum=c200ef76b773021708b0cd5b7c816d90fa35bd8214f6d69689778dbad4cab680
+_base_url="https://codeberg.org/api/packages/librewolf/generic/librewolf/${_version}"
+distfiles="${_base_url}/librewolf-${_version}-linux-x86_64-package.tar.xz>librewolf-${_version}.tar.xz
+	https://codeberg.org/librewolf/source/archive/${_version}.tar.gz>librewolf-source-${_version}.tar.gz"
+checksum="cea5aaf0581d48b5806a85af9829c873d1654e642d70280ba0af57b97b164b83
+	85b1ae31ca89026db0470162260f9bbcecf7c660cbe2cdcc5259a65934862441"
 nostrip=yes
 
-do_extract() {
-  mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/librewolf-${version}-${rev}-linux-x86_64-deb.deb
-  tar xf data.tar.gz -C ${DESTDIR}
-}
-
 do_install() {
-	vcopy ${DESTDIR}/usr/share/librewolf /usr/lib/
-  ln -sf /usr/lib/librewolf/librewolf ${DESTDIR}/usr/bin/librewolf
+	vmkdir usr/lib/${pkgname}
+	vcopy * usr/lib/${pkgname}/
 
-	sed -i 's|/usr/share/librewolf|/usr/lib/librewolf|g' \
-		${DESTDIR}/usr/share/applications/librewolf.desktop
+	vmkdir usr/bin
+	ln -sf /usr/lib/${pkgname}/${pkgname} ${DESTDIR}/usr/bin/${pkgname}
 
-  rm -rf ${DESTDIR}/usr/share/librewolf
+	if [ -e "${DESTDIR}/usr/lib/librewolf/libnssckbi.so" ]; then
+		ln -sfr "${DESTDIR}/usr/lib/libnssckbi.so" \
+			"${DESTDIR}/usr/lib/librewolf/libnssckbi.so"
+	fi
+
+	vinstall ${FILESDIR}/vendor.js 644 usr/lib/librewolf/browser/defaults/preferences/
+	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications/
+
+	for i in 16 32 48 64 128; do
+		vmkdir usr/share/icons/hicolor/${i}x${i}/apps
+		vcopy ../source/themes/browser/branding/librewolf/default${i}.png \
+			usr/share/icons/hicolor/${i}x${i}/apps/librewolf.png
+	done
 }
