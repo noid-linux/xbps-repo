@@ -1,0 +1,64 @@
+From 88dfb1c57686208ccd0725432493057220e51f98 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Thu, 19 Feb 2026 09:25:34 +0100
+Subject: [PATCH] fix: explicit cast for fa enum to QString conversion
+
+---
+ src/components/playercontrols.cpp |  2 +-
+ src/widgets/notificationpopup.cpp | 14 +++++++-------
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/src/components/playercontrols.cpp b/src/components/playercontrols.cpp
+index d71dbc2..ad36e7f 100644
+--- a/src/components/playercontrols.cpp
++++ b/src/components/playercontrols.cpp
+@@ -39,7 +39,7 @@ PlayerControls::loadIcons()
+   ui->btnStop->setIcon(awesome.icon(fa_solid, fa_stop));
+   ui->btnRepeat->setIcon(awesome.icon(fa_solid, fa_rotate_right));
+ 
+-  ui->lbSpeaker->setText(QString(fa_volume_high));
++  ui->lbSpeaker->setText(QString(QChar(static_cast<uint>(fa_volume_high))));
+   ui->lbSpeaker->setFont(awesome.font(fa_solid, 16));
+ }
+ 
+diff --git a/src/widgets/notificationpopup.cpp b/src/widgets/notificationpopup.cpp
+index 56f5b97..770931d 100644
+--- a/src/widgets/notificationpopup.cpp
++++ b/src/widgets/notificationpopup.cpp
+@@ -104,26 +104,26 @@ NotificationPopup::setNotificationIcon(NotificationType type)
+   int faStyle = fa_solid;
+   switch (type) {
+     case NotificationSender::info:
+-      ico = fa_info_circle;
++      ico = QString(QChar(static_cast<uint>(fa_info_circle)));
+       break;
+     case NotificationSender::success:
+-      ico = fa_check_circle;
++      ico = QString(QChar(static_cast<uint>(fa_check_circle)));
+       break;
+     case NotificationSender::fail:
+-      ico = fa_xmark_circle;
++      ico = QString(QChar(static_cast<uint>(fa_xmark_circle)));
+       break;
+     case NotificationSender::bookmarkAdd:
+-      ico = fa_bookmark;
++      ico = QString(QChar(static_cast<uint>(fa_bookmark)));
+       break;
+     case NotificationSender::bookmarkRemove:
+-      ico = fa_bookmark;
++      ico = QString(QChar(static_cast<uint>(fa_bookmark)));
+       faStyle = fa_regular;
+       break;
+     case NotificationSender::copiedText:
+-      ico = fa_clipboard;
++      ico = QString(QChar(static_cast<uint>(fa_clipboard)));
+       break;
+     case NotificationSender::updateInfo:
+-      ico = fa_circle_up;
++      ico = QString(QChar(static_cast<uint>(fa_circle_up)));
+       break;
+   }
+ 
+-- 
+2.52.0
+

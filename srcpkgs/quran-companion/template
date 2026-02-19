@@ -1,0 +1,37 @@
+# Template file for 'quran-companion'
+pkgname=quran-companion
+version=1.3.3
+revision=1
+_qtawesomever="f8e9194672294fcd81326f48d3d9e96af394327c"
+build_wrksrc="${pkgname}-${version}"
+archs="x86_64"
+build_style=cmake
+configure_args="-DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_DATADIR=/usr/share"
+hostmakedepends="qt6-base qt6-tools"
+makedepends="qt6-multimedia-devel"
+short_desc="Free and open-source desktop Quran reader and player"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="custom:WAQFv2"
+homepage="https://0xzer0x.github.io/projects/quran-companion/"
+changelog="https://raw.githubusercontent.com/0xzer0x/quran-companion/refs/heads/main/CHANGELOG.md"
+distfiles="https://github.com/0xzer0x/quran-companion/archive/refs/tags/v${version}.tar.gz>${pkgname}-v${version}.tar.gz
+	https://github.com/gamecreature/QtAwesome/archive/${_qtawesomever}.tar.gz>QtAwesome-${_qtawesomever}.tar.gz"
+checksum="81c4623a6cb64f042930f7e79b525f7ac62bb0d55aa862048cf1721ee1e3252d
+	9e1af404ac48b1e06e6ff677bbdd47c1a9165fcbdfe105ba3e6b0fee926bfe37"
+patch_args="-Np1 -d $build_wrksrc"
+
+post_extract() {
+	mv QtAwesome-${_qtawesomever}/* ${pkgname}-${version}/third_party/QtAwesome
+}
+
+post_install() {
+	rm -rf ${DESTDIR}/usr/lib/libQtAwesome.a \
+	       ${DESTDIR}/usr/lib/cmake/QtAwesome \
+	       ${DESTDIR}/usr/include/QtAwesome
+
+	vinstall dist/xdg/io.github._0xzer0x.qurancompanion.desktop 644 usr/share/applications
+	vinstall dist/xdg/io.github._0xzer0x.qurancompanion.metainfo.xml 644 usr/share/metainfo
+	vinstall dist/xdg/logo256.png 644 usr/share/icons/hicolor/256x256/apps io.github._0xzer0x.qurancompanion.png
+
+	vlicense license-en.txt
+}

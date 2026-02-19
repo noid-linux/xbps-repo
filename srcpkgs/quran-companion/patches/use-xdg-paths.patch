@@ -1,0 +1,63 @@
+From 483d1d980641e339f89212862c956848279b03e2 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Thu, 19 Feb 2026 11:49:52 +0100
+Subject: [PATCH] fix: use XDG data dir for assets
+
+---
+ CMakeLists.txt           | 13 ++-----------
+ src/utils/dirmanager.cpp |  9 ++++-----
+ 2 files changed, 6 insertions(+), 16 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 64d45a6..2339427 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -250,17 +250,8 @@ install(
+   BUNDLE DESTINATION .
+   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+-install(DIRECTORY assets TYPE BIN)
+-install(DIRECTORY bismillah TYPE BIN)
+-
+-message(STATUS "Copying application assets to build tree")
+-if(APPLE)
+-  file(INSTALL assets DESTINATION "quran-companion.app/Contents/MacOS")
+-  file(INSTALL bismillah DESTINATION "quran-companion.app/Contents/MacOS")
+-else()
+-  file(INSTALL assets DESTINATION ${CMAKE_BINARY_DIR})
+-  file(INSTALL bismillah DESTINATION ${CMAKE_BINARY_DIR})
+-endif()
++install(DIRECTORY assets DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME})
++install(DIRECTORY bismillah DESTINATION ${CMAKE_INSTALL_DATADIR}/${PROJECT_NAME})
+ 
+ list(
+   APPEND
+diff --git a/src/utils/dirmanager.cpp b/src/utils/dirmanager.cpp
+index a2a988f..c460c1a 100644
+--- a/src/utils/dirmanager.cpp
++++ b/src/utils/dirmanager.cpp
+@@ -1,5 +1,4 @@
+ #include "dirmanager.h"
+-#include <QApplication>
+ #include <QStandardPaths>
+ 
+ DirManager&
+@@ -17,11 +16,11 @@ DirManager::DirManager()
+   m_configDir.setPath(
+     QStandardPaths::writableLocation(QStandardPaths::GenericConfigLocation) +
+     QDir::separator() + "QuranCompanion");
+-  m_assetsDir.setPath(QApplication::applicationDirPath() + QDir::separator() +
+-                      "assets");
++  m_assetsDir.setPath(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
++	"quran-companion/assets", QStandardPaths::LocateDirectory));
+   m_fontsDir.setPath(m_assetsDir.absoluteFilePath("fonts"));
+-  m_basmallahDir.setPath(QApplication::applicationDirPath() +
+-                         QDir::separator() + "bismillah");
++  m_basmallahDir.setPath(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
++	"quran-companion/bismillah", QStandardPaths::LocateDirectory));
+ }
+ 
+ void
+-- 
+2.52.0
+
