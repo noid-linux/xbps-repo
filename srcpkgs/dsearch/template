@@ -1,6 +1,6 @@
 # Template file for 'dsearch'
 pkgname=dsearch
-version=0.1.2
+version=0.2.0
 revision=1
 archs="x86_64"
 build_style=gnu-makefile
@@ -10,7 +10,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
 homepage="https://github.com/AvengeMedia/danksearch"
 distfiles="https://github.com/AvengeMedia/danksearch/archive/refs/tags/v${version}.tar.gz"
-checksum=b60ced5cbb6a8a33b704c5b600bcb6f87bb45e8ba4d1d758f45fcd3b471e0af6
+checksum=fc8ee0cdf541c79616f561a730fb75c207d0db5a250c988881922c42449ff52c
 
 do_install() {
 	vbin bin/dsearch
