@@ -1,0 +1,1 @@
+For WASM support, run: rustup target add wasm32-unknown-unknown

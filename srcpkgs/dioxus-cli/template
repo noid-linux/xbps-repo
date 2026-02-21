@@ -1,0 +1,14 @@
+# Template file for 'dioxus-cli'
+pkgname=dioxus-cli
+version=0.7.3
+revision=1
+archs="x86_64"
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="openssl-devel libzstd-devel libgit2-1.9-devel"
+short_desc="CLI for building fullstack web, desktop, and mobile apps with a single codebase."
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT, Apache-2.0"
+homepage="https://dioxuslabs.com"
+distfiles="https://static.crates.io/crates/${pkgname}/${pkgname}-${version}.crate"
+checksum=056a79166205fcd4189fa48bd5b4f3c332286ebb7d1b92ae45cec405ecb9e291

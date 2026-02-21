@@ -36,6 +36,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | cinny-desktop                    | 4.10.3       | ✅       |
 | clipcat                          | 0.24.0       | ✅       |
 | dgop                             | 0.2.2        | ✅       |
+| dioxus-cli                       | 0.7.3        | ✅       |
 | dms-shell                        | 1.4.2        | ✅       |
 | dms-shell-niri                   | /            | ✅       |
 | drawio-desktop                   | 29.5.1       | ✅       |
