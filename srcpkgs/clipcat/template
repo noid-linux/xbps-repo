@@ -1,0 +1,26 @@
+# Template file for 'clipcat'
+pkgname=clipcat
+version=0.24.0
+revision=1
+archs="x86_64"
+build_style=cargo
+hostmakedepends="pkg-config protobuf"
+makedepends="libgit2-1.9-devel protobuf-devel"
+short_desc="Clipboard Manager written in Rust Programming Language"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-only"
+homepage="https://github.com/xrelkd/clipcat"
+distfiles="https://github.com/xrelkd/clipcat/archive/refs/tags/v${version}.tar.gz"
+checksum=27d9b724b36794dd06eb43a26bb71b61c612a0e67252f5bf8707b55f09f48461
+
+do_install() {
+	for pkg in clipcatd clipcatctl clipcat-menu clipcat-notify; do
+		cargo auditable install \
+			--target "${RUST_TARGET}" \
+			--root "${DESTDIR}/usr" \
+			--offline --locked \
+			--path ${pkg}
+	done
+	rm -f "${DESTDIR}"/usr/.crates.toml
+	rm -f "${DESTDIR}"/usr/.crates2.json
+}
