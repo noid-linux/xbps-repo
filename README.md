@@ -49,7 +49,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | gruvbox-gtk-theme                | 2.2          | ✅       |
 | gruvbox-icons-theme              | 4.0          | ✅       |
 | gruvbox-material-theme           | /            | ❌       |
-| heroic-games-launcher            | 2.19.1       | ✅       |
+| heroic-games-launcher            | 2.20.0       | ✅       |
 | intel-media-driver-nonfree       | 25.3.4       | ✅       |
 | intel-media-driver-nonfree-devel | /            | ✅       |
 | librewolf                        | 147.0.4-1    | ❌       |
