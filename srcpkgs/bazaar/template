@@ -1,17 +1,19 @@
 # Template file for 'bazaar'
 pkgname=bazaar
-version=0.7.8
-revision=2
+version=0.7.9
+revision=1
 archs="x86_64"
 build_style=meson
-hostmakedepends="pkg-config glib-devel gettext cmake blueprint-compiler desktop-file-utils"
+hostmakedepends="pkg-config glib-devel gettext cmake
+blueprint-compiler desktop-file-utils"
 makedepends="gtk4-devel libadwaita-devel libdex-devel flatpak-devel
- AppStream-devel libxmlb-devel glycin-devel glycin-gtk4-devel
- libyaml-devel libsoup3-devel json-glib-devel libmd4c-devel libwebkitgtk60-devel libsecret-devel"
+AppStream-devel libxmlb-devel glycin-devel glycin-gtk4-devel
+libyaml-devel libsoup3-devel json-glib-devel libmd4c-devel
+libwebkitgtk60-devel libsecret-devel libproxy-devel"
 depends="flatpak glycin-loaders"
 short_desc="New App Store for GNOME"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/kolunmi/bazaar"
 distfiles="https://github.com/kolunmi/bazaar/archive/refs/tags/v${version}.tar.gz"
-checksum=a3048cca4759ad1000fb47145c1cfe8fd08d8dd39329de5ae4b94e45e271d4c0
+checksum=ce9d213a1e2aba88b19c811e73c830074aca5cc8f2d7486e647c363d1da51601
