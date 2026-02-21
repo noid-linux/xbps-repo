@@ -67,7 +67,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | nwm                              | 6.7          | ✅       |
 | obsidian                         | 1.11.7       | ❌       |
 | onlyoffice                       | 9.2.1        | ❌       |
-| PrismLauncher-Patched            | 10.0.2       | ✅       |
+| PrismLauncher-Patched            | 10.0.5       | ✅       |
 | proton-authenticator             | 1.1.4        | ❌       |
 | qt6gtk2                          | 0.7          | ✅       |
 | quran-companion                  | 1.3.3        | ✅       |
