@@ -39,7 +39,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | dioxus-cli                       | 0.7.3        | ✅       |
 | dms-shell                        | 1.4.2        | ✅       |
 | dms-shell-niri                   | /            | ✅       |
-| drawio-desktop                   | 29.5.1       | ✅       |
+| drawio-desktop                   | 29.5.2       | ✅       |
 | discord                          | 0.0.124      | ❌       |
 | dsearch                          | 0.2.0        | ✅       |
 | feishin                          | 1.5.0        | ✅       |
