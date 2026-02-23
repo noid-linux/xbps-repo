@@ -81,7 +81,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 | tutanota-desktop                 | 327.260210.0 | ❌       |
 | ueberzugpp                       | 2.9.8        | ✅       |
 | vscodium                         | 1.109.51242  | ❌       |
-| webapp-manager                   | 1.4.2        | ❌       |
+| webapp-manager                   | 1.4.6        | ❌       |
 | zap-rs                           | 0.3.1        | ✅       |
 | zen-browser                      | 1.18.10b     | ❌       |
 | zig                              | 0.15.2       | ❌       |
