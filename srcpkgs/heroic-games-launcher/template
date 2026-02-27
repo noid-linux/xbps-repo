@@ -1,6 +1,6 @@
 # Template file for 'heroic-games-launcher'
 pkgname=heroic-games-launcher
-version=2.20.0
+version=2.20.1
 revision=1
 nopie=yes
 archs="x86_64"
@@ -12,7 +12,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://heroicgameslauncher.com/"
 distfiles="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/archive/refs/tags/v${version}.tar.gz"
-checksum=c339ebf5d7783aa8903f234d1f7edc1f50fbebc894e039b53556a44264ab4ae9
+checksum=62631a3917a65c5ff4f2ac02e12bf039b5880c103464a60f6418e16e9745e2d1
 
 do_build() {
 	export CFLAGS="${CFLAGS//-fno-PIE/}"
