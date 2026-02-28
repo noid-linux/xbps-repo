@@ -1,0 +1,23 @@
+From 89536d07c2ff5bde7817f066cb4a7627791ad466 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Fri, 27 Feb 2026 22:20:04 +0100
+Subject: [PATCH] fix: disable clang-format download
+
+---
+ CMakeLists.txt | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3eac3aa..085b772 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -64,6 +64,3 @@ include(desktopapp_configuration)
+ 
+ # Load the MEGA targets
+ add_subdirectory(src)
+-
+-include(get_clang_format)
+-get_clang_format()
+-- 
+2.52.0
+
