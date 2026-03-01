@@ -1,6 +1,6 @@
 # Template file for 'clipcat'
 pkgname=clipcat
-version=0.24.0
+version=0.24.1
 revision=1
 archs="x86_64"
 build_style=cargo
@@ -11,7 +11,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-only"
 homepage="https://github.com/xrelkd/clipcat"
 distfiles="https://github.com/xrelkd/clipcat/archive/refs/tags/v${version}.tar.gz"
-checksum=27d9b724b36794dd06eb43a26bb71b61c612a0e67252f5bf8707b55f09f48461
+checksum=06c9bffc57d67d2d82bc54525f972e9344b0373f4d869425e4b35d31f6e33403
 
 do_install() {
 	for pkg in clipcatd clipcatctl clipcat-menu clipcat-notify; do
