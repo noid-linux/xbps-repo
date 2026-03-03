@@ -24,68 +24,7 @@ sudo xbps-install brave librewolf vscodium obsidian intel-media-driver-nonfree
 
 ## Available Packages
 
-| Package                          | Version      | Compiled |
-| -------------------------------- | ------------ | -------- |
-| android-studio                   | 2025.2.3.9   | ❌       |
-| azahar                           | 2124.3       | ✅       |
-| azaharplus                       | 2124.3-A     | ✅       |
-| bazaar                           | 0.7.10       | ✅       |
-| bitwarden-desktop                | 2026.1.1     | ❌       |
-| brave                            | 1.87.191     | ❌       |
-| calamares                        | 3.4.0        | ✅       |
-| cinny-desktop                    | 4.10.3       | ✅       |
-| clipcat                          | 0.24.1       | ✅       |
-| dgop                             | 0.2.2        | ✅       |
-| dioxus-cli                       | 0.7.3        | ✅       |
-| dms-shell                        | 1.4.3        | ✅       |
-| dms-shell-niri                   | /            | ✅       |
-| drawio-desktop                   | 29.5.2       | ✅       |
-| discord                          | 0.0.124      | ❌       |
-| dsearch                          | 0.2.0        | ✅       |
-| feishin                          | 1.5.0        | ✅       |
-| ferdium                          | 7.1.1        | ✅       |
-| fluffychat                       | 2.4.1        | ❌       |
-| freetube                         | 0.23.13      | ✅       |
-| grayjay                          | 17           | ❌       |
-| gruvbox-bibata-cursor-theme      | /            | ❌       |
-| gruvbox-gtk-theme                | 2.2          | ✅       |
-| gruvbox-icons-theme              | 4.0          | ✅       |
-| gruvbox-material-theme           | /            | ❌       |
-| heroic-games-launcher            | 2.20.1       | ✅       |
-| intel-media-driver-nonfree       | 25.3.4       | ✅       |
-| intel-media-driver-nonfree-devel | /            | ✅       |
-| librewolf                        | 148.0-1      | ❌       |
-| lutgen-cli                       | 1.0.1        | ✅       |
-| lutgen-studio                    | 0.3.0        | ✅       |
-| ly                               | 1.3.2        | ✅       |
-| megasync                         | 6.1.1.0      | ✅       |
-| mission-center                   | 1.1.0        | ✅       |
-| ndpm                             | 0.1.5        | ✅       |
-| nerd-fonts-cascadiacode          | 3.4.0        | ❌       |
-| nmenu                            | 5.4          | ✅       |
-| noid-base-files                  | 0.1          | /        |
-| noid-base-system                 | 0.1          | /        |
-| noid-welcome                     | 0.2.1        | ✅       |
-| nyancat                          | 1.2.1        | ✅       |
-| nwm                              | 6.8          | ✅       |
-| obsidian                         | 1.12.4       | ❌       |
-| onlyoffice                       | 9.3.0        | ❌       |
-| PrismLauncher-Patched            | 10.0.5       | ✅       |
-| proton-authenticator             | 1.1.4        | ❌       |
-| qt6gtk2                          | 0.7          | ✅       |
-| quran-companion                  | 1.3.3        | ✅       |
-| rustdesk                         | 1.4.4        | ❌       |
-| sbm-rs                           | 0.1.0        | ✅       |
-| slack-desktop                    | 4.47.69      | ❌       |
-| spotify                          | 1.2.82       | ❌       |
-| tenacity                         | 1.3.4        | ✅       |
-| tutanota-desktop                 | 331.260224.0 | ❌       |
-| ueberzugpp                       | 2.9.8        | ✅       |
-| vscodium                         | 1.109.51242  | ❌       |
-| webapp-manager                   | 1.4.6        | ❌       |
-| zap-rs                           | 0.3.1        | ✅       |
-| zen-browser                      | 1.19b        | ❌       |
-| zig                              | 0.15.2       | ❌       |
+See [PACKAGES.md](/PACKAGES.md) for the full list of available packages.
 
 ## License
 
