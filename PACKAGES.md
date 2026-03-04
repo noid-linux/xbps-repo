@@ -55,7 +55,7 @@
 | slack-desktop                    | 4.47.69      | ❌       |
 | spotify                          | 1.2.82       | ❌       |
 | tenacity                         | 1.3.4        | ✅       |
-| tutanota-desktop                 | 331.260224.0 | ❌       |
+| tutanota-desktop                 | 332.260303.0 | ❌       |
 | ueberzugpp                       | 2.9.8        | ✅       |
 | vscodium                         | 1.109.51242  | ❌       |
 | webapp-manager                   | 1.4.6        | ❌       |
