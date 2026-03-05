@@ -1,7 +1,7 @@
 # Template file for 'freetube'
 pkgname=freetube
-version=0.23.13
-revision=3
+version=0.23.14
+revision=1
 archs="x86_64"
 hostmakedepends="nodejs"
 depends="electron35"
@@ -10,7 +10,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0"
 homepage="https://freetubeapp.io/"
 distfiles="https://github.com/FreeTubeApp/FreeTube/archive/refs/tags/v${version}-beta.tar.gz"
-checksum=c87088f5e88ac85a12beb700965760dc1539e3726cfd260f52ed151fc9cbfc85
+checksum=e96e116c89e73d8337f5f6ad26fb6004d4bdd48cedf2a47173d4a5ce8aae63a3
 
 pre_build() {
 	npm i
