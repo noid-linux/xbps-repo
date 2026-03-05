@@ -50,7 +50,7 @@
 | proton-authenticator             | 1.1.4        | ❌       |
 | qt6gtk2                          | 0.7          | ✅       |
 | quran-companion                  | 1.3.3        | ✅       |
-| rustdesk                         | 1.4.4        | ❌       |
+| rustdesk                         | 1.4.6        | ❌       |
 | sbm-rs                           | 0.1.0        | ✅       |
 | slack-desktop                    | 4.47.69      | ❌       |
 | spotify                          | 1.2.82       | ❌       |

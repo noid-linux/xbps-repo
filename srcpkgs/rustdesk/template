@@ -1,6 +1,6 @@
 # Template file for 'rustdesk'
 pkgname=rustdesk
-version=1.4.4.0
+version=1.4.6.0
 revision=1
 _version="${version%.*}-${version##*.}"
 archs="x86_64"
@@ -15,7 +15,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0"
 homepage="https://rustdesk.com/"
 distfiles="https://github.com/rustdesk/rustdesk/releases/download/${version%.*}/rustdesk-${_version}-x86_64.pkg.tar.zst"
-checksum=db722ef63ee3e1e410ab34aba7b6dd3b416a61516f3b744f9b9707ee9639e46c
+checksum=d3eb57735b3f9ea919bc58795e9f2bf6420b0cf80af55647c63697d6fb22c9b8
 nostrip=yes
 
 do_install() {
