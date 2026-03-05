@@ -1,0 +1,90 @@
+# Template file for 'cryptomator'
+pkgname=cryptomator
+version=1.18.0
+revision=1
+_jdkver=25
+archs="x86_64"
+build_wrksrc=${pkgname}-${version}
+hostmakedepends="openjdk${_jdkver} openjdk${_jdkver}-jmods apache-maven"
+depends="fuse3 alsa-lib hicolor-icon-theme libXtst libnet libXrender"
+short_desc="Multiplatform transparent client-side encryption of your files in the cloud."
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://cryptomator.org/"
+changelog="https://github.com/cryptomator/cryptomator/raw/refs/heads/develop/CHANGELOG.md"
+distfiles="https://github.com/cryptomator/cryptomator/archive/refs/tags/${version}.tar.gz>${pkgname}-v${version}.tar.gz
+	https://download2.gluonhq.com/openjfx/${_jdkver}/openjfx-${_jdkver}_linux-x64_bin-jmods.zip>openjfx-${_jdkver}.zip"
+checksum="7102e5a6fdd196b4c0e7a479aa8c17fbee7822238b04960651d95cea40cf5646
+	96e520f48610d8ffb94ca30face1f11ffe8a977ddc1c4ff80b1a9e9f048bd94e"
+
+do_build() {
+	export JAVA_HOME=/usr/lib/jvm/openjdk${_jdkver}
+	export JMODS_PATH="${XBPS_BUILDDIR}/${pkgname}-${version}/javafx-jmods-${_jdkver}:${JAVA_HOME}/jmods"
+
+	mvn -B clean package -Djavafx.platform=linux -DskipTests -Plinux
+
+	cp LICENSE.txt target/
+	cp target/cryptomator-${version}.jar target/mods/
+
+	cd target
+	$JAVA_HOME/bin/jlink \
+		--output runtime \
+		--module-path "$JMODS_PATH" \
+		--add-modules java.base,java.desktop,java.instrument,java.logging,java.naming,java.net.http,java.scripting,java.sql,java.xml,javafx.base,javafx.graphics,javafx.controls,javafx.fxml,jdk.crypto.ec,jdk.crypto.cryptoki,jdk.unsupported,jdk.security.auth,jdk.accessibility,jdk.management.jfr,jdk.net,java.compiler \
+		--strip-native-commands \
+		--no-header-files \
+		--no-man-pages \
+		--strip-debug \
+		--compress=zip-0
+
+	$JAVA_HOME/bin/jpackage \
+		--type app-image \
+		--runtime-image runtime \
+		--input libs \
+		--module-path mods \
+		--module org.cryptomator.desktop/org.cryptomator.launcher.Cryptomator \
+		--dest . \
+		--name cryptomator \
+		--vendor "Skymatic GmbH" \
+		--copyright "(C) 2016 - 2025 Skymatic GmbH" \
+		--java-options '--enable-native-access=javafx.graphics,org.cryptomator.jfuse.linux.amd64,org.cryptomator.jfuse.linux.aarch64,org.purejava.appindicator' \
+		--java-options "--sun-misc-unsafe-memory-access=allow" \
+		--java-options "-Xss5m" \
+		--java-options "-Xmx256m" \
+		--java-options "-Dfile.encoding=\"utf-8\"" \
+		--java-options "-Djava.net.useSystemProxies=true" \
+		--java-options "-Dcryptomator.logDir=\"@{userhome}/.local/share/Cryptomator/logs\"" \
+		--java-options "-Dcryptomator.pluginDir=\"@{userhome}/.local/share/Cryptomator/plugins\"" \
+		--java-options "-Dcryptomator.settingsPath=\"@{userhome}/.config/Cryptomator/settings.json:~/.Cryptomator/settings.json\"" \
+		--java-options "-Dcryptomator.p12Path=\"@{userhome}/.config/Cryptomator/key.p12\"" \
+		--java-options "-Dcryptomator.ipcSocketPath=\"@{userhome}/.config/Cryptomator/ipc.socket\"" \
+		--java-options "-Dcryptomator.mountPointsDir=\"@{userhome}/.local/share/Cryptomator/mnt\"" \
+		--java-options "-Dcryptomator.showTrayIcon=true" \
+		--java-options "-Dcryptomator.disableUpdateCheck=true" \
+		--java-options "-Dcryptomator.buildNumber=\"aur-${pkgrel}\"" \
+		--java-options "-Dcryptomator.appVersion=\"${pkgver//_/-}\"" \
+		--java-options "-Dcryptomator.integrationsLinux.autoStartCmd=\"cryptomator\"" \
+		--java-options "-Dcryptomator.networking.truststore.p12Path=\"/etc/cryptomator/certs.p12\"" \
+		--app-version "${pkgver//_*/}" \
+		--verbose
+}
+
+do_install() {
+	vmkdir opt
+	vcopy target/cryptomator opt/
+
+	vmkdir usr/bin
+	ln -s /opt/cryptomator/bin/cryptomator ${DESTDIR}/usr/bin/cryptomator
+
+	vinstall dist/linux/common/org.cryptomator.Cryptomator.desktop 644 usr/share/applications
+	vinstall dist/linux/common/application-vnd.cryptomator.vault.xml 644 usr/share/mime/packages
+	vinstall dist/linux/common/org.cryptomator.Cryptomator256.png 644 usr/share/icons/hicolor/256x256/apps org.cryptomator.Cryptomator.png
+	vinstall dist/linux/common/org.cryptomator.Cryptomator512.png 644 usr/share/icons/hicolor/512x512/apps org.cryptomator.Cryptomator.png
+	vinstall dist/linux/common/org.cryptomator.Cryptomator.svg 644 usr/share/icons/hicolor/scalable/apps
+	vinstall dist/linux/common/org.cryptomator.Cryptomator.tray.svg 644 usr/share/icons/hicolor/scalable/apps
+	vinstall dist/linux/common/org.cryptomator.Cryptomator.tray-unlocked.svg 644 usr/share/icons/hicolor/scalable/apps
+	vinstall dist/linux/common/org.cryptomator.Cryptomator.tray.svg 644 usr/share/icons/hicolor/symbolic/apps org.cryptomator.Cryptomator.tray-symbolic.svg
+	vinstall dist/linux/common/org.cryptomator.Cryptomator.tray-unlocked.svg 644 usr/share/icons/hicolor/symbolic/apps org.cryptomator.Cryptomator.tray-unlocked-symbolic.svg
+
+	vlicense LICENSE.txt
+}
