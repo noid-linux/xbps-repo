@@ -60,5 +60,5 @@
 | vscodium                         | 1.109.51242  | ❌       |
 | webapp-manager                   | 1.4.6        | ❌       |
 | zap-rs                           | 0.3.1        | ✅       |
-| zen-browser                      | 1.19b        | ❌       |
+| zen-browser                      | 1.19.1b      | ❌       |
 | zig                              | 0.15.2       | ❌       |
