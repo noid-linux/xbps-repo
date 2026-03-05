@@ -1,17 +1,16 @@
 # Template file for 'bitwarden-desktop'
 pkgname=bitwarden-desktop
-version=2026.1.1
+version=2026.2.1
 revision=1
 archs="x86_64"
 hostmakedepends="tar xz"
-makedepends=""
 depends="gtk+3 alsa-lib cups libXtst libXScrnSaver nss"
 short_desc="Bitwarden desktop client"
 maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="GPL-3.0"
 homepage="https://bitwarden.com/"
 distfiles="https://github.com/bitwarden/clients/releases/download/desktop-v${version}/Bitwarden-${version}-amd64.deb"
-checksum=6f2f5426390181c680e316b1f6ca1fd0e0c5abb21f2b671633d4dcd7210bf407
+checksum=c6bf04c054ac30c88b69cec823634134e51b22f52627ad5a44ac92d634a77167
 
 do_extract() {
     mkdir -p ${DESTDIR}
