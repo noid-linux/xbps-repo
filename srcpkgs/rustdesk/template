@@ -1,27 +1,32 @@
 # Template file for 'rustdesk'
 pkgname=rustdesk
-version=1.4.4
+version=1.4.4.0
 revision=1
+_version="${version%.*}-${version##*.}"
 archs="x86_64"
-hostmakedepends="tar xz"
+hostmakedepends=""
+depends="xdotool glibc libX11 libXfixes libXtst atk glibc cairo cairo
+dbus-libs glibc libepoxy fontconfig libgcc gtk+3 gdk-pixbuf glib glib
+glib gst-plugins-base1 gstreamer1 gst-plugins-base1 gtk+3 glibc
+pam-libs pango pango glibc libpulseaudio libpulseaudio libstdc++ glibc
+libxcb libxcb libxcb libxkbcommon zlib"
 short_desc="An open-source remote desktop application designed for self-hosting, as an alternative to TeamViewer."
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0"
 homepage="https://rustdesk.com/"
-distfiles="https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.deb"
+distfiles="https://github.com/rustdesk/rustdesk/releases/download/${version%.*}/rustdesk-${_version}-x86_64.pkg.tar.zst"
 checksum=db722ef63ee3e1e410ab34aba7b6dd3b416a61516f3b744f9b9707ee9639e46c
 nostrip=yes
 
-do_extract() {
-  mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/rustdesk-${version}-x86_64.deb
-  tar xf data.tar.xz -C ${DESTDIR}
-}
-
 do_install() {
-  vmkdir opt
-  mv ${DESTDIR}/usr/share/rustdesk ${DESTDIR}/opt
+    vcopy usr/share/rustdesk usr/lib/rustdesk
 
-  vmkdir usr/bin
-  ln -sf /opt/rustdesk/rustdesk ${DESTDIR}/usr/bin/rustdesk
+	vmkdir usr/share
+    vcopy usr/share/icons usr/share/icons
+
+	vmkdir usr/bin
+    ln -s /usr/lib/rustdesk/rustdesk ${DESTDIR}/usr/bin/rustdesk
+
+    vinstall usr/share/rustdesk/files/rustdesk.desktop 644 usr/share/applications
+    vinstall usr/share/rustdesk/files/rustdesk-link.desktop 644 usr/share/applications
 }
