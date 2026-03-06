@@ -58,7 +58,7 @@
 | tenacity                         | 1.3.4        | ✅       |
 | tutanota-desktop                 | 332.260303.0 | ❌       |
 | ueberzugpp                       | 2.9.8        | ✅       |
-| vscodium                         | 1.109.51242  | ❌       |
+| vscodium                         | 1.110.01571  | ❌       |
 | webapp-manager                   | 1.4.6        | ❌       |
 | zap-rs                           | 0.3.1        | ✅       |
 | zen-browser                      | 1.19.1b      | ❌       |
