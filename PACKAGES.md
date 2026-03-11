@@ -31,7 +31,7 @@
 | heroic-games-launcher            | 2.20.1       | ✅       |
 | intel-media-driver-nonfree       | 25.3.4       | ✅       |
 | intel-media-driver-nonfree-devel | /            | ✅       |
-| librewolf                        | 148.0-1      | ❌       |
+| librewolf                        | 148.0.2-2    | ❌       |
 | lutgen-cli                       | 1.0.1        | ✅       |
 | lutgen-studio                    | 0.3.0        | ✅       |
 | ly                               | 1.3.2        | ✅       |
