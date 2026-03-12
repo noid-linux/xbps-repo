@@ -1,0 +1,24 @@
+# Template file for 'python3-proton-vpn-local-agent'
+pkgname=python3-proton-vpn-local-agent
+version=1.6.0
+revision=1
+archs="x86_64"
+build_wrksrc=python-proton-vpn-local-agent
+build_style=cargo
+make_build_args="--all-features"
+hostmakedepends="python3-packaging-bootstrap"
+makedepends="python3-devel"
+short_desc="Proton VPN local agent written in Rust"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/ProtonVPN/local-agent-rs"
+distfiles="https://github.com/ProtonVPN/local-agent-rs/archive/refs/tags/${version}.tar.gz"
+checksum=52b62ee267ef09d004f6bbfd10ad7ce28a5c32136200b4492c7e681be18d1676
+provides="py3:proton-vpn-local-agent-${version}_${revision}"
+
+do_install() {
+	local _pyver=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+	vinstall ${wrksrc}/python-proton-vpn-local-agent/target/x86_64-unknown-linux-gnu/release/libpython_proton_vpn_local_agent.so 755 \
+		usr/lib/python${_pyver}/site-packages/proton/vpn \
+		local_agent.abi3.so
+}
