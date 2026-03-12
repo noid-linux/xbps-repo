@@ -11,7 +11,7 @@
 | calamares                        | 3.4.0        | ✅       |
 | cinny-desktop                    | 4.11.2       | ✅       |
 | clipcat                          | 0.24.1       | ✅       |
-| cryptomator                      | 1.19.0       | ✅       |
+| cryptomator                      | 1.19.1       | ✅       |
 | dgop                             | 0.2.2        | ✅       |
 | dioxus-cli                       | 0.7.3        | ✅       |
 | dms-shell                        | 1.4.3        | ✅       |

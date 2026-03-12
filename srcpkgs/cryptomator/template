@@ -1,6 +1,6 @@
 # Template file for 'cryptomator'
 pkgname=cryptomator
-version=1.19.0
+version=1.19.1
 revision=1
 _jdkver=25
 archs="x86_64"
@@ -14,7 +14,7 @@ homepage="https://cryptomator.org/"
 changelog="https://github.com/cryptomator/cryptomator/raw/refs/heads/develop/CHANGELOG.md"
 distfiles="https://github.com/cryptomator/cryptomator/archive/refs/tags/${version}.tar.gz>${pkgname}-v${version}.tar.gz
 	https://download2.gluonhq.com/openjfx/${_jdkver}/openjfx-${_jdkver}_linux-x64_bin-jmods.zip>openjfx-${_jdkver}.zip"
-checksum="3ec905a36bee0417ec34d7745e2be6eeea6a788cf9924d0ec4fdfb7e20b8fa54
+checksum="e5859b959ce63c04b8f037a7caa1437c8138c357b6f90a3a1ba9ab16d47d4a7f
 	96e520f48610d8ffb94ca30face1f11ffe8a977ddc1c4ff80b1a9e9f048bd94e"
 
 do_build() {
