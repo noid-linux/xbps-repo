@@ -1,6 +1,7 @@
 # Template file for 'cinny-desktop'
 pkgname=cinny-desktop
-version=4.10.3
+version=4.11.2
+_cinnyver=4.11.1
 revision=1
 build_wrksrc="cinny-desktop-${version}"
 archs="x86_64"
@@ -12,13 +13,12 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0"
 homepage="https://cinny.in/"
 distfiles="https://github.com/cinnyapp/cinny-desktop/archive/refs/tags/v${version}.tar.gz>cinny-desktop-v${version}.tar.gz
-	https://github.com/cinnyapp/cinny/archive/refs/tags/v${version}.tar.gz>cinny-v${version}.tar.gz"
-checksum="e72b3eabca5105e3bdaf11879b76e1ad9ebc9edb6275b9ceb08623dce46ae5fd
-	14c608047316756045725ad5cd6f61699e0e09ba93b7bff26d210668bb840e92"
-patch_args="-Np1 -d $build_wrksrc"
+	https://github.com/cinnyapp/cinny/archive/refs/tags/v${_cinnyver}.tar.gz>cinny-v${version}.tar.gz"
+checksum="f5f6cbf03bb4c5df2eeb0385a4a3a8194220c6974d94381820c9ecc3459d1fa1
+	c91580537344e180213c0453985847b39e4e0027d9dcb0ddc79e37bd537b9c30"
 
 post_extract() {
-	mv cinny-${version}/* cinny-desktop-${version}/cinny/
+	mv cinny-${_cinnyver}/* cinny-desktop-${version}/cinny/
 }
 
 pre_build() {
