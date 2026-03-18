@@ -4,6 +4,9 @@
 
 This repository contains custom XBPS packages.
 
+> [!CAUTION]
+> This repository is not affiliated with or endorsed by the Void Linux project. Any issues or bugs with packages here should be reported via [our issue tracker](https://github.com/noid-linux/xbps-repo/issues) — not to the Void Linux team.
+
 > [!NOTE]
 > Some packages in this repository are repackaged from official upstream binaries (e.g., Brave, LibreWolf, VSCodium) while others are built from source (e.g., Ferdium). Check individual package templates in `srcpkgs/` for build details.
 
