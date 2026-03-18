@@ -22,7 +22,7 @@
 | feishin                          | 1.5.0        | ✅       |
 | ferdium                          | 7.1.1        | ✅       |
 | fluffychat                       | 2.4.1        | ❌       |
-| freetube                         | 0.23.14      | ✅       |
+| freetube                         | 0.23.15      | ✅       |
 | grayjay                          | 17           | ❌       |
 | gruvbox-bibata-cursor-theme      | /            | ❌       |
 | gruvbox-gtk-theme                | 2.2          | ✅       |
