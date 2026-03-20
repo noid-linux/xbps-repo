@@ -1,0 +1,22 @@
+# Template file for 'kaidan'
+pkgname=kaidan
+version=0.15.0
+revision=1
+archs="x86_64"
+build_style=cmake
+hostmakedepends="extra-cmake-modules qt6-base pkg-config"
+makedepends="qt6-base-devel qt6-declarative-devel qt6-svg-devel
+qt6-multimedia-devel qt6-location-devel qt6-base-private-devel
+kf6-prison-devel kf6-kirigami-devel kf6-kio-devel KDSingleApplication
+kirigami-addons-devel qxmpp-devel qtkeychain-qt6-devel
+kf6-knotifications-devel kf6-kcrash-devel kquickimageeditor-devel
+kf6-qqc2-desktop-style-devel gstreamer1-devel"
+depends="kirigami-addons kquickimageeditor qt6-location
+gst-plugins-good1-qml6"
+short_desc="Modern chat app for every device"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://www.kaidan.im/"
+changelog="https://invent.kde.org/network/kaidan/-/raw/master/NEWS.md/"
+distfiles="https://invent.kde.org/network/kaidan/-/archive/v${version}/kaidan-v${version}.tar.gz"
+checksum=01195879fb28cfb33e58d9d788d9d3d3a4e9d1af8c0fa960413e1311f8687b19
