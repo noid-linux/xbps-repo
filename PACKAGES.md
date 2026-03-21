@@ -14,7 +14,7 @@
 | cryptomator                      | 1.19.2         | ✅       |
 | dgop                             | 0.2.2          | ✅       |
 | dioxus-cli                       | 0.7.3          | ✅       |
-| dms-shell                        | 1.4.3          | ✅       |
+| dms-shell                        | 1.4.4          | ✅       |
 | dms-shell-niri                   | /              | ✅       |
 | drawio-desktop                   | 29.6.1         | ✅       |
 | discord                          | 0.0.124        | ❌       |
