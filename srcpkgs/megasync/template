@@ -1,8 +1,8 @@
 # Template file for 'megasync'
 pkgname=megasync
-version=6.1.1.0
+version=6.2.0.5
 revision=1
-_sdkver="10.3.1"
+_sdkver="10.6.1"
 archs="x86_64"
 build_wrksrc=MEGAsync-${version}_Linux
 build_style=cmake
@@ -16,7 +16,8 @@ configure_args="-DCMAKE_BUILD_TYPE:STRING=None
 	-DUSE_FREEIMAGE:BOOL=OFF
 	-DUSE_PDFIUM:BOOL=OFF
 	-DCMAKE_INSTALL_PREFIX=/
-	-Wno-dev"
+	-Wno-dev
+	-DCMAKE_EXE_LINKER_FLAGS=-licui18n"
 hostmakedepends="pkg-config"
 makedepends="crypto++-devel libsodium-devel sqlite-devel libcurl-devel
 icu-devel libmediainfo-devel libuv-devel readline-devel qt5-devel
@@ -30,8 +31,8 @@ homepage="https://mega.io"
 changelog="https://github.com/meganz/MEGAsync/releases"
 distfiles="https://github.com/meganz/MEGAsync/archive/refs/tags/v${version}_Linux.tar.gz>${pkgname}-v${version}.tar.gz
 	https://github.com/meganz/sdk/archive/refs/tags/v${_sdkver}.tar.gz>sdk-v${_sdkver}.tar.gz"
-checksum="4a2f86508cf3315191de6689c85cab7dc811cd78e92dd4f252aea62ec836518a
-	a89ebb912ed796b183c8b5d5aeeae9412a565c6d844bac03e34f9ebe88e33540"
+checksum="dbb1f06a3a964c0b5c79b1c3bdef7f9d18575c251ea3f81085a4a2d3e358ff1f
+	9959caaabf9bd4d09d56619b27f132910aa67c4a808c3b360200dfe35ecb18bf"
 patch_args="-Np1 -d ${build_wrksrc}"
 
 post_extract() {
