@@ -47,7 +47,7 @@
 | noid-welcome                     | 0.2.1           | ✅       |
 | nyancat                          | 1.2.1           | ✅       |
 | nwm                              | 6.8             | ✅       |
-| obsidian                         | 1.12.4          | ❌       |
+| obsidian                         | 1.12.7          | ❌       |
 | onlyoffice                       | 9.3.1           | ❌       |
 | PrismLauncher-Patched            | 10.0.5          | ✅       |
 | proton-authenticator             | 1.1.4           | ❌       |
