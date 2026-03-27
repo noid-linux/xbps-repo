@@ -1,6 +1,6 @@
 # Template file for 'fluffychat'
 pkgname=fluffychat
-version=2.5.0
+version=2.5.1
 revision=1
 archs="x86_64"
 depends="xdg-user-dirs zenity jsoncpp"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0-or-later"
 homepage="https://fluffychat.im/"
 distfiles="https://github.com/krille-chan/fluffychat/releases/download/v${version}/fluffychat-linux-x64.tar.gz"
-checksum=5bad47a6a1275065777a3a829eae25de78a7e1f4c51e531938411c029d4b658e
+checksum=70f9b091ec3cbeb823c82585bc23f26f86623684aaba7c1ecb448a47d9db70bf
 nostrip=yes
 
 do_install() {
