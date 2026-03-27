@@ -1,6 +1,6 @@
 # Template file for 'drawio-desktop'
 pkgname=drawio-desktop
-version=29.6.1
+version=29.6.6
 revision=1
 build_wrksrc="drawio-desktop-${version}"
 archs="x86_64"
@@ -11,8 +11,8 @@ license="GPL-3.0-or-later"
 homepage="https://www.diagrams.net/"
 distfiles="https://github.com/jgraph/drawio-desktop/archive/refs/tags/v${version}.tar.gz>drawio-desktop-v${version}.tar.gz
 	https://github.com/jgraph/drawio/archive/refs/tags/v${version}.tar.gz>drawio-v${version}.tar.gz"
-checksum="1fa308d11d1dba81621c27cace9bd2034abe5e68cfe4387946d163fb28754d60
-	60baf1df03e204a4c67c830ba5d4985c83c29eac4ecf1824a1f7d9c8978e36b9"
+checksum="7d27ff595ce276968b0d86f968f45f6bdc2a50836056f59b5d178eb8eb5a5422
+	1ca229fc69389e88c410c405d9e0a3624dc37c62dfdd188f7d55c1a8c961b571"
 
 post_extract() {
 	mv drawio-${version}/* drawio-desktop-${version}/drawio/
