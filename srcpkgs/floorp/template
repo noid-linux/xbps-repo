@@ -1,6 +1,6 @@
 # Template file for 'floorp'
 pkgname=floorp
-version=12.11.0
+version=12.12.0
 revision=1
 archs="x86_64"
 short_desc="Firefox fork seeking balance between versatility, privacy and openness"
@@ -9,7 +9,7 @@ license="MPL-2.0"
 homepage="https://floorp.app/"
 changelog="https://blog.floorp.app/en/categories/release/"
 distfiles="https://github.com/Floorp-Projects/Floorp/releases/download/v${version}/floorp-linux-x86_64.tar.xz"
-checksum=307bcc82f9eb086aea636851d3774a7ec746bc45dd0a6a5d4681f5a477ded9c4
+checksum=a6f61ad904e8229ca4e709a30d38f2a0e6926dc3f82ddbe24efb8e0c1ba51910
 nostrip=yes
 
 do_install() {
