@@ -59,7 +59,7 @@
 | spotify                          | 1.2.84           | ❌       |
 | tenacity                         | 1.3.4            | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303   | ❌       |
-| tutanota-desktop                 | 338.260318.0     | ❌       |
+| tutanota-desktop                 | 340.260326.1     | ❌       |
 | ueberzugpp                       | 2.9.8            | ✅       |
 | ungoogled-chromium               | 146.0.7680.153-1 | ❌       |
 | vscodium                         | 1.112.01907      | ❌       |
