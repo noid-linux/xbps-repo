@@ -44,7 +44,7 @@
 | nmenu                            | 5.4              | ✅       |
 | noid-base-files                  | 0.1              | /        |
 | noid-base-system                 | 0.1              | /        |
-| noid-welcome                     | 0.2.1            | ✅       |
+| noid-welcome                     | 0.2.2            | ✅       |
 | nyancat                          | 1.2.1            | ✅       |
 | nwm                              | 6.8              | ✅       |
 | obsidian                         | 1.12.7           | ❌       |
