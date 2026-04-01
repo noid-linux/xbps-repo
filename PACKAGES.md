@@ -23,7 +23,7 @@
 | ferdium                          | 7.1.1            | ✅       |
 | floorp                           | 12.12.0          | ❌       |
 | fluffychat                       | 2.5.0            | ❌       |
-| freetube                         | 0.23.15          | ✅       |
+| freetube                         | 0.24.0           | ✅       |
 | grayjay                          | 17               | ❌       |
 | gruvbox-bibata-cursor-theme      | /                | ❌       |
 | gruvbox-gtk-theme                | 2.2              | ✅       |

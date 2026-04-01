@@ -1,17 +1,17 @@
-From 26ae402f2579ef35c536df0ace8706c71b9ec9d8 Mon Sep 17 00:00:00 2001
+From 2060bd8258223ce3b5c491fc2abf5b21c220f379 Mon Sep 17 00:00:00 2001
 From: Naz <ndpm13@ch-naseem.com>
-Date: Mon, 2 Feb 2026 12:15:26 +0100
+Date: Thu, 2 Apr 2026 09:53:19 +0100
 Subject: [PATCH] refactor: change Linux build target to dir only
 
 ---
- _scripts/build.js | 2 +-
+ _scripts/build.mjs | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/_scripts/build.js b/_scripts/build.js
-index ee1b7fa1c..c4aaee380 100644
---- a/_scripts/build.js
-+++ b/_scripts/build.js
-@@ -36,7 +36,7 @@ if (platform === 'darwin') {
+diff --git a/_scripts/build.mjs b/_scripts/build.mjs
+index 1617f1a..5720b79 100644
+--- a/_scripts/build.mjs
++++ b/_scripts/build.mjs
+@@ -34,7 +34,7 @@ if (platform === 'darwin') {
      arch = Arch.armv7l
    }
  
@@ -19,7 +19,7 @@ index ee1b7fa1c..c4aaee380 100644
 +  targets = Platform.LINUX.createTarget(['dir'], arch)
  }
  
- builder
+ const output = await build({ targets, config, publish: 'never' })
 -- 
-2.52.0
+2.53.0
 
