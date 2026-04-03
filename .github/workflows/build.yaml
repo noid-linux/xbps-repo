@@ -97,7 +97,7 @@ jobs:
         shell: bash
         run: |
           rm -f ~/all_packages/*.sig2
-          for pkg in $(< /tmp/templates); do
+          for pkg in $(ls -1 ~/packages/*.xbps | sed 's/-[^-]*$//'); do
             rm -f ~/all_packages/"$pkg"*.xbps
           done
           cp -r ~/packages ~/new_packages
@@ -124,8 +124,8 @@ jobs:
           mkdir ~/release
           cp ~/new_packages/* ~/release/
           cp ~/packages/x86_64-repodata ~/release
-          for pkg in $(< /tmp/templates); do
-            cp ~/packages/"$pkg"*.xbps.sig2 ~/release
+          for pkg in $(basename -s .xbps ~/new_packages/*.xbps); do
+            cp ~/packages/"$pkg".xbps.sig2 ~/release
           done
 
       - name: Upload built packages
@@ -138,7 +138,7 @@ jobs:
       - name: Delete existing release assets
         shell: bash
         run: |
-          for pkg in $(< /tmp/templates); do
+          for pkg in $(ls -1 ~/new_packages/*.xbps | sed 's/-[^-]*$//' | xargs -I {} basename {}); do
             gh release view latest --repo noid-linux/xbps-repo --json assets --jq '.assets[].name' \
             | grep "^${pkg}-" | xargs -I {} gh release delete-asset latest {} --repo noid-linux/xbps-repo --yes || true
           done
