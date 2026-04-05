@@ -18,7 +18,7 @@
 | dms-shell-niri                   | /                | ✅       |
 | drawio-desktop                   | 29.6.6           | ✅       |
 | discord                          | 0.0.131          | ❌       |
-| dsearch                          | 0.2.0            | ✅       |
+| dsearch                          | 0.2.1            | ✅       |
 | feishin                          | 1.5.0            | ✅       |
 | ferdium                          | 7.1.1            | ✅       |
 | floorp                           | 12.12.0          | ❌       |
