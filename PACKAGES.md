@@ -66,6 +66,7 @@
 | ungoogled-chromium               | 146.0.7680.177-1 | ❌       |
 | vscodium                         | 1.112.01907      | ❌       |
 | webapp-manager                   | 1.4.6            | ❌       |
+| xlibre-repo                      | /                | /        |
 | zap-rs                           | 0.3.1            | ✅       |
 | zen-browser                      | 1.19.6b          | ❌       |
 | zig                              | 0.15.2           | ❌       |

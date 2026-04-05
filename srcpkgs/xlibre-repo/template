@@ -1,0 +1,20 @@
+# Template file for 'xlibre-repo'
+pkgname=xlibre-repo
+version=1
+revision=1
+short_desc="XLibre for VOID linux"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://github.com/xlibre-void/xlibre/"
+distfiles="https://raw.githubusercontent.com/xlibre-void/xlibre/refs/heads/main/LICENSE>LICENSE"
+checksum="f751e1d173641da675dda69deb98ffa7e505fade0609d2c913dad4899e42d7f9"
+skip_extraction="LICENSE"
+
+do_install() {
+	vmkdir usr/share/xbps.d
+
+	echo "repository=https://github.com/xlibre-void/xlibre/releases/latest/download/" > \
+		${DESTDIR}/usr/share/xbps.d/99-repository-xlibre.conf
+
+	vlicense ${XBPS_SRCDISTDIR}/${pkgname}-${version}/LICENSE
+}
