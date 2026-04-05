@@ -1,0 +1,39 @@
+# Template file for 'hyprland-repo'
+pkgname=hyprland-repo
+version=1
+revision=1
+short_desc="Binary repositories for installing Hyprland on Void Linux"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="BSD-2-Clause"
+homepage="https://github.com/Makrennel/hyprland-void/"
+distfiles="https://raw.githubusercontent.com/Makrennel/hyprland-void/master/COPYING>COPYING"
+checksum=52e7afa13b0f7ee348727ad69bdd2fca55d2ca18ae374958681d86abe38490aa
+skip_extraction="COPYING"
+
+do_install() {
+	vmkdir usr/share/xbps.d
+
+	case "$XBPS_TARGET_MACHINE" in
+		aarch64)
+			echo "repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-aarch64-glibc" > \
+				${DESTDIR}/usr/share/xbps.d/99-hyprland-void.conf
+			;;
+		aarch64-musl)
+			echo "repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-aarch64-musl" > \
+				${DESTDIR}/usr/share/xbps.d/99-hyprland-void.conf
+			;;
+		x86_64-musl)
+			echo "repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-musl" > \
+				${DESTDIR}/usr/share/xbps.d/99-hyprland-void.conf
+			;;
+		x86_64)
+			echo "repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-glibc" > \
+				${DESTDIR}/usr/share/xbps.d/99-hyprland-void.conf
+			;;
+		*)
+			msg_error "$pkgname: unsupported architecture $XBPS_TARGET_MACHINE\n"
+			;;
+	esac
+
+	vlicense ${XBPS_SRCDISTDIR}/${pkgname}-${version}/COPYING
+}
