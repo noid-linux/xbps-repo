@@ -30,7 +30,7 @@
 | gruvbox-icons-theme              | 4.0              | ✅       |
 | gruvbox-material-theme           | /                | ❌       |
 | heroic-games-launcher            | 2.20.1           | ✅       |
-| intel-media-driver-nonfree       | 25.3.4           | ✅       |
+| intel-media-driver-nonfree       | 25.4.6           | ✅       |
 | intel-media-driver-nonfree-devel | /                | ✅       |
 | kaidan                           | 0.15.0           | ✅       |
 | librewolf                        | 149.0-1          | ❌       |
