@@ -53,8 +53,10 @@ jobs:
 
       - name: Merge custom repositories
         run: |
-          cp -f noid-packages/changed_templates.sh void-packages/common/travis/changed_templates.sh
-          cat noid-packages/shlibs | tee -a void-packages/common/shlibs
+          cp -f noid-packages/common/travis/changed_templates.sh \
+            void-packages/common/travis/changed_templates.sh
+          cat noid-packages/common/shlibs | tee -a \
+            void-packages/common/shlibs
           cp -r noid-packages/srcpkgs/* void-packages/srcpkgs/
 
       - name: Prepare masterdir
@@ -69,7 +71,7 @@ jobs:
 
       - name: Find changed templates
         run: |
-          cd noid-packages && sudo -Eu builder ./changed_templates.sh
+          cd noid-packages && sudo -Eu builder ./common/travis/changed_templates.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
