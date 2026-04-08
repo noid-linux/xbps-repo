@@ -1,6 +1,6 @@
 # Template file for 'python3-proton-vpn-local-agent'
 pkgname=python3-proton-vpn-local-agent
-version=1.6.0
+version=1.6.1
 revision=1
 archs="x86_64"
 build_wrksrc=python-proton-vpn-local-agent
@@ -13,7 +13,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/ProtonVPN/local-agent-rs"
 distfiles="https://github.com/ProtonVPN/local-agent-rs/archive/refs/tags/${version}.tar.gz"
-checksum=52b62ee267ef09d004f6bbfd10ad7ce28a5c32136200b4492c7e681be18d1676
+checksum=9ef0cc43919bab86b94e1e3a77ad7572e9a82885265635d898b817d8382917f2
 provides="py3:proton-vpn-local-agent-${version}_${revision}"
 
 do_install() {
