@@ -69,5 +69,5 @@
 | webapp-manager                   | 1.4.6            | ❌       |
 | xlibre-repo                      | /                | /        |
 | zap-rs                           | 0.3.1            | ✅       |
-| zen-browser                      | 1.19.6b          | ❌       |
+| zen-browser                      | 1.19.7b          | ❌       |
 | zig                              | 0.15.2           | ❌       |
