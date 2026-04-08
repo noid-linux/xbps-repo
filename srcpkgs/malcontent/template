@@ -1,0 +1,42 @@
+# Template file for 'malcontent'
+pkgname=malcontent
+version=0.14.0
+revision=1
+_gvdbcommit=466fc22016cf0981424e7121557611942191992f
+_tinycdbver=0.81
+build_wrksrc="${pkgname}-${version}"
+build_style=meson
+hostmakedepends="pkg-config gtk-doc gettext itstool gobject-introspection desktop-file-utils "
+makedepends="accountsservice-devel elogind-devel glib-devel gtk4-devel
+libadwaita-devel flatpak-devel libsoup3-devel gnome-desktop-devel
+pam-devel libgsystemservice-devel libglib-testing-devel"
+short_desc="Parental controls library"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="LGPL-2.1-or-later"
+homepage="https://gitlab.freedesktop.org/pwithnall/malcontent"
+changelog="https://gitlab.freedesktop.org/pwithnall/malcontent/-/raw/main/NEWS"
+distfiles="https://gitlab.freedesktop.org/pwithnall/malcontent/-/archive/${version}/malcontent-${version}.tar.gz>${pkgname}-v${version}.tar.gz
+	https://gitlab.gnome.org/GNOME/gvdb/-/archive/${_gvdbcommit}/gvdb-${_gvdbcommit}.tar.gz>gvdb-${_gvdbcommit}.tar.gz
+	https://www.corpit.ru/mjt/tinycdb/tinycdb-${_tinycdbver}.tar.gz>tinycdb-${_tinycdbver}.tar.gz"
+checksum="e581a0a1859cfd38ebb1aade3adce2592f53771560b1ab704dcd6e2afda8be24
+	bae41e65e2216c93618cd48cad97c1ac682ac0c5ebed75137e5170b630a0a378
+	469de2d445bf54880f652f4b6dc95c7cdf6f5502c35524a45b2122d70d47ebc2"
+patch_args="-Np1 -d ${build_wrksrc}"
+
+post_extract() {
+	mv gvdb-${_gvdbcommit}/* ${build_wrksrc}/subprojects/gvdb
+	mv tinycdb-${_tinycdbver} ${build_wrksrc}/subprojects/tinycdb-${_tinycdbver}
+	cp ${build_wrksrc}/subprojects/packagefiles/tinycdb/meson.build \
+		${build_wrksrc}/subprojects/tinycdb-${_tinycdbver}/meson.build
+}
+
+malcontent-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+		vmove usr/share
+	}
+}

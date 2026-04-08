@@ -1,0 +1,113 @@
+From 267e68be6893c7cdd3c7611b9d0de48b4d65ab49 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Sat, 7 Mar 2026 12:27:29 +0100
+Subject: [PATCH] fix: remove systemd unit and sysusers.d file installation
+
+---
+ malcontent-timer-extension-agent/meson.build | 14 --------------
+ malcontent-timerd/meson.build                | 14 --------------
+ malcontent-webd-update/meson.build           | 13 -------------
+ malcontent-webd/meson.build                  | 14 --------------
+ 4 files changed, 55 deletions(-)
+
+diff --git a/malcontent-timer-extension-agent/meson.build b/malcontent-timer-extension-agent/meson.build
+index 9fd37ab..8650419 100644
+--- a/malcontent-timer-extension-agent/meson.build
++++ b/malcontent-timer-extension-agent/meson.build
+@@ -47,20 +47,6 @@ configure_file(
+   install_tag: 'runtime',
+   configuration: config,
+ )
+-configure_file(
+-  input: 'malcontent-timer-extension-agent.conf.in',
+-  output: 'malcontent-timer-extension-agent.conf',
+-  install_dir: dependency('systemd').get_variable(pkgconfig: 'sysusersdir'),
+-  install_tag: 'runtime',
+-  configuration: config,
+-)
+-configure_file(
+-  input: 'malcontent-timer-extension-agent.service.in',
+-  output: 'malcontent-timer-extension-agent.service',
+-  install_dir: dependency('systemd').get_variable(pkgconfig: 'systemdsystemunitdir'),
+-  install_tag: 'runtime',
+-  configuration: config,
+-)
+ 
+ # Documentation
+ install_man('docs/malcontent-timer-extension-agent.8')
+diff --git a/malcontent-timerd/meson.build b/malcontent-timerd/meson.build
+index 6dad5ba..51d4185 100644
+--- a/malcontent-timerd/meson.build
++++ b/malcontent-timerd/meson.build
+@@ -41,20 +41,6 @@ configure_file(
+   install_tag: 'runtime',
+   configuration: config,
+ )
+-configure_file(
+-  input: 'malcontent-timerd.conf.in',
+-  output: 'malcontent-timerd.conf',
+-  install_dir: dependency('systemd').get_variable(pkgconfig: 'sysusersdir'),
+-  install_tag: 'runtime',
+-  configuration: config,
+-)
+-configure_file(
+-  input: 'malcontent-timerd.service.in',
+-  output: 'malcontent-timerd.service',
+-  install_dir: dependency('systemd').get_variable(pkgconfig: 'systemdsystemunitdir'),
+-  install_tag: 'runtime',
+-  configuration: config,
+-)
+ 
+ # Documentation
+ install_man('docs/malcontent-timerd.8')
+diff --git a/malcontent-webd-update/meson.build b/malcontent-webd-update/meson.build
+index 9f9fd2b..39231de 100644
+--- a/malcontent-webd-update/meson.build
++++ b/malcontent-webd-update/meson.build
+@@ -25,17 +25,4 @@ config = configuration_data()
+ config.set('DAEMON_USER', get_option('web_daemon_user'))
+ config.set('libexecdir', join_paths(get_option('prefix'), get_option('libexecdir')))
+ 
+-configure_file(
+-  input: 'malcontent-webd-update.service.in',
+-  output: 'malcontent-webd-update.service',
+-  install_dir: dependency('systemd').get_variable(pkgconfig: 'systemdsystemunitdir'),
+-  install_tag: 'runtime',
+-  configuration: config,
+-)
+-install_data(
+-  'malcontent-webd-update.timer',
+-  install_dir: dependency('systemd').get_variable(pkgconfig: 'systemdsystemunitdir'),
+-  install_tag: 'runtime',
+-)
+-
+ subdir('tests')
+\ No newline at end of file
+diff --git a/malcontent-webd/meson.build b/malcontent-webd/meson.build
+index 505fc5a..ebe310c 100644
+--- a/malcontent-webd/meson.build
++++ b/malcontent-webd/meson.build
+@@ -41,20 +41,6 @@ configure_file(
+   install_tag: 'runtime',
+   configuration: config,
+ )
+-configure_file(
+-  input: 'malcontent-webd.conf.in',
+-  output: 'malcontent-webd.conf',
+-  install_dir: dependency('systemd').get_variable(pkgconfig: 'sysusersdir'),
+-  install_tag: 'runtime',
+-  configuration: config,
+-)
+-configure_file(
+-  input: 'malcontent-webd.service.in',
+-  output: 'malcontent-webd.service',
+-  install_dir: dependency('systemd').get_variable(pkgconfig: 'systemdsystemunitdir'),
+-  install_tag: 'runtime',
+-  configuration: config,
+-)
+ 
+ # Documentation
+ install_man('docs/malcontent-webd.8')
+-- 
+2.52.0
+

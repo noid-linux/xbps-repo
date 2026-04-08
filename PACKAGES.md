@@ -5,7 +5,7 @@
 | android-studio                   | 2025.2.3.9       | ❌       |
 | azahar                           | 2124.3           | ✅       |
 | azaharplus                       | 2124.3-A         | ✅       |
-| bazaar                           | 0.7.10           | ✅       |
+| bazaar                           | 0.7.13           | ✅       |
 | bitwarden-desktop                | 2026.3.1         | ❌       |
 | brave                            | 1.88.138         | ❌       |
 | calamares                        | 3.4.0            | ✅       |
