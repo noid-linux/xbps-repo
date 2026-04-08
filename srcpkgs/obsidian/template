@@ -1,27 +1,33 @@
 # Template file for 'obsidian'
 pkgname=obsidian
 version=1.12.7
-revision=1
-only_for_archs="x86_64"
-hostmakedepends="tar xz"
-short_desc="Private and flexible writing app that adapts to the way you think."
+revision=2
+archs="x86_64"
+short_desc="Private and flexible writing app that adapts to the way you think"
 maintainer="Naz <ndpm13@ch-naseem.com>"
-license="Proprietary"
-homepage="https://obsidian.md"
-distfiles="https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/obsidian_${version}_amd64.deb"
-checksum=3644e3ef19bcd23db4d17f7c73311b5245429391a2a48b361da93375f59712b0
+license="custom:Proprietary"
+homepage="https://obsidian.md/"
+changelog="https://obsidian.md/changelog/"
+distfiles="https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/obsidian-${version}.tar.gz"
+checksum=fcbe08b111d9c1fdb09b9c08952b06e1c829c62163eba2584c4b4ec859be079d
+repository=nonfree
+restricted=yes
 nostrip=yes
 
-do_extract() {
-  mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/obsidian_${version}_amd64.deb
-  tar xf data.tar.xz -C ${DESTDIR}
-}
-
 do_install() {
-	vmkdir usr/bin
-  ln -sf /opt/Obsidian/obsidian ${DESTDIR}/usr/bin/obsidian
+	vmkdir opt/${pkgname}
+	vcopy "*" opt/${pkgname}
 
-  # Cleanup up
-  rm -rf ${DESTDIR}/etc
+	chmod 4755 ${DESTDIR}/opt/${pkgname}/chrome-sandbox
+
+	vmkdir usr/bin
+	ln -sf /opt/${pkgname}/${pkgname} ${DESTDIR}/usr/bin/${pkgname}
+	ln -sf /opt/${pkgname}/${pkgname}-cli ${DESTDIR}/usr/bin/${pkgname}-cli
+
+	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
+
+	vinstall resources/icon.png 644 \
+		usr/share/icons/hicolor/512x512/apps obsidian.png
+
+	vlicense ${FILESDIR}/DISTRIBUTION-DETAILS
 }
