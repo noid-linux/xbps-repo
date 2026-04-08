@@ -1,23 +1,23 @@
 # Template file for 'megasync'
 pkgname=megasync
-version=6.2.0.5
+version=6.2.1.0
 revision=1
-_sdkver="10.6.1"
+_sdkver="10.6.2"
 archs="x86_64"
 build_wrksrc=MEGAsync-${version}_Linux
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE:STRING=None
-	-DCMAKE_MODULE_PATH:PATH=src/MEGASync/mega/cmake/modules/packages
-	-DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
-	-DENABLE_DESIGN_TOKENS_IMPORTER:BOOL=OFF
-	-DENABLE_DESKTOP_APP_TESTS:BOOL=OFF
-	-DUSE_BREAKPAD:BOOL=OFF
-	-DUSE_FFMPEG:BOOL=OFF
-	-DUSE_FREEIMAGE:BOOL=OFF
-	-DUSE_PDFIUM:BOOL=OFF
-	-DCMAKE_INSTALL_PREFIX=/
-	-Wno-dev
-	-DCMAKE_EXE_LINKER_FLAGS=-licui18n"
+ -DCMAKE_MODULE_PATH:PATH=src/MEGASync/mega/cmake/modules/packages
+ -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
+ -DENABLE_DESIGN_TOKENS_IMPORTER:BOOL=OFF
+ -DENABLE_DESKTOP_APP_TESTS:BOOL=OFF
+ -DUSE_BREAKPAD:BOOL=OFF
+ -DUSE_FFMPEG:BOOL=OFF
+ -DUSE_FREEIMAGE:BOOL=OFF
+ -DUSE_PDFIUM:BOOL=OFF
+ -DCMAKE_INSTALL_PREFIX=/
+ -Wno-dev
+ -DCMAKE_EXE_LINKER_FLAGS=-licui18n"
 hostmakedepends="pkg-config"
 makedepends="crypto++-devel libsodium-devel sqlite-devel libcurl-devel
 icu-devel libmediainfo-devel libuv-devel readline-devel qt5-devel
@@ -31,10 +31,14 @@ homepage="https://mega.io"
 changelog="https://github.com/meganz/MEGAsync/releases"
 distfiles="https://github.com/meganz/MEGAsync/archive/refs/tags/v${version}_Linux.tar.gz>${pkgname}-v${version}.tar.gz
 	https://github.com/meganz/sdk/archive/refs/tags/v${_sdkver}.tar.gz>sdk-v${_sdkver}.tar.gz"
-checksum="dbb1f06a3a964c0b5c79b1c3bdef7f9d18575c251ea3f81085a4a2d3e358ff1f
-	9959caaabf9bd4d09d56619b27f132910aa67c4a808c3b360200dfe35ecb18bf"
+checksum="62e7a65aa25db314aa298c5b2803f4da331d13fde8f377687a539fbf88ceca99
+	2588b7c708d721b08a8e8738ff2f792c688d7087ab98042dd94bf7870e32b5a1"
 patch_args="-Np1 -d ${build_wrksrc}"
 
 post_extract() {
 	mv sdk-${_sdkver}/* ${build_wrksrc}/src/MEGASync/mega
+}
+
+post_install() {
+	vlicense LICENCE.md
 }
