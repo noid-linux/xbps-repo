@@ -13,6 +13,7 @@
 | clipcat                          | 0.24.1           | ✅       |
 | cryptomator                      | 1.19.2           | ✅       |
 | dgop                             | 0.2.2            | ✅       |
+| dinit-rc                         | 0.6.4            | ✅       |
 | dioxus-cli                       | 0.7.3            | ✅       |
 | dms-shell                        | 1.4.4.1          | ✅       |
 | dms-shell-niri                   | /                | ✅       |
