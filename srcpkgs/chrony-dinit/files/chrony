@@ -1,0 +1,6 @@
+type			= process
+command			= /usr/lib/dinit/chronyd
+smooth-recovery	= true
+logfile			= /var/log/dinit/chronyd.log
+depends-on      = network.target
+depends-on      = local.target

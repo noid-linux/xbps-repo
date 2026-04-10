@@ -1,0 +1,16 @@
+# Template file for 'chrony-dinit'
+pkgname=chrony-dinit
+version=20260410
+revision=1
+_pkgname="${pkgname%-dinit}"
+make_dirs="/var/run/chrony 0750 chrony chrony"
+depends="dinit ${_pkgname}"
+short_desc="Dinit service scripts for ${_pkgname}"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="custom:Public Domain"	# no vlicense check
+homepage="https://noid-linux.github.io"
+
+do_install() {
+	vinstall ${FILESDIR}/${_pkgname}.script 755 usr/lib/dinit chronyd
+	vinstall ${FILESDIR}/${_pkgname} 644 etc/dinit.d chronyd
+}
