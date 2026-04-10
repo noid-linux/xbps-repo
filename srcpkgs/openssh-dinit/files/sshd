@@ -1,0 +1,7 @@
+type			= process
+command			= /usr/bin/sshd -D
+smooth-recovery	= true
+logfile			= /var/log/dinit/sshd.log
+depends-on		= ssh-keygen
+depends-on		= network.target
+before			= login.target
