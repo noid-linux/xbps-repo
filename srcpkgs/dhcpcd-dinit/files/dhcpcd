@@ -1,0 +1,6 @@
+type			= process
+command			= /usr/bin/dhcpcd -B -M
+smooth-recovery	= true
+logfile			= /var/log/dinit/dhcpcd.log
+depends-on		= pre-network.target
+before			= network.target
