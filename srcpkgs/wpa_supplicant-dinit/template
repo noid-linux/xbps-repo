@@ -1,0 +1,14 @@
+# Template file for 'wpa_supplicant-dinit'
+pkgname=wpa_supplicant-dinit
+version=20260410
+revision=2
+depends="dinit ${pkgname%-dinit}"
+short_desc="Dinit service scripts for ${pkgname%-dinit}"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="custom:Public Domain"	# no vlicense check
+homepage="https://noid-linux.github.io"
+
+do_install() {
+	vinstall ${FILESDIR}/wpa_supplicant 644 etc/dinit.d
+	vinstall ${FILESDIR}/wpa_supplicant.conf 644 etc/dinit.d/config
+}
