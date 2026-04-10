@@ -1,0 +1,14 @@
+# Template file for 'elogind-dinit'
+pkgname=elogind-dinit
+version=20260410
+revision=1
+_pkgname="${pkgname%-dinit}"
+depends="dinit ${_pkgname}"
+short_desc="Dinit service scripts for ${_pkgname}"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="custom:Public Domain"	# no vlicense check
+homepage="https://noid-linux.github.io"
+
+do_install() {
+	vinstall ${FILESDIR}/${_pkgname} 644 etc/dinit.d
+}

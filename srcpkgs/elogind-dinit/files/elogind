@@ -1,0 +1,7 @@
+type				= process
+command				= /usr/libexec/elogind/elogind.wrapper
+smooth-recovery		= true
+logfile				= /var/log/dinit/elogind.log
+depends-on			= dbus
+depends-on			= local.target
+ready-notification	= pipefd:4
