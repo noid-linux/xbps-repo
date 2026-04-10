@@ -1,0 +1,6 @@
+type			= process
+command			= /usr/lib/dinit/lightdm
+smooth-recovery	= true
+logfile			= /var/log/dinit/lightdm.log
+depends-on		= dbus
+depends-on      = login.target
