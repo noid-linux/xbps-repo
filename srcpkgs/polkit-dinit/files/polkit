@@ -1,0 +1,7 @@
+type				= process
+command				= /usr/lib/polkit-1/polkitd --no-debug
+smooth-recovery		= true
+logfile				= /var/log/dinit/polkitd.log
+before				= login.target
+depends-on			= local.target
+depends-on			= dbus
