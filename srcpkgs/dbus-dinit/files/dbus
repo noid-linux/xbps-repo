@@ -1,0 +1,7 @@
+type				= process
+command				= /usr/lib/dinit/dbus --print-address=4
+smooth-recovery		= no
+logfile				= /var/log/dinit/dbus-daemon.log
+after				= local.target
+before				= login.target
+ready-notification	= pipefd:4
