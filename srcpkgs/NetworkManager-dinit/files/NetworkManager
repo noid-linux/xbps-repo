@@ -1,0 +1,7 @@
+type			= process
+command			= /usr/bin/NetworkManager -n
+smooth-recovery	= true
+logfile			= /var/log/dinit/NetworkManager.log
+depends-on		= dbus
+depends-on      = pre-network.target
+before			= network.target
