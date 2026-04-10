@@ -1,0 +1,17 @@
+# Template file for 'ly-dinit'
+pkgname=ly-dinit
+version=20260410
+revision=3
+_pkgname="${pkgname%-dinit}"
+depends="dinit ${_pkgname}"
+short_desc="Dinit service scripts for ${_pkgname}"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="custom:Public Domain"	# no vlicense check
+homepage="https://noid-linux.github.io"
+
+do_install() {
+	vinstall ${FILESDIR}/${_pkgname}.script 755 usr/lib/dinit \
+		${_pkgname}
+	vinstall ${FILESDIR}/${_pkgname}.conf 644 etc/dinit.d/config
+	vinstall ${FILESDIR}/${_pkgname} 644 etc/dinit.d
+}

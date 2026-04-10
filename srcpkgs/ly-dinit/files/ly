@@ -1,0 +1,10 @@
+type			= process
+command			= /usr/lib/dinit/ly
+env-file		= /etc/dinit.d/config/ly.conf
+smooth-recovery	= true
+restart			= true
+logfile			= /var/log/dinit/ly.log
+termsignal		= HUP
+depends-on		= login.target
+# ly needs access to console while login.target already occupies it
+options			= shares-console

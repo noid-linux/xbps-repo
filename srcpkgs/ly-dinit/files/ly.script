@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ -x /sbin/getty -o -x /bin/getty ]; then
+	# busybox
+	GETTY=getty
+elif [ -x /sbin/agetty -o -x /bin/agetty ]; then
+	# util-linux
+	GETTY=agetty
+
+	if [ "${tty}" = "tty1" ]; then
+		GETTY_ARGS="--noclear"
+	fi
+fi
+
+exec setsid ${GETTY} ${GETTY_ARGS} -nl \
+	$PREFIX_DIRECTORY/bin/$EXECUTABLE_NAME "${TTY}" "${BAUD_RATE}" \
+	"${TERM_NAME}"
