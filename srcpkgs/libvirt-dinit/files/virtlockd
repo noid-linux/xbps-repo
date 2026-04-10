@@ -1,0 +1,6 @@
+type			= process
+command         = /usr/bin/virtlockd
+smooth-recovery	= true
+logfile			= /var/log/dinit/virtlockd.log
+before			= local.target
+before			= login.target
