@@ -1,22 +1,23 @@
-# Template file for 'noid-base-system'
-pkgname=noid-base-system
+# Template file for 'noid-dinit-base-system'
+pkgname=noid-dinit-base-system
 version=20260410
 revision=1
 metapackage=yes
-short_desc="Noid Linux base system meta package"
+short_desc="Noid Linux base system meta package - Dinit"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="Public Domain"
 homepage="https://git.ch-naseem.com/noid-linux"
-conflicts="base-system>=0 noid-dinit-base-system>=0"
-replaces="base-system>=0 noid-dinit-base-system>=0"
+conflicts="base-system>=0 noid-base-system>=0"
+replaces="base-system>=0 noid-base-system>=0"
 
 depends="
  noid-base-files ncurses coreutils findutils diffutils libgcc
  dash bash grep gzip file sed gawk less util-linux which tar man-pages
- mdocml>=1.13.3 shadow e2fsprogs btrfs-progs xfsprogs f2fs-tools dosfstools
- procps-ng tzdata pciutils usbutils iana-etc openssh dhcpcd
+ mdocml>=1.13.3 shadow e2fsprogs btrfs-progs xfsprogs f2fs-tools
+ dosfstools procps-ng tzdata pciutils usbutils iana-etc openssh dhcpcd
  kbd iproute2 iputils iw wpa_supplicant xbps nvi sudo wifi-firmware
- noid-artwork traceroute ethtool kmod acpid eudev runit-void removed-packages"
+ noid-artwork traceroute ethtool kmod acpid eudev dinit dinit-rc
+ removed-packages"
 
 case "$XBPS_TARGET_MACHINE" in
 	*-musl) depends+=" musl";;
