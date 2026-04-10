@@ -1,0 +1,52 @@
+From 7914efb30b67b24d9c7966d6f5b17202bb95521e Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Mon, 6 Apr 2026 17:00:24 +0100
+Subject: [PATCH] fix: use libc-locales instead of locale.cfg
+
+---
+ src/modules/localecfg/main.py | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/src/modules/localecfg/main.py b/src/modules/localecfg/main.py
+index 9cf5930..9da87db 100644
+--- a/src/modules/localecfg/main.py
++++ b/src/modules/localecfg/main.py
+@@ -46,7 +46,7 @@ def extract_locale(line):
+     Extracts a locale from the @p line, and returns a pair of
+     (extracted-locale, uncommented line). The locale is the
+     first word of the line after uncommenting (in the human-
+-    readable text explanation at the top of most /etc/locale.gen
++    readable text explanation at the top of most /etc/default/libc-locales
+     files, the locales may be bogus -- either "" or e.g. "Configuration")
+     """
+     # Remove leading spaces and comment signs
+@@ -140,7 +140,7 @@ def run():
+         return (_("Configuration Error"),
+                 _("No root mount point is given for <pre>{!s}</pre> to use." ).format("localecfg"))
+ 
+-    target_locale_gen = "{!s}/etc/locale.gen".format(install_path)
++    target_locale_gen = "{!s}/etc/default/libc-locales".format(install_path)
+     target_locale_gen_bak = target_locale_gen + ".bak"
+     target_locale_conf_path = "{!s}/etc/locale.conf".format(install_path)
+     target_etc_default_path = "{!s}/etc/default".format(install_path)
+@@ -151,12 +151,12 @@ def run():
+         libcalamares.utils.debug("Restored backup {!s} -> {!s}"
+             .format(target_locale_gen_bak, target_locale_gen))
+ 
+-    # run locale-gen if detected; this *will* cause an exception
+-    # if the live system has locale.gen, but the target does not:
+-    # in that case, fix your installation filesystem.
+-    if os.path.exists('/etc/locale.gen'):
++    # run `xbps-reconfigure -f glibc-locales` if detected; this *will*
++    # cause an exception if the live system has locale.gen, but the
++    # target does not: in that case, fix your installation filesystem.
++    if os.path.exists('/etc/default/libc-locales'):
+         rewrite_locale_gen(target_locale_gen, target_locale_gen, locale_conf)
+-        libcalamares.utils.target_env_call(['locale-gen'])
++        libcalamares.utils.target_env_call(['xbps-reconfigure', '-f', 'glibc-locales'])
+         libcalamares.utils.debug('{!s} done'.format(target_locale_gen))
+ 
+     # write /etc/locale.conf
+-- 
+2.53.0
+

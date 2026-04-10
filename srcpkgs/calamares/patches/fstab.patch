@@ -1,0 +1,25 @@
+From a61d1c172d9376e0c5789ea2c4afd3da6295c719 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Mon, 6 Apr 2026 17:02:14 +0100
+Subject: [PATCH] fix: increase fstab desired size to 2GB
+
+---
+ src/modules/fstab/main.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/modules/fstab/main.py b/src/modules/fstab/main.py
+index bd7ae77..2cfca35 100755
+--- a/src/modules/fstab/main.py
++++ b/src/modules/fstab/main.py
+@@ -353,7 +353,7 @@ def create_swapfile(root_mount_point, root_btrfs):
+     zeroes = bytes(16384)
+     with open(swapfile_path, "wb") as f:
+         total = 0
+-        desired_size = 512 * 1024 * 1024  # 512MiB
++        desired_size = 2048 * 1024 * 1024  # 2048MiB
+         while total < desired_size:
+             chunk = f.write(zeroes)
+             if chunk < 1:
+-- 
+2.53.0
+
