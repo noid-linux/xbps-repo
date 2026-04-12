@@ -1,0 +1,204 @@
+From 39a6b13f25686807ded8d7d1527df9b10bd98cb0 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Sun, 12 Apr 2026 12:02:36 +0100
+Subject: [PATCH] FUCK MICROSOFT
+
+---
+ launcher/LaunchController.cpp           | 70 +++++++++----------------
+ launcher/LaunchController.h             |  4 +-
+ launcher/minecraft/auth/AccountList.cpp |  7 +--
+ 3 files changed, 29 insertions(+), 52 deletions(-)
+
+diff --git a/launcher/LaunchController.cpp b/launcher/LaunchController.cpp
+index d263cc5..59d7463 100644
+--- a/launcher/LaunchController.cpp
++++ b/launcher/LaunchController.cpp
+@@ -93,10 +93,7 @@ void LaunchController::decideAccount()
+ 
+     if (!accounts->anyAccountIsValid()) {
+         // Tell the user they need to log in at least one account in order to play.
+-        auto reply = CustomMessageBox::selectable(m_parentWidget, tr("No Accounts"),
+-                                                  tr("In order to play Minecraft, you must have at least one Microsoft "
+-                                                     "account which owns Minecraft logged in. "
+-                                                     "Would you like to open the account manager to add an account now?"),
++        auto reply = CustomMessageBox::selectable(m_parentWidget, tr("No Accounts"), tr("You must have at least one account logged in."),
+                                                   QMessageBox::Information, QMessageBox::Yes | QMessageBox::No)
+                          ->exec();
+ 
+@@ -137,68 +134,53 @@ LaunchDecision LaunchController::decideLaunchMode()
+         if (m_accountToUse->shouldRefresh() || m_accountToUse->accountState() == AccountState::Offline) {
+             // Force account refresh on the account used to launch the instance updating the AccountState
+             // only on first try and if it is not meant to be offline
+-            m_accountToUse->refresh();
++            auto accounts = APPLICATION->accounts();
++            accounts->requestRefresh(m_accountToUse->internalId());
+         }
+     }
+ 
+-    const auto* accounts = APPLICATION->accounts();
+-    MinecraftAccountPtr accountToCheck = nullptr;
+-
+-    if (m_accountToUse->accountType() != AccountType::Offline) {
+-        accountToCheck = m_accountToUse->ownsMinecraft() ? m_accountToUse : nullptr;
+-    } else if (const auto defaultAccount = accounts->defaultAccount(); defaultAccount && defaultAccount->ownsMinecraft()) {
+-        accountToCheck = defaultAccount;
+-    } else {
+-        for (int i = 0; i < accounts->count(); i++) {
+-            if (const auto account = accounts->at(i); account->ownsMinecraft()) {
+-                accountToCheck = account;
+-                break;
+-            }
+-        }
+-    }
+-
+-    if (!accountToCheck) {
+-        m_actualLaunchMode = LaunchMode::Demo;
++    if (m_accountToUse->accountType() == AccountType::Offline) {
++        m_actualLaunchMode = LaunchMode::Offline;
+         return LaunchDecision::Continue;
+     }
+ 
+-    auto state = accountToCheck->accountState();
++    auto state = m_accountToUse->accountState();
+     if (state == AccountState::Unchecked || state == AccountState::Errored) {
+-        accountToCheck->refresh();
++        m_accountToUse->refresh();
+         state = AccountState::Working;
+     }
+ 
+     if (state == AccountState::Working) {
+         // refresh is in progress, we need to wait for it to finish to proceed.
+         ProgressDialog progDialog(m_parentWidget);
+-        progDialog.setSkipButton(true, tr("Abort"));
++        progDialog.setSkipButton(true, tr("Play Offline"));
+ 
+         // TODO: this relies on tasks' synchronous signal dispatching nature
+         // TODO: meaning currentTask can't complete and become null while this code is running
+         // TODO: this code will produce a race condition when tasks become fully async
+-        auto task = accountToCheck->currentTask();
++        auto task = m_accountToUse->currentTask();
+         progDialog.execWithTask(task.get());
+ 
+         if (task->getState() == State::AbortedByUser) {
+             return LaunchDecision::Abort;
+         }
+ 
+-        state = accountToCheck->accountState();
++        state = m_accountToUse->accountState();
+     }
+ 
+     QString reauthReason;
+     switch (state) {
+         case AccountState::Errored:
+-            reauthReason = tr("An error occurred while refreshing '%1'").arg(accountToCheck->profileName());
++            reauthReason = tr("An error occurred while refreshing the account");
+             break;
+         case AccountState::Expired:
+-            reauthReason = tr("'%1' has expired and needs to be reauthenticated").arg(accountToCheck->profileName());
++            reauthReason = tr("The account has expired and needs to be reauthenticated");
+             break;
+         case AccountState::Disabled:
+             reauthReason = tr("The launcher's client identification has changed");
+             break;
+         case AccountState::Gone:
+-            reauthReason = tr("'%1' no longer exists on the servers").arg(accountToCheck->profileName());
++            reauthReason = tr("The account no longer exists on the servers");
+             break;
+         default:
+             m_actualLaunchMode =
+@@ -206,7 +188,7 @@ LaunchDecision LaunchController::decideLaunchMode()
+             return LaunchDecision::Continue;  // All good to go
+     }
+ 
+-    if (reauthenticateAccount(accountToCheck, reauthReason)) {
++    if (reauthenticateAccount()) {
+         return LaunchDecision::Undecided;
+     }
+ 
+@@ -314,7 +296,7 @@ void LaunchController::login()
+             }
+         }
+ 
+-        if (m_actualLaunchMode == LaunchMode::Offline && m_accountToUse->accountType() != AccountType::Offline) {
++        if (m_actualLaunchMode == LaunchMode::Offline) {
+             bool ok = false;
+             QString name = m_offlineName;
+             if (name.isEmpty()) {
+@@ -331,16 +313,16 @@ void LaunchController::login()
+     launchInstance();
+ }
+ 
+-bool LaunchController::reauthenticateAccount(const MinecraftAccountPtr& account, const QString& reason)
++bool LaunchController::reauthenticateAccount()
+ {
+-    auto button = QMessageBox::warning(
+-        m_parentWidget, tr("Account refresh failed"), tr("%1. Do you want to reauthenticate this account?").arg(reason),
+-        QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, QMessageBox::StandardButton::Yes);
++    auto button =
++        QMessageBox::warning(m_parentWidget, tr("Account refresh failed"), tr("The account has expired. Do you want to reauthenticate?"),
++                             QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, QMessageBox::StandardButton::Yes);
+     if (button == QMessageBox::StandardButton::Yes) {
+         auto* accounts = APPLICATION->accounts();
+-        const bool isDefault = accounts->defaultAccount() == account;
+-        accounts->removeAccount(accounts->index(accounts->findAccountByProfileId(account->profileId())));
+-        if (account->accountType() == AccountType::MSA) {
++        const bool isDefault = accounts->defaultAccount() == m_accountToUse;
++        accounts->removeAccount(accounts->index(accounts->findAccountByProfileId(m_accountToUse->profileId())));
++        if (m_accountToUse->accountType() == AccountType::MSA) {
+             auto newAccount = MSALoginDialog::newAccount(m_parentWidget);
+ 
+             if (newAccount != nullptr) {
+@@ -350,13 +332,13 @@ bool LaunchController::reauthenticateAccount(const MinecraftAccountPtr& account,
+                     accounts->setDefaultAccount(newAccount);
+                 }
+ 
+-                if (m_accountToUse == account) {
+-                    m_accountToUse = nullptr;
+-                    decideAccount();
+-                }
++                m_accountToUse = nullptr;
++                decideAccount();
++
+                 return true;
+             }
+         }
++        emitFailed(tr("Account expired and re-login attempt failed"));
+     }
+ 
+     return false;
+diff --git a/launcher/LaunchController.h b/launcher/LaunchController.h
+index 742f205..e83f6f9 100644
+--- a/launcher/LaunchController.h
++++ b/launcher/LaunchController.h
+@@ -78,8 +78,8 @@ class LaunchController : public Task {
+     void decideAccount();
+     LaunchDecision decideLaunchMode();
+     bool askPlayDemo() const;
+-    QString askOfflineName(const QString& playerName, bool* ok = nullptr) const;
+-    bool reauthenticateAccount(const MinecraftAccountPtr& account, const QString& reason);
++    QString askOfflineName(const QString& playerName, bool* ok) const;
++    bool reauthenticateAccount();
+ 
+    private slots:
+     void readyForLaunch();
+diff --git a/launcher/minecraft/auth/AccountList.cpp b/launcher/minecraft/auth/AccountList.cpp
+index ac27b6b..af430c8 100644
+--- a/launcher/minecraft/auth/AccountList.cpp
++++ b/launcher/minecraft/auth/AccountList.cpp
+@@ -591,12 +591,7 @@ void AccountList::setListFilePath(QString path, bool autosave)
+ 
+ bool AccountList::anyAccountIsValid()
+ {
+-    for (auto account : m_accounts) {
+-        if (account->ownsMinecraft()) {
+-            return true;
+-        }
+-    }
+-    return false;
++    return true;
+ }
+ 
+ void AccountList::fillQueue()
+-- 
+2.53.0
+
