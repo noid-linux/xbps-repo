@@ -1,6 +1,6 @@
 # Template file for 'PrismLauncher-Patched'
 pkgname=PrismLauncher-Patched
-version=11.0.1
+version=11.0.2
 revision=1
 archs="x86_64"
 build_style=cmake
@@ -15,7 +15,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-only"
 homepage="https://prismlauncher.org/"
 distfiles="https://github.com/PrismLauncher/PrismLauncher/releases/download/${version}/PrismLauncher-${version}.tar.gz"
-checksum=8dc12c1d5bfd67b1e07047313c606826da0079f214a81311d6f5e24005894e8d
+checksum=8956e9351bcb0472fc9c2c61ae68aa2960f27f7cabb1cacd86dd2af1c233a064
 conflicts="PrismLauncher>=0"
 
 if [ -z "$XBPS_CHECK_PKGS" ]; then
