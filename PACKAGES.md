@@ -60,7 +60,7 @@
 | rustdesk                         | 1.4.6           | ❌       |
 | sbm-rs                           | 0.1.0           | ✅       |
 | slack-desktop                    | 4.47.69         | ❌       |
-| spotify                          | 1.2.84          | ❌       |
+| spotify                          | 1.2.86          | ❌       |
 | sway-scroll                      | 1.12.8          | ✅       |
 | tenacity                         | 1.3.4           | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303  | ❌       |
