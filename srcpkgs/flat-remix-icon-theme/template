@@ -1,0 +1,13 @@
+# Template file for 'flat-remix-icon-theme'
+pkgname=flat-remix-icon-theme
+version=20251119
+revision=1
+build_style=gnu-makefile
+short_desc="Flat remix is a pretty simple icon theme inspired on material design"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-only"
+homepage="https://drasite.com/flat-remix"
+changelog="https://raw.githubusercontent.com/daniruiz/flat-remix/refs/heads/master/CHANGELOG"
+distfiles="https://github.com/daniruiz/flat-remix/archive/refs/tags/${version}.tar.gz"
+checksum=eba0547045a1714b47f1951d342624b70da150bdcc69d480883ab4667fe3e09b
+nostrip=yes
