@@ -41,7 +41,7 @@
 | lutgen-studio                    | 0.3.0           | ✅       |
 | ly                               | 1.3.2           | ✅       |
 | megasync                         | 6.2.1.0         | ✅       |
-| mesa                             | 26.0.4          | ✅       |
+| mesa                             | 26.0.5          | ✅       |
 | mission-center                   | 1.1.0           | ✅       |
 | ndpm                             | 0.1.5           | ✅       |
 | nerd-fonts-cascadiacode          | 3.4.0           | ❌       |

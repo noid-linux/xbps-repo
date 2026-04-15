@@ -1,6 +1,6 @@
 # Template file for 'mesa'
 pkgname=mesa
-version=26.0.4
+version=26.0.5
 revision=1
 build_style=meson
 build_helper="qemu"
@@ -25,7 +25,7 @@ license="MIT, LGPL-2.1-or-later"
 homepage="https://www.mesa3d.org/"
 changelog="https://docs.mesa3d.org/relnotes.html"
 distfiles="https://mesa3d.org/archive/mesa-${version}.tar.xz"
-checksum=6d91541e086f29bb003602d2c81070f2be4c0693a90b181ca91e46fa3953fe78
+checksum=d229c9937d9a25ca0a8958c59f425174563d300ec42acbea2dbe84a055023368
 
 # XXX: use `common/scripts/gen-wrap-distfiles.py masterdir-*/builddir/mesa-*/subprojects/*-rs.wrap` to generate
 # BEGIN GENERATED
