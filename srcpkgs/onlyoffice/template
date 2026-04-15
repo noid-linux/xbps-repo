@@ -1,10 +1,9 @@
 # Template file for 'onlyoffice'
 pkgname=onlyoffice
 version=9.3.1
-revision=1
-only_for_archs="x86_64"
-hostmakedepends="tar xz"
-short_desc="An office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents"
+revision=2
+archs="x86_64"
+short_desc="Office suite that combines text, spreadsheet and presentation editors"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0-only"
 homepage="https://www.onlyoffice.com/"
@@ -12,13 +11,7 @@ distfiles="https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${ver
 checksum=2fdda24d2efe65528d0aabad0633d868f22f67cf1567f8df39e72cba24f6af24
 nostrip=yes
 
-do_extract() {
-  mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/onlyoffice-desktopeditors_amd64.deb
-  tar xf data.tar.xz -C ${DESTDIR}
-}
-
 do_install() {
-  # Cleanup up
-  rm -rf ${DESTDIR}/etc
+	vlicense usr/share/licenses/onlyoffice-desktopeditors/LICENSE
+	vcopy * /
 }

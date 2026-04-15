@@ -1,9 +1,9 @@
 # Template file for 'ungoogled-chromium'
 pkgname=ungoogled-chromium
 version=147.0.7727.55.1
-revision=1
+revision=2
 _version="${version%.*}-${version##*.}"
-short_desc="A lightweight approach to removing Google web service dependency"
+short_desc="Lightweight approach to removing Google web service dependency"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="BSD-3-Clause"
 homepage="https://github.com/ungoogled-software/ungoogled-chromium"

@@ -1,9 +1,9 @@
 # Template file for 'tutanota-desktop'
 pkgname=tutanota-desktop
 version=340.260326.1
-revision=1
+revision=2
 archs="x86_64"
-short_desc="The desktop client for Tutanota, the secure e-mail service."
+short_desc="Desktop client for Tutanota, the secure e-mail service"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-only"
 homepage="https://tuta.com/"
@@ -17,6 +17,8 @@ do_install() {
 
 	vbin ${FILESDIR}/tutanota-desktop.sh tutanota-desktop
 
-	vinstall ${FILESDIR}/tutanota-desktop.desktop 644 usr/share/applications
-	vinstall resources/icons/icon/512.png 644 usr/share/pixmaps tutanota.png
+	vinstall ${FILESDIR}/tutanota-desktop.desktop 644 \
+		usr/share/applications
+	vinstall resources/icons/icon/512.png 644 \
+		usr/share/pixmaps tutanota.png
 }

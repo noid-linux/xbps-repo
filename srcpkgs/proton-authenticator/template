@@ -1,23 +1,16 @@
 # Template file for 'proton-authenticator'
 pkgname=proton-authenticator
 version=1.1.4
-revision=1
-only_for_archs="x86_64"
-hostmakedepends="tar"
-short_desc="An open source and end-to-end encrypted 2FA app. Securely sync and backup your 2FA codes easily."
-maintainer="Naz <ndpm13@ch-naeseem.com>"
+revision=2
+archs="x86_64"
+short_desc="Open source and end-to-end encrypted 2FA app"
+maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://proton.me/authenticator"
 distfiles="https://proton.me/download/authenticator/linux/ProtonAuthenticator_${version}_amd64.deb"
 checksum=4a84deaa76033200a858b19a4195da1e244a1ab7859fb14f4b3e42d0ef3cb963
 nostrip=yes
 
-do_extract() {
-  mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/ProtonAuthenticator_${version}_amd64.deb
-  tar xf data.tar.gz -C ${DESTDIR}
-}
-
 do_install() {
-	:
+	vcopy "*" /usr/
 }

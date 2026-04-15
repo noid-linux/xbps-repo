@@ -1,12 +1,12 @@
 # Template file for 'webapp-manager'
 pkgname=webapp-manager
 version=1.4.6
-revision=1
+revision=2
 archs="x86_64"
 hostmakedepends="tar xz"
 depends="python3-tldextract python3-xapp python3-Pillow
-python3-BeautifulSoup4 python3-configobj python3-gobject
-python3-setproctitle python3-tldextract xapp-symbolic-icons"
+ python3-BeautifulSoup4 python3-configobj python3-gobject
+ python3-setproctitle python3-tldextract xapp-symbolic-icons"
 short_desc="Run websites as if they were apps"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"

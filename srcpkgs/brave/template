@@ -1,7 +1,7 @@
 # Template file for 'brave'
 pkgname=brave
 version=1.89.132
-revision=1
+revision=2
 archs="x86_64"
 short_desc="Web browser that blocks ads and trackers by default"
 maintainer="Naz <ndpm13@ch-naseem.com>"

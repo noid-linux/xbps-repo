@@ -1,10 +1,10 @@
 # Template file for 'nerd-fonts-cascadiacode'
 pkgname=nerd-fonts-cascadiacode
 version=3.4.0
-revision=1
+revision=2
 create_wrksrc=yes
 depends="font-util"
-short_desc="CascadiaCode Nerd Font - monospaced font with programming ligatures and glyphs"
+short_desc="Nerd Fonts: Like Cascadia Code but without any ligatures"
 maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MIT"
 homepage="https://nerdfonts.com"

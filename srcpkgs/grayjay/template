@@ -1,26 +1,19 @@
 # Template file for 'grayjay'
 pkgname=grayjay
 version=17
-revision=1
-only_for_archs="x86_64"
-hostmakedepends="unzip"
-makedepends=""
-depends="gtk+3 libnotify nss libXScrnSaver libXtst xdg-utils at-spi2-core libsecret libayatana-appindicator"
+revision=2
+archs="x86_64"
+depends="gtk+3 libnotify nss libXScrnSaver libXtst xdg-utils
+ at-spi2-core libsecret libayatana-appindicator"
 short_desc="Grayjay Desktop - follow creators, not platforms"
 maintainer="Naz <ndpm13@ch-naeseem.com>"
-license="Source First License 1.1"
+license="custom:Source-First-License-1.1"
 homepage="https://grayjay.app/"
 distfiles="https://updater.grayjay.app/Apps/Grayjay.Desktop/${version}/Grayjay.Desktop-linux-x64-v${version}.zip"
 checksum=29a5b953a26c30af10dafa1727b588f19cea93c74073882fa7e1f2a9336757d4
 nostrip=yes
 
-do_extract() {
-    unzip ${XBPS_SRCDISTDIR}/${pkgname}-${version}/Grayjay.Desktop-linux-x64-v${version}.zip
-}
-
 do_install() {
-    cd "Grayjay.Desktop-linux-x64-v${version}"
-
     vmkdir usr/lib/grayjay
     vcopy "*" usr/lib/grayjay/
 

@@ -1,8 +1,8 @@
 # Template file for 'zap-rs'
 pkgname=zap-rs
 version=0.3.1
-revision=1
-only_for_archs="x86_64"
+revision=2
+archs="x86_64"
 build_style=cargo
 hostmakedepends="pkg-config"
 makedepends="openssl-devel"
@@ -15,5 +15,5 @@ distfiles="https://github.com/ndpm13/zap-rs/archive/refs/tags/v${version}.tar.gz
 checksum="1dfd14e1aef1d54402228a21b2365ee7d7aa5dd77c01696723add3afd8083eda"
 
 post_install() {
-    vlicense LICENSE
+	vlicense LICENSE
 }

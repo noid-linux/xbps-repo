@@ -1,16 +1,19 @@
 # Template file for 'vscodium'
 pkgname=vscodium
 version=1.112.01907
-revision=1
+revision=2
 archs="x86_64"
 depends="fontconfig libXtst libnotify libXScrnSaver"
 short_desc="Free/Libre Open Source Software Binaries of VSCode"
 maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MIT"
 homepage="https://vscodium.com/"
-distfiles="https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-linux-x64-${version}.tar.gz"
-checksum="08fe2d219843a02e7a4fa37445479b351c370a3c46f36a1d1ede1663cae0992f"
+distfiles="https://github.com/VSCodium/vscodium/raw/refs/heads/master/LICENSE
+ https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-linux-x64-${version}.tar.gz"
+checksum="ed289092386002771285e3423f66f49af65ff918e1b667b517d977fa4fe1f057
+ 08fe2d219843a02e7a4fa37445479b351c370a3c46f36a1d1ede1663cae0992f"
 nostrip=yes
+skip_extraction="LICENSE"
 
 do_install() {
 	vmkdir opt/${pkgname}
@@ -22,13 +25,21 @@ do_install() {
 	ln -sf /usr/bin/codium ${DESTDIR}/usr/bin/vscodium
 
 	vinstall ${FILESDIR}/vscodium.desktop 644 usr/share/applications
-	vinstall ${FILESDIR}/vscodium-url-handler.desktop 644 usr/share/applications
+	vinstall ${FILESDIR}/vscodium-url-handler.desktop 644 \
+		usr/share/applications
 
-	vinstall resources/app/resources/linux/code.png 644 usr/share/pixmaps vscodium.png
-	vinstall ${FILESDIR}/vscodium.svg 644 usr/share/icons/hicolor/scalable/apps
+	vinstall resources/app/resources/linux/code.png 644 \
+		usr/share/pixmaps vscodium.png
+	vinstall ${FILESDIR}/vscodium.svg 644 \
+		usr/share/icons/hicolor/scalable/apps
 
 	vmkdir usr/share/zsh/site-functions
 	vmkdir usr/share/bash-completion/completions
-	ln -sf /opt/${pkgname}/resources/completions/zsh/_codium ${DESTDIR}/usr/share/zsh/site-functions/
-	ln -sf /opt/${pkgname}/resources/completions/bash/codium ${DESTDIR}/usr/share/bash-completion/completions/
+
+	ln -sf /opt/${pkgname}/resources/completions/zsh/_codium \
+		${DESTDIR}/usr/share/zsh/site-functions/
+	ln -sf /opt/${pkgname}/resources/completions/bash/codium \
+		${DESTDIR}/usr/share/bash-completion/completions/
+
+	vlicense ${XBPS_SRCDISTDIR}/${pkgname}-${version}/LICENSE
 }

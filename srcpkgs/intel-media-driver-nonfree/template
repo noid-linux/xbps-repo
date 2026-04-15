@@ -1,20 +1,19 @@
 # Template file for 'intel-media-driver-nonfree'
 pkgname=intel-media-driver-nonfree
 version=25.4.6
-revision=1
+revision=2
 archs="x86_64*"
 build_style=cmake
-configure_args="-Wno-dev -DENABLE_NONFREE_KERNELS=ON"
+configure_args="-DENABLE_NONFREE_KERNELS=ON"
 hostmakedepends="pkg-config"
 makedepends="libva-devel libX11-devel intel-gmmlib-devel libpciaccess-devel"
-short_desc="Intel Media Driver for VAAPI (Broadwell+) - nonfree kernels"
+short_desc="Intel Media Driver for VAAPI (Broadwell+)"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT, BSD-3-Clause"
 homepage="https://github.com/intel/media-driver"
 changelog="https://github.com/intel/media-driver/releases"
 distfiles="https://github.com/intel/media-driver/archive/intel-media-${version}.tar.gz"
 checksum=e5cf57c66e22359d1ec07d766b04e5da43677b9330999ce0dbf686aac60cf6bb
-wrksrc="media-driver-intel-media-${version}"
 conflicts="intel-media-driver>=0"
 replaces="intel-media-driver>=0"
 
@@ -22,7 +21,7 @@ post_install() {
 	vlicense LICENSE.md
 }
 
-intel-media-driver-nonfree-devel_package() {
+intel-media-driver-devel_package() {
 	depends="${makedepends} ${sourcepkg}-${version}_${revision}"
 	short_desc+=" - development files"
 	pkg_install() {

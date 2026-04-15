@@ -1,7 +1,7 @@
 # Template file for 'ueberzugpp'
 pkgname=ueberzugpp
 version=2.9.8
-revision=1
+revision=2
 archs="x86_64"
 build_style=cmake
 configure_args="-DFETCHCONTENT_FULLY_DISCONNECTED=ON"
@@ -15,7 +15,3 @@ license="GPL-3.0-only"
 homepage="https://github.com/jstkdng/ueberzugpp"
 distfiles="https://github.com/jstkdng/ueberzugpp/archive/refs/tags/v${version}.tar.gz"
 checksum="96bf3a16af7be233be2706481e340d5e085d7eb555f660062652358315085075"
-
-post_install() {
-	vlicense LICENSE
-}

@@ -3,7 +3,8 @@ name: Build Packages
 on:
   push:
     branches:
-      - "main"
+      # - "main"
+      - "ci"
     paths:
       - "srcpkgs/**"
 
@@ -16,20 +17,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Build changed packages.
-  build:
-    name: Build packages
+  # Lint changed templates.
+  xlint:
+    name: Lint templates
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/void-linux/void-glibc-full:20250616R1
-      options: --platform linux/amd64 --privileged
-      volumes:
-        - /dev:/dev
+      image: ghcr.io/void-linux/void-glibc-full
       env:
-        ARCH: "x86_64"
-        BOOTSTRAP: "x86_64"
-        TEST: 1
+        LICENSE_LIST: common/travis/license.lst
 
     steps:
       - name: Prepare container
@@ -37,19 +33,19 @@ jobs:
           # switch to repo-ci mirror
           mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          # system update
+          xbps-install -Syu xbps && xbps-install -yu
           # install dependencies
-          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y sudo bash curl git github-cli ripgrep
+          xbps-install -y sudo bash grep curl git jq ripgrep
           # create non-root user
           useradd -G xbuilder -M builder
 
       - name: Clone and checkout
         run: git clone --depth=1 --branch=master https://github.com/void-linux/void-packages
 
-      - name: Switch to Noid base files
-        run: find void-packages -type f -exec sed -i "s/base-files/noid-base-files/g" {} +
-
       - name: Checkout custom packages
-        run: git clone --depth=1 --branch=main https://github.com/${{ github.repository }} noid-packages
+        # run: git clone --depth=1 --branch=main https://github.com/${{ github.repository }} noid-packages
+        run: git clone --depth=1 --branch=ci https://github.com/${{ github.repository }} noid-packages
 
       - name: Merge custom repositories
         run: |
@@ -61,6 +57,80 @@ jobs:
 
       - name: Prepare masterdir
         run: |
+          cp noid-packages/common/repo-keys/fd\:a3\:7d\:ab\:fe\:ed\:b4\:4e\:20\:48\:3e\:ab\:0b\:02\:7d\:45.plist \
+            /var/db/xbps/keys
+          cd void-packages
+          chown -R builder:builder . &&
+          sudo -Eu builder common/travis/set_mirror.sh &&
+          common/travis/fetch-xtools.sh
+
+      - name: Find changed templates
+        run: |
+          cd noid-packages && sudo -Eu builder ./common/travis/changed_templates.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run lints
+        run: |
+          cd void-packages
+          sudo -Eu builder common/travis/verify-update-check.sh || rv=1
+          sudo -Eu builder common/travis/xlint.sh || rv=1
+          exit "${rv:-0}"
+
+  # Build changed packages.
+  build:
+    name: Build packages
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.pull_request.title, '[ci skip]') && !contains(github.event.pull_request.body, '[ci skip]')"
+
+    container:
+      image: ghcr.io/void-linux/void-glibc-full
+      options: --platform linux/amd64 --privileged
+      volumes:
+        - /dev:/dev
+      env:
+        ARCH: "x86_64"
+        BOOTSTRAP: "x86_64"
+        TEST: "0"
+
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Prepare container
+        run: |
+          # switch to repo-ci mirror
+          mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+          sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+          # system update
+          xbps-install -Syu xbps && xbps-install -yu
+          # install dependencies
+          xbps-install -y sudo bash curl git github-cli ripgrep
+          # create non-root user
+          useradd -G xbuilder -M builder
+
+      - name: Clone and checkout
+        run: git clone --depth=1 --branch=master https://github.com/void-linux/void-packages
+
+      # - name: Switch to Noid base files
+      #   run: find void-packages -type f -exec sed -i "s/base-files/noid-base-files/g" {} +
+
+      - name: Checkout custom packages
+        # run: git clone --depth=1 --branch=main https://github.com/${{ github.repository }} noid-packages
+        run: git clone --depth=1 --branch=ci https://github.com/${{ github.repository }} noid-packages
+
+      - name: Merge custom repositories
+        run: |
+          cp -f noid-packages/common/travis/changed_templates.sh \
+            void-packages/common/travis/changed_templates.sh
+          cat noid-packages/common/shlibs | tee -a \
+            void-packages/common/shlibs
+          cp -r noid-packages/srcpkgs/* void-packages/srcpkgs/
+
+      - name: Prepare masterdir
+        run: |
+          cp noid-packages/common/repo-keys/fd\:a3\:7d\:ab\:fe\:ed\:b4\:4e\:20\:48\:3e\:ab\:0b\:02\:7d\:45.plist \
+            /var/db/xbps/keys
           cd void-packages
           sed -i '1i repository=https://github.com/noid-linux/xbps-repo/releases/latest/download' \
             etc/xbps.d/repos-remote.conf
@@ -133,51 +203,51 @@ jobs:
             cp ~/packages/"$pkg".xbps.sig2 ~/release
           done
 
-      - name: Upload built packages
-        uses: actions/upload-artifact@v4
-        with:
-          name: built-packages
-          path: /github/home/release/
-          retention-days: 1
+  #     - name: Upload built packages
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: built-packages
+  #         path: /github/home/release/
+  #         retention-days: 1
 
-      - name: Delete existing release assets
-        shell: bash
-        run: |
-          for pkg in $(ls -1 ~/new_packages/*.xbps | sed 's/-[^-]*$//' | xargs -I {} basename {}); do
-            gh release view latest --repo noid-linux/xbps-repo --json assets --jq '.assets[].name' \
-            | grep "^${pkg}-" | xargs -I {} gh release delete-asset latest {} --repo noid-linux/xbps-repo --yes || true
-          done
+  #     - name: Delete existing release assets
+  #       shell: bash
+  #       run: |
+  #         for pkg in $(ls -1 ~/new_packages/*.xbps | sed 's/-[^-]*$//' | xargs -I {} basename {}); do
+  #           gh release view latest --repo noid-linux/xbps-repo --json assets --jq '.assets[].name' \
+  #           | grep "^${pkg}-" | xargs -I {} gh release delete-asset latest {} --repo noid-linux/xbps-repo --yes || true
+  #         done
 
-          gh release delete-asset latest "x86_64-repodata" --repo noid-linux/xbps-repo --yes || true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         gh release delete-asset latest "x86_64-repodata" --repo noid-linux/xbps-repo --yes || true
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  create-github-release:
-    needs: build
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/void-linux/void-glibc-full:20250227R1
+  # create-github-release:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: ghcr.io/void-linux/void-glibc-full:20250227R1
 
-    steps:
-      - name: Install dependencies
-        run: |
-          xbps-install -Syu xbps && xbps-install -yu
+  #   steps:
+  #     - name: Install dependencies
+  #       run: |
+  #         xbps-install -Syu xbps && xbps-install -yu
 
-      - name: Download built packages
-        uses: actions/download-artifact@v4
-        with:
-          name: built-packages
-          path: /github/home/release/
+  #     - name: Download built packages
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: built-packages
+  #         path: /github/home/release/
 
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          files: /github/home/release/*
-          tag_name: latest
-          name: Latest Build
-          body: |
-            Latest build of XBPS packages
-            Built on: ${{ github.event.repository.updated_at }}
-          prerelease: false
+  #     - name: Create Release
+  #       uses: softprops/action-gh-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         files: /github/home/release/*
+  #         tag_name: latest
+  #         name: Latest Build
+  #         body: |
+  #           Latest build of XBPS packages
+  #           Built on: ${{ github.event.repository.updated_at }}
+  #         prerelease: false

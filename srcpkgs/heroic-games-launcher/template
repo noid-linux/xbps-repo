@@ -2,17 +2,17 @@
 pkgname=heroic-games-launcher
 version=2.20.1
 revision=1
-nopie=yes
 archs="x86_64"
 hostmakedepends="pnpm python3"
 makedepends="electron35-devel"
 depends="wine winetricks curl zenity gamemode"
-short_desc="A games launcher for GOG, Amazon and Epic Games."
+short_desc="Games launcher for GOG, Amazon and Epic Games"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://heroicgameslauncher.com/"
 distfiles="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/archive/refs/tags/v${version}.tar.gz"
 checksum=62631a3917a65c5ff4f2ac02e12bf039b5880c103464a60f6418e16e9745e2d1
+nopie=yes
 
 do_build() {
 	export CFLAGS="${CFLAGS//-fno-PIE/}"
@@ -29,7 +29,7 @@ do_install() {
 
 	vmkdir usr/bin
 	ln -sf /usr/lib/heroic/heroic ${DESTDIR}/usr/bin/heroic
-	
+
 	sed -i 's/heroic-run/heroic/' flatpak/com.heroicgameslauncher.hgl.desktop
 	vinstall flatpak/com.heroicgameslauncher.hgl.desktop 644 usr/share/applications
 	vinstall flatpak/com.heroicgameslauncher.hgl.png 644 usr/share/pixmaps

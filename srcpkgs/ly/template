@@ -1,12 +1,12 @@
 # Template file for 'ly'
 pkgname=ly
 version=1.3.2
-revision=1
+revision=2
 archs="x86_64"
 hostmakedepends="pkg-config zig-0.15.2"
 makedepends="pam-devel libxcb-devel"
 depends="xorg-server xauth brightnessctl"
-short_desc="A lightweight TUI (ncurses-like) display manager for Linux and BSD."
+short_desc="lightweight TUI (ncurses-like) display manager for Linux and BSD"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="WTFPL"
 homepage="https://codeberg.org/fairyglade/ly"
@@ -26,7 +26,7 @@ do_install() {
 	vbin zig-out/bin/ly
 
 	vsv ly
-	
+
 	vmkdir etc/sv/ly
 	vinstall res/config.ini 644 etc/ly
 
