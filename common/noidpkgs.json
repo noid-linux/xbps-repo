@@ -1,0 +1,442 @@
+[
+	{
+		"pkgname": "PrismLauncher-Patched",
+		"version": "10.0.5",
+		"short_desc": "Custom launcher for Minecraft",
+		"license": "GPL-3.0-only",
+		"homepage": "https://prismlauncher.org/",
+		"compiled": true
+	},
+	{
+		"pkgname": "android-studio",
+		"version": "2025.3.2.6",
+		"short_desc": "Official Android IDE",
+		"license": "Apache-2.0",
+		"homepage": "https://developer.android.com/studio/",
+		"compiled": false
+	},
+	{
+		"pkgname": "azahar",
+		"version": "2124.3",
+		"short_desc": "An open-source 3DS emulator project based on Citra",
+		"license": "GPL-2.0-only",
+		"homepage": "https://azahar-emu.org/",
+		"compiled": true
+	},
+	{
+		"pkgname": "azaharplus",
+		"version": "2124.3-A",
+		"short_desc": "A fork of the Azahar 3DS emulator with extra features",
+		"license": "GPL-2.0-or-later",
+		"homepage": "https://github.com/AzaharPlus/AzaharPlus",
+		"compiled": true
+	},
+	{
+		"pkgname": "bazaar",
+		"version": "0.7.13",
+		"short_desc": "FlatHub-first app store for GNOME",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://usebazaar.org/",
+		"compiled": true
+	},
+	{
+		"pkgname": "bitwarden-desktop",
+		"version": "2026.3.1",
+		"short_desc": "Bitwarden desktop client",
+		"license": "GPL-3.0",
+		"homepage": "https://bitwarden.com/",
+		"compiled": false
+	},
+	{
+		"pkgname": "brave",
+		"version": "1.88.138",
+		"short_desc": "Web browser that blocks ads and trackers by default",
+		"license": "MPL-2.0",
+		"homepage": "https://brave.com",
+		"compiled": false
+	},
+	{
+		"pkgname": "calamares",
+		"version": "3.4.2",
+		"short_desc": "Distribution-independent installer framework",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://calamares.io",
+		"compiled": true
+	},
+	{
+		"pkgname": "cinny-desktop",
+		"version": "4.11.2",
+		"short_desc": "Yet another matrix client for desktop",
+		"license": "AGPL-3.0",
+		"homepage": "https://cinny.in/",
+		"compiled": true
+	},
+	{
+		"pkgname": "clipcat",
+		"version": "0.24.1",
+		"short_desc": "Clipboard Manager written in Rust Programming Language",
+		"license": "GPL-3.0-only",
+		"homepage": "https://github.com/xrelkd/clipcat",
+		"compiled": true
+	},
+	{
+		"pkgname": "cryptomator",
+		"version": "1.19.2",
+		"short_desc": "Multiplatform transparent client-side encryption of your files in the cloud.",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://cryptomator.org/",
+		"compiled": true
+	},
+	{
+		"pkgname": "dgop",
+		"version": "0.2.2",
+		"short_desc": "API & CLI for System & Process Monitoring",
+		"license": "MIT",
+		"homepage": "https://github.com/AvengeMedia/dgop",
+		"compiled": true
+	},
+	{
+		"pkgname": "dioxus-cli",
+		"version": "0.7.3",
+		"short_desc": "CLI for building fullstack web, desktop, and mobile apps with a single codebase.",
+		"license": "MIT, Apache-2.0",
+		"homepage": "https://dioxuslabs.com",
+		"compiled": true
+	},
+	{
+		"pkgname": "discord",
+		"version": "0.0.132",
+		"short_desc": "Chat and VOIP application",
+		"license": "Proprietary",
+		"homepage": "https://discord.com",
+		"compiled": false
+	},
+	{
+		"pkgname": "dms-shell",
+		"version": "1.4.4.1",
+		"short_desc": "A Quickshell-based desktop shell with Material 3 design principles",
+		"license": "MIT",
+		"homepage": "https://danklinux.com/",
+		"compiled": true
+	},
+	{
+		"pkgname": "dms-shell-niri",
+		"version": "1.4.4.1",
+		"short_desc": "A Quickshell-based desktop shell with Material 3 design principles - Niri compositor support",
+		"license": "MIT",
+		"homepage": "https://danklinux.com/",
+		"compiled": true
+	},
+	{
+		"pkgname": "drawio-desktop",
+		"version": "29.6.6",
+		"short_desc": "Official electron build of draw.io, a JS editor for general diagramming",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://www.diagrams.net/",
+		"compiled": true
+	},
+	{
+		"pkgname": "dsearch",
+		"version": "0.2.1",
+		"short_desc": "Fast filesystem search service",
+		"license": "MIT",
+		"homepage": "https://github.com/AvengeMedia/danksearch",
+		"compiled": true
+	},
+	{
+		"pkgname": "feishin",
+		"version": "1.5.0",
+		"short_desc": "Full-featured Subsonic/Jellyfin compatible desktop music player",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://feishin.vercel.app/",
+		"compiled": true
+	},
+	{
+		"pkgname": "ferdium",
+		"version": "7.1.1",
+		"short_desc": "Messaging app for WhatsApp, Slack, Telegram, Hangouts and many many more.",
+		"license": "Apache-2.0",
+		"homepage": "https://ferdium.org/",
+		"compiled": true
+	},
+	{
+		"pkgname": "floorp",
+		"version": "12.12.0",
+		"short_desc": "Firefox fork seeking balance between versatility, privacy and openness",
+		"license": "MPL-2.0",
+		"homepage": "https://floorp.app/",
+		"compiled": false
+	},
+	{
+		"pkgname": "fluffychat",
+		"version": "2.5.0",
+		"short_desc": "The cutest instant messenger in the [matrix]",
+		"license": "AGPL-3.0-or-later",
+		"homepage": "https://fluffychat.im/",
+		"compiled": false
+	},
+	{
+		"pkgname": "freetube",
+		"version": "0.24.0",
+		"short_desc": "Open source desktop YouTube player built with privacy in mind",
+		"license": "AGPL-3.0-only",
+		"homepage": "https://freetubeapp.io/",
+		"compiled": true
+	},
+	{
+		"pkgname": "grayjay",
+		"version": "17",
+		"short_desc": "Grayjay Desktop - follow creators, not platforms",
+		"license": "Source First License 1.1",
+		"homepage": "https://grayjay.app/",
+		"compiled": false
+	},
+	{
+		"pkgname": "gruvbox-bibata-cursor-theme",
+		"version": "1.0.1",
+		"short_desc": "Gruvbox-themed Bibata Cursor",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://www.bibata.live/",
+		"compiled": false
+	},
+	{
+		"pkgname": "gruvbox-gtk-theme",
+		"version": "2.2",
+		"short_desc": "A theme based on the Gruvbox colour palette - GTK",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme",
+		"compiled": true
+	},
+	{
+		"pkgname": "gruvbox-icons-theme",
+		"version": "4.0",
+		"short_desc": "A theme based on the Gruvbox colour palette - Icons",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://github.com/Fausto-Korpsvart/Gruvbox-GTK-Theme",
+		"compiled": false
+	},
+	{
+		"pkgname": "gruvbox-material-theme",
+		"version": "1.0.0",
+		"short_desc": "Gruvbox Material theme for GTK, Gnome, Cinnamon, XFCE, Unity and Plank",
+		"license": "MIT",
+		"homepage": "https://github.com/TheGreatMcPain/gruvbox-material-gtk",
+		"compiled": false
+	},
+	{
+		"pkgname": "heroic-games-launcher",
+		"version": "2.20.1",
+		"short_desc": "A games launcher for GOG, Amazon and Epic Games.",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://heroicgameslauncher.com/",
+		"compiled": true
+	},
+	{
+		"pkgname": "hyprland-repo",
+		"version": "1",
+		"short_desc": "Binary repositories for installing Hyprland on Void Linux",
+		"license": "BSD-2-Clause",
+		"homepage": "https://github.com/Makrennel/hyprland-void/",
+		"compiled": false
+	},
+	{
+		"pkgname": "intel-media-driver-nonfree",
+		"version": "25.4.6",
+		"short_desc": "Intel Media Driver for VAAPI (Broadwell+) - nonfree kernels",
+		"license": "MIT, BSD-3-Clause",
+		"homepage": "https://github.com/intel/media-driver",
+		"compiled": true
+	},
+	{
+		"pkgname": "intel-media-driver-nonfree-devel",
+		"version": "25.4.6",
+		"short_desc": "Intel Media Driver for VAAPI (Broadwell+) - nonfree kernels - development files",
+		"license": "MIT, BSD-3-Clause",
+		"homepage": "https://github.com/intel/media-driver",
+		"compiled": true
+	},
+	{
+		"pkgname": "kaidan",
+		"version": "0.15.0",
+		"short_desc": "Modern chat app for every device",
+		"license": "GPL-3.0-or-later",
+		"homepage": "https://www.kaidan.im/",
+		"compiled": true
+	},
+	{
+		"pkgname": "libglib-testing",
+		"version": "0.2.0",
+		"short_desc": "Lib providing test harnesses and mock classes complementing GLib classes",
+		"license": "LGPL-2.1-or-later",
+		"homepage": "https://gitlab.gnome.org/pwithnall/libglib-testing",
+		"compiled": true
+	},
+	{
+		"pkgname": "libglib-testing-devel",
+		"version": "0.2.0",
+		"short_desc": "Lib providing test harnesses and mock classes complementing GLib classes - development files",
+		"license": "LGPL-2.1-or-later",
+		"homepage": "https://gitlab.gnome.org/pwithnall/libglib-testing",
+		"compiled": true
+	},
+	{
+		"pkgname": "libgsystemservice",
+		"version": "0.3.0",
+		"short_desc": "Common components needed for building services to be exposed on D-Bus",
+		"license": "LGPL-2.1-or-later",
+		"homepage": "https://gitlab.gnome.org/pwithnall/libgsystemservice",
+		"compiled": true
+	},
+	{
+		"pkgname": "libgsystemservice-devel",
+		"version": "0.3.0",
+		"short_desc": "Common components needed for building services to be exposed on D-Bus - development files",
+		"license": "LGPL-2.1-or-later",
+		"homepage": "https://gitlab.gnome.org/pwithnall/libgsystemservice",
+		"compiled": true
+	},
+	{
+		"pkgname": "librewolf",
+		"version": "149.0.2-1",
+		"short_desc": "Fork of Firefox, focused on privacy, security and freedom",
+		"license": "MPL-2.0",
+		"homepage": "https://librewolf.net/",
+		"compiled": true
+	},
+	{
+		"pkgname": "lutgen-cli",
+		"version": "1.0.1",
+		"short_desc": "A blazingly fast interpolated LUT utility for arbitrary and popular color palettes.",
+		"license": "MIT",
+		"homepage": "https://lut.sh/",
+		"compiled": true
+	},
+	{
+		"pkgname": "lutgen-rs",
+		"version": "1.0",
+		"short_desc": "Blazingly fast interpolated LUT generator and applicator for arbitrary and popular color palettes.",
+		"license": "MIT",
+		"homepage": "https://lut.sh/",
+		"compiled": true
+	},
+	{
+		"pkgname": "lutgen-studio",
+		"version": "0.3.0",
+		"short_desc": "Offical GUI for Lutgen, the best way to apply popular colorschemes to any image or wallpaper!",
+		"license": "MIT",
+		"homepage": "https://lut.sh/",
+		"compiled": true
+	},
+	{
+		"pkgname": "ly",
+		"version": "1.3.2",
+		"short_desc": "A lightweight TUI (ncurses-like) display manager for Linux and BSD.",
+		"license": "WTFPL",
+		"homepage": "https://codeberg.org/fairyglade/ly",
+		"compiled": true
+	},
+	{
+		"pkgname": "malcontent",
+		"version": "0.14.0",
+		"short_desc": "Parental controls library",
+		"license": "LGPL-2.1-or-later",
+		"homepage": "https://gitlab.freedesktop.org/pwithnall/malcontent",
+		"compiled": true
+	},
+	{
+		"pkgname": "malcontent-devel",
+		"version": "0.14.0",
+		"short_desc": "Parental controls library - development files",
+		"license": "LGPL-2.1-or-later",
+		"homepage": "https://gitlab.freedesktop.org/pwithnall/malcontent",
+		"compiled": true
+	},
+	{
+		"pkgname": "mesa",
+		"version": "26.0.4",
+		"short_desc": "Open source implementation of OpenGL and Vulkan",
+		"license": "MIT, LGPL-2.1-or-later",
+		"homepage": "https://www.mesa3d.org/",
+		"compiled": true
+	},
+	{
+		"pkgname": "mission-center",
+		"version": "1.1.0",
+		"short_desc": "Monitor your CPU, Memory, Disk, Network and GPU usage",
+		"license": "GPL-3.0-only",
+		"homepage": "https://missioncenter.io/",
+		"compiled": true
+	},
+	{
+		"pkgname": "ndpm",
+		"version": "0.1.5",
+		"short_desc": "A user-friendly package manager wrapper for XBPS with AppImage support",
+		"license": "MIT",
+		"homepage": "https://git.ch-naseem.com/noid-linux/ndpm",
+		"compiled": true
+	},
+	{
+		"pkgname": "nerd-fonts-cascadiacode",
+		"version": "3.4.0",
+		"short_desc": "CascadiaCode Nerd Font - monospaced font with programming ligatures and glyphs",
+		"license": "MIT",
+		"homepage": "https://nerdfonts.com",
+		"compiled": true
+	},
+	{
+		"pkgname": "nmenu",
+		"version": "5.4",
+		"short_desc": "Generic menu for X",
+		"license": "MIT",
+		"homepage": "https://git.ch-naseem.com/ndpm13/dmenu/",
+		"compiled": true
+	},
+	{
+		"pkgname": "noid-artwork",
+		"version": "20260121",
+		"short_desc": "Noid Linux artwork",
+		"license": "Public Domain",
+		"homepage": "https://git.ch-naseem.com/noid-linux",
+		"compiled": false
+	},
+	{
+		"pkgname": "noid-base-files",
+		"version": "0.1",
+		"short_desc": "Noid Linux base system files",
+		"license": "Public Domain",
+		"homepage": "https://git.ch-naseem.com/noid-linux",
+		"compiled": false
+	},
+	{
+		"pkgname": "noid-base-system",
+		"version": "0.1",
+		"short_desc": "Noid Linux base system meta package",
+		"license": "Public Domain",
+		"homepage": "https://git.ch-naseem.com/noid-linux",
+		"compiled": false
+	},
+	{
+		"pkgname": "noid-welcome",
+		"version": "0.2.2",
+		"short_desc": "Noid Linux Welcome Screen",
+		"license": "MIT",
+		"homepage": "https://git.ch-naseem.com/noid-linux/noid-welcome",
+		"compiled": true
+	},
+	{
+		"pkgname": "nwm",
+		"version": "6.8",
+		"short_desc": "Custom Build of DWM - a Dynamic window manager for X",
+		"license": "MIT",
+		"homepage": "https://git.ch-naseem.com/ndpm13/dwm",
+		"compiled": true
+	},
+	{
+		"pkgname": "nyancat",
+		"version": "1.2.1",
+		"short_desc": "Nyancat rendered in your terminal",
+		"license": "NCSA",
+		"homepage": "https://nyancat.dakko.us/",
+		"compiled": true
+	}
+]
