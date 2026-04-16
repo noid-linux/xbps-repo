@@ -1,8 +1,8 @@
 # Template file for 'megasync'
 pkgname=megasync
-version=6.2.1.0
+version=6.2.2.0
 revision=1
-_sdkver="10.6.2"
+_sdkver="10.6.3"
 archs="x86_64"
 build_wrksrc=MEGAsync-${version}_Linux
 build_style=cmake
@@ -20,9 +20,9 @@ configure_args="-DCMAKE_BUILD_TYPE:STRING=None
  -DCMAKE_EXE_LINKER_FLAGS=-licui18n"
 hostmakedepends="pkg-config"
 makedepends="crypto++-devel libsodium-devel sqlite-devel libcurl-devel
-icu-devel libmediainfo-devel libuv-devel readline-devel qt5-devel
-qt5-declarative-devel qt5-tools-devel qt5-x11extras-devel
-qt5-svg-devel"
+ icu-devel libmediainfo-devel libuv-devel readline-devel qt5-devel
+ qt5-declarative-devel qt5-tools-devel qt5-x11extras-devel
+ qt5-svg-devel libaio-devel"
 depends="hicolor-icon-theme"
 short_desc="Easy automated syncing between your computers and your MEGA Cloud Drive"
 maintainer="Naz <ndpm13@ch-naseem.com>"
@@ -30,9 +30,9 @@ license="custom:MEGA-Limited-Code-Review-Licence"
 homepage="https://mega.io"
 changelog="https://github.com/meganz/MEGAsync/releases"
 distfiles="https://github.com/meganz/MEGAsync/archive/refs/tags/v${version}_Linux.tar.gz>${pkgname}-v${version}.tar.gz
-	https://github.com/meganz/sdk/archive/refs/tags/v${_sdkver}.tar.gz>sdk-v${_sdkver}.tar.gz"
-checksum="62e7a65aa25db314aa298c5b2803f4da331d13fde8f377687a539fbf88ceca99
-	2588b7c708d721b08a8e8738ff2f792c688d7087ab98042dd94bf7870e32b5a1"
+ https://github.com/meganz/sdk/archive/refs/tags/v${_sdkver}.tar.gz>sdk-v${_sdkver}.tar.gz"
+checksum="2066d81c6d9e0068342c777497093faaf9fce2785bf2ef49dcbe07ffe18b7bca
+ 78d501ce24acd6eb9b514bf388968fc55dc150da073534617bab1be5bb5c77a0"
 patch_args="-Np1 -d ${build_wrksrc}"
 
 post_extract() {
