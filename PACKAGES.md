@@ -21,7 +21,7 @@
 | discord                          | 0.0.132         | ❌       |
 | dsearch                          | 0.2.1           | ✅       |
 | feishin                          | 1.5.0           | ✅       |
-| ferdium                          | 7.1.1           | ✅       |
+| ferdium                          | 7.1.2           | ✅       |
 | flat-remix-icon-theme            | 20251119        | ✅       |
 | floorp                           | 12.12.1         | ❌       |
 | fluffychat                       | 2.5.0           | ❌       |

@@ -1,37 +1,33 @@
 # Template file for 'ferdium'
 pkgname=ferdium
-version=7.1.1
-revision=2
+version=7.1.2
+revision=1
 archs="x86_64"
+build_wrksrc="ferdium-app-${version}"
 hostmakedepends="pnpm git"
-depends="glib gtk+3 nss dbus atk at-spi2-core libcups cairo pango libX11
-libXcomposite libXdamage libXext libXfixes libXrandr mesa libxcb libxkbcommon
-eudev-libudev alsa-lib"
-short_desc="Messaging app for WhatsApp, Slack, Telegram, Hangouts and many many more."
-maintainer="Naz <ndpm13@ch-naeseem.com>"
+short_desc="Messaging app for WhatsApp, Slack, Telegram, Hangouts and many many more"
+maintainer="Naz <ndpm13@ch-naseem.com>"
 license="Apache-2.0"
 homepage="https://ferdium.org/"
-distfiles="https://github.com/ferdium/ferdium-app/archive/refs/tags/v${version}.tar.gz"
-checksum=7188b16736da9d2925980c148a867848c9ad23e0531fb965f82808b7ce567741
-
-export ELECTRON_CACHE="${XBPS_BUILDDIR}/electron-cache"
-export ELECTRON_BUILDER_CACHE="${XBPS_BUILDDIR}/electron-builder-cache"
-export CSC_IDENTITY_AUTO_DISCOVERY=false
-export CI=true
+changelog="https://raw.githubusercontent.com/ferdium/ferdium-app/refs/heads/develop/CHANGELOG.md"
+distfiles="https://github.com/ferdium/ferdium-app/archive/refs/tags/v${version}.tar.gz>${pkgname}-v${version}.tar.gz
+ https://github.com/ferdium/ferdium-recipes/archive/refs/heads/main.tar.gz>recipes.tar.gz"
+checksum="790ec068cfc4462d9e4f35d4965895fdbc1dc453f645f75b9307b916c338e0af
+ ef2c9015deff7998bb594794e652fc7510f79d5fb5a4b602603a9d6e1ea7862d"
 
 post_extract() {
-    git clone --depth 1 https://github.com/ferdium/ferdium-recipes.git recipes
+	mv ferdium-recipes-main/* ${build_wrksrc}/recipes
 
-    vsed -i 's/22\.18\.0/22.15.0/' .nvmrc
-    vsed -i 's/"node": "22\.18\.0"/"node": "22.15.0"/' package.json recipes/package.json
+	vsed -i 's/22\.18\.0/24.14.1/' ${build_wrksrc}/.nvmrc
+	vsed -i 's/"node": "22\.18\.0"/"node": "24.14.1"/' ${build_wrksrc}/package.json ${build_wrksrc}/recipes/package.json
 }
 
 pre_build() {
 	cd recipes
 	pnpm i
 	pnpm package
+
 	cd ..
-	
 	pnpm i
 	pnpm prepare-code
 }
@@ -43,11 +39,10 @@ do_build() {
 do_install() {
 	vmkdir usr/lib/ferdium
 	vcopy "out/linux-unpacked/*" usr/lib/ferdium
-	
+
 	vmkdir usr/bin
 	ln -sf /usr/lib/ferdium/ferdium "${DESTDIR}/usr/bin/ferdium"
-	
-	vinstall ${FILESDIR}/ferdium.desktop 644 usr/share/applications
 
-    vinstall build-helpers/images/icon.png 644 usr/share/pixmaps ferdium.png
+	vinstall ${FILESDIR}/ferdium.desktop 644 usr/share/applications
+	vinstall build-helpers/images/icon.png 644 usr/share/pixmaps ferdium.png
 }
