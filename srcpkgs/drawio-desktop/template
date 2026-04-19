@@ -1,8 +1,9 @@
 # Template file for 'drawio-desktop'
 pkgname=drawio-desktop
-version=29.6.6
+version=29.7.8
+_drawiover=29.6.6
 revision=1
-build_wrksrc="drawio-desktop-${version}"
+build_wrksrc="${pkgname}-${version}"
 archs="x86_64"
 hostmakedepends="nodejs"
 short_desc="Official electron build of draw.io, a JS editor for general diagramming"
@@ -10,12 +11,12 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://www.diagrams.net/"
 distfiles="https://github.com/jgraph/drawio-desktop/archive/refs/tags/v${version}.tar.gz>drawio-desktop-v${version}.tar.gz
-	https://github.com/jgraph/drawio/archive/refs/tags/v${version}.tar.gz>drawio-v${version}.tar.gz"
-checksum="7d27ff595ce276968b0d86f968f45f6bdc2a50836056f59b5d178eb8eb5a5422
-	1ca229fc69389e88c410c405d9e0a3624dc37c62dfdd188f7d55c1a8c961b571"
+ https://github.com/jgraph/drawio/archive/refs/tags/v${_drawiover}.tar.gz>drawio-v${_drawiover}.tar.gz"
+checksum="3306bc37d0ef361cb870b584dbc6ee7603a42869beba61630f529c0752aa1d67
+ 1ca229fc69389e88c410c405d9e0a3624dc37c62dfdd188f7d55c1a8c961b571"
 
 post_extract() {
-	mv drawio-${version}/* drawio-desktop-${version}/drawio/
+	mv drawio-${_drawiover}/* ${build_wrksrc}/drawio/
 }
 
 pre_build() {
