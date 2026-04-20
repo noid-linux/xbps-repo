@@ -65,7 +65,7 @@
 | sway-scroll                      | 1.12.8           | ✅       |
 | tenacity                         | 1.3.4            | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303   | ❌       |
-| tutanota-desktop                 | 340.260326.1     | ❌       |
+| tutanota-desktop                 | 341.260417.0     | ❌       |
 | ueberzugpp                       | 2.9.8            | ✅       |
 | ungoogled-chromium               | 147.0.7727.101-1 | ❌       |
 | vscodium                         | 1.112.01907      | ❌       |
