@@ -18,7 +18,9 @@ provides="py3:proton-vpn-local-agent-${version}_${revision}"
 
 do_install() {
 	local _pyver=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
-	vinstall ${wrksrc}/python-proton-vpn-local-agent/target/x86_64-unknown-linux-gnu/release/libpython_proton_vpn_local_agent.so 755 \
-		usr/lib/python${_pyver}/site-packages/proton/vpn \
+
+	vinstall \
+		target/x86_64-unknown-linux-gnu/release/libpython_proton_vpn_local_agent.so \
+		755 usr/lib/python${_pyver}/site-packages/proton/vpn \
 		local_agent.abi3.so
 }

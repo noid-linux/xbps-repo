@@ -1,17 +1,17 @@
 # Template file for 'python3-proton-vpn-api-core'
 pkgname=python3-proton-vpn-api-core
-version=4.19.1
+version=5.0.1
 revision=1
 archs="x86_64"
 build_style=python3-pep517
 hostmakedepends="python3-setuptools"
 depends="python3-proton-core python3-distro python3-sentry
-python3-cryptography python3-pynacl python3-fido2 python3-packaging
-python3-gobject python3-cairo python3-Jinja2
-python3-proton-vpn-local-agent"
+ python3-cryptography python3-pynacl python3-fido2 python3-packaging
+ python3-gobject python3-cairo python3-Jinja2
+ python3-proton-vpn-local-agent"
 short_desc="Acts as a facade to the other Proton VPN components"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/ProtonVPN/python-proton-vpn-api-core"
 distfiles="https://github.com/ProtonVPN/python-proton-vpn-api-core/archive/refs/tags/v${version}.tar.gz"
-checksum=c02ea1ae344daff0ec844131d9ddf7347c7ad8a323a2a58129c7787a3b8c67cd
+checksum=ebde952805a78658683ce49b6b9aeaec188df2508e41658dd666aa8b2ca918a2
