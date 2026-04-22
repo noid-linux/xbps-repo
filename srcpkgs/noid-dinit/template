@@ -1,0 +1,26 @@
+# Template file for 'noid-dinit'
+pkgname=noid-dinit
+version=0.1.0
+revision=2
+archs="x86_64"
+build_style=gnu-makefile
+make_dirs="/var/log/dinit 0755 root root"
+hostmakedepends="pkg-config scdoc"
+makedepends="dbus-devel"
+depends="dinit eudev bash"
+short_desc="RC scripts and boot services for dinit"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="BSD-2-Clause"
+homepage="https://github.com/noid-linux/noid-dinit"
+distfiles="https://github.com/noid-linux/noid-dinit/archive/refs/tags/v${version}.tar.gz"
+checksum=986ea14b6aef2f242e4677de463cc9baa24aeb7c80284f3ecb69f9c8c97cb5d5
+conf_files="
+ /etc/dinit.d/config/console.conf
+ /etc/hwclock.conf"
+conflicts="dinit-rc>=0"
+replaces="dinit-rc>=0"
+
+post_install() {
+	ln -sf dinit ${DESTDIR}/usr/bin/init
+	vlicense COPYING
+}

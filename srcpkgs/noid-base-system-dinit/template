@@ -1,14 +1,14 @@
-# Template file for 'noid-dinit-base-system'
-pkgname=noid-dinit-base-system
-version=20260410
-revision=1
+# Template file for 'noid-base-system-dinit'
+pkgname=noid-base-system-dinit
+version=20260422
+revision=2
 metapackage=yes
 short_desc="Noid Linux base system meta package - Dinit"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="Public Domain"
 homepage="https://git.ch-naseem.com/noid-linux"
-conflicts="base-system>=0 noid-base-system>=0"
-replaces="base-system>=0 noid-base-system>=0"
+conflicts="base-system>=0 noid-dinit-base-system>=0 noid-base-system>=0"
+replaces="base-system>=0 noid-dinit-base-system>=0"
 
 depends="
  noid-base-files ncurses coreutils findutils diffutils libgcc
@@ -16,7 +16,7 @@ depends="
  mdocml>=1.13.3 shadow e2fsprogs btrfs-progs xfsprogs f2fs-tools
  dosfstools procps-ng tzdata pciutils usbutils iana-etc openssh dhcpcd
  kbd iproute2 iputils iw wpa_supplicant xbps nvi sudo wifi-firmware
- noid-artwork traceroute ethtool kmod acpid eudev dinit dinit-rc
+ noid-artwork traceroute ethtool kmod acpid eudev dinit noid-dinit
  removed-packages"
 
 case "$XBPS_TARGET_MACHINE" in
