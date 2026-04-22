@@ -31,7 +31,7 @@
 | gruvbox-gtk-theme                | 2.2              | ✅       |
 | gruvbox-icons-theme              | 4.0              | ✅       |
 | gruvbox-material-theme           | /                | ❌       |
-| heroic-games-launcher            | 2.20.1           | ✅       |
+| heroic-games-launcher            | 2.21.0           | ✅       |
 | hyprland-repo                    | /                | /        |
 | intel-media-driver-nonfree       | 25.4.6           | ✅       |
 | intel-media-driver-nonfree-devel | /                | ✅       |
