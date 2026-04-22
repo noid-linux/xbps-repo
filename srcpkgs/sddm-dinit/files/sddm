@@ -1,0 +1,7 @@
+type			= process
+command			= /usr/bin/sddm
+smooth-recovery	= true
+logfile			= /var/log/dinit/sddm.log
+depends-on		= logind
+depends-on		= sddm-pre
+depends-on		= login.target
