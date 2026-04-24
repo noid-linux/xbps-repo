@@ -46,6 +46,8 @@
 | ndpm                             | 0.1.5            | ✅       |
 | nerd-fonts-cascadiacode          | 3.4.0            | ❌       |
 | nmenu                            | 5.4              | ✅       |
+| noctalia-qs                      | 0.0.12           | ✅       |
+| noctalia-shell                   | 4.7.6            | ✅       |
 | noid-base-files                  | 0.1              | /        |
 | noid-base-system                 | 0.1              | /        |
 | noid-welcome                     | 0.2.2            | ✅       |
