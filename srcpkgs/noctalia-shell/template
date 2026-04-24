@@ -1,0 +1,21 @@
+# Template file for 'noctalia-shell'
+pkgname=noctalia-shell
+version=4.7.6
+revision=1
+archs="x86_64"
+depends="noctalia-qs ImageMagick brightnessctl ffmpeg qt6-multimedia
+ python wlr-randr"
+short_desc="Sleek and minimal desktop shell, built with Quickshell"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://docs.noctalia.dev/"
+changelog="https://github.com/noctalia-dev/noctalia-shell/releases/"
+distfiles="https://github.com/noctalia-dev/noctalia-shell/archive/refs/tags/v${version}.tar.gz"
+checksum=0b53aa9f2d20034be2e34fc412cdfb0e67a0bb79fe068076183404991a3709d1
+
+do_install() {
+	vmkdir etc/xdg/quickshell/noctalia-shell
+	vcopy "*" etc/xdg/quickshell/noctalia-shell
+
+	vlicense LICENSE
+}
