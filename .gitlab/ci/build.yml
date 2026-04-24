@@ -1,0 +1,21 @@
+default:
+  image:
+    name: ghcr.io/void-linux/void-glibc-full:20250616R1
+    entrypoint: [""]
+
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    # switch to repo-ci mirror
+    - mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+    - sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+    # install dependencies
+    - xbps-install -Syu xbps && xbps-install -yu
+    # - xbps-install -y sudo bash curl git github-cli ripgrep
+    # create non-root user
+    - useradd -G xbuilder -M builder
+    # test
+    - echo "Hello from the build stage!"
