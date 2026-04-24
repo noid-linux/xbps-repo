@@ -62,7 +62,7 @@
 | quran-companion                  | 1.3.3            | ✅       |
 | rustdesk                         | 1.4.6            | ❌       |
 | sbm-rs                           | 0.1.0            | ✅       |
-| slack-desktop                    | 4.47.69          | ❌       |
+| slack-desktop                    | 4.49.81          | ❌       |
 | spotify                          | 1.2.86           | ❌       |
 | sway-scroll                      | 1.12.10          | ✅       |
 | tenacity                         | 1.3.4            | ✅       |
