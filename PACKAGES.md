@@ -64,7 +64,7 @@
 | sbm-rs                           | 0.1.0            | ✅       |
 | slack-desktop                    | 4.49.81          | ❌       |
 | spotify                          | 1.2.86           | ❌       |
-| sway-scroll                      | 1.12.10          | ✅       |
+| sway-scroll                      | 1.12.11          | ✅       |
 | tenacity                         | 1.3.4            | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303   | ❌       |
 | tutanota-desktop                 | 345.260421.2     | ❌       |
