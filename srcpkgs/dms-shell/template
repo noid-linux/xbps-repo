@@ -1,6 +1,6 @@
 # Template file for 'dms-shell'
 pkgname=dms-shell
-version=1.4.4.1
+version=1.4.5
 revision=1
 archs="x86_64"
 build_style=gnu-makefile
@@ -12,7 +12,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
 homepage="https://danklinux.com/"
 distfiles="https://github.com/AvengeMedia/DankMaterialShell/archive/refs/tags/v${version}.tar.gz"
-checksum=61c2d1828d7604b69eced61af43db86bd3349dbe3f2e65fd2f4b65cddd449e55
+checksum=e72ecd397ec967b2b789df06876810369a86052da92636c1c28cbe6676a28920
 
 do_install() {
 	vbin core/bin/dms
