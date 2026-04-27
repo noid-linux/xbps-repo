@@ -1,6 +1,6 @@
 # Template file for 'vscodium'
 pkgname=vscodium
-version=1.112.01907
+version=1.116.02821
 revision=1
 archs="x86_64"
 depends="fontconfig libXtst libnotify libXScrnSaver"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MIT"
 homepage="https://vscodium.com/"
 distfiles="https://github.com/VSCodium/vscodium/releases/download/${version}/VSCodium-linux-x64-${version}.tar.gz"
-checksum="08fe2d219843a02e7a4fa37445479b351c370a3c46f36a1d1ede1663cae0992f"
+checksum="82c7173d6aa7415f6777d5d66cbe58902772c719c30c46385a9140831e46edad"
 nostrip=yes
 
 do_install() {
