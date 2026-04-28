@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>public-key</key>
+	<data>LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF0UkErTXQzQ1FMQ0M0U1JOQXhnQgpoYVNuazRSUkNFOVlnRU5hWjREVk1tOWtGZ0FDVjZ0WnhFZzhVN2h1VmlOQ29rdTJGZnc5QzZFMjZoQ0xwcFMyCnBMYjY1MCtnMWJIWCtHN3dVZVRzRk14aVNEWk9TaG5KRDJjR0Y1S0tabnpYa1hHMWV0Q1pOcTF0T2I1enNONkIKcUNIUE9aTmFqdGJNMllVRk5Ea09sTUplRDJVRmVyRlJ6UVVkV29YNER1TkF3MzVMdmNzakhib2NEcjlTclYvVwphdDUyMXp3V2VyYmVqalA4YXJwWXFlMG5HcS82QVdGWjFUZytjRmhGQW1MUXJaYmEwejJFMm94MG1OMXZrbEVFCkgrTFNTY25sZCtmcXdTeTV4MEkweUpKeE8waitMWEVtcFgyYlRSL0F5STd3bFRNcnFwaEk5ekN4b1M3aitIbWgKTVFJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==</data>
+	<key>public-key-size</key>
+	<integer>2048</integer>
+	<key>signature-by</key>
+	<string>void-packages-github-actions</string>
+</dict>
+</plist>
