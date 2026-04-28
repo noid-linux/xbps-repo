@@ -57,7 +57,7 @@
 | onlyoffice                       | 9.3.1            | ❌       |
 | PrismLauncher-Patched            | 11.0.2           | ✅       |
 | proton-authenticator             | 1.1.4            | ❌       |
-| proton-vpn-gtk-app               | 4.15.2           | ✅       |
+| proton-vpn-gtk-app               | 4.16.1           | ✅       |
 | qt6gtk2                          | 0.7              | ✅       |
 | quran-companion                  | 1.3.3            | ✅       |
 | rustdesk                         | 1.4.6            | ❌       |
