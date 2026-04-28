@@ -1,0 +1,16 @@
+default:
+  image:
+    name: ghcr.io/void-linux/void-glibc-full:20250616R1
+    entrypoint: [
+        "/bin/sh",
+        "-c",
+        "xbps-install -Syu xbps && \
+        xbps-install -yu && \
+        xbps-install -y bash && \
+        exec /bin/bash",
+      ]
+  tags:
+    - privileged
+
+include:
+  - local: .gitlab/ci/build.yml

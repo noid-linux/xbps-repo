@@ -1,0 +1,48 @@
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    ## Prepare container
+    # switch to repo-ci mirror
+    - mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+    - sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
+    # install dependencies
+    - xbps-install -Sy git sudo
+    # - xbps-install -y curl github-cli ripgrep
+    # create non-root user
+    - useradd -G xbuilder -M builder
+
+    ## Clone and checkout void-packages
+    - git clone --depth=1 --branch=master https://github.com/void-linux/void-packages
+
+    ## Switch to Noid base files
+    - find void-packages -type f -exec sed -i "s/base-files/noid-base-files/g" {} +
+
+    ## Clone and checkout noid-packages
+    - git clone --depth=1 --branch=main https://gitgud.io/noid-linux/noid-packages.git noid-packages
+
+    ## Merge custom repositories
+    - cp -f noid-packages/common/travis/changed_templates.sh void-packages/common/travis/changed_templates.sh
+    - cat noid-packages/common/shlibs | tee -a void-packages/common/shlibs
+    - cp -r noid-packages/srcpkgs/* void-packages/srcpkgs/
+
+    ## Prepare masterdir
+    - cd void-packages
+    - sed -i '1i repository=https://github.com/noid-linux/xbps-repo/releases/latest/download' etc/xbps.d/repos-remote.conf
+    - chown -R builder:builder . &&
+    - sudo -Eu builder common/travis/set_mirror.sh &&
+    - echo y | sudo -Eu builder common/travis/prepare.sh &&
+    - common/travis/fetch-xtools.sh
+    - mkdir -p ~/packages ~/hostdir
+    - chown -R builder:builder ~/packages &&
+    - chown -R builder:builder ~/hostdir &&
+
+    ## Find changed templates
+
+    ## Build and check packages
+    # - for pkg in $(< /tmp/templates); do
+    # -      echo y | sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg"
+    # - done
+    - echo y | sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg brave
