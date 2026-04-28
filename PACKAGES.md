@@ -20,6 +20,7 @@
 | drawio-desktop                   | 29.7.9           | ✅       |
 | discord                          | 0.0.134          | ❌       |
 | dsearch                          | 0.2.1            | ✅       |
+| emacs-lucid                      | 30.2             | ✅       |
 | feishin                          | 1.5.0            | ✅       |
 | ferdium                          | 7.1.2            | ✅       |
 | flat-remix-icon-theme            | 20251119         | ✅       |
