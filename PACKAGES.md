@@ -7,7 +7,7 @@
 | azaharplus                       | 2124.3-A         | ✅       |
 | bazaar                           | 0.7.14           | ✅       |
 | bitwarden-desktop                | 2026.3.1         | ❌       |
-| brave                            | 1.89.143         | ❌       |
+| brave                            | 1.89.145         | ❌       |
 | calamares                        | 3.4.0            | ✅       |
 | cinny-desktop                    | 4.11.2           | ✅       |
 | clipcat                          | 0.24.1           | ✅       |
