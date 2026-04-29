@@ -15,7 +15,7 @@
 | dgop                             | 0.2.2            | ✅       |
 | dinit-rc                         | 0.6.4            | ✅       |
 | dioxus-cli                       | 0.7.3            | ✅       |
-| dms-shell                        | 1.4.5            | ✅       |
+| dms-shell                        | 1.4.6            | ✅       |
 | dms-shell-niri                   | /                | ✅       |
 | drawio-desktop                   | 29.7.9           | ✅       |
 | discord                          | 0.0.134          | ❌       |
