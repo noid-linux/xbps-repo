@@ -40,7 +40,7 @@
 | librewolf                        | 150.0.1-1        | ❌       |
 | lutgen-cli                       | 1.0.1            | ✅       |
 | lutgen-studio                    | 0.3.0            | ✅       |
-| ly                               | 1.3.2            | ✅       |
+| ly                               | 1.4.0            | ✅       |
 | megasync                         | 6.2.2.0          | ✅       |
 | mesa                             | 26.0.5           | ✅       |
 | mission-center                   | 1.1.0            | ✅       |
@@ -76,4 +76,4 @@
 | xlibre-repo                      | /                | /        |
 | zap-rs                           | 0.3.1            | ✅       |
 | zen-browser                      | 1.19.11b         | ❌       |
-| zig                              | 0.15.2           | ❌       |
+| zig                              | 0.16             | ❌       |
