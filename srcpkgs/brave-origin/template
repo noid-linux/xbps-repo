@@ -1,0 +1,40 @@
+# Template file for 'brave-origin'
+pkgname=brave-origin
+version=1.91.135
+revision=1
+archs="x86_64"
+short_desc="Minimalist browser from the makers of Brave"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MPL-2.0"
+homepage="https://brave.com"
+changelog="https://raw.githubusercontent.com/brave/brave-browser/refs/heads/master/CHANGELOG_DESKTOP_ORIGIN.md"
+distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/${pkgname}-beta-${version}-linux-amd64.zip"
+checksum=e2c20d42846d3a5f2df5a1b2f67ff62b3ec090f4e6b8b0360c189a897f32384a
+nostrip=yes
+skiprdeps="/opt/${pkgname}/libqt5_shim.so /opt/${pkgname}/libqt6_shim.so"
+replaces="brave-browser-origin>=0"
+conflicts="brave>=0"
+
+do_install() {
+	vmkdir opt/${pkgname}
+	vcopy "*" opt/${pkgname}
+
+	chmod 4755 ${DESTDIR}/opt/${pkgname}/chrome-sandbox
+
+	vbin ${FILESDIR}/${pkgname}.sh brave
+
+	vinstall ${FILESDIR}/brave-origin-beta.desktop 644 usr/share/applications
+	vinstall ${FILESDIR}/com.brave.Origin.beta.desktop 644 usr/share/applications
+	vlicense LICENSE
+
+	for size in 16 24 32 48 64 128 256; do
+		vinstall product_logo_${size}.png 644 \
+			usr/share/icons/hicolor/${size}x${size}/apps ${pkgname}-beta.png
+	done
+}
+
+brave-browser-origin_package() {
+	short_desc+=" - (Dummy transitional package)"
+	metapackage=yes
+	depends="brave-origin-${version}_${revision}"
+}
