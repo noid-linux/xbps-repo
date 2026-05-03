@@ -1,7 +1,7 @@
 # Template file for 'brave'
 pkgname=brave
 version=1.89.145
-revision=1
+revision=2
 archs="x86_64"
 short_desc="Web browser that blocks ads and trackers by default"
 maintainer="Naz <ndpm13@ch-naseem.com>"
@@ -12,6 +12,8 @@ distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/
 checksum=e9069992b7857c99be7b8395c1ff0c0a9cb987414a3b18739f4ca1e659b7b681
 nostrip=yes
 skiprdeps="/opt/brave/libqt5_shim.so /opt/brave/libqt6_shim.so"
+replaces="brave-browser>=0"
+conflicts="brave-origin>=0"
 
 do_install() {
 	vmkdir opt/brave
