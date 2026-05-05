@@ -1,6 +1,6 @@
 # Template file for 'brave-origin'
 pkgname=brave-origin
-version=1.91.137
+version=1.91.139
 revision=1
 archs="x86_64"
 short_desc="Minimalist browser from the makers of Brave"
@@ -9,7 +9,7 @@ license="MPL-2.0"
 homepage="https://brave.com"
 changelog="https://raw.githubusercontent.com/brave/brave-browser/refs/heads/master/CHANGELOG_DESKTOP_ORIGIN.md"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/${pkgname}-beta-${version}-linux-amd64.zip"
-checksum=4d9aac44ee738f7bde97cc15206906bc8133529d652a889f30ab56ad6bae46f2
+checksum=9e9b356ebf4dd94baf550a8153de2d6dd2c737d03bb4a248d821c61c9aa2abeb
 nostrip=yes
 skiprdeps="/opt/${pkgname}/libqt5_shim.so /opt/${pkgname}/libqt6_shim.so"
 replaces="brave-browser-origin>=0"
