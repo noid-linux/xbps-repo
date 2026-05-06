@@ -1,1 +1,0 @@
-To start noctalia-shell, run: qs -c noctalia-shell

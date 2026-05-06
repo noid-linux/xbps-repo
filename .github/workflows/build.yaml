@@ -1,9 +1,9 @@
-name: Build Packages
+name: Build Dinit Packages
 
 on:
   push:
     branches:
-      - "main"
+      - "repo/dinit"
     paths:
       - "srcpkgs/**"
 
@@ -16,11 +16,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Build changed packages.
   build:
     name: Build packages
     runs-on: ubuntu-latest
-
     container:
       image: ghcr.io/void-linux/void-glibc-full:latest
       options: --platform linux/amd64 --privileged
@@ -38,7 +36,8 @@ jobs:
           mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           # install dependencies
-          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y sudo bash curl git github-cli ripgrep
+          xbps-install -Syu xbps && xbps-install -yu
+          xbps-install -y sudo bash curl git github-cli ripgrep
           # create non-root user
           useradd -G xbuilder -M builder
 
@@ -49,7 +48,7 @@ jobs:
         run: find void-packages -type f -exec sed -i "s/base-files/noid-base-files/g" {} +
 
       - name: Checkout custom packages
-        run: git clone --depth=1 --branch=main https://github.com/${{ github.repository }} noid-packages
+        run: git clone --depth=1 --branch=repo/dinit https://github.com/${{ github.repository }} noid-packages
 
       - name: Merge custom repositories
         run: |
@@ -64,6 +63,8 @@ jobs:
         run: |
           cd void-packages
           sed -i '1i repository=https://github.com/noid-linux/xbps-repo/releases/latest/download' \
+            etc/xbps.d/repos-remote.conf
+          sed -i '1i repository=https://github.com/noid-linux/xbps-repo/releases/dinit/download' \
             etc/xbps.d/repos-remote.conf
           chown -R builder:builder . &&
           sudo -Eu builder common/travis/set_mirror.sh &&
@@ -93,7 +94,7 @@ jobs:
 
       - name: Download the rest of the packages
         run: |
-          gh release download latest \
+          gh release download dinit \
             --repo noid-linux/xbps-repo \
             --dir ~/all_packages
         env:
@@ -137,48 +138,41 @@ jobs:
       - name: Upload built packages
         uses: actions/upload-artifact@v4
         with:
-          name: built-packages
-          path: /github/home/release/
+          name: built-dinit-packages
+          path: ~/release/
           retention-days: 1
 
       - name: Delete existing release assets
         shell: bash
         run: |
           for pkg in $(ls -1 ~/new_packages/*.xbps | sed 's/-[^-]*$//' | xargs -I {} basename {}); do
-            gh release view latest --repo noid-linux/xbps-repo --json assets --jq '.assets[].name' \
-            | grep "^${pkg}-" | xargs -I {} gh release delete-asset latest {} --repo noid-linux/xbps-repo --yes || true
+            gh release view dinit --repo noid-linux/xbps-repo --json assets --jq '.assets[].name' \
+            | grep "^${pkg}-" | xargs -I {} gh release delete-asset dinit {} --repo noid-linux/xbps-repo --yes || true
           done
 
-          gh release delete-asset latest "x86_64-repodata" --repo noid-linux/xbps-repo --yes || true
+          gh release delete-asset dinit "x86_64-repodata" --repo noid-linux/xbps-repo --yes || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   create-github-release:
     needs: build
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/void-linux/void-glibc-full:20250227R1
-
     steps:
-      - name: Install dependencies
-        run: |
-          xbps-install -Syu xbps && xbps-install -yu
-
       - name: Download built packages
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
-          name: built-packages
-          path: /github/home/release/
+          name: built-dinit-packages
+          path: ~/release/
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: /github/home/release/*
-          tag_name: latest
-          name: Latest Build
+          files: /home/runner/release/*
+          tag_name: dinit
+          name: Latest Build - Dinit
           body: |
-            Latest build of XBPS packages
+            Latest build of Dinit XBPS packages
             Built on: ${{ github.event.repository.updated_at }}
-          prerelease: false
+          prerelease: true

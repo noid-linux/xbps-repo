@@ -3,7 +3,7 @@
 # changed_templates.sh
 
 echo "Old pkgs:"
-gh release view latest --repo noid-linux/xbps-repo \
+gh release view dinit --repo noid-linux/xbps-repo \
 	--json assets --jq '.assets[].name' | sed \
 	's/\.x86_64\.xbps//' | rg -v 'x86_64-repodata|sig2' | tee \
 	/tmp/old_pkgs

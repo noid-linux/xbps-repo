@@ -1,8 +1,0 @@
-[Desktop Entry]
-Categories=Network;
-Comment=Yet another matrix client
-Exec=cinny
-Icon=cinny
-Name=Cinny
-Terminal=false
-Type=Application
