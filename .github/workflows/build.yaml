@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/void-linux/void-glibc-full:20250616R1
+      image: ghcr.io/void-linux/void-glibc-full:latest
       options: --platform linux/amd64 --privileged
       volumes:
         - /dev:/dev
