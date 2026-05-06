@@ -16,7 +16,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Build changed packages.
   build:
     name: Build packages
     runs-on: ubuntu-latest
@@ -38,7 +37,8 @@ jobs:
           mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           # install dependencies
-          xbps-install -Syu xbps && xbps-install -yu && xbps-install -y sudo bash curl git github-cli ripgrep
+          xbps-install -Syu xbps && xbps-install -yu
+          xbps-install -y sudo bash curl git github-cli ripgrep
           # create non-root user
           useradd -G xbuilder -M builder
 
@@ -138,7 +138,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: built-packages
-          path: /github/home/release/
+          path: ~/release/
           retention-days: 1
 
       - name: Delete existing release assets
@@ -156,26 +156,19 @@ jobs:
   create-github-release:
     needs: build
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/void-linux/void-glibc-full:20250227R1
-
     steps:
-      - name: Install dependencies
-        run: |
-          xbps-install -Syu xbps && xbps-install -yu
-
       - name: Download built packages
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: built-packages
-          path: /github/home/release/
+          path: ~/release/
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: /github/home/release/*
+          files: /home/runner/release/*
           tag_name: latest
           name: Latest Build
           body: |
