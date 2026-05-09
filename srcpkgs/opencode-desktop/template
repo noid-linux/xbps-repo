@@ -1,0 +1,42 @@
+# Template file for 'opencode-desktop'
+pkgname=opencode-desktop
+version=1.14.42
+revision=1
+archs="x86_64"
+short_desc="OpenCode desktop client"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://opencode.ai/"
+changelog="https://github.com/anomalyco/opencode/releases/"
+distfiles="https://github.com/anomalyco/opencode/releases/download/v${version}/${pkgname}-linux-amd64.deb>${pkgname}-linux-amd64.deb
+ https://raw.githubusercontent.com/anomalyco/opencode/refs/heads/dev/LICENSE>LICENSE"
+checksum="aa1898e64c9c71c3602fb88811bc2a7d2db64b03f4a77724d2ed2aac82cb7505
+ 625f0f619133f89bbbb2abe37369613dfa1885eba1e50d02170deb62bb42cb6b"
+skip_extraction="LICENSE"
+nostrip=yes
+
+do_install() {
+	# Prune Debian/Ubuntu-specific and dead files
+	rm -rf "usr/share/doc"
+	rm -f "opt/OpenCode/resources/apparmor-profile"
+	rm -f "opt/OpenCode/resources/app-update.yml"
+
+	# Prune musl native modules
+	find "opt/OpenCode" \( -name '*musl*' \) -exec rm -rf {} +
+
+	# Rename icons to match Icon= field
+	for dir in usr/share/icons/hicolor/*/apps; do
+		[ -f "${dir}/@opencode-aidesktop.png" ] || continue
+		mv "${dir}/@opencode-aidesktop.png" "${dir}/opencode-desktop.png"
+	done
+
+	rm opt/OpenCode/libvulkan.so.1
+
+	vcopy "*" /
+
+	vbin ${FILESDIR}/${pkgname}.sh ${pkgname}
+
+	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
+
+	vlicense ${XBPS_SRCDISTDIR}/${pkgname}-${version}/LICENSE
+}
