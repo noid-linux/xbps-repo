@@ -8,7 +8,7 @@
 | bazaar                           | 0.7.14          | ✅       |
 | bitwarden-desktop                | 2026.3.1        | ❌       |
 | brave                            | 1.90.121        | ❌       |
-| brave-origin                     | 1.91.145        | ❌       |
+| brave-origin                     | 1.91.147        | ❌       |
 | calamares                        | 3.4.0           | ✅       |
 | cinny-desktop                    | 4.11.2          | ✅       |
 | clipcat                          | 0.24.1          | ✅       |
