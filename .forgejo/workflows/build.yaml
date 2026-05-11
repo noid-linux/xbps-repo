@@ -1,0 +1,180 @@
+name: Build Packages
+
+on:
+  push:
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: ${{ forgejo.workflow }}-${{ forgejo.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build packages
+    runs-on: void-glibc-full
+
+    container:
+      options: --platform linux/amd64 --privileged
+      volumes:
+        - /dev:/dev
+      env:
+        ARCH: "x86_64"
+        BOOTSTRAP: "x86_64"
+        TEST: 1
+
+    steps:
+      - name: Prepare container
+        run: |
+          # switch to repo-ci mirror
+          mkdir -p /etc/xbps.d && cp /usr/share/xbps.d/*-repository-*.conf /etc/xbps.d/
+          sed -i 's|repo-default|repo-fastly|g' /etc/xbps.d/*-repository-*.conf
+          # install dependencies
+          xbps-install -Syu xbps && xbps-install -yu
+          xbps-install -y sudo bash curl git ripgrep wget nodejs jq
+          # create non-root user
+          useradd -G xbuilder -M builder
+
+      - name: Clone void-packages
+        run: |
+          git clone http://oauth2:${{ secrets.FORGEJO_TOKEN }}@localhost:3000/mirrors/void-packages \
+            --depth=1 -b master
+
+      - name: Clone noid-packages
+        run: |
+          git clone http://localhost:3000/${{ forgejo.repository }} \
+            --depth=1 -b forgejo noid-packages
+
+      - name: Merge custom repositories
+        run: |
+          cp -f noid-packages/common/travis/changed_templates.sh \
+            void-packages/common/travis/changed_templates.sh
+          cat noid-packages/common/shlibs | tee -a \
+            void-packages/common/shlibs
+          cp -r noid-packages/srcpkgs/* void-packages/srcpkgs/
+          cp noid-packages/common/repo-keys/fd\:a3\:7d\:ab\:fe\:ed\:b4\:4e\:20\:48\:3e\:ab\:0b\:02\:7d\:45.plist \
+            void-packages/common/repo-keys
+
+      - name: Prepare masterdir
+        run: |
+          cd void-packages
+          sed -i '1i repository=https://github.com/noid-linux/xbps-repo/releases/latest/download' \
+            etc/xbps.d/repos-remote.conf
+          echo -e "XBPS_MIRROR=https://repo-fastly.voidlinux.org/current" | tee -a \
+            etc/defaults.conf
+          chown -R builder:builder . &&
+          sudo -Eu builder common/travis/set_mirror.sh &&
+          sudo -Eu builder common/travis/prepare.sh &&
+          common/travis/fetch-xtools.sh
+
+      - name: Find changed templates
+        run: |
+          cd noid-packages && sudo -Eu builder ./common/travis/changed_templates.sh \
+            "http://localhost:3000/noid-linux/noid-repo/releases/download/current"
+
+      - name: Build and check packages
+        shell: bash
+        run: |
+          cd void-packages
+          for pkg in nyancat; do
+            sudo -Eu builder ./xbps-src -j$(nproc) -s pkg "$pkg"
+          done
+
+      - name: Download the rest of the packages
+        uses: actions/forgejo-release@v2.11.1
+        env:
+          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
+        with:
+          direction: download
+          url: http://localhost:3000
+          repo: noid-linux/noid-repo
+          tag: current
+          release-dir: all_packages
+
+      - name: Merge packages
+        shell: bash
+        run: |
+          rm -f all_packages/*.sig2
+          for pkg in $(ls -1 void-packages/hostdir/binpkgs/*.xbps | sed 's/-[^-]*$//'); do
+            rm -f all_packages/"$pkg"*.xbps
+          done
+          cp -r void-packages/hostdir/binpkgs new_packages
+          cp all_packages/*.xbps void-packages/hostdir/binpkgs/
+
+      - name: Sign and package
+        env:
+          PRIVATE_PEM: ${{ secrets.PRIVATE_PEM }}
+          XBPS_PASSPHRASE: ${{ secrets.PRIVATE_PEM_PASSPHRASE }}
+        run: |
+          temp_key=$(mktemp)
+          echo "$PRIVATE_PEM" > "$temp_key"
+          chmod 600 "$temp_key"
+          xbps-rindex --privkey "$temp_key" --sign --signedby "Noid Linux (Forgejo Actions)" void-packages/hostdir/binpkgs
+          xbps-rindex --privkey "$temp_key" --sign-pkg void-packages/hostdir/binpkgs/*.xbps
+          rm -f "$temp_key"
+
+      - name: Prepare release files
+        shell: bash
+        run: |
+          mkdir release
+          cp new_packages/* release/
+          cp void-packages/hostdir/binpkgs/x86_64-repodata release/
+          for pkg in $(basename -s .xbps new_packages/*.xbps); do
+            cp void-packages/hostdir/binpkgs/"$pkg".xbps.sig2 release/
+          done
+
+      - name: Delete existing release assets
+        shell: bash
+        run: |
+          REPO="noid-linux/noid-repo"
+          BASE_URL="http://localhost:3000/api/v1"
+
+          # Get the release ID for the 'current' tag
+          RELEASE_ID=$(curl -sf \
+            -H "Authorization: token ${FORGEJO_TOKEN}" \
+            "${BASE_URL}/repos/${REPO}/releases/current" \
+            | jq -r '.id')
+
+          # Get all asset names and IDs as "id name" pairs
+          ASSETS=$(curl -sf \
+            -H "Authorization: token ${FORGEJO_TOKEN}" \
+            "${BASE_URL}/repos/${REPO}/releases/${RELEASE_ID}/assets" \
+            | jq -r '.[] | "\(.id) \(.name)"')
+
+          # Delete assets matching any package prefix
+          for pkg in $(ls -1 new_packages/*.xbps | sed 's/-[^-]*$//' | xargs -I {} basename {}); do
+            echo "$ASSETS" | grep " ${pkg}-" | while read -r asset_id asset_name; do
+              echo "Deleting asset: ${asset_name} (id=${asset_id})"
+              curl -sf -X DELETE \
+                -H "Authorization: token ${FORGEJO_TOKEN}" \
+                "${BASE_URL}/repos/${REPO}/releases/${RELEASE_ID}/assets/${asset_id}" || true
+            done
+          done
+
+          # Delete x86_64-repodata asset
+          REPODATA_ID=$(echo "$ASSETS" | awk '$2 == "x86_64-repodata" {print $1}')
+          if [ -n "$REPODATA_ID" ]; then
+            curl -sf -X DELETE \
+              -H "Authorization: token ${FORGEJO_TOKEN}" \
+              "${BASE_URL}/repos/${REPO}/releases/${RELEASE_ID}/assets/${REPODATA_ID}" || true
+          fi
+        env:
+          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
+
+      - name: Create Release
+        uses: actions/forgejo-release@v2.11.1
+        env:
+          FORGEJO_TOKEN: ${{ secrets.FORGEJO_TOKEN }}
+        with:
+          direction: upload
+          url: http://localhost:3000
+          repo: noid-linux/noid-repo
+          tag: current
+          release-dir: release
+          release-notes: |
+            Latest build of XBPS packages
+            Built on: ${{ forgejo.event.repository.updated_at }}
+          prerelease: false
+          override: true

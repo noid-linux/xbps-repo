@@ -2,11 +2,11 @@
 #
 # changed_templates.sh
 
+XBPS_REPO="$1"
+
 echo "Old pkgs:"
-gh release view latest --repo noid-linux/xbps-repo \
-	--json assets --jq '.assets[].name' | sed \
-	's/\.x86_64\.xbps//' | rg -v 'x86_64-repodata|sig2' | tee \
-	/tmp/old_pkgs
+xbps-query -RsM "*" --repository="$XBPS_REPO" -i \
+	| awk '{ print $2 }' | tee /tmp/old_pkgs
 
 echo "New pkgs:"
 for pkg in $(ls -1 srcpkgs); do
