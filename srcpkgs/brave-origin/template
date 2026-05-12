@@ -1,15 +1,16 @@
 # Template file for 'brave-origin'
 pkgname=brave-origin
-version=1.91.147
+version=1.91.149
 revision=1
 archs="x86_64"
+depends="vulkan-loader"
 short_desc="Minimalist browser from the makers of Brave"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MPL-2.0"
 homepage="https://brave.com"
 changelog="https://raw.githubusercontent.com/brave/brave-browser/refs/heads/master/CHANGELOG_DESKTOP_ORIGIN.md"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/${pkgname}-beta-${version}-linux-amd64.zip"
-checksum=61aec93c49f315f772cc75651dc1eeb910fae715424934288902c3a84b1819f6
+checksum=566c22d557f6039dba0bea22ca49ac01d9c895971b4fab346d41674ce3248623
 nostrip=yes
 skiprdeps="/opt/${pkgname}/libqt5_shim.so /opt/${pkgname}/libqt6_shim.so"
 replaces="brave-browser-origin>=0"
@@ -18,6 +19,9 @@ conflicts="brave>=0"
 do_install() {
 	vmkdir opt/${pkgname}
 	vcopy "*" opt/${pkgname}
+
+	rm ${DESTDIR}/opt/${pkgname}/libvulkan.so.1
+	rm -rf ${DESTDIR}/opt/${pkgname}/cron
 
 	chmod 4755 ${DESTDIR}/opt/${pkgname}/chrome-sandbox
 
