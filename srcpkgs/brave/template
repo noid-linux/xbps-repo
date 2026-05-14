@@ -1,15 +1,16 @@
 # Template file for 'brave'
 pkgname=brave
-version=1.90.121
+version=1.90.122
 revision=1
 archs="x86_64"
+depends="vulkan-loader"
 short_desc="Web browser that blocks ads and trackers by default"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MPL-2.0"
 homepage="https://brave.com"
 changelog="https://raw.githubusercontent.com/brave/brave-browser/refs/heads/master/CHANGELOG_DESKTOP.md"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser-${version}-linux-amd64.zip"
-checksum=565cd303d3dea5f2e42b1eb74627571fff9e832430329f489d86d7f0892b02e9
+checksum=2fe00f79215c79a65968db4bca28ad6c0e52afc8b6194ff0de725404fba3623f
 nostrip=yes
 skiprdeps="/opt/brave/libqt5_shim.so /opt/brave/libqt6_shim.so"
 replaces="brave-browser>=0"
@@ -18,6 +19,13 @@ conflicts="brave-origin>=0"
 do_install() {
 	vmkdir opt/brave
 	vcopy "*" opt/brave
+
+	rm ${DESTDIR}/opt/${pkgname}/libvulkan.so.1
+	rm ${DESTDIR}/opt/${pkgname}/default-app-block
+
+	rm -rf ${DESTDIR}/opt/${pkgname}/cron
+	rm -rf ${DESTDIR}/opt/${pkgname}/MEIPreload
+	rm -rf ${DESTDIR}/opt/${pkgname}/PrivacySandboxAttestationsPreloaded
 
 	chmod 4755 ${DESTDIR}/opt/brave/chrome-sandbox
 
