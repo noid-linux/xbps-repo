@@ -19,7 +19,7 @@
 | dms-shell                        | 1.4.6           | ✅       |
 | dms-shell-niri                   | /               | ✅       |
 | drawio-desktop                   | 30.0.1          | ✅       |
-| discord                          | 0.0.134         | ❌       |
+| discord                          | 1.0.138         | ❌       |
 | dsearch                          | 0.2.1           | ✅       |
 | emacs-lucid                      | 30.2            | ✅       |
 | feishin                          | 1.5.0           | ✅       |
