@@ -1,15 +1,8 @@
-diff --git a/discord.desktop b/discord.desktop
-index 33e9e81..6234a5f 100644
+*** a/discord.desktop
 --- a/discord.desktop
-+++ b/discord.desktop
-@@ -3,7 +3,7 @@ Name=Discord
- StartupWMClass=discord
- Comment=All-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.
- GenericName=Internet Messenger
--Exec=/usr/bin/discord
-+Exec=/usr/lib/discord/discord
- Icon=discord
- Type=Application
- Categories=Network;InstantMessaging;
--- 
-2.54.0
+*************** GenericName=Internet Messenger
+*** 6 ****
+! Exec=/usr/share/discord/Discord
+--- 6 ----
+! Exec=/usr/lib/discord/Discord
+
