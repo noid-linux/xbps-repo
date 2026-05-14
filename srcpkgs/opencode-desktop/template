@@ -1,8 +1,9 @@
 # Template file for 'opencode-desktop'
 pkgname=opencode-desktop
-version=1.14.48
+version=1.14.50
 revision=1
 archs="x86_64"
+depends="vulkan-loader"
 short_desc="OpenCode desktop client"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
@@ -10,7 +11,7 @@ homepage="https://opencode.ai/"
 changelog="https://github.com/anomalyco/opencode/releases/"
 distfiles="https://github.com/anomalyco/opencode/releases/download/v${version}/${pkgname}-linux-amd64.deb>${pkgname}-linux-amd64.deb
  https://raw.githubusercontent.com/anomalyco/opencode/refs/heads/dev/LICENSE>LICENSE"
-checksum="2be86127041b1f4a8553bf168fab7ded46f690dcbe5f36496644301db6609816
+checksum="d8a837b8cba16926158a682505abfb442cec32917107c7b4d50e2920691214a2
  625f0f619133f89bbbb2abe37369613dfa1885eba1e50d02170deb62bb42cb6b"
 skip_extraction="LICENSE"
 nostrip=yes
@@ -29,6 +30,8 @@ do_install() {
 		[ -f "${dir}/@opencode-aidesktop.png" ] || continue
 		mv "${dir}/@opencode-aidesktop.png" "${dir}/opencode-desktop.png"
 	done
+
+	rm opt/OpenCode/libvulkan.so.1
 
 	vcopy "*" /
 
