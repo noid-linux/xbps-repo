@@ -1,0 +1,80 @@
+# Template file for 'themix'
+pkgname=themix
+version=1.15.1
+revision=1
+archs="x86_64"
+_theme_materia_ver=76cac96ca7fe45dc9e5b9822b0fbb5f4cad47984
+_theme_arc_ver=1fd68cc4e846e1dd0c4e2cf3fe37f67b4d098671
+_theme_oomox_ver=f1412f80e280eb964a0d100ce6497a1c54ac612f
+_icons_archdroid_ver=1.0.3
+_icons_gnomecolors_ver=5.5.6
+_icons_numix_ver=b5001d9628112cddd0f0a598892852af27d6b65d
+_icons_papirus_ver=11e75c8a6cf8dac3a4653fc3ecb760cf99741f38
+_icons_suruplus_ver=a0ad032f0223b7b25f46ad7af50252bd8f8948b6
+_icons_suruplus_aspromauros_ver=3.0
+_oomoxify_ver=f47c36b9198d4bde44d220e295f639671c0cd402
+_numix_folders_ver=e6197dd14264a8aab1d40bcd1659f904a1562c24
+_base16_ver=77f0bfaf9a6074efe43cc7afeff290563fb51c48
+build_wrksrc=themix-gui-${version}
+build_style=gnu-makefile
+build_helper="python3"
+make_build_target="install_gui install_import_xresources
+ install_export_xresources"
+make_build_args="APPDIR=/opt/${pkgname}"
+hostmakedepends="gettext python3"
+depends="gtk+3 python3 python3-gobject python3-cairo python3-pystache
+ python3-yaml gdk-pixbuf xorg sassc librsvg glib parallel optipng
+ inkscape gtk-engine-murrine meson bc"
+short_desc="Graphical application for designing themes and exporting them"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-only"
+homepage="https://github.com/themix-project/themix-gui/"
+changelog="https://github.com/themix-project/themix-gui/releases"
+_baseurl="https://github.com/themix-project"
+distfiles="${_baseurl}/themix-gui/archive/refs/tags/${version}.tar.gz
+ https://github.com/nana-4/materia-theme/archive/${_theme_materia_ver}.tar.gz
+ ${_baseurl}/archdroid-icon-theme/archive/refs/tags/${_icons_archdroid_ver}.tar.gz
+ ${_baseurl}/gnome-colors-icon-theme/archive/refs/tags/${_icons_gnomecolors_ver}.tar.gz
+ ${_baseurl}/oomoxify/archive/${_oomoxify_ver}.tar.gz
+ https://github.com/arc-design/arc-theme/archive/${_theme_arc_ver}.tar.gz
+ https://github.com/numixproject/numix-icon-theme/archive/${_icons_numix_ver}.tar.gz
+ https://github.com/numixproject/numix-folders/archive/${_numix_folders_ver}.tar.gz
+ https://github.com/PapirusDevelopmentTeam/papirus-icon-theme/archive/${_icons_papirus_ver}.tar.gz
+ https://github.com/tolga9009/suru-plus/archive/${_icons_suruplus_ver}.tar.gz
+ https://github.com/tolga9009/suru-plus-aspromauros/archive/refs/tags/v${_icons_suruplus_aspromauros_ver}.tar.gz
+ ${_baseurl}/oomox-gtk-theme/archive/${_theme_oomox_ver}.tar.gz
+ ${_baseurl}/themix-plugin-base16/archive/${_base16_ver}.tar.gz"
+checksum="3cf1424fca6b8f289456bef081bf02b68727116c024b3ad4671b2869b3a234b5
+ 5283bdb246ca2fba603bb14de85dc080fc9694681fbd88912631f0a6e5c1ec22
+ 5c83728f186e1ecbc6f70b9e8b28ceefc6b69cdaa841c71d6b101717f48fbfa6
+ 0c7d90e84146fdccea3b895926345121ebd5ebba659b21770ea88c506766e6ce
+ b88d769fe26b9005f384b59acacde301c331517b66c1cf4a319c00b8b1589393
+ 756634f80485a764800399d8920dc3af896e91f8274fbee806478a8f22cdb735
+ 84dedf27561043eeb4b957eecac09558035b8c9aa7d7b739707115bf2c2cb209
+ 3ebdba6781f4d304f55b7e5bc30eda3d77e724ba5edd8f1833b33012532daaa5
+ 17cccdb45e301b24b9a9a1f2b7710aa4f3ff58bdcd766d6cd857e46f2447a07a
+ fe50de4b6e3ba19ffd3139349b8258cc75cb4a0c05cceb6e6f881ace24e3a827
+ a1caab8684735bf41c61f933279bdd7388b15fc8908d7546f1af95571c4b9b8e
+ d185edba6b6f49e7833f16cf394310df6e229da33a4c931d0c81d19cddb1a71e
+ b83ab12cc5e3cd382d65978ed0f3f01d5a6f7b34af635d3f1a8698ff0e16af2f"
+patch_args="-Np1 -d ${build_wrksrc}"
+
+post_extract() {
+	mv materia-theme-${_theme_materia_ver}/* ${build_wrksrc}/plugins/theme_materia/materia-theme/
+	mv archdroid-icon-theme-${_icons_archdroid_ver}/* ${build_wrksrc}/plugins/icons_archdroid/archdroid-icon-theme/
+	mv gnome-colors-icon-theme-${_icons_gnomecolors_ver}/* ${build_wrksrc}/plugins/icons_gnomecolors/gnome-colors-icon-theme/
+	mv oomoxify-${_oomoxify_ver}/* ${build_wrksrc}/plugins/export_oomoxify/
+	mv arc-theme-${_theme_arc_ver}/* ${build_wrksrc}/plugins/theme_arc/arc-theme/
+	mv numix-icon-theme-${_icons_numix_ver}/* ${build_wrksrc}/plugins/icons_numix/numix-icon-theme/
+	mv numix-folders-${_numix_folders_ver}/* ${build_wrksrc}/plugins/icons_numix/numix-folders/
+	mv papirus-icon-theme-${_icons_papirus_ver}/* ${build_wrksrc}/plugins/icons_papirus/papirus-icon-theme/
+	mv suru-plus-${_icons_suruplus_ver}/* ${build_wrksrc}/plugins/icons_suruplus/suru-plus/
+	mv suru-plus-aspromauros-${_icons_suruplus_aspromauros_ver}/* ${build_wrksrc}/plugins/icons_suruplus_aspromauros/suru-plus-aspromauros/
+	mv oomox-gtk-theme-${_theme_oomox_ver}/* ${build_wrksrc}/plugins/theme_oomox/
+	mv themix-plugin-base16-${_base16_ver}/* ${build_wrksrc}/plugins/base16/
+}
+
+post_install() {
+	python3 -O -m compileall "${DESTDIR}/opt/${pkgname}/${pkgname}_gui" \
+		-d "/opt/${pkgname}/${pkgname}_gui"
+}

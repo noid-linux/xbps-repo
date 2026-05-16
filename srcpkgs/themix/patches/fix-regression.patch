@@ -1,0 +1,25 @@
+From f9a3e21bc80fa9d92e36a099f4bf6933ad08cf56 Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Sat, 16 May 2026 14:56:24 +0100
+Subject: [PATCH] fix(makefile): fix regression introduced by d8cbfdc (#475)
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 554b003..3af445a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -89,7 +89,7 @@ install_theme_materia:
+ 
+ 
+ install_export_oomoxify:
+-	$(eval PLUGIN_NAME := "oomoxify")
++	$(eval PLUGIN_NAME := "export_oomoxify")
+ 	make -C plugins/$(PLUGIN_NAME) -f Makefile_oomox_plugin DESTDIR=$(DESTDIR)  APPDIR=$(APPDIR) PREFIX=$(PREFIX) install
+ 
+ 
+-- 
+2.54.0
+
