@@ -1,6 +1,6 @@
 # Template file for 'heroic-games-launcher'
 pkgname=heroic-games-launcher
-version=2.21.0
+version=2.22.0
 revision=1
 archs="x86_64"
 hostmakedepends="pnpm python3"
@@ -12,7 +12,7 @@ license="GPL-3.0-or-later"
 homepage="https://heroicgameslauncher.com/"
 changelog="https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/refs/heads/main/CHANGELOG.md"
 distfiles="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/archive/refs/tags/v${version}.tar.gz"
-checksum=32f60460f05139e8340e8cff7c3c464acc813e79254a69f55eeacf0ad04094a9
+checksum=a4122c4e39a8e240cf86ee73d6c8c57632ca638284b71faffbf8e62237bf3725
 nopie=yes
 
 do_build() {
