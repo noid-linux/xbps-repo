@@ -57,7 +57,7 @@
 | nwm                              | 6.8              | ✅       |
 | obsidian                         | 1.12.7           | ❌       |
 | onlyoffice                       | 9.3.1            | ❌       |
-| opencode-desktop                 | 1.15.3           | ❌       |
+| opencode-desktop                 | 1.15.4           | ❌       |
 | PrismLauncher-Patched            | 11.0.2           | ✅       |
 | proton-authenticator             | 1.1.4            | ❌       |
 | proton-vpn-gtk-app               | 4.16.2           | ✅       |
