@@ -1,0 +1,27 @@
+# Template file for 'biome'
+pkgname=biome
+version=2.4.15
+revision=1
+archs="x86_64"
+build_style=cargo
+make_build_args="-p biome_cli --all-features"
+hostmakedepends="pkg-config"
+makedepends="libgit2-1.9-devel"
+short_desc="Toolchain for web projects"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT, Apache-2.0"
+homepage="https://biomejs.dev/"
+changelog="https://github.com/biomejs/biome/raw/refs/heads/main/packages/@biomejs/biome/CHANGELOG.md"
+distfiles="https://github.com/biomejs/${pkgname}/archive/@biomejs/biome@${version}.tar.gz"
+checksum=a6195ce3a4575ce316d2253517118f49edcd199a072880748e50170c6993e513
+
+pre_build() {
+	export BIOME_VERSION="${version}"
+}
+
+do_install() {
+	vbin target/${RUST_TARGET}/release/biome
+
+	vlicense LICENSE-APACHE
+	vlicense LICENSE-MIT
+}
