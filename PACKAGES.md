@@ -56,7 +56,7 @@
 | nyancat                          | 1.2.1            | ✅       |
 | nwm                              | 6.8              | ✅       |
 | obsidian                         | 1.12.7           | ❌       |
-| onlyoffice                       | 9.3.1            | ❌       |
+| onlyoffice                       | 9.4.0            | ❌       |
 | opencode-desktop                 | 1.15.5           | ❌       |
 | PrismLauncher-Patched            | 11.0.2           | ✅       |
 | proton-authenticator             | 1.1.4            | ❌       |

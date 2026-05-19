@@ -1,24 +1,24 @@
 # Template file for 'onlyoffice'
 pkgname=onlyoffice
-version=9.3.1
+version=9.4.0
 revision=1
-only_for_archs="x86_64"
-hostmakedepends="tar xz"
-short_desc="An office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents"
+archs="x86_64"
+short_desc="Office suite that combines text, spreadsheet and presentation editors"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0-only"
 homepage="https://www.onlyoffice.com/"
+changelog="https://github.com/ONLYOFFICE/DesktopEditors/raw/refs/heads/master/CHANGELOG.md"
 distfiles="https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb"
-checksum=2fdda24d2efe65528d0aabad0633d868f22f67cf1567f8df39e72cba24f6af24
+checksum=4271434e81be42b1559fd989d24bf6d413482f278dc6a5e328202a4fc1a18649
 nostrip=yes
 
-do_extract() {
-  mkdir -p ${DESTDIR}
-  ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/onlyoffice-desktopeditors_amd64.deb
-  tar xf data.tar.xz -C ${DESTDIR}
-}
-
 do_install() {
-  # Cleanup up
-  rm -rf ${DESTDIR}/etc
+	vcopy "*" /
+
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libqgsttools_p.so.1.0
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libvulkan.so.1
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libqgsttools_p.so.1.0.0
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libqgsttools_p.so
+
+	vlicense opt/onlyoffice/desktopeditors/LICENSE.txt
 }
