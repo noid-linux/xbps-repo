@@ -1,9 +1,8 @@
 # Template file for 'librewolf'
 pkgname=librewolf
-version=150.0.3.1
+version=151.0.1
 revision=1
 _version="${version%.*}-${version##*.}"
-build_wrksrc="${pkgname}"
 archs="x86_64"
 depends="desktop-file-utils hicolor-icon-theme pciutils"
 short_desc="Fork of Firefox, focused on privacy, security and freedom"
@@ -11,30 +10,30 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="MPL-2.0"
 homepage="https://librewolf.net/"
 _base_url="https://codeberg.org/api/packages/librewolf/generic/librewolf/${_version}"
-distfiles="${_base_url}/librewolf-${_version}-linux-x86_64-package.tar.xz>librewolf-${_version}.tar.xz
- https://codeberg.org/librewolf/source/archive/${_version}.tar.gz>librewolf-source-${_version}.tar.gz"
-checksum="49edf3bc01341b0d92c6be4e983e668d55310255478b4419ce12ab51ed6252d6
- 5f2745110069571834dbc79a91f21e9bcfaf741dcc4abd355ea5f642777d90bf"
-nostrip=yes
+distfiles="${_base_url}/librewolf-${_version}-linux-x86_64-package.tar.xz
+ https://codeberg.org/librewolf/source/archive/${_version}.tar.gz"
+checksum="8931637986fd39442d0c10d5164198904beab455b66d7ad50eacf09c76d14e46
+ 6d7e2f996e0f9c027c560eb4b2b5c797a5fb67b43c715bf611c85fbc7c13cc60"
+skip_extraction="${_version}.tar.gz"
+
+post_extract() {
+	vsrcextract -C source "${_version}.tar.gz"
+}
 
 do_install() {
 	vmkdir usr/lib/${pkgname}
 	vcopy * usr/lib/${pkgname}/
+	rm -rf ${DESTDIR}/usr/lib/${pkgname}/source
 
 	vmkdir usr/bin
 	ln -sf /usr/lib/${pkgname}/${pkgname} ${DESTDIR}/usr/bin/${pkgname}
-
-	if [ -e "${DESTDIR}/usr/lib/librewolf/libnssckbi.so" ]; then
-		ln -sfr "${DESTDIR}/usr/lib/libnssckbi.so" \
-			"${DESTDIR}/usr/lib/librewolf/libnssckbi.so"
-	fi
 
 	vinstall ${FILESDIR}/vendor.js 644 usr/lib/librewolf/browser/defaults/preferences/
 	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications/
 
 	for i in 16 32 48 64 128; do
 		vmkdir usr/share/icons/hicolor/${i}x${i}/apps
-		vcopy ../source/themes/browser/branding/librewolf/default${i}.png \
+		vcopy source/themes/browser/branding/librewolf/default${i}.png \
 			usr/share/icons/hicolor/${i}x${i}/apps/librewolf.png
 	done
 }
