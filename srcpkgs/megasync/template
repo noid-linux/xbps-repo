@@ -1,10 +1,9 @@
 # Template file for 'megasync'
 pkgname=megasync
-version=6.3.0.1
+version=6.3.1.0
 revision=1
-_sdkver=10.12.0
+_sdkver="10.12.1"
 archs="x86_64"
-build_wrksrc=MEGAsync-${version}_Linux
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE:STRING=None
  -DCMAKE_MODULE_PATH:PATH=src/MEGASync/mega/cmake/modules/packages
@@ -29,14 +28,14 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="custom:MEGA-Limited-Code-Review-Licence"
 homepage="https://mega.io"
 changelog="https://github.com/meganz/MEGAsync/releases"
-distfiles="https://github.com/meganz/MEGAsync/archive/refs/tags/v${version}_Linux.tar.gz>${pkgname}-v${version}.tar.gz
- https://github.com/meganz/sdk/archive/refs/tags/v${_sdkver}.tar.gz>sdk-v${_sdkver}.tar.gz"
-checksum="fbefefbf8575fdd691f4dcc2e200f64e0eadf45bb79d06e90d665bd97eeedeae
- 293af0310a35ce8342a735f11e35a8a4f6da292cfd065f053c6d2fa78956db83"
-patch_args="-Np1 -d ${build_wrksrc}"
+distfiles="https://github.com/meganz/MEGAsync/archive/refs/tags/v${version}_Linux.tar.gz
+ https://github.com/meganz/sdk/archive/refs/tags/v${_sdkver}.tar.gz"
+checksum="87e07e1d3a8cbc407bb5f2b7c446e0d598c0a598cfa7a73dfb2d6856edcd9e62
+ 9dca195c2a05fc7eaee8e6cb6660ab80f66972f2ea2b668f3743404361cf686b"
+skip_extraction="v${_sdkver}.tar.gz"
 
 post_extract() {
-	mv sdk-${_sdkver}/* ${build_wrksrc}/src/MEGASync/mega
+	vsrcextract -C src/MEGASync/mega v${_sdkver}.tar.gz
 }
 
 post_install() {
