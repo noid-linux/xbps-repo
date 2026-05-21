@@ -1,26 +1,25 @@
 # Template file for 'bitwarden-desktop'
 pkgname=bitwarden-desktop
-version=2026.3.1
+version=2026.4.0
 revision=1
 archs="x86_64"
-hostmakedepends="tar xz"
-depends="gtk+3 alsa-lib cups libXtst libXScrnSaver nss"
+depends="libXtst libXScrnSaver"
 short_desc="Bitwarden desktop client"
 maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="GPL-3.0"
 homepage="https://bitwarden.com/"
 distfiles="https://github.com/bitwarden/clients/releases/download/desktop-v${version}/Bitwarden-${version}-amd64.deb"
-checksum=41df25b79e61381463d3901347c7a2927874d8229a174efdbac5b9115f184e40
-
-do_extract() {
-    mkdir -p ${DESTDIR}
-    ar x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/Bitwarden-${version}-amd64.deb
-    tar xf data.tar.xz -C ${DESTDIR}
-}
+checksum=bdd4d36f978ee0843e7cc87b56e63c3b7f281b4e46cbc58e9fe44316afa96294
 
 do_install() {
+	vcopy "*" /
+
     vmkdir usr/bin
     ln -sf /opt/Bitwarden/bitwarden ${DESTDIR}/usr/bin/bitwarden
 
     chmod 4755 ${DESTDIR}/opt/Bitwarden/chrome-sandbox
+
+	rm ${DESTDIR}/opt/Bitwarden/libvulkan.so.1
+	rm ${DESTDIR}/opt/Bitwarden/resources/app.asar.unpacked/node_modules/utf-8-validate/prebuilds/linux-x64/utf-8-validate.musl.node
+	rm ${DESTDIR}/opt/Bitwarden/resources/app-update.yml
 }

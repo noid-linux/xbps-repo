@@ -7,7 +7,7 @@
 | azaharplus                       | 2124.3-A         | ✅       |
 | bazaar                           | 0.8.0            | ✅       |
 | biome                            | 2.4.15           | ✅       |
-| bitwarden-desktop                | 2026.3.1         | ❌       |
+| bitwarden-desktop                | 2026.4.0         | ❌       |
 | brave                            | 1.90.122         | ❌       |
 | brave-origin                     | 1.91.157         | ❌       |
 | calamares                        | 3.4.0            | ✅       |
