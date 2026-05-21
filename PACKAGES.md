@@ -71,7 +71,7 @@
 | tenacity                         | 1.3.4            | ✅       |
 | themix                           | 1.15.1           | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303   | ❌       |
-| tutanota-desktop                 | 348.260518.0     | ❌       |
+| tutanota-desktop                 | 348.260519.0     | ❌       |
 | ueberzugpp                       | 2.9.8            | ✅       |
 | ungoogled-chromium               | 148.0.7778.167-1 | ❌       |
 | vscodium                         | 1.116.02821      | ❌       |
