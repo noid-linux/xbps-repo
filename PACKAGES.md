@@ -21,7 +21,7 @@
 | dms-shell-niri                   | /                | ✅       |
 | drawio-desktop                   | 30.0.2           | ✅       |
 | discord                          | 1.0.139          | ❌       |
-| dsearch                          | 0.2.1            | ✅       |
+| dsearch                          | 0.3.1            | ✅       |
 | emacs-lucid                      | 30.2             | ✅       |
 | feishin                          | 1.5.0            | ✅       |
 | ferdium                          | 7.1.2            | ✅       |
