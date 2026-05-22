@@ -9,7 +9,7 @@
 | biome                            | 2.4.15           | ✅       |
 | bitwarden-desktop                | 2026.4.0         | ❌       |
 | brave                            | 1.90.124         | ❌       |
-| brave-origin                     | 1.91.158         | ❌       |
+| brave-origin                     | 1.91.159         | ❌       |
 | calamares                        | 3.4.0            | ✅       |
 | cinny-desktop                    | 4.12.1           | ✅       |
 | clipcat                          | 0.24.1           | ✅       |
