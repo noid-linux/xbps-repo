@@ -1,0 +1,35 @@
+From 81eacb0e0ebc95df72878be3b49b144c5389190e Mon Sep 17 00:00:00 2001
+From: Naz <ndpm13@ch-naseem.com>
+Date: Sat, 23 May 2026 12:00:48 +0100
+Subject: [PATCH] bge: fix shared library versioning
+
+---
+ bge/meson.build | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/bge/meson.build b/bge/meson.build
+index 6963bd65..1122a293 100644
+--- a/bge/meson.build
++++ b/bge/meson.build
+@@ -44,9 +44,11 @@ bge_marshalers = gnome.genmarshal('bge-marshalers',
+ )
+ 
+ bge_lib = shared_library(
+-  'bge-' + api_version,
++  'bge',
+   bge_sources, bge_marshalers,
+   dependencies: bge_deps,
++       version: api_version,
++       soversion: version_split[0],
+        install: true,
+ )
+ 
+@@ -59,7 +61,7 @@ pkg.generate(
+   description: 'Bazaar GTK Extensions',
+     libraries: bge_lib,
+          name: 'libbge',
+-     filebase: 'bge-' + api_version,
++     filebase: 'bge',
+       version: api_version,
+       subdirs: 'bge',
+      requires: ['gtk4', 'md4c', 'gtksourceview-5'],
