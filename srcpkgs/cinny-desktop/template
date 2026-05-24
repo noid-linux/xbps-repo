@@ -1,21 +1,20 @@
 # Template file for 'cinny-desktop'
 pkgname=cinny-desktop
-version=4.12.1
+version=4.12.2
 revision=1
-_cinnyver=4.12.1
+_cinnyver=4.12.2
 build_wrksrc="cinny-desktop-${version}"
 archs="x86_64"
 hostmakedepends="nodejs cargo git pkg-config"
 makedepends="openssl-devel libwebkit2gtk41-devel"
-depends="libwebkit2gtk41"
 short_desc="Yet another matrix client for desktop"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0-only"
 homepage="https://cinny.in/"
 distfiles="https://github.com/cinnyapp/cinny-desktop/archive/refs/tags/v${version}.tar.gz>cinny-desktop-v${version}.tar.gz
  https://github.com/cinnyapp/cinny/archive/refs/tags/v${_cinnyver}.tar.gz>cinny-v${version}.tar.gz"
-checksum="c1fbe50dffe0039a983f075b0dd8d81206a0c71312eca1fb00efb0fe3ed6d0ae
- b5b9921eb376a8e1be847690b0e104420d6c862d912da746aee876070ecb537b"
+checksum="6b13bbaf2e598f12a5ba83b190d171a93704f1dbb10eec455e36353785d1c19f
+ 85e03e91acbb8e7658a8e4dd178690279343b7d9a45b534b56c0653a80c4e9e2"
 
 post_extract() {
 	mv cinny-${_cinnyver}/* cinny-desktop-${version}/cinny/

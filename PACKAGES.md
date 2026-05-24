@@ -11,7 +11,7 @@
 | brave                            | 1.90.124         | ❌       |
 | brave-origin                     | 1.91.159         | ❌       |
 | calamares                        | 3.4.0            | ✅       |
-| cinny-desktop                    | 4.12.1           | ✅       |
+| cinny-desktop                    | 4.12.2           | ✅       |
 | clipcat                          | 0.24.1           | ✅       |
 | cryptomator                      | 1.19.2           | ✅       |
 | dgop                             | 0.2.2            | ✅       |
