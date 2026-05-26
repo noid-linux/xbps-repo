@@ -60,7 +60,7 @@
 | opencode-desktop                 | 1.15.10          | ❌       |
 | PrismLauncher-Patched            | 11.0.2           | ✅       |
 | proton-authenticator             | 1.1.4            | ❌       |
-| proton-vpn-gtk-app               | 4.16.2           | ✅       |
+| proton-vpn-gtk-app               | 4.16.4           | ✅       |
 | qt6gtk2                          | 0.7              | ✅       |
 | quran-companion                  | 1.3.3            | ✅       |
 | rustdesk                         | 1.4.6            | ❌       |
