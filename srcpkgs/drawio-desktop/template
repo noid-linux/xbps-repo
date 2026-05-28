@@ -1,35 +1,43 @@
 # Template file for 'drawio-desktop'
 pkgname=drawio-desktop
-version=30.0.2
-_drawiover=30.0.2
+version=30.0.4
 revision=1
-build_wrksrc="${pkgname}-${version}"
+_drawiover=30.0.4
+_electronver=35
 archs="x86_64"
-hostmakedepends="nodejs"
+hostmakedepends="nodejs electron${_electronver}-devel"
+depends="electron${_electronver}"
 short_desc="Official electron build of draw.io, a JS editor for general diagramming"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://www.diagrams.net/"
-distfiles="https://github.com/jgraph/drawio-desktop/archive/refs/tags/v${version}.tar.gz>drawio-desktop-v${version}.tar.gz
- https://github.com/jgraph/drawio/archive/refs/tags/v${_drawiover}.tar.gz>drawio-v${_drawiover}.tar.gz"
-checksum="56ce8dbf4c94f578bf669966d55e30980a611b838ab57eafcce2790d5df74902
- b2196b3b1064558a41fb335d0995150a8949abd6de6d1c487f951a092f7f981d"
+_baseurl="https://github.com/jgraph/drawio"
+distfiles="${_baseurl}-desktop/archive/refs/tags/v${version}.tar.gz>drawio-desktop.tar.gz
+ ${_baseurl}/archive/refs/tags/v${_drawiover}.tar.gz>drawio.tar.gz"
+checksum="2ccec7d8e9f09cea443613137eb1e3e0b532670be4f9980bab44800c1d260fa4
+ 3196a93468ff901546054d0f19edd55fe972bc6c546da327b6f3db51d533e084"
+skip_extraction="drawio.tar.gz"
 
 post_extract() {
-	mv drawio-${_drawiover}/* ${build_wrksrc}/drawio/
+	vsrcextract -C drawio "drawio.tar.gz"
 }
 
 pre_build() {
-	npm i
+	npm ci
 }
 
 do_build() {
-	npm run release-linux -- --linux dir
+	npm run release-linux -- --linux dir \
+		-c.electronVersion="$(cat /usr/lib/electron35/version)" \
+		-c.electronDist="/usr/lib/electron35"
 }
 
 do_install() {
-	vcopy dist/linux-unpacked /usr/lib/drawio-desktop
-	vmkdir usr/bin
-	ln -sf /usr/lib/drawio-desktop/drawio ${DESTDIR}/usr/bin/drawio
+	vmkdir /usr/lib/drawio-desktop
+	vcopy dist/linux-unpacked/resources usr/lib/drawio-desktop/resources
+
+	sed "s/@electronver@/${_electronver}/g" ${FILESDIR}/drawio.sh > ${TMPDIR}/drawio.sh
+	vbin ${TMPDIR}/drawio.sh drawio
+
 	vinstall ${FILESDIR}/drawio.desktop 644 usr/share/applications
 }
