@@ -1,6 +1,6 @@
 # Template file for 'bitwarden-desktop'
 pkgname=bitwarden-desktop
-version=2026.4.0
+version=2026.5.0
 revision=1
 archs="x86_64"
 depends="libXtst libXScrnSaver"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="GPL-3.0"
 homepage="https://bitwarden.com/"
 distfiles="https://github.com/bitwarden/clients/releases/download/desktop-v${version}/Bitwarden-${version}-amd64.deb"
-checksum=bdd4d36f978ee0843e7cc87b56e63c3b7f281b4e46cbc58e9fe44316afa96294
+checksum=2ea59874bac7f67f5663828d028449168050d4538b5e6adea69e13b199249226
 
 do_install() {
 	vcopy "*" /
