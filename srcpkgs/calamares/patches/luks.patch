@@ -1,0 +1,15 @@
+diff --git a/src/modules/grubcfg/main.py b/src/modules/grubcfg/main.py
+index 346a267cd..57dc3c0e2 100644
+--- a/src/modules/grubcfg/main.py
++++ b/src/modules/grubcfg/main.py
+@@ -188,8 +188,8 @@ def modify_grub_default(partitions, root_mount_point, distributor):
+                 swap_outer_uuid = partition["luksUuid"]
+                 swap_outer_mappername = partition["luksMapperName"]
+ 
+-            if partition["mountPoint"] == "/" and has_luks:
+-                cryptdevice_params = [f"rd.luks.uuid={partition['luksUuid']}"]
++            if has_luks and "luksUuid" in partition:
++                cryptdevice_params.append(f"rd.luks.uuid={partition['luksUuid']}")
+                 if not unencrypted_separate_boot and uses_systemd_hook:
+                     cryptdevice_params.append("rd.luks.key=/crypto_keyfile.bin")
+     else:
