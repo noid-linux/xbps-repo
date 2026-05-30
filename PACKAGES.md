@@ -15,7 +15,6 @@
 | clipcat                          | 0.24.1           | ✅       |
 | cryptomator                      | 1.19.2           | ✅       |
 | dgop                             | 0.2.2            | ✅       |
-| dinit-rc                         | 0.6.4            | ✅       |
 | dioxus-cli                       | 0.7.3            | ✅       |
 | dms-shell                        | 1.4.6            | ✅       |
 | dms-shell-niri                   | /                | ✅       |
@@ -52,6 +51,7 @@
 | noctalia-shell                   | 4.7.7            | ✅       |
 | noid-base-files                  | 0.1              | /        |
 | noid-base-system                 | 0.1              | /        |
+| noid-dinit                       | 0.1.1            | ✅       |
 | noid-welcome                     | 0.2.2            | ✅       |
 | nyancat                          | 1.2.1            | ✅       |
 | nwm                              | 6.8              | ✅       |
