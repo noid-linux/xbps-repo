@@ -73,7 +73,7 @@
 | thorium-browser-avx2             | 138.0.7204.303   | ❌       |
 | tutanota-desktop                 | 348.260526.0     | ❌       |
 | ueberzugpp                       | 2.9.8            | ✅       |
-| ungoogled-chromium               | 148.0.7778.178-1 | ❌       |
+| ungoogled-chromium               | 148.0.7778.215.1 | ❌       |
 | vscodium                         | 1.121.03429      | ❌       |
 | webapp-manager                   | 1.4.6            | ❌       |
 | xlibre-repo                      | /                | /        |
