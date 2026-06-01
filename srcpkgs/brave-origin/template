@@ -1,6 +1,6 @@
 # Template file for 'brave-origin'
 pkgname=brave-origin
-version=1.92.110
+version=1.92.111
 revision=1
 archs="x86_64"
 depends="vulkan-loader"
@@ -10,7 +10,7 @@ license="MPL-2.0"
 homepage="https://brave.com"
 changelog="https://raw.githubusercontent.com/brave/brave-browser/refs/heads/master/CHANGELOG_DESKTOP_ORIGIN.md"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/${pkgname}-beta-${version}-linux-amd64.zip"
-checksum=f8317d7c522ccd06642de36195165ad8d4dfb8e7565e31c24d76661b8c79c54f
+checksum=96b72912b62a75070421d50a2958610b244cfb38eab7b899ea3c8a170adc6d52
 nostrip=yes
 skiprdeps="/opt/${pkgname}/libqt5_shim.so /opt/${pkgname}/libqt6_shim.so"
 replaces="brave-browser-origin>=0"
