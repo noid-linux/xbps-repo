@@ -1,0 +1,8 @@
+type = process
+command = /usr/lib/dinit/dbus-wait-for -s -f 4 -n org.bluez /usr/lib/bluetooth/bluetoothd
+smooth-recovery = true
+logfile = /var/log/dinit/bluetoothd.log
+ready-notification = pipefd:4
+depends-on: dbus
+depends-on: local.target
+before: login.target
