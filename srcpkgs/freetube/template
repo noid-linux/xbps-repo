@@ -1,14 +1,16 @@
 # Template file for 'freetube'
 pkgname=freetube
 version=0.24.0
-revision=1
+revision=2
+_electronver=35
 archs="x86_64"
 hostmakedepends="yarn"
-depends="electron35"
+depends="electron${_electronver}"
 short_desc="Open source desktop YouTube player built with privacy in mind"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0-only"
 homepage="https://freetubeapp.io/"
+changelog="https://github.com/FreeTubeApp/FreeTube/releases/"
 distfiles="https://github.com/FreeTubeApp/FreeTube/archive/refs/tags/v${version}-beta.tar.gz"
 checksum=d73d1beff0361586ed348a373142b8d9ad0b6b77e85953847759d3ba3e6abf4b
 
@@ -21,13 +23,14 @@ do_build() {
 }
 
 do_install() {
-	vcopy build/linux-unpacked/ /usr/lib/freetube
-	vcopy build/linux-unpacked/resources/app.asar /usr/lib/freetube
+	vmkdir usr/lib/${pkgname}
+	vcopy build/linux-unpacked/resources usr/lib/${pkgname}
 
-	vbin ${FILESDIR}/freetube.sh freetube
+	sed "s/@electronver@/${_electronver}/g" ${FILESDIR}/${pkgname}.sh > ${TMPDIR}/${pkgname}.sh
+	vbin ${TMPDIR}/${pkgname}.sh ${pkgname}
 
-	vinstall ${FILESDIR}/freetube.desktop 644 usr/share/applications
-	vinstall _icons/icon.svg 644 usr/share/pixmaps freetube.svg
+	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
+	vinstall _icons/icon.svg 644 usr/share/pixmaps ${pkgname}.svg
 
 	vlicense LICENSE
 }

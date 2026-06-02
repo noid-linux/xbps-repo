@@ -1,11 +1,12 @@
 [Desktop Entry]
 Name=FreeTube
-GenericName=YouTube Player
-Comment=An open source desktop YouTube player built with privacy in mind.
+Comment=An Open Source YouTube app for privacy.
+GenericName=FreeTube
 Exec=freetube %U
+Icon=freetube
 Terminal=false
 Type=Application
-Icon=freetube
-MimeType=x-scheme-handler/freetube;
-Categories=Network;
+StartupNotify=true
 StartupWMClass=FreeTube
+Categories=GNOME;GTK;AudioVideo;Network;Utility;
+MimeType=x-scheme-handler/freetube;
