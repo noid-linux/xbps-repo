@@ -64,7 +64,7 @@
 | proton-vpn-gtk-app               | 4.16.5           | ✅       |
 | qt6gtk2                          | 0.7              | ✅       |
 | quran-companion                  | 1.3.3            | ✅       |
-| rustdesk                         | 1.4.6            | ❌       |
+| rustdesk                         | 1.4.7            | ❌       |
 | sbm-rs                           | 0.1.0            | ✅       |
 | slack-desktop                    | 4.49.81          | ❌       |
 | spotify                          | 1.2.90           | ❌       |
