@@ -1,0 +1,15 @@
+# Template file for 'fnm'
+pkgname=fnm
+version=1.39.0
+revision=1
+archs="x86_64"
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="libzstd-devel"
+short_desc="Fast and simple Node.js version manager"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-only"
+homepage="https://github.com/Schniz/fnm"
+changelog="https://github.com/Schniz/fnm/raw/refs/heads/master/CHANGELOG.md"
+distfiles="https://github.com/Schniz/fnm/archive/refs/tags/v${version}.tar.gz"
+checksum=224081a677a02acd9f972885e824a98fa3843f5b778b28400ad5af97752f6127
