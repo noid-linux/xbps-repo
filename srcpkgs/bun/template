@@ -1,0 +1,30 @@
+# Template file for 'bun'
+pkgname=bun
+version=1.3.14
+revision=1
+short_desc="Fast JavaScript runtime, bundler, test runner, and package manager"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://bun.com/"
+changelog="https://github.com/oven-sh/bun/releases/"
+distfiles="https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-linux-x64.zip
+ https://github.com/oven-sh/bun/archive/refs/tags/bun-v${version}.tar.gz"
+checksum="951ee2aee855f08595aeec6225226a298d3fea83a3dcd6465c09cbccdf7e848f
+ 112a5915992807f04b183854d360c2bf87ac7c1587fb5da3c560bdbb75b8c92e"
+skip_extraction="LICENSE.md bun-v${version}.tar.gz"
+nostrip=yes
+
+post_extract() {
+	vsrcextract -C source "bun-v${version}.tar.gz"
+}
+
+do_install() {
+	vbin bun
+	ln -sf /usr/bin/bun ${DESTDIR}/usr/bin/bunx
+
+	vcompletion source/completions/bun.bash bash bun
+	vcompletion source/completions/bun.fish fish bun
+	vcompletion source/completions/bun.zsh zsh _bun
+
+	vlicense source/LICENSE.md
+}
