@@ -1,6 +1,6 @@
 # Template file for 'opencode-desktop'
 pkgname=opencode-desktop
-version=1.15.13
+version=1.16.0
 revision=1
 archs="x86_64"
 depends="vulkan-loader"
@@ -11,7 +11,7 @@ homepage="https://opencode.ai/"
 changelog="https://github.com/anomalyco/opencode/releases/"
 distfiles="https://github.com/anomalyco/opencode/releases/download/v${version}/${pkgname}-linux-amd64.deb
  https://raw.githubusercontent.com/anomalyco/opencode/refs/heads/dev/LICENSE"
-checksum="233009ffe2c429b0f8e4772bac306c5351c278fa369aff5b280f56c335cf7c21
+checksum="cb825a30d280f6748cd64db5783b2ad7fd34ef01bbde6cb53e6c2630fbd98963
  625f0f619133f89bbbb2abe37369613dfa1885eba1e50d02170deb62bb42cb6b"
 skip_extraction="LICENSE"
 nostrip=yes
