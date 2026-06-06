@@ -1,11 +1,12 @@
 # Template file for 'megasync'
 pkgname=megasync
-version=6.3.1.0
+version=6.4.0.2
 revision=1
-_sdkver="10.12.1"
+_sdkver="10.14.0"
 archs="x86_64"
 build_style=cmake
-configure_args="-DCMAKE_BUILD_TYPE:STRING=None
+configure_args="
+ -DCMAKE_BUILD_TYPE:STRING=None
  -DCMAKE_MODULE_PATH:PATH=src/MEGASync/mega/cmake/modules/packages
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
  -DENABLE_DESIGN_TOKENS_IMPORTER:BOOL=OFF
@@ -30,8 +31,8 @@ homepage="https://mega.io"
 changelog="https://github.com/meganz/MEGAsync/releases"
 distfiles="https://github.com/meganz/MEGAsync/archive/refs/tags/v${version}_Linux.tar.gz
  https://github.com/meganz/sdk/archive/refs/tags/v${_sdkver}.tar.gz"
-checksum="87e07e1d3a8cbc407bb5f2b7c446e0d598c0a598cfa7a73dfb2d6856edcd9e62
- 9dca195c2a05fc7eaee8e6cb6660ab80f66972f2ea2b668f3743404361cf686b"
+checksum="4d808948dc668c20fd0c5408cc94cb0f5eb41f9f0f90c1fa69957fe790b5360b
+ 06ad6d7bf2879e70be05f88a54b65278e5c63c1acbc8e866829b0a1c3ec925c6"
 skip_extraction="v${_sdkver}.tar.gz"
 
 post_extract() {

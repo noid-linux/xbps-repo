@@ -44,7 +44,7 @@
 | lutgen-cli                       | 1.0.1           | ✅       |
 | lutgen-studio                    | 0.3.0           | ✅       |
 | ly                               | 1.4.0           | ✅       |
-| megasync                         | 6.3.1.0         | ✅       |
+| megasync                         | 6.4.0.2         | ✅       |
 | mission-center                   | 1.1.0           | ✅       |
 | ndpm                             | 0.1.5           | ✅       |
 | nerd-fonts-cascadiacode          | 3.4.0           | ❌       |
