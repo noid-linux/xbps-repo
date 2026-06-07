@@ -34,7 +34,7 @@
 | gruvbox-gtk-theme                | 2.2             | ✅       |
 | gruvbox-icons-theme              | 4.0             | ✅       |
 | gruvbox-material-theme           | /               | ❌       |
-| helium-browser                   | 0.12.5.1        | ❌       |
+| helium-browser                   | 0.13.1.1        | ❌       |
 | heroic-games-launcher            | 2.22.0          | ✅       |
 | hyprland-repo                    | /               | /        |
 | intel-media-driver-nonfree       | 25.4.6          | ✅       |
