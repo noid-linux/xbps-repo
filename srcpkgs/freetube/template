@@ -1,7 +1,7 @@
 # Template file for 'freetube'
 pkgname=freetube
-version=0.24.0
-revision=2
+version=0.24.1
+revision=1
 _electronver=35
 archs="x86_64"
 hostmakedepends="yarn"
@@ -12,7 +12,7 @@ license="AGPL-3.0-only"
 homepage="https://freetubeapp.io/"
 changelog="https://github.com/FreeTubeApp/FreeTube/releases/"
 distfiles="https://github.com/FreeTubeApp/FreeTube/archive/refs/tags/v${version}-beta.tar.gz"
-checksum=d73d1beff0361586ed348a373142b8d9ad0b6b77e85953847759d3ba3e6abf4b
+checksum=bf45838a6d094e9ffe5ecce8381b0c9eeed49e443bd882b785a357e07d83b98e
 
 pre_build() {
 	yarn ci
