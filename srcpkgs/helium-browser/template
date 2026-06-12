@@ -1,6 +1,6 @@
 # Template file for 'helium-browser'
 pkgname=helium-browser
-version=0.13.2.1
+version=0.13.3.1
 revision=1
 archs="x86_64"
 depends="vulkan-loader"
@@ -10,7 +10,7 @@ license="GPL-3.0-only"
 homepage="https://helium.computer/"
 changelog="https://github.com/imputnet/helium/releases"
 distfiles="https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64_linux.tar.xz"
-checksum=3b21c86dd118041c8568435ad160fb5a853380baf211a4f8eeef05913ece63e7
+checksum=47f706c96b81acb78586e72ba6446940df64fcc58ddc9967c12b9f12ca959266
 nostrip=yes
 
 do_install() {
