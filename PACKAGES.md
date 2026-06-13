@@ -2,7 +2,7 @@
 
 | Package                          | Version          | Compiled |
 | -------------------------------- | ---------------- | -------- |
-| android-studio                   | 2025.3.4.7       | ❌       |
+| android-studio                   | 2026.1.1.9       | ❌       |
 | azahar                           | 2124.3           | ✅       |
 | azaharplus                       | 2124.3-A         | ✅       |
 | bazaar                           | 0.8.3            | ✅       |
