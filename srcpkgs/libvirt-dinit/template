@@ -1,6 +1,6 @@
 # Template file for 'libvirt-dinit'
 pkgname=libvirt-dinit
-version=20260410
+version=20260613
 revision=1
 _pkgname="${pkgname%-dinit}"
 depends="dinit ${_pkgname}"
