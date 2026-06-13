@@ -1,6 +1,6 @@
 # Template file for 'discord'
 pkgname=discord
-version=1.0.139
+version=1.0.142
 revision=1
 archs="x86_64"
 depends="alsa-lib dbus-glib gtk+3 libnotify nss libXtst libcxx libatomic
@@ -10,7 +10,7 @@ maintainer="Orphaned <orphan@voidlinux.org>"
 license="custom:Proprietary"
 homepage="https://discord.com"
 distfiles="https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz"
-checksum=7eacf2f46af49ddf2258f74d7b92f5e0f71f6a75b169d5205f4a8679b435063f
+checksum=04a33b607a2987379692444ac5ed534778ebf42adc9a72effbff5a58680908e1
 nopie=yes
 nostrip=yes
 
@@ -31,7 +31,7 @@ do_install() {
 		vcopy "${item}" "${package_location}"
 	done
 	vmkdir usr/bin
-	ln -sfr $DESTDIR/${package_location}/Discord $DESTDIR/usr/bin/Discord
+	ln -sfr $DESTDIR/${package_location}/discord $DESTDIR/usr/bin/discord
 }
 
 post_install() {
