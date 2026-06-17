@@ -1,0 +1,27 @@
+diff --git a/package.json b/package.json
+index 116470f..a93cbb8 100644
+--- a/package.json
++++ b/package.json
+@@ -186,6 +186,7 @@
+         "vite-plugin-ejs": "^1.7.0",
+         "vite-plugin-pwa": "^1.2.0"
+     },
++    "packageManager": "pnpm@11.5.2",
+     "pnpm": {
+         "onlyBuiltDependencies": [
+             "electron",
+diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
+new file mode 100644
+index 0000000..7aca3fc
+--- /dev/null
++++ b/pnpm-workspace.yaml
+@@ -0,0 +1,9 @@
++allowBuilds:
++  abstract-socket: true
++  electron: true
++  electron-winstaller: true
++  esbuild: true
++
++overrides:
++  "xml2js": "0.5.0"
++  "react-router": "7.14.0"
