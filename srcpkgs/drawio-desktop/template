@@ -1,8 +1,8 @@
 # Template file for 'drawio-desktop'
 pkgname=drawio-desktop
-version=30.0.4
+version=30.2.4
 revision=1
-_drawiover=30.0.4
+_drawiover=115702314f9c4a324f2054898f989d195b01e16b
 _electronver=35
 archs="x86_64"
 hostmakedepends="nodejs electron${_electronver}-devel"
@@ -13,9 +13,9 @@ license="GPL-3.0-or-later"
 homepage="https://www.diagrams.net/"
 _baseurl="https://github.com/jgraph/drawio"
 distfiles="${_baseurl}-desktop/archive/refs/tags/v${version}.tar.gz>drawio-desktop.tar.gz
- ${_baseurl}/archive/refs/tags/v${_drawiover}.tar.gz>drawio.tar.gz"
-checksum="2ccec7d8e9f09cea443613137eb1e3e0b532670be4f9980bab44800c1d260fa4
- 3196a93468ff901546054d0f19edd55fe972bc6c546da327b6f3db51d533e084"
+ ${_baseurl}/archive/${_drawiover}.tar.gz>drawio.tar.gz"
+checksum="eddc10b42d5b9217355bb812c5200a12b09a5aa60a7c66f453a171f1c377d547
+ 49d19b2a8df6aeace34b367558ed487ec0342622fd9fa7596b6b73287f4c8d04"
 skip_extraction="drawio.tar.gz"
 
 post_extract() {
@@ -28,8 +28,8 @@ pre_build() {
 
 do_build() {
 	npm run release-linux -- --linux dir \
-		-c.electronVersion="$(cat /usr/lib/electron35/version)" \
-		-c.electronDist="/usr/lib/electron35"
+		-c.electronVersion="$(cat /usr/lib/electron${_electronver}/version)" \
+		-c.electronDist="/usr/lib/electron${_electronver}"
 }
 
 do_install() {
