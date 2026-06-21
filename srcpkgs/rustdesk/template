@@ -1,7 +1,7 @@
 # Template file for 'rustdesk'
 pkgname=rustdesk
-version=1.4.7
-revision=2
+version=1.4.8
+revision=1
 archs="x86_64"
 depends="xdotool libva libvdpau"
 short_desc="Open-source remote desktop application designed for self-hosting"
@@ -11,7 +11,7 @@ homepage="https://rustdesk.com/"
 changelog="https://github.com/rustdesk/rustdesk/releases"
 distfiles="https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.deb
  https://github.com/rustdesk/rustdesk/raw/refs/heads/master/LICENCE>LICENSE"
-checksum="12f61bb5ceb10a708089903357bd1f98dcb618bd0ea56ec568aaf1713a38070a
+checksum="16db53f42a7899c409c0d361f33f7c28413bb49931a2b7680777542b6cdb7a71
  8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
 skip_extraction="LICENSE"
 conf_files="
