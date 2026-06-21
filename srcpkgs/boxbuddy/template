@@ -1,0 +1,62 @@
+# Template file for 'boxbuddy'
+pkgname=boxbuddy
+version=2.5.8
+revision=1
+archs="x86_64"
+build_style=cargo
+hostmakedepends="pkg-config"
+makedepends="glib-devel pango-devel gdk-pixbuf-devel graphene-devel
+ gtk4-devel libadwaita-devel"
+depends="distrobox"
+short_desc="Graphical Interface for Distrobox"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://github.com/Dvlv/BoxBuddyRS"
+changelog="https://github.com/Dvlv/BoxBuddyRS/releases"
+distfiles="https://github.com/Dvlv/BoxBuddyRS/archive/refs/tags/${version}.tar.gz"
+checksum=5204e956a74fb2dbb99fb3b03fcaf665192b21cdbd8a4be749ab36c1f115286b
+
+pre_build() {
+	sed -i 's|{data_home}/locale|/usr/share/locale|g' src/utils.rs
+	sed -i "s|{data_home}/icons/${pkgname}|/usr/share/icons/hicolor/symbolic/actions|g" src/utils.rs
+}
+
+do_install() {
+	make translate
+
+	: ${make_cmd:=cargo auditable}
+	: ${make_install_args:=--path .}
+	: ${make_verbose:=-v}
+
+	${make_cmd} install ${XBPS_VERBOSE+${make_verbose}} --target ${RUST_TARGET} --root="${DESTDIR}/usr" \
+		--offline --locked ${configure_args} ${make_install_args}
+
+	rm -f "${DESTDIR}"/usr/.crates.toml
+	rm -f "${DESTDIR}"/usr/.crates2.json
+
+	ln -sf /usr/bin/${pkgname}-rs ${DESTDIR}/usr/bin/${pkgname}
+
+	vinstall io.github.dvlv.boxbuddyrs.desktop 644 usr/share/applications
+
+	vinstall io.github.dvlv.boxbuddyrs.gschema.xml 644 \
+		usr/share/glib-2.0/schemas
+
+	vinstall io.github.dvlv.boxbuddyrs.metainfo.xml 644 usr/share/metainfo
+
+	vinstall icons/io.github.dvlv.boxbuddyrs.svg 644 \
+		usr/share/icons/hicolor/scalable/apps
+
+	vinstall icons/build-alt-symbolic.svg 644 \
+		usr/share/icons/hicolor/symbolic/actions
+
+	vinstall icons/build-alt-symbolic-light.svg 644 \
+		usr/share/icons/hicolor/symbolic/actions
+
+	vlicense LICENSE
+
+	cd po
+	for lang in $(ls -d */); do
+		vinstall "${lang%%/}/LC_MESSAGES/${pkgname}rs.mo" 644 \
+			"usr/share/locale/${lang%%/}/LC_MESSAGES"
+	done
+}
