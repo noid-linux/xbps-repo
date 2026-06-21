@@ -1,24 +1,29 @@
 # Template file for 'fluffychat'
 pkgname=fluffychat
-version=2.6.0
+version=2.7.0
 revision=1
 archs="x86_64"
-depends="xdg-user-dirs zenity jsoncpp"
-short_desc="The cutest instant messenger in the [matrix]"
+short_desc="Cutest instant messenger in the [matrix]"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="AGPL-3.0-or-later"
 homepage="https://fluffychat.im/"
-distfiles="https://github.com/krille-chan/fluffychat/releases/download/v${version}/fluffychat-linux-x64.tar.gz"
-checksum=e276a535b4c529b56cdb0811e8dd798016b7f95a901f93a9959ae958a3916a52
+changelog="https://github.com/krille-chan/fluffychat/raw/refs/heads/main/CHANGELOG.md"
+distfiles="https://github.com/krille-chan/fluffychat/releases/download/v${version}/fluffychat-linux-x64.tar.gz
+ https://github.com/krille-chan/fluffychat/raw/refs/tags/v${version}/LICENSE"
+checksum="3908fc1a22f49a8be915e95222c008f6f9983ded7dd380b155f450bdda42fdd4
+ 70366abbcbe3b77f402536af9f09649319dc24ba8a92a00efa54b5b0177ae2fb"
+skip_extraction="LICENSE"
 nostrip=yes
 
 do_install() {
-	vmkdir opt/${pkgname}	
+	vmkdir opt/${pkgname}
 	vcopy * opt/${pkgname}
 
 	vmkdir usr/bin
 	ln -sf /opt/${pkgname}/${pkgname} ${DESTDIR}/usr/bin/${pkgname}
 
-    vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
-    vinstall data/flutter_assets/assets/logo.svg 644 usr/share/pixmaps ${pkgname}.svg
+	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
+	vinstall data/flutter_assets/assets/logo/mini/logo_mini.png 644 \
+		usr/share/icons/hicolor/512x512/apps ${pkgname}.png
+	vlicense ${XBPS_SRCDISTDIR}/${pkgname}-${version}/LICENSE
 }
