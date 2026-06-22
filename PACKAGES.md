@@ -28,7 +28,7 @@
 | ferdium                          | 7.1.2            | ✅       |
 | flat-remix-icon-theme            | 20251119         | ✅       |
 | floorp                           | 12.15.2          | ❌       |
-| fluffychat                       | 2.7.0            | ❌       |
+| fluffychat                       | 2.7.1            | ❌       |
 | fnm                              | 1.39.0           | ✅       |
 | freetube                         | 0.24.1           | ✅       |
 | grayjay                          | 17               | ❌       |
