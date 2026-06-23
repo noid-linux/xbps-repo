@@ -1,6 +1,6 @@
 # Template file for 'fluffychat'
 pkgname=fluffychat
-version=2.7.1
+version=2.7.2
 revision=1
 archs="x86_64"
 short_desc="Cutest instant messenger in the [matrix]"
@@ -10,7 +10,7 @@ homepage="https://fluffychat.im/"
 changelog="https://github.com/krille-chan/fluffychat/raw/refs/heads/main/CHANGELOG.md"
 distfiles="https://github.com/krille-chan/fluffychat/releases/download/v${version}/fluffychat-linux-x64.tar.gz
  https://github.com/krille-chan/fluffychat/raw/refs/tags/v${version}/LICENSE"
-checksum="5279fe7ee56996702cd0a95ca3542df672096dc40fe981eec51d652b0023b90c
+checksum="6a71b36c21a3c5fbd87bc2ce1c16473b398715cb41bf38f1b6686b328ae252ea
  70366abbcbe3b77f402536af9f09649319dc24ba8a92a00efa54b5b0177ae2fb"
 skip_extraction="LICENSE"
 nostrip=yes
