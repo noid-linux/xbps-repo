@@ -1,8 +1,8 @@
 # Template file for 'cinny-desktop'
 pkgname=cinny-desktop
-version=4.12.2
+version=4.12.4
 revision=1
-_cinnyver=4.12.2
+_cinnyver=4.12.3
 build_wrksrc="cinny-desktop-${version}"
 archs="x86_64"
 hostmakedepends="nodejs cargo git pkg-config"
@@ -13,8 +13,8 @@ license="AGPL-3.0-only"
 homepage="https://cinny.in/"
 distfiles="https://github.com/cinnyapp/cinny-desktop/archive/refs/tags/v${version}.tar.gz>cinny-desktop-v${version}.tar.gz
  https://github.com/cinnyapp/cinny/archive/refs/tags/v${_cinnyver}.tar.gz>cinny-v${version}.tar.gz"
-checksum="6b13bbaf2e598f12a5ba83b190d171a93704f1dbb10eec455e36353785d1c19f
- 85e03e91acbb8e7658a8e4dd178690279343b7d9a45b534b56c0653a80c4e9e2"
+checksum="8fca508cc86cac9b600563c1a6e7c049e38d2da194d3d59ea6a9d71c4d0e8093
+ ec3d61a8507966dbc95b25d1d66ed5069ac387e7af01548b01a6daed15223009"
 
 post_extract() {
 	mv cinny-${_cinnyver}/* cinny-desktop-${version}/cinny/
