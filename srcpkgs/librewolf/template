@@ -1,6 +1,6 @@
 # Template file for 'librewolf'
 pkgname=librewolf
-version=152.0.1.2
+version=152.0.2.1
 revision=1
 _version="${version%.*}-${version##*.}"
 archs="x86_64"
@@ -12,8 +12,8 @@ homepage="https://librewolf.net/"
 _base_url="https://codeberg.org/api/packages/librewolf/generic/librewolf/${_version}"
 distfiles="${_base_url}/librewolf-${_version}-linux-x86_64-package.tar.xz
  https://codeberg.org/librewolf/source/archive/${_version}.tar.gz"
-checksum="37eeac189080a2f44bcf94f614b872b1ca4d19c8dbf1ec6fcf9d234a5817472f
- e64170df0ec60704c4bbd55cda54f7cc8a8f66d667761ff901857a65a70d0d50"
+checksum="4ead9b8fbe68657487d981d74a18d146ce00ab1a3ce81bb038d5eef88b1d0ae0
+ e4f11ab6c1644575368ce6f8d8fa2725b54ef6fa317fd4a3de71f58415afbeb1"
 skip_extraction="${_version}.tar.gz"
 
 post_extract() {
