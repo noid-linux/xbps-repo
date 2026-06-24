@@ -1,19 +1,23 @@
 # Template file for 'noid-welcome'
 pkgname=noid-welcome
-version=0.2.2
+version=0.3.1
 revision=1
-only_for_archs="x86_64"
-depends="yad alacritty sudo curl"
+archs="x86_64"
+build_style=configure
+build_helper=rust
+configure_args="--prefix=/usr"
+hostmakedepends="blueprint-compiler pkg-config cargo cargo-auditable"
+makedepends="gtk4-devel"
+depends="bash polkit"
 short_desc="Noid Linux Welcome Screen"
 maintainer="Naz <ndpm13@ch-naseem.com>"
-license="MIT"
-homepage="https://git.ch-naseem.com/noid-linux/noid-welcome"
+license="GPL-3.0-or-later"
+homepage="https://forge.ch-naseem.com/noid-linux/noid-welcome"
 distfiles="https://github.com/noid-linux/noid-welcome/archive/refs/tags/v${version}.tar.gz"
-checksum=a30cf24a408f87f49bee1c9b58dd75b985c8c093fed3c7c186f98a608c195789
+checksum=9261a559d29797fe7691760eb8406c4f3e1033ecabff1daff519e92c89df20aa
 
-do_install() {
-    vmkdir usr/bin
-    vinstall noid-welcome.sh 755 usr/bin
-
-    vinstall ${FILESDIR}/noid-welcome.desktop 644 usr/share/applications
+do_build() {
+	CARGO="cargo auditable" \
+	CARGO_OPTS="--release" \
+		make build
 }

@@ -56,7 +56,7 @@
 | noid-base-files                  | 0.1              | /        |
 | noid-base-system                 | 0.1              | /        |
 | noid-dinit                       | 0.1.1            | ✅       |
-| noid-welcome                     | 0.2.2            | ✅       |
+| noid-welcome                     | 0.3.1            | ✅       |
 | nyancat                          | 1.2.1            | ✅       |
 | nwm                              | 6.8              | ✅       |
 | obsidian                         | 1.12.7           | ❌       |
