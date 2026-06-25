@@ -1,6 +1,6 @@
 # Template file for 'noid-welcome'
 pkgname=noid-welcome
-version=0.3.1
+version=0.3.2
 revision=1
 archs="x86_64"
 build_style=configure
@@ -14,7 +14,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://forge.ch-naseem.com/noid-linux/noid-welcome"
 distfiles="https://github.com/noid-linux/noid-welcome/archive/refs/tags/v${version}.tar.gz"
-checksum=9261a559d29797fe7691760eb8406c4f3e1033ecabff1daff519e92c89df20aa
+checksum=3425e416c368867d89eee9584908476332cb6e51a6bdfb0f8623e7329053b565
 
 do_build() {
 	CARGO="cargo auditable" \
