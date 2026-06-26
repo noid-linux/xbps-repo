@@ -1,6 +1,6 @@
 # Template file for 'bitwarden-desktop'
 pkgname=bitwarden-desktop
-version=2026.5.0
+version=2026.6.0
 revision=1
 archs="x86_64"
 depends="libXtst libXScrnSaver"
@@ -9,7 +9,7 @@ maintainer="Naz <ndpm13@ch-naeseem.com>"
 license="GPL-3.0"
 homepage="https://bitwarden.com/"
 distfiles="https://github.com/bitwarden/clients/releases/download/desktop-v${version}/Bitwarden-${version}-amd64.deb"
-checksum=2ea59874bac7f67f5663828d028449168050d4538b5e6adea69e13b199249226
+checksum=e2a9e0d476624d2fed188ed2dff993d448b992895c7a7d838ff9a0145f64581f
 
 do_install() {
 	vcopy "*" /
@@ -20,6 +20,5 @@ do_install() {
     chmod 4755 ${DESTDIR}/opt/Bitwarden/chrome-sandbox
 
 	rm ${DESTDIR}/opt/Bitwarden/libvulkan.so.1
-	rm ${DESTDIR}/opt/Bitwarden/resources/app.asar.unpacked/node_modules/utf-8-validate/prebuilds/linux-x64/utf-8-validate.musl.node
 	rm ${DESTDIR}/opt/Bitwarden/resources/app-update.yml
 }
