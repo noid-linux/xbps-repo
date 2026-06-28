@@ -1,6 +1,6 @@
 # Template file for 'ungoogled-chromium'
 pkgname=ungoogled-chromium
-version=149.0.7827.196.1
+version=149.0.7827.200.1
 revision=1
 _version="${version%.*}-${version##*.}"
 short_desc="Lightweight approach to removing Google web service dependency"
@@ -10,7 +10,7 @@ _slug="ungoogled-software/ungoogled-chromium"
 homepage="https://github.com/ungoogled-software/ungoogled-chromium"
 distfiles="https://github.com/${_slug}-portablelinux/releases/download/${_version}/${pkgname}-${_version}-x86_64_linux.tar.xz
  https://raw.githubusercontent.com/${_slug}/refs/tags/${_version}/LICENSE"
-checksum="8b98135c22d12c313382e9c439ddb0673902ba00e2a9eabe6dd15a3c954413b7
+checksum="530810b8ee0ea2f41c1660a19a78fc90d306d3175d532c5cd1f8048769bacc83
  78bc4abfc3e5606b5b88c3cb9409a3250a7f64cffe704bef0563e11910a29189"
 skip_extraction="LICENSE"
 nostrip=yes
