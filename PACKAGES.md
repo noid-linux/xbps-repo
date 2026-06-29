@@ -22,7 +22,7 @@
 | drawio-desktop                   | 30.2.6           | ✅       |
 | discord                          | 1.0.142          | ❌       |
 | distrobox                        | 1.8.2.5          | ✅       |
-| dsearch                          | 0.3.1            | ✅       |
+| dsearch                          | 0.3.2            | ✅       |
 | emacs-lucid                      | 30.2             | ✅       |
 | feishin                          | 1.5.0            | ✅       |
 | ferdium                          | 7.1.2            | ✅       |
