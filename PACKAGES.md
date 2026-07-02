@@ -27,7 +27,7 @@
 | feishin                          | 1.5.0            | ✅       |
 | ferdium                          | 7.1.2            | ✅       |
 | flat-remix-icon-theme            | 20251119         | ✅       |
-| floorp                           | 12.15.2          | ❌       |
+| floorp                           | 12.15.3          | ❌       |
 | fluffychat                       | 2.7.2            | ❌       |
 | fnm                              | 1.39.0           | ✅       |
 | freetube                         | 0.24.1           | ✅       |
