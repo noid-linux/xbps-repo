@@ -5,7 +5,7 @@
 | android-studio                   | 2026.1.1.9       | ❌       |
 | azahar                           | 2124.3           | ✅       |
 | azaharplus                       | 2124.3-A         | ✅       |
-| bazaar                           | 0.8.3            | ✅       |
+| bazaar                           | 0.9.0            | ✅       |
 | biome                            | 2.4.15           | ✅       |
 | bitwarden-desktop                | 2026.6.1         | ❌       |
 | boxbuddy                         | 2.5.8            | ✅       |
