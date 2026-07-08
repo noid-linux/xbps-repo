@@ -79,7 +79,7 @@
 | tutanota-desktop                 | 353.260630.0    | ❌       |
 | ueberzugpp                       | 2.9.8           | ✅       |
 | ungoogled-chromium               | 150.0.7871.46.1 | ❌       |
-| vscodium                         | 1.121.03429     | ❌       |
+| vscodium                         | 1.126.04524     | ❌       |
 | webapp-manager                   | 1.4.6           | ❌       |
 | xlibre-repo                      | /               | /        |
 | zap-rs                           | 0.3.1           | ✅       |
