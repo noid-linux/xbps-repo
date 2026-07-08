@@ -72,7 +72,7 @@
 | slack-desktop                    | 4.49.81         | ❌       |
 | spotify                          | 1.2.90          | ❌       |
 | sway-scroll                      | 1.12.15         | ✅       |
-| tenacity                         | 1.3.4           | ✅       |
+| tenacity                         | 1.3.5           | ✅       |
 | themix                           | 1.15.1          | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303  | ❌       |
 | tsukimi                          | 26.7.1          | ✅       |
