@@ -70,7 +70,7 @@
 | rustdesk                         | 1.4.9           | ❌       |
 | sbm-rs                           | 0.1.0           | ✅       |
 | slack-desktop                    | 4.49.81         | ❌       |
-| spotify                          | 1.2.90          | ❌       |
+| spotify                          | 1.2.92          | ❌       |
 | sway-scroll                      | 1.12.16         | ✅       |
 | tenacity                         | 1.3.5           | ✅       |
 | themix                           | 1.15.1          | ✅       |
