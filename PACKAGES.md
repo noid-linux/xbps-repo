@@ -19,7 +19,7 @@
 | dioxus-cli                       | 0.7.9            | ✅       |
 | dms-shell                        | 1.5.2            | ✅       |
 | dms-shell-niri                   | /                | ✅       |
-| drawio-desktop                   | 30.3.11          | ✅       |
+| drawio-desktop                   | 30.3.14          | ✅       |
 | discord                          | 1.0.142          | ❌       |
 | distrobox                        | 1.8.2.5          | ✅       |
 | dsearch                          | 0.3.2            | ✅       |
