@@ -24,7 +24,7 @@
 | distrobox                        | 1.8.2.5          | ✅       |
 | dsearch                          | 0.3.2            | ✅       |
 | emacs-lucid                      | 30.2             | ✅       |
-| feishin                          | 1.14.0           | ✅       |
+| feishin                          | 1.15.0           | ✅       |
 | ferdium                          | 7.1.2            | ✅       |
 | flat-remix-icon-theme            | 20251119         | ✅       |
 | floorp                           | 12.16.2          | ❌       |
