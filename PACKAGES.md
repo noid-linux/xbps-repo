@@ -26,6 +26,7 @@
 | emacs-lucid                      | 30.2             | ✅       |
 | feishin                          | 1.15.1           | ✅       |
 | ferdium                          | 7.1.2            | ✅       |
+| FjordLauncher                    | 11.0.3.0         | ✅       |
 | flat-remix-icon-theme            | 20251119         | ✅       |
 | floorp                           | 12.16.2          | ❌       |
 | fluffychat                       | 2.8.0            | ❌       |
@@ -62,7 +63,6 @@
 | obsidian                         | 1.12.7           | ❌       |
 | onlyoffice                       | 9.4.0            | ❌       |
 | opencode-desktop                 | 1.18.4           | ❌       |
-| PrismLauncher-Patched            | 11.0.2           | ✅       |
 | proton-authenticator             | 1.1.5            | ❌       |
 | proton-vpn-gtk-app               | 4.16.5           | ✅       |
 | qt6gtk2                          | 0.7              | ✅       |
