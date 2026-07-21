@@ -1,6 +1,6 @@
 # Template file for 'feishin'
 pkgname=feishin
-version=1.15.0
+version=1.15.1
 revision=1
 _electronver=35
 archs="x86_64"
@@ -13,7 +13,7 @@ license="GPL-3.0-or-later"
 homepage="https://feishin.vercel.app/"
 changelog="https://github.com/jeffvli/feishin/raw/refs/heads/development/CHANGELOG.md"
 distfiles="https://github.com/jeffvli/feishin/archive/refs/tags/v${version}.tar.gz"
-checksum=59cfddb25ae49f6a304ab9d76a272aba06c8ffa10d5d525701c56acd48fc1549
+checksum=2401e438c144a2bd1aaee1fc3e6bb6e42b38264341400ddb80abf2b6a768a0f0
 
 pre_build() {
 	# -- -c doesn't work apparently 
