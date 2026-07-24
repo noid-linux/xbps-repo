@@ -65,6 +65,7 @@
 | opencode-desktop                 | 1.18.4           | ❌       |
 | proton-authenticator             | 1.1.5            | ❌       |
 | proton-vpn-gtk-app               | 4.16.5           | ✅       |
+| python3-curl-cffi                | 0.15.0           | ✅       |
 | qt6gtk2                          | 0.7              | ✅       |
 | quran-companion                  | 1.3.3            | ✅       |
 | rustdesk                         | 1.4.9            | ❌       |

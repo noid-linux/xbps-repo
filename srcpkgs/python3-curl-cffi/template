@@ -1,0 +1,16 @@
+# Template file for 'python3-curl-cffi'
+pkgname=python3-curl-cffi
+version=0.15.0
+revision=1
+archs="x86_64"
+build_style=python3-pep517
+hostmakedepends="python3-setuptools python3-wheel python3-cffi"
+makedepends="python3-devel"
+depends="python3-certifi python3-cffi python3-rich"
+short_desc="Python binding for curl-impersonate fork via cffi"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://curl-cffi.readthedocs.io/"
+changelog="https://curl-cffi.readthedocs.io/en/latest/changelog.html"
+distfiles="${PYPI_SITE}/c/curl_cffi/curl_cffi-${version}.tar.gz"
+checksum=ea0c67652bf6893d34ee0f82c944f37e488f6147e9421bef1771cc6545b02ded
