@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+export XBPS_DISTDIR="./void-packages"
+
+PROGNAME=$(basename "$0")
+COMMAND="$1"
+
+usage() {
+	cat << _EOF
+Usage: $PROGNAME <command> [options ...]
+
+Commands: (only one may be specified)
+
+pkg
+	build and package srcpkgs via xbps-src.
+
+install
+	Install built packages via xbps-install.
+
+help
+	Usage output.
+
+_EOF
+}
+
+submodule_update() {
+	git submodule update --init --remote $XBPS_DISTDIR
+
+	if ! git diff --quiet -- $XBPS_DISTDIR; then
+		git add $XBPS_DISTDIR
+		git commit -m "chore(void-packages): update submodule"
+	fi
+}
+
+clean() {
+	cd $XBPS_DISTDIR
+	git clean -fd
+	git reset --hard
+}
+
+pkg() {
+	submodule_update
+
+	cp etc/conf $XBPS_DISTDIR/etc/
+	cp common/repo-keys/fd:a3:7d:ab:fe:ed:b4:4e:20:48:3e:ab:0b:02:7d:45.plist \
+	   $XBPS_DISTDIR/common/repo-keys
+	cp -r srcpkgs/* $XBPS_DISTDIR/srcpkgs/
+
+	cat common/shlibs | tee -a $XBPS_DISTDIR/common/shlibs >/dev/null
+
+	for x; do
+		$XBPS_DISTDIR/xbps-src binary-bootstrap
+
+		xgensum -i $x && cp $XBPS_DISTDIR/srcpkgs/$x/template srcpkgs/$x
+
+		$XBPS_DISTDIR/xbps-src clean $x && $XBPS_DISTDIR/xbps-src pkg $x
+
+		clean
+	done
+}
+
+case $COMMAND in
+	pkg)
+		shift 1
+		pkg $@
+		;;
+	install)
+		shift 1
+		doas xbps-install -Sfy --repository=$XBPS_DISTDIR/hostdir/binpkgs $@
+		;;
+	help) usage; exit 0;;
+	*) usage >&2; exit 1;;
+esac

@@ -1,0 +1,2 @@
+XBPS_MIRROR=https://repo-fastly.voidlinux.org/current
+XBPS_ALLOW_RESTRICTED=yes

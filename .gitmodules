@@ -1,0 +1,4 @@
+[submodule "void-packages"]
+	path = void-packages
+	url = https://github.com/void-linux/void-packages.git
+	shallow = true
