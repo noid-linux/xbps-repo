@@ -79,7 +79,7 @@
 | tsukimi                          | 26.7.3           | ✅       |
 | tutanota-desktop                 | 355.260710.0     | ❌       |
 | ueberzugpp                       | 2.9.8            | ✅       |
-| ungoogled-chromium               | 150.0.7871.128.1 | ❌       |
+| ungoogled-chromium               | 150.0.7871.186.1 | ❌       |
 | vscodium                         | 1.126.04524      | ❌       |
 | webapp-manager                   | 1.4.6            | ❌       |
 | wps-office                       | 11.1.0.11733     | ✅       |
