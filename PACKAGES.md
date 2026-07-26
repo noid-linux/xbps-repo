@@ -13,7 +13,7 @@
 | bun                              | 1.3.14           | ❌       |
 | calamares                        | 3.4.0            | ✅       |
 | cinny-desktop                    | 4.12.5           | ✅       |
-| clipcat                          | 0.24.1           | ✅       |
+| clipcat                          | 0.26.0           | ✅       |
 | cryptomator                      | 1.19.2           | ✅       |
 | dgop                             | 0.2.3            | ✅       |
 | dioxus-cli                       | 0.7.9            | ✅       |
