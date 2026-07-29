@@ -42,7 +42,7 @@
 | hyprland-repo                    | /                | /        |
 | intel-media-driver-nonfree       | 25.4.6           | ✅       |
 | intel-media-driver-nonfree-devel | /                | ✅       |
-| kaidan                           | 0.15.0           | ✅       |
+| kaidan                           | 0.16.0           | ✅       |
 | librewolf                        | 153.0.3          | ❌       |
 | lutgen-cli                       | 1.0.1            | ✅       |
 | lutgen-studio                    | 0.3.0            | ✅       |
