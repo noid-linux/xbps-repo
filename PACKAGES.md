@@ -16,7 +16,7 @@
 | clipcat                          | 0.26.0           | ✅       |
 | cryptomator                      | 1.19.2           | ✅       |
 | dgop                             | 0.2.3            | ✅       |
-| dioxus-cli                       | 0.7.9            | ✅       |
+| dioxus-cli                       | 0.7.10           | ✅       |
 | dms-shell                        | 1.5.3            | ✅       |
 | dms-shell-niri                   | /                | ✅       |
 | drawio-desktop                   | 31.1.5           | ✅       |

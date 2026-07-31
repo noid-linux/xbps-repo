@@ -1,6 +1,6 @@
 # Template file for 'dioxus-cli'
 pkgname=dioxus-cli
-version=0.7.9
+version=0.7.10
 revision=1
 archs="x86_64"
 build_style=cargo
@@ -12,7 +12,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT OR Apache-2.0"
 homepage="https://dioxuslabs.com"
 distfiles="https://github.com/DioxusLabs/dioxus/archive/refs/tags/v${version}.tar.gz"
-checksum=f9ac6d611a71efa0c4945acc16c48fe7c97a9e6674262012e694f295db733012
+checksum=af59b0d9a6288be8652f5d219f9155e2a4c20a06a97e4cd29baf5adc38c178c2
 
 # No clue why is this needed, probably should be removed in future
 # releases
