@@ -9,7 +9,7 @@ gh release view latest --repo noid-linux/xbps-repo \
 	/tmp/old_pkgs
 
 echo "New pkgs:"
-for pkg in $(ls -1 srcpkgs); do
+for pkg in $(< ../packages.txt); do
 	ver=$(rg "^version=" srcpkgs/$pkg/template | awk -F= '{ print $2 }')
 	rev=$(rg "^revision=" srcpkgs/$pkg/template | awk -F= '{ print $2 }')
 	echo -e "$pkg-${ver}_$rev" | tee -a /tmp/new_pkgs
@@ -21,6 +21,6 @@ sort /tmp/old_pkgs -o /tmp/old_pkgs
 echo -e '\x1b[32mChanged packages:\x1b[0m'
 comm -13 /tmp/old_pkgs /tmp/new_pkgs | 
 	sed 's/-[^-]*$//' |
-    xargs ./../void-packages/xbps-src sort-dependencies | # TODO: figure out a less stupid way to do this
+    xargs ./xbps-src sort-dependencies | # TODO: figure out a less stupid way to do this
 	tee /tmp/templates |
 	sed "s/^/  /" >&2
