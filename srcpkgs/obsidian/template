@@ -1,7 +1,7 @@
 # Template file for 'obsidian'
 pkgname=obsidian
-version=1.12.7
-revision=2
+version=1.13.4
+revision=1
 archs="x86_64"
 short_desc="Private and flexible writing app that adapts to the way you think"
 maintainer="Naz <ndpm13@ch-naseem.com>"
@@ -9,7 +9,7 @@ license="custom:Proprietary"
 homepage="https://obsidian.md/"
 changelog="https://obsidian.md/changelog/"
 distfiles="https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/obsidian-${version}.tar.gz"
-checksum=fcbe08b111d9c1fdb09b9c08952b06e1c829c62163eba2584c4b4ec859be079d
+checksum=ebac249f949b6894819fbb4bc5657ec8892f006cefed955d34a6c1ffe262f16b
 nostrip=yes
 
 do_install() {
