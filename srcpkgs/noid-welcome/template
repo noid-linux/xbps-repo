@@ -1,14 +1,14 @@
 # Template file for 'noid-welcome'
 pkgname=noid-welcome
 version=0.3.2
-revision=1
+revision=2
 archs="x86_64"
 build_style=configure
 build_helper=rust
 configure_args="--prefix=/usr"
 hostmakedepends="blueprint-compiler pkg-config cargo cargo-auditable"
 makedepends="gtk4-devel"
-depends="bash polkit"
+depends="bash polkit curl"
 short_desc="Noid Linux Welcome Screen"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
