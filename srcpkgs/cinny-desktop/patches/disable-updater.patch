@@ -1,0 +1,13 @@
+diff --git a/src-tauri/Cargo.toml b/src-tauri/Cargo.toml
+index 1fbda39..5654467 100644
+--- a/src-tauri/Cargo.toml
++++ b/src-tauri/Cargo.toml
+@@ -33,7 +33,7 @@ tauri-plugin-dialog = "2.7.1"
+ [features]
+ # by default Tauri runs in production mode
+ # when `tauri dev` runs it is executed with `cargo run --no-default-features` if `devPath` is an URL
+-default = [ "custom-protocol", "updater" ]
++default = [ "custom-protocol" ]
+ # this feature is used used for production builds where `devPath` points to the filesystem
+ # DO NOT remove this
+ custom-protocol = [ "tauri/custom-protocol" ]
