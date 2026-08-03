@@ -1,6 +1,6 @@
 # Template file for 'wine-pure-git'
 pkgname=wine-pure-git
-version=11.13
+version=11.14
 revision=1
 _commit=${version}
 _staging_commit=v${version}
@@ -12,8 +12,8 @@ distfiles="
  https://gitlab.winehq.org/wine/wine/-/archive/wine-${_commit}/wine-${_commit}.tar.gz
  https://gitlab.winehq.org/wine/wine-staging/-/archive/${_staging_commit}/wine-staging-${_staging_commit}.tar.gz"
 checksum="
- d28f778687c0afb20a1c8632ecc5390e693ef8937a868a2a32aef313d65d28a8
- 26faf9d905c8aed296fbec0a064b0c7582685319082753581933bc14b2e4c547"
+ fe0737d241ce5d86ec9869bfbc172ee515fada64f6d72d3a4b4130970e6afcf8
+ 1a81467699111ae18a2d70b280d41ad28d461665e79b6bef96457116ccefd2f9"
 
 build_style=gnu-configure
 configure_args="
