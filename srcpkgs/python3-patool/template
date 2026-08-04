@@ -1,0 +1,13 @@
+# Template file for 'python3-patool'
+pkgname=python3-patool
+version=4.0.5
+revision=1
+build_style=python3-module
+hostmakedepends="python3-setuptools"
+short_desc="Portable command line archive file manager"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/wummel/patool"
+changelog="https://github.com/wummel/patool/raw/refs/heads/main/doc/changelog.txt"
+distfiles="${PYPI_SITE}/p/patool/patool-${version}.tar.gz"
+checksum=1c8bbbbe1f421181bf7055ada975befb024c1677449e9d36f42bb45ac69f8b4c
