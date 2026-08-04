@@ -87,96 +87,96 @@ conflicts="wine>=0"
 patch_args="-Np1"
 
 do_extract() {
-    mkdir -p "${wrksrc}/wine" "${wrksrc}/wine-staging"
+	mkdir -p "${wrksrc}/wine" "${wrksrc}/wine-staging"
 
-    tar xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/wine-${_commit}.tar.gz" \
-        -C "${wrksrc}/wine" --strip-components=1
-        
-    tar xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/wine-staging-${_staging_commit}.tar.gz" \
-        -C "${wrksrc}/wine-staging" --strip-components=1
+	tar xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/wine-${_commit}.tar.gz" \
+		-C "${wrksrc}/wine" --strip-components=1
 
-    cp "${FILESDIR}/30-win32-aliases.conf" "${FILESDIR}/wine-binfmt.conf" "${wrksrc}/"
+	tar xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/wine-staging-${_staging_commit}.tar.gz" \
+		-C "${wrksrc}/wine-staging" --strip-components=1
+
+	cp "${FILESDIR}/30-win32-aliases.conf" "${FILESDIR}/wine-binfmt.conf" "${wrksrc}/"
 }
 
 pre_configure() {
-    cd "${wrksrc}/wine"
+	cd "${wrksrc}/wine"
 
-    if [ ! -d .git ]; then
-        git init
-        git add -A
-        git -c user.name="void" -c user.email="void@localhost" commit -m "base" --quiet
-    fi
+	if [ ! -d .git ]; then
+		git init
+		git add -A
+		git -c user.name="void" -c user.email="void@localhost" commit -m "base" --quiet
+	fi
 
-    python3 ../wine-staging/staging/patchinstall.py \
-        --backend=git-apply --all \
-        -W server-Signal_Thread
+	python3 ../wine-staging/staging/patchinstall.py \
+		--backend=git-apply --all \
+		-W server-Signal_Thread
 
-    local patches=(
-        "0001-HACK-wine.inf-Add-native-builtin-overrides-for-msvcr.patch"
-        "0002-wine.inf-Set-a-valid-Win10-ProductId.patch"
-        "0003-wineboot-On-prefix-upgrade-update-win10-build-number.patch"
-        "0004-wineboot-Generate-better-DigitalProductId.patch"
-        "0005-wineboot-Load-root-certificates-on-prefix-update.patch"
-        "Disable-optimization-of-some-functions.patch"
-        "winecfg-Add-tweaks-tab-page.patch"
-        "ntdll-loader-add-support-for-overriding-IMAGE_FILE_L.patch"
-        "Do-not-handle-IMAGE_FILE_LARGE_ADDRESS_AWARE-on-WoW64.patch"
-        "Add-workarounds-for-game-launchers.patch"
-        "0001-HACK-ws2_32-Block-first-internet-connection-for-some.patch"
-        "Configure-Enforce-4-byte-stack-alignment-on-clang-for-PE-builds.patch"
-        "10108.patch"
-        "10829.patch"
-        "10864.patch"
-        "kernelbase-Handle-misaligned-stack-in-OpenThread.patch"
-    )
+	local patches=(
+		"0001-HACK-wine.inf-Add-native-builtin-overrides-for-msvcr.patch"
+		"0002-wine.inf-Set-a-valid-Win10-ProductId.patch"
+		"0003-wineboot-On-prefix-upgrade-update-win10-build-number.patch"
+		"0004-wineboot-Generate-better-DigitalProductId.patch"
+		"0005-wineboot-Load-root-certificates-on-prefix-update.patch"
+		"Disable-optimization-of-some-functions.patch"
+		"winecfg-Add-tweaks-tab-page.patch"
+		"ntdll-loader-add-support-for-overriding-IMAGE_FILE_L.patch"
+		"Do-not-handle-IMAGE_FILE_LARGE_ADDRESS_AWARE-on-WoW64.patch"
+		"Add-workarounds-for-game-launchers.patch"
+		"0001-HACK-ws2_32-Block-first-internet-connection-for-some.patch"
+		"Configure-Enforce-4-byte-stack-alignment-on-clang-for-PE-builds.patch"
+		"10108.patch"
+		"10829.patch"
+		"10864.patch"
+		"kernelbase-Handle-misaligned-stack-in-OpenThread.patch"
+	)
 
-    for p in "${patches[@]}"; do
-        if [ -f "${FILESDIR}/${p}" ]; then
-            patch ${patch_args} -i "${FILESDIR}/${p}"
-        fi
-    done
+	for p in "${patches[@]}"; do
+		if [ -f "${FILESDIR}/${p}" ]; then
+			patch ${patch_args} -i "${FILESDIR}/${p}"
+		fi
+	done
 
-    ./dlls/winevulkan/make_vulkan
-    ./tools/make_requests
-    ./tools/make_specfiles
-    autoreconf -f
+	./dlls/winevulkan/make_vulkan
+	./tools/make_requests
+	./tools/make_specfiles
+	autoreconf -f
 }
 
 do_configure() {
-    export CC="clang" CXX="clang++"
-    export CFLAGS="-O2 -march=x86-64-v3 -mtune=haswell -mfpmath=sse -fwrapv -pipe"
-    export CXXFLAGS="${CFLAGS}"
-    export CROSSCFLAGS="${CFLAGS}" CROSSCXXFLAGS="${CFLAGS}"
-    export CROSSLDFLAGS="-Wl,/FILEALIGN:4096,/OPT:REF,/OPT:ICF"
-    export LDFLAGS="-Wl,-O1,--sort-common,--as-needed -fuse-ld=lld"
+	export CC="clang" CXX="clang++"
+	export CFLAGS="-O2 -march=x86-64-v3 -mtune=haswell -mfpmath=sse -fwrapv -pipe"
+	export CXXFLAGS="${CFLAGS}"
+	export CROSSCFLAGS="${CFLAGS}" CROSSCXXFLAGS="${CFLAGS}"
+	export CROSSLDFLAGS="-Wl,/FILEALIGN:4096,/OPT:REF,/OPT:ICF"
+	export LDFLAGS="-Wl,-O1,--sort-common,--as-needed -fuse-ld=lld"
 
-    cd "${wrksrc}/wine"
-    ./configure --prefix=/usr --libdir=/usr/lib ${configure_args}
+	cd "${wrksrc}/wine"
+	./configure --prefix=/usr --libdir=/usr/lib ${configure_args}
 }
 
 do_build() {
-    cd "${wrksrc}/wine"
-    make ${makejobs}
+	cd "${wrksrc}/wine"
+	make ${makejobs}
 }
 
 do_install() {
-    cd "${wrksrc}/wine"
-    make DESTDIR="${DESTDIR}" install
+	cd "${wrksrc}/wine"
+	make DESTDIR="${DESTDIR}" install
 
-    ln -sf wine "${DESTDIR}/usr/bin/wine64"
+	ln -sf wine "${DESTDIR}/usr/bin/wine64"
 
-    llvm-strip --strip-unneeded \
-        "${DESTDIR}/usr/lib/wine/i386-windows/"*.{dll,exe} \
-        "${DESTDIR}/usr/lib/wine/x86_64-windows/"*.{dll,exe} 2>/dev/null || true
+	llvm-strip --strip-unneeded \
+		"${DESTDIR}/usr/lib/wine/i386-windows/"*.{dll,exe} \
+		"${DESTDIR}/usr/lib/wine/x86_64-windows/"*.{dll,exe} 2>/dev/null || true
 
-    vmkdir usr/share/fontconfig/conf.avail
-    vmkdir usr/share/fontconfig/conf.default
-    vinstall "${wrksrc}/30-win32-aliases.conf" 644 usr/share/fontconfig/conf.avail
-    ln -s ../conf.avail/30-win32-aliases.conf \
-        "${DESTDIR}/usr/share/fontconfig/conf.default/30-win32-aliases.conf"
+	vmkdir usr/share/fontconfig/conf.avail
+	vmkdir usr/share/fontconfig/conf.default
+	vinstall "${wrksrc}/30-win32-aliases.conf" 644 usr/share/fontconfig/conf.avail
+	ln -s ../conf.avail/30-win32-aliases.conf \
+		"${DESTDIR}/usr/share/fontconfig/conf.default/30-win32-aliases.conf"
 
-    vinstall "${wrksrc}/wine-binfmt.conf" 644 usr/lib/binfmt.d wine.conf
+	vinstall "${wrksrc}/wine-binfmt.conf" 644 usr/lib/binfmt.d wine.conf
 
-    vmkdir usr/lib/modules-load.d
-    echo "ntsync" > "${DESTDIR}/usr/lib/modules-load.d/wine-pure.conf"
+	vmkdir usr/lib/modules-load.d
+	echo "ntsync" > "${DESTDIR}/usr/lib/modules-load.d/wine-pure.conf"
 }
