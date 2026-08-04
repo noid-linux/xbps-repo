@@ -2,15 +2,13 @@
 pkgname=wine-pure-git
 version=11.14
 revision=1
-_commit=${version}
-_staging_commit=v${version}
 short_desc="Bleeding-edge Wine build (Staging, WoW64, Wayland)"
 maintainer="Terromur <terromuroz@proton.me>"
 license="LGPL-2.1-or-later"
 homepage="https://github.com/ventureoo/PKGBUILDs"
 distfiles="
- https://gitlab.winehq.org/wine/wine/-/archive/wine-${_commit}/wine-${_commit}.tar.gz
- https://gitlab.winehq.org/wine/wine-staging/-/archive/${_staging_commit}/wine-staging-${_staging_commit}.tar.gz"
+ https://gitlab.winehq.org/wine/wine/-/archive/wine-${version}/wine-${version}.tar.gz
+ https://gitlab.winehq.org/wine/wine-staging/-/archive/${version}/wine-staging-${version}.tar.gz"
 checksum="
  fe0737d241ce5d86ec9869bfbc172ee515fada64f6d72d3a4b4130970e6afcf8
  1a81467699111ae18a2d70b280d41ad28d461665e79b6bef96457116ccefd2f9"
@@ -89,10 +87,10 @@ patch_args="-Np1"
 do_extract() {
 	mkdir -p "${wrksrc}/wine" "${wrksrc}/wine-staging"
 
-	tar xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/wine-${_commit}.tar.gz" \
+	tar xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/wine-${version}.tar.gz" \
 		-C "${wrksrc}/wine" --strip-components=1
 
-	tar xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/wine-staging-${_staging_commit}.tar.gz" \
+	tar xf "${XBPS_SRCDISTDIR}/${pkgname}-${version}/wine-staging-${version}.tar.gz" \
 		-C "${wrksrc}/wine-staging" --strip-components=1
 
 	cp "${FILESDIR}/30-win32-aliases.conf" "${FILESDIR}/wine-binfmt.conf" "${wrksrc}/"
