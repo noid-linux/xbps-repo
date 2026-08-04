@@ -62,7 +62,7 @@
 | nwm                              | 6.8              | ✅       |
 | obsidian                         | 1.13.4           | ❌       |
 | onlyoffice                       | 9.4.0            | ❌       |
-| opencode-desktop                 | 1.18.11          | ❌       |
+| opencode-desktop                 | 1.18.12          | ❌       |
 | proton-authenticator             | 1.1.5            | ❌       |
 | proton-vpn-gtk-app               | 4.17.1           | ✅       |
 | python3-curl-cffi                | 0.15.0           | ✅       |
