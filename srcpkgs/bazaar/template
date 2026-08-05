@@ -1,6 +1,6 @@
 # Template file for 'bazaar'
 pkgname=bazaar
-version=0.9.1
+version=0.9.2
 revision=1
 archs="x86_64"
 build_style=meson
@@ -19,7 +19,7 @@ license="GPL-3.0-or-later"
 homepage="https://usebazaar.org/"
 changelog="https://github.com/bazaar-org/bazaar/releases/"
 distfiles="https://github.com/kolunmi/bazaar/archive/refs/tags/v${version}.tar.gz"
-checksum=1b2783845b183a9cea87048e582dcbdd71d7771a7f65f89d7ec8a563af2d550f
+checksum=d124be398683324f9dcc281cc87692371f124fcab180316bfa451e6cdf66f640
 
 post_install() {
 	rm ${DESTDIR}/usr/bin/bge-demo
