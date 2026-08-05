@@ -15,6 +15,19 @@ index 6ff7c01..c26ea0b 100644
  bottles_sources = [
    '__init__.py',
    'main.py',
+diff --git a/bottles/frontend/utils/autostart.py b/bottles/frontend/utils/autostart.py
+index 369f964..acb73fb 100644
+--- a/bottles/frontend/utils/autostart.py
++++ b/bottles/frontend/utils/autostart.py
+@@ -21,7 +21,7 @@ def set_autostart_enabled(
+     sandboxed=None,
+ ):
+     if sandboxed is None:
+-        sandboxed = Xdp.Portal.running_under_sandbox()
++        sandboxed = self.window.settings.get_boolean("show-sandbox-warning")
+ 
+     if not sandboxed:
+         callback(ManagerUtils.set_autostart_entry(enabled))
 diff --git a/bottles/frontend/views/bottle_details.py b/bottles/frontend/views/bottle_details.py
 index 1d3f18b..d42bdd5 100644
 --- a/bottles/frontend/views/bottle_details.py
@@ -61,7 +74,7 @@ index 1d3f18b..d42bdd5 100644
              show_chooser()
  
 diff --git a/bottles/frontend/views/bottle_preferences.py b/bottles/frontend/views/bottle_preferences.py
-index 52090fb..7a26936 100644
+index 2bc2235..9a0a001 100644
 --- a/bottles/frontend/views/bottle_preferences.py
 +++ b/bottles/frontend/views/bottle_preferences.py
 @@ -20,7 +20,7 @@ import os
@@ -77,8 +90,8 @@ index 52090fb..7a26936 100644
                  )
              )
  
--        if not gamemode_available or not Xdp.Portal.running_under_sandbox():
-+        if not gamemode_available:
+-        if not Xdp.Portal.running_under_sandbox():
++        if not self.window.settings.get_boolean("show-sandbox-warning"):
              return
  
          _not_available = _("This feature is unavailable on your system.")
