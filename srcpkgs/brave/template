@@ -1,6 +1,6 @@
 # Template file for 'brave'
 pkgname=brave
-version=1.93.132
+version=1.93.134
 revision=1
 archs="x86_64"
 depends="vulkan-loader"
@@ -10,7 +10,7 @@ license="MPL-2.0"
 homepage="https://brave.com"
 changelog="https://raw.githubusercontent.com/brave/brave-browser/refs/heads/master/CHANGELOG_DESKTOP.md"
 distfiles="https://github.com/brave/brave-browser/releases/download/v${version}/brave-browser-${version}-linux-amd64.zip"
-checksum=7bcb3b4afaada81a3cbfecc5c82ba682668562a27c541a4da06f38885288c560
+checksum=f4e933b8e13149b87f6bed8789174745809e79301eb33fab0d643b848a9fde6f
 nostrip=yes
 skiprdeps="/opt/brave/libqt5_shim.so /opt/brave/libqt6_shim.so"
 replaces="brave-browser>=0"
