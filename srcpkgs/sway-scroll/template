@@ -1,6 +1,6 @@
 # Template file for 'sway-scroll'
 pkgname=sway-scroll
-version=1.12.17
+version=1.12.18
 revision=1
 archs="x86_64"
 build_style=meson
@@ -9,14 +9,14 @@ hostmakedepends="pkg-config cmake scdoc hwids"
 makedepends="wayland-devel wlroots0.20-devel glslang-devel
  json-c-devel pcre2-devel cairo-devel pango-devel libevdev-devel
  lua54-devel xorg-server-xwayland libdrm-devel libliftoff-devel
- gdk-pixbuf-devel"
+ gdk-pixbuf-devel readline-devel"
 short_desc="Fork of the sway compositor with a scrolling layout like PaperWM or niri"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MIT"
 homepage="https://github.com/dawsers/scroll/"
 changelog="https://github.com/dawsers/scroll/releases/"
 distfiles="https://github.com/dawsers/scroll/archive/refs/tags/${version}.tar.gz"
-checksum=a78fb84ffeb0a648eeed5ca905072b48cd777389ba20b8d3d90c08f10840e3a1
+checksum=8882a3ff29f4fd3da86217a0a093e03fa32e26cf1fbef6e0f2b6139dc102f798
 
 post_install() {
 	vlicense LICENSE

@@ -73,7 +73,7 @@
 | sbm-rs                           | 0.1.0           | ✅       |
 | slack-desktop                    | 4.50.143        | ❌       |
 | spotify                          | 1.2.92          | ❌       |
-| sway-scroll                      | 1.12.17         | ✅       |
+| sway-scroll                      | 1.12.18         | ✅       |
 | tenacity                         | 1.3.5           | ✅       |
 | themix                           | 1.15.1          | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303  | ❌       |
