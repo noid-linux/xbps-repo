@@ -1,0 +1,56 @@
+From 364c14cf38fabc540fea2619018603a14db18582 Mon Sep 17 00:00:00 2001
+From: Andrew Eikum <aeikum@codeweavers.com>
+Date: Fri, 7 Feb 2025 22:22:59 +0300
+Subject: [PATCH 1/5] HACK: wine.inf: Add native,builtin overrides for msvcrt
+ DLLs
+
+Signed-off-by: Vasiliy Stelmachenok <ventureo@cachyos.org>
+---
+ loader/wine.inf.in | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/loader/wine.inf.in b/loader/wine.inf.in
+index f28f5ef53cd..75ede8968d1 100644
+--- a/loader/wine.inf.in
++++ b/loader/wine.inf.in
+@@ -1470,6 +1470,37 @@ HKLM,Software\Wine\LicenseInformation,"Shell-InBoxGames-Shanghai-EnableGame",0x1
+ HKLM,Software\Wine\LicenseInformation,"Shell-InBoxGames-Solitaire-EnableGame",0x10001,0x00000001
+ HKLM,Software\Wine\LicenseInformation,"Shell-InBoxGames-SpiderSolitaire-EnableGame",0x10001,0x00000001
+ HKLM,Software\Wine\LicenseInformation,"Shell-PremiumInBoxGames-Chess-EnableGame",0x10001,0x00000001
++;;Likely want *80 and *90 too, but those require removing Wine's manifest files.
++HKCU,Software\Wine\DllOverrides,"atl100",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcp100",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcr100",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"vcomp100",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"atl110",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcp110",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcr110",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"vcomp110",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"atl120",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcp120",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcr120",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"vcomp120",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"api-ms-win-crt-conio-l1-1-0",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"api-ms-win-crt-heap-l1-1-0",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"api-ms-win-crt-locale-l1-1-0",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"api-ms-win-crt-math-l1-1-0",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"api-ms-win-crt-runtime-l1-1-0",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"api-ms-win-crt-stdio-l1-1-0",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"api-ms-win-crt-time-l1-1-0",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"atl140",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"concrt140",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcp140",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcp140_1",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcp140_codecvt_ids",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcp140_2",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"msvcr140",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"ucrtbase",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"vcomp140",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"vcruntime140",0x2,"native,builtin"
++HKCU,Software\Wine\DllOverrides,"vcruntime140_1",0x2,"native,builtin"
+ 
+ [ColorFiles]
+ srgb color space profile.icm,"@%11%\mscms.dll,-1"
+-- 
+2.54.0
+
