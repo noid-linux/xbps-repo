@@ -1,27 +1,30 @@
 # Template file for 'heroic-games-launcher'
 pkgname=heroic-games-launcher
-version=2.22.0
+version=2.22.1
 revision=1
 archs="x86_64"
 hostmakedepends="pnpm python3"
 makedepends="electron35-devel"
-depends="wine winetricks curl zenity gamemode"
+depends="wine winetricks curl zenity gamemode vulkan-loader"
 short_desc="Games launcher for GOG, Amazon and Epic Games"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://heroicgameslauncher.com/"
 changelog="https://raw.githubusercontent.com/Heroic-Games-Launcher/HeroicGamesLauncher/refs/heads/main/CHANGELOG.md"
 distfiles="https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/archive/refs/tags/v${version}.tar.gz"
-checksum=a4122c4e39a8e240cf86ee73d6c8c57632ca638284b71faffbf8e62237bf3725
+checksum=eb5c405e17ee794962ae8094b70de76b0f2ad73f29e5533460efa6e46f10cdbe
 nopie=yes
 
-do_build() {
-	export CFLAGS="${CFLAGS//-fno-PIE/}"
-	export CXXFLAGS="${CXXFLAGS//-fno-PIE/}"
-	export LDFLAGS="${LDFLAGS//-no-pie/}"
+export CFLAGS="${CFLAGS//-fno-PIE/}"
+export CXXFLAGS="${CXXFLAGS//-fno-PIE/}"
+export LDFLAGS="${LDFLAGS//-no-pie/}"
 
+pre_build() {
 	pnpm install
 	pnpm download-helper-binaries
+}
+
+do_build() {
 	pnpm dist:linux tar.xz
 }
 
@@ -34,4 +37,6 @@ do_install() {
 	sed -i 's/heroic-run/heroic/' flatpak/com.heroicgameslauncher.hgl.desktop
 	vinstall flatpak/com.heroicgameslauncher.hgl.desktop 644 usr/share/applications
 	vinstall flatpak/com.heroicgameslauncher.hgl.png 644 usr/share/pixmaps
+
+	rm -f ${DESTDIR}/usr/lib/heroic/libvulkan.so.1
 }
