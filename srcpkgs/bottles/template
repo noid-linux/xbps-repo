@@ -1,6 +1,6 @@
 # Template file for 'bottles'
 pkgname=bottles
-version=66.1
+version=66.2
 revision=1
 archs="x86_64"
 build_style=meson
@@ -15,4 +15,4 @@ license="GPL-3.0-only"
 homepage="https://usebottles.com/"
 changelog="https://github.com/bottlesdevs/Bottles/releases"
 distfiles="https://github.com/bottlesdevs/Bottles/archive/refs/tags/${version}.tar.gz"
-checksum=71f033bd61ce2fd740c25c07c08689c6cd53d34ccebc10522fd3af4e4b445b50
+checksum=f6d77f9a161893b406f65a6dab78f535f87981ea7b4dd1e330da970a7aee9ead
