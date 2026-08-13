@@ -29,7 +29,7 @@ index 369f964..acb73fb 100644
      if not sandboxed:
          callback(ManagerUtils.set_autostart_entry(enabled))
 diff --git a/bottles/frontend/views/bottle_details.py b/bottles/frontend/views/bottle_details.py
-index 1d3f18b..d42bdd5 100644
+index dfeec4e..300978f 100644
 --- a/bottles/frontend/views/bottle_details.py
 +++ b/bottles/frontend/views/bottle_details.py
 @@ -21,7 +21,7 @@ from datetime import datetime
@@ -41,7 +41,7 @@ index 1d3f18b..d42bdd5 100644
  
  from bottles.backend.managers.backup import BackupManager
  from bottles.backend.models.config import BottleConfig
-@@ -713,20 +713,17 @@ class BottleView(Adw.PreferencesPage):
+@@ -727,20 +727,17 @@ class BottleView(Adw.PreferencesPage):
              dialog.connect("response", execute)
              dialog.show()
  
@@ -74,7 +74,7 @@ index 1d3f18b..d42bdd5 100644
              show_chooser()
  
 diff --git a/bottles/frontend/views/bottle_preferences.py b/bottles/frontend/views/bottle_preferences.py
-index 2bc2235..9a0a001 100644
+index 0254eb9..d57e919 100644
 --- a/bottles/frontend/views/bottle_preferences.py
 +++ b/bottles/frontend/views/bottle_preferences.py
 @@ -20,7 +20,7 @@ import os
@@ -86,40 +86,40 @@ index 2bc2235..9a0a001 100644
  
  from bottles.backend.globals import (
      gamemode_available,
-@@ -173,7 +173,7 @@ class PreferencesView(Adw.PreferencesPage):
+@@ -185,7 +185,7 @@ class PreferencesView(Adw.PreferencesPage):
                  )
              )
  
--        if not Xdp.Portal.running_under_sandbox():
-+        if not self.window.settings.get_boolean("show-sandbox-warning"):
+-        if not is_cpak() and not Xdp.Portal.running_under_sandbox():
++        if not is_cpak() and not self.window.settings.get_boolean("show-sandbox-warning"):
              return
  
          _not_available = _("This feature is unavailable on your system.")
 diff --git a/bottles/frontend/views/list.py b/bottles/frontend/views/list.py
-index 0f9f01a..c398289 100644
+index 689d023..6e437ba 100644
 --- a/bottles/frontend/views/list.py
 +++ b/bottles/frontend/views/list.py
-@@ -18,7 +18,7 @@
- from datetime import datetime
- from gettext import gettext as _, ngettext
+@@ -19,7 +19,7 @@ from datetime import datetime
+ from gettext import gettext as _
+ from gettext import ngettext
  
 -from gi.repository import Adw, GLib, Gtk, Xdp
 +from gi.repository import Adw, GLib, Gtk
  
+ from bottles.backend.globals import is_cpak
  from bottles.backend.models.config import BottleConfig
- from bottles.backend.models.result import Result
-@@ -126,9 +126,6 @@ class BottlesBottleRow(Adw.ActionRow):
+@@ -130,9 +130,6 @@ class BottlesBottleRow(Adw.ActionRow):
  
      def run_executable(self, *_args):
          """Display file dialog for executable"""
--        if not Xdp.Portal.running_under_sandbox():
+-        if not is_cpak() and not Xdp.Portal.running_under_sandbox():
 -            return
 -
          def set_path(_dialog, response):
              if response != Gtk.ResponseType.ACCEPT:
                  return
 diff --git a/bottles/frontend/views/new_bottle_dialog.py b/bottles/frontend/views/new_bottle_dialog.py
-index 86c7868..00bf3e3 100644
+index 02adeb2..cf3e938 100644
 --- a/bottles/frontend/views/new_bottle_dialog.py
 +++ b/bottles/frontend/views/new_bottle_dialog.py
 @@ -20,7 +20,7 @@ from gettext import gettext as _
@@ -130,35 +130,37 @@ index 86c7868..00bf3e3 100644
 +from gi.repository import Adw, Gio, GLib, GObject, Gtk, Pango
  from pathvalidate import sanitize_filename
  
- from bottles.backend.models.config import BottleConfig
-@@ -92,7 +92,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
+ from bottles.backend.globals import is_cpak
+@@ -93,9 +93,7 @@ class BottlesNewBottleDialog(Adw.Dialog):
          )
          # common variables and references
          self.window = GtkUtils.get_parent_window()
--        if not self.window or not Xdp.Portal.running_under_sandbox():
-+        if not self.window:
+-        if not self.window or (
+-            not is_cpak() and not Xdp.Portal.running_under_sandbox()
+-        ):
++        if not self.window or not is_cpak():
              return
  
          self.app = self.window.get_application()
 diff --git a/bottles/frontend/windows/window.py b/bottles/frontend/windows/window.py
-index 14facf7..4eef534 100644
+index 146a99e..d601630 100644
 --- a/bottles/frontend/windows/window.py
 +++ b/bottles/frontend/windows/window.py
-@@ -22,7 +22,7 @@ from datetime import datetime, timedelta
+@@ -21,7 +21,7 @@ import webbrowser
+ from datetime import datetime, timedelta
  from gettext import gettext as _
- from typing import Optional
  
--from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk, Xdp, XdpGtk4
-+from gi.repository import Adw, Gdk, Gio, GLib, GObject, Gtk, XdpGtk4
+-from gi.repository import Adw, Gdk, Gio, GLib, Gtk, Xdp, XdpGtk4
++from gi.repository import Adw, Gdk, Gio, GLib, Gtk, XdpGtk4
  
  from bottles.backend.globals import Paths
  from bottles.backend.health import HealthChecker
-@@ -131,35 +131,6 @@ class BottlesWindow(Adw.ApplicationWindow):
+@@ -138,35 +138,6 @@ class BottlesWindow(Adw.ApplicationWindow):
              manager = Adw.StyleManager.get_default()
              manager.set_color_scheme(Adw.ColorScheme.FORCE_DARK)
  
 -        # Be VERY explicit that non-sandboxed environments are unsupported
--        if not Xdp.Portal.running_under_sandbox():
+-        if not os.environ.get("CPAK_CONTAINER_ID") and not Xdp.Portal.running_under_sandbox():
 -
 -            def response(dialog, response, *args):
 -                if response == "close":
