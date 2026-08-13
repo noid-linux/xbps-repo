@@ -87,5 +87,5 @@
 | wps-office                       | 11.1.0.11733     | ✅       |
 | xlibre-repo                      | /                | /        |
 | zap-rs                           | 0.3.1            | ✅       |
-| zen-browser                      | 1.21.13b         | ❌       |
+| zen-browser                      | 1.21.14b         | ❌       |
 | zig                              | 0.16             | ❌       |
