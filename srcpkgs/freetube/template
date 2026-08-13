@@ -1,6 +1,6 @@
 # Template file for 'freetube'
 pkgname=freetube
-version=0.25.1
+version=0.25.2
 revision=1
 _electronver=35
 archs="x86_64"
@@ -12,7 +12,7 @@ license="AGPL-3.0-only"
 homepage="https://freetubeapp.io/"
 changelog="https://github.com/FreeTubeApp/FreeTube/releases/"
 distfiles="https://github.com/FreeTubeApp/FreeTube/archive/refs/tags/v${version}-beta.tar.gz"
-checksum=e9e3032264b917e03c76ad38c4ebe9885985e7629dff46712ec40932283d0fb3
+checksum=1a90edfdd97e305f2701a05e6bf3a35de76d8cb5a3b9826376c4faa2aec0335c
 
 pre_build() {
 	pnpm install --frozen-lockfile
