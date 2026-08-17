@@ -38,7 +38,7 @@ jobs:
           sed -i 's|repo-default|repo-ci|g' /etc/xbps.d/*-repository-*.conf
           # install dependencies
           xbps-install -Syu xbps && xbps-install -yu
-          xbps-install -y sudo bash curl git github-cli ripgrep
+          xbps-install -y sudo bash curl git github-cli ripgrep patch
           # create non-root user
           useradd -G xbuilder -M builder
 
@@ -55,8 +55,7 @@ jobs:
         run: |
           cp -f noid-packages/common/travis/changed_templates.sh \
             void-packages/common/travis/changed_templates.sh
-          cat noid-packages/common/shlibs | tee -a \
-            void-packages/common/shlibs
+          patch < noid-packages/common/shlibs.diff -Np1 void-packages/common/shlibs
           cp -r noid-packages/srcpkgs/* void-packages/srcpkgs/
           cp noid-packages/common/repo-keys/fd\:a3\:7d\:ab\:fe\:ed\:b4\:4e\:20\:48\:3e\:ab\:0b\:02\:7d\:45.plist void-packages/common/repo-keys
 

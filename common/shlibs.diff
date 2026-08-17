@@ -1,0 +1,24 @@
+diff --git a/common/shlibs b/common/shlibs
+index 4da435560ad..a007cedb399 100644
+--- a/common/shlibs
++++ b/common/shlibs
+@@ -452,7 +452,7 @@ libdvdread.so.8 libdvdread-6.1.1_1
+ libdvdnav.so.4 libdvdnav-4.1.3_1
+ libdvbpsi.so.10 libdvbpsi-1.3.1_1
+ libdca.so.0 libdca-0.0.5_1
+-libdex-1.so.1 libdex-0.2.0_1
++libdex-1.so.1 libdex-beta-1.2_2
+ libmpeg2.so.0 libmpeg2-0.5.1_1
+ libmpeg2convert.so.0 libmpeg2-0.5.1_1
+ libmng.so.2 libmng-2.0.2_1
+@@ -4612,3 +4612,10 @@ libfyaml.so.0 libfyaml-0.9.6_1
+ libcpptrace.so.1 cpptrace-1.0.4_1
+ libcgif.so.0 cgif-0.5.3_1
+ libdsk.so.5 libdsk-1.5.22_1
++libbge.so.0 bazaar-0.8.1_1
++libmalcontent-0.so.0 malcontent-0.14_1
++pam_malcontent.so malcontent-0.14_1
++libmalcontent-ui-1.so.1 malcontent-0.14_1
++libnss_malcontent.so.2 malcontent-0.14_1
++libgsystemservice-0.so.0 libgsystemservice-0.3.0_1
++libglib-testing-0.so.0 libglib-testing-0.2.0_1
