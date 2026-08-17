@@ -30,7 +30,7 @@
 | FjordLauncher                    | 11.0.3.0         | ✅       |
 | flat-remix-icon-theme            | 20251119         | ✅       |
 | floorp                           | 12.16.4          | ❌       |
-| fluffychat                       | 2.8.0            | ❌       |
+| fluffychat                       | 2.9.1            | ❌       |
 | fnm                              | 1.39.0           | ✅       |
 | freetube                         | 0.25.2           | ✅       |
 | grayjay                          | 17               | ❌       |
