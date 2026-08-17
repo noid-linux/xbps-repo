@@ -1,13 +1,13 @@
 # Template file for 'bazaar'
 pkgname=bazaar
-version=0.9.3
-revision=1
+version=0.9.4
+revision=2
 archs="x86_64"
 build_style=meson
 hostmakedepends="pkg-config glib-devel gettext cmake
  blueprint-compiler desktop-file-utils gtk4-update-icon-cache
  python3-Babel"
-makedepends="gtk4-devel glib-devel libadwaita-devel libdex-devel
+makedepends="gtk4-devel glib-devel libadwaita-devel libdex-beta-devel
  flatpak-devel AppStream-devel libxmlb-devel glycin-devel
  glycin-gtk4-devel libyaml-devel libsoup3-devel json-glib-devel
  libmd4c-devel libwebkitgtk60-devel libsecret-devel libproxy-devel
@@ -20,7 +20,7 @@ license="GPL-3.0-or-later"
 homepage="https://usebazaar.org/"
 changelog="https://github.com/bazaar-org/bazaar/releases/"
 distfiles="https://github.com/kolunmi/bazaar/archive/refs/tags/v${version}.tar.gz"
-checksum=daf7ce5e210e6aec05e2619aa18d4ddf7b19abca0efe750f1a154f92089fee87
+checksum=b2521a998b84abf58b2b04a5d8bf29e41971d1f1cbaeef5cf079ba4bf516f5c2
 
 post_install() {
 	rm ${DESTDIR}/usr/bin/bge-demo
