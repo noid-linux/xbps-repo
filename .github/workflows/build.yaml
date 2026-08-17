@@ -87,9 +87,8 @@ jobs:
           cd void-packages
           for pkg in $(< /tmp/templates); do
             sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg"
+            cp ~/hostdir/binpkgs/$pkg*.xbps ~/packages/
           done
-
-          cp ~/hostdir/binpkgs/*.xbps ~/packages/
 
       - name: Download the rest of the packages
         run: |
