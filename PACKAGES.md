@@ -78,7 +78,7 @@
 | tenacity                         | 1.3.5            | ✅       |
 | themix                           | 1.15.1           | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303   | ❌       |
-| tsukimi                          | 26.8.2           | ✅       |
+| tsukimi                          | 26.8.3           | ✅       |
 | tutanota-desktop                 | 357.260812.1     | ❌       |
 | ueberzugpp                       | 2.9.10           | ✅       |
 | ungoogled-chromium               | 151.0.7922.137.1 | ❌       |
