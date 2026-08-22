@@ -11,7 +11,7 @@
 | bottles                          | 66.2             | ✅       |
 | boxbuddy                         | 2.5.8            | ✅       |
 | brave, brave-origin              | 1.93.138         | ❌       |
-| bun                              | 1.3.14           | ❌       |
+| bun                              | 1.4.0            | ❌       |
 | calamares                        | 3.4.0            | ✅       |
 | cinny-desktop                    | 4.12.6           | ✅       |
 | clipcat                          | 0.26.0           | ✅       |
