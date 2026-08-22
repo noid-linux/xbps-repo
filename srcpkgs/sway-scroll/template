@@ -1,6 +1,6 @@
 # Template file for 'sway-scroll'
 pkgname=sway-scroll
-version=1.12.20
+version=1.12.21
 revision=1
 archs="x86_64"
 build_style=meson
@@ -16,7 +16,7 @@ license="MIT"
 homepage="https://github.com/dawsers/scroll/"
 changelog="https://github.com/dawsers/scroll/releases/"
 distfiles="https://github.com/dawsers/scroll/archive/refs/tags/${version}.tar.gz"
-checksum=83af9f07e24c27735df6e3a521dac275cbaf7f97b02a93276ffa79259a9a9c8e
+checksum=83ba9433282bfe41b4909c4b62ef4c2e757a0ac792c301eccfbb1dd5902b6903
 
 post_install() {
 	vlicense LICENSE
