@@ -1,6 +1,6 @@
 # Template file for 'tsukimi'
 pkgname=tsukimi
-version=26.8.3
+version=26.8.4
 revision=1
 archs="x86_64"
 build_style=meson
@@ -14,4 +14,4 @@ license="GPL-3.0-or-later"
 homepage="https://github.com/tsukinaha/tsukimi"
 changelog="https://github.com/tsukinaha/tsukimi/releases"
 distfiles="https://github.com/tsukinaha/tsukimi/archive/refs/tags/v${version}.tar.gz"
-checksum=b9c94e32b5245041376dc4fd00364278cedecbf9010015d05195e6fb1e9ca5a3
+checksum=2efba2e68fac15cb6685b080227653778e6c5c5165d35ea2bb3757a6198a9a2b
