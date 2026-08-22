@@ -1,6 +1,6 @@
 # Template file for 'ferdium'
 pkgname=ferdium
-version=7.2.0
+version=7.2.1
 revision=1
 _electronver=35
 archs="x86_64"
@@ -15,8 +15,8 @@ homepage="https://ferdium.org/"
 changelog="https://raw.githubusercontent.com/ferdium/ferdium-app/refs/heads/develop/CHANGELOG.md"
 distfiles="https://github.com/ferdium/ferdium-app/archive/refs/tags/v${version}.tar.gz>${pkgname}-v${version}.tar.gz
  https://github.com/ferdium/ferdium-recipes/archive/refs/heads/main.tar.gz>recipes.tar.gz"
-checksum="66a1d35a545208171d6bf30d58a9d39ce8c249e0eff4ac70b3163928dbd080bf
- 214cb991a58edadce2d03f300322576e4a0ea67c7db42f2355b17f41d6854b72"
+checksum="15f986bff516570bea77df4a338411a9501a9078a34c362a4fb180caf0a1305f
+ 02b85e00bf4368b2f9620e48acc2ffcc5067b4ef2f9b8fbd52e5a2068e261774"
 
 post_extract() {
 	mv ferdium-recipes-main/* ${build_wrksrc}/recipes
