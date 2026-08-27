@@ -8,6 +8,7 @@
 | bazaar                           | 0.9.4            | ✅       |
 | biome                            | 2.4.15           | ✅       |
 | bitwarden-desktop                | 2026.8.0         | ❌       |
+| blockbench                       | 5.1.6            | ✅       |
 | bottles                          | 66.2             | ✅       |
 | boxbuddy                         | 2.5.8            | ✅       |
 | brave, brave-origin              | 1.93.138         | ❌       |

@@ -1,0 +1,39 @@
+# Template file for 'blockbench'
+pkgname=blockbench
+version=5.1.6
+revision=1
+_electronver=35
+archs="x86_64"
+hostmakedepends="nodejs"
+makedepends="electron${_electronver}-devel"
+depends="electron${_electronver}"
+short_desc="Low poly 3D model editor"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://www.blockbench.net/"
+changelog="https://github.com/JannisX11/blockbench/releases"
+distfiles="https://github.com/JannisX11/blockbench/archive/refs/tags/v${version}.tar.gz"
+checksum=428bf69f6222013b89348ac92a3fb21f4f9659ef6d3d74c3e4933fb034df8d20
+
+pre_build() {
+	npm ci
+}
+
+do_build() {
+	npm run publish-linux -- --x64 --linux --dir \
+		-c.electronVersion="$(cat /usr/lib/electron${_electronver}/version)" \
+		-c.electronDist="/usr/lib/electron${_electronver}"
+}
+
+do_install() {
+	vmkdir usr/lib/${pkgname}
+	vcopy dist-electron/linux-unpacked/resources usr/lib/${pkgname}
+
+	sed "s/@electronver@/${_electronver}/g" ${FILESDIR}/${pkgname}.sh > ${TMPDIR}/${pkgname}.sh
+	vbin ${TMPDIR}/${pkgname}.sh ${pkgname}
+
+	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
+	vinstall icon.png 644 usr/share/pixmaps ${pkgname}.png
+
+	rm -f ${DESTDIR}/usr/lib/${pkgname}/resources/app-update.yml
+}
