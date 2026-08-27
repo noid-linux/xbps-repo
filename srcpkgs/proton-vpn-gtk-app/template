@@ -1,6 +1,6 @@
 # Template file for 'proton-vpn-gtk-app'
 pkgname=proton-vpn-gtk-app
-version=4.17.2
+version=4.18.0
 revision=1
 archs="x86_64"
 build_style=python3-pep517
@@ -13,7 +13,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://protonvpn.com/download-linux"
 distfiles="https://github.com/ProtonVPN/proton-vpn-gtk-app/archive/refs/tags/v${version}.tar.gz"
-checksum=30a74d5e691f7b7348c34e13d3fea5b293d30a85d9028da6cc5420d8469e65d3
+checksum=0f2bb97cbdb85cbfc6a719ba3f0997aa3c3dc26e620cffb97a74613859139f23
 
 post_install() {
 	vinstall rpmbuild/SOURCES/proton.vpn.app.gtk.desktop 644 \
