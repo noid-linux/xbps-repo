@@ -1,19 +1,19 @@
 # Template file for 'librewolf'
 pkgname=librewolf
-version=154.0.2
+version=154.0.1.3
 revision=1
 _version="${version%.*}-${version##*.}"
 archs="x86_64"
 depends="desktop-file-utils hicolor-icon-theme pciutils"
 short_desc="Fork of Firefox, focused on privacy, security and freedom"
-maintainer="Naz <ndpm13@ch-naeseem.com>"
+maintainer="Naz <ndpm13@ch-naseem.com>"
 license="MPL-2.0"
 homepage="https://librewolf.net/"
 _base_url="https://codeberg.org/api/packages/librewolf/generic/librewolf/${_version}"
 distfiles="${_base_url}/librewolf-${_version}-linux-x86_64-package.tar.xz
  https://codeberg.org/librewolf/source/archive/${_version}.tar.gz"
-checksum="b89b3af9074b9a9512843deb2cc2c633b9ee279cefe45b9da8d41db0f377bc5a
- 5453ea20112f9ebdc4c61769b37e2e731d98075761c9665ec263915d2232202c"
+checksum="413a71164ace86ceeaa426568b3196fe9fda823f873a106803e075dc4dbfdf5f
+ 5eccd7b5fffa5c923447237790437ed4579da6861b6d884aeceb06b93c7eed34"
 skip_extraction="${_version}.tar.gz"
 
 post_extract() {

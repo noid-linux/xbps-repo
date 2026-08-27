@@ -45,7 +45,7 @@
 | intel-media-driver-nonfree       | 25.4.6           | ✅       |
 | intel-media-driver-nonfree-devel | /                | ✅       |
 | kaidan                           | 0.16.0           | ✅       |
-| librewolf                        | 154.0.2          | ❌       |
+| librewolf                        | 154.0.1.3        | ❌       |
 | lutgen-cli                       | 1.0.1            | ✅       |
 | lutgen-studio                    | 0.3.0            | ✅       |
 | ly                               | 1.4.0            | ✅       |
