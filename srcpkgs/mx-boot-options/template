@@ -1,0 +1,21 @@
+# Template file for 'mx-boot-options'
+pkgname=mx-boot-options
+version=26.07
+revision=1
+archs="x86_64"
+build_style=cmake
+makedepends="qt6-base-devel qt6-tools-devel"
+depends="polkit"
+short_desc="Program for controlling boot options in MX Linux"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/AdrianTM/mx-boot-options"
+changelog="https://github.com/AdrianTM/mx-boot-options/releases"
+distfiles="https://github.com/AdrianTM/mx-boot-options/archive/refs/tags/${version}.tar.gz"
+checksum=b1f0f3e8b71a98b4d897921e986378212d60ac8a9592d2d3c3a0b594d0de223f
+
+post_install() {
+	vinstall images/mx-boot-options.svg 644 usr/share/icons/hicolor/scalable/apps
+	vinstall mx-boot-options.desktop 644 usr/share/applications
+	vinstall scripts/org.mxlinux.pkexec.mxbo-helper.policy 644 usr/share/polkit-1/actions
+}
