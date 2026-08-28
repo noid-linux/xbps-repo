@@ -33,7 +33,7 @@
 | floorp                           | 12.17.0          | ❌       |
 | fluffychat                       | 2.9.1            | ❌       |
 | fnm                              | 1.39.0           | ✅       |
-| freetube                         | 0.25.2           | ✅       |
+| freetube                         | 0.25.3           | ✅       |
 | grayjay                          | 17               | ❌       |
 | gruvbox-bibata-cursor-theme      | /                | ❌       |
 | gruvbox-gtk-theme                | 2.2              | ✅       |
