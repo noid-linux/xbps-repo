@@ -1,5 +1,5 @@
 diff --git a/common/shlibs b/common/shlibs
-index 4da435560ad..a007cedb399 100644
+index 1388aedb742..057e361cc5d 100644
 --- a/common/shlibs
 +++ b/common/shlibs
 @@ -452,7 +452,7 @@ libdvdread.so.8 libdvdread-6.1.1_1
@@ -11,10 +11,10 @@ index 4da435560ad..a007cedb399 100644
  libmpeg2.so.0 libmpeg2-0.5.1_1
  libmpeg2convert.so.0 libmpeg2-0.5.1_1
  libmng.so.2 libmng-2.0.2_1
-@@ -4612,3 +4612,10 @@ libfyaml.so.0 libfyaml-0.9.6_1
- libcpptrace.so.1 cpptrace-1.0.4_1
+@@ -4612,3 +4612,10 @@ libcpptrace.so.1 cpptrace-1.0.4_1
  libcgif.so.0 cgif-0.5.3_1
  libdsk.so.5 libdsk-1.5.22_1
+ libblend2d.so libblend2d-0.21.2_1
 +libbge.so.0 bazaar-0.8.1_1
 +libmalcontent-0.so.0 malcontent-0.14_1
 +pam_malcontent.so malcontent-0.14_1
@@ -22,3 +22,4 @@ index 4da435560ad..a007cedb399 100644
 +libnss_malcontent.so.2 malcontent-0.14_1
 +libgsystemservice-0.so.0 libgsystemservice-0.3.0_1
 +libglib-testing-0.so.0 libglib-testing-0.2.0_1
+\ No newline at end of file
