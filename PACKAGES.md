@@ -28,7 +28,7 @@
 | emacs-lucid                      | 30.2            | ✅       |
 | feishin                          | 1.15.1          | ✅       |
 | ferdium                          | 7.2.2           | ✅       |
-| FjordLauncher                    | 11.0.3.0        | ✅       |
+| FjordLauncher                    | 11.1.0.0        | ✅       |
 | flat-remix-icon-theme            | 20251119        | ✅       |
 | floorp                           | 12.17.2         | ❌       |
 | fluffychat                       | 2.9.4           | ❌       |
