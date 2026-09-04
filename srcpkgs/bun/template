@@ -1,6 +1,6 @@
 # Template file for 'bun'
 pkgname=bun
-version=1.4.0
+version=1.4.1
 revision=1
 short_desc="Fast JavaScript runtime, bundler, test runner, and package manager"
 maintainer="Naz <ndpm13@ch-naseem.com>"
@@ -9,9 +9,9 @@ homepage="https://bun.com/"
 changelog="https://github.com/oven-sh/bun/releases/"
 distfiles="https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-linux-x64.zip
  https://github.com/oven-sh/bun/archive/refs/tags/bun-v${version}.tar.gz"
-checksum="2d03fb5fb83ac8b567aca0a281b2ce1a1a19d488f56c2968d88c3f25e92fe452
- c9000959b40823dad7eda10b769a9f4e3a8f29b49d75d8b1954ed8f83ba8251b"
-skip_extraction="LICENSE.md bun-v${version}.tar.gz"
+checksum="74c1c3bee7cd998500c8f969cd8972355ac6a07207e94a39eece1999b56ffabf
+ 27183688b4171cceaf55cdaecb61997e614b46d2f3f61aa6e6e2fb8167965609"
+skip_extraction="bun-v${version}.tar.gz"
 nostrip=yes
 
 post_extract() {
