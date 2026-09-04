@@ -1,8 +1,8 @@
 # Template file for 'drawio-desktop'
 pkgname=drawio-desktop
-version=31.3.2
+version=31.4.2
 revision=1
-_drawiover=31.3.2
+_drawiover=31.4.2
 _electronver=35
 archs="x86_64"
 hostmakedepends="nodejs electron${_electronver}-devel"
@@ -14,8 +14,8 @@ homepage="https://www.diagrams.net/"
 _baseurl="https://github.com/jgraph/drawio"
 distfiles="${_baseurl}-desktop/archive/refs/tags/v${version}.tar.gz>drawio-desktop.tar.gz
  ${_baseurl}/archive/refs/tags/v${_drawiover}.tar.gz>drawio.tar.gz"
-checksum="4ae6cf393a27146fb4995bc9a74d6955496a3438334b0e838b71b650da6dd4e4
- dd83e39aa402996f65f3abc493912d8f7c006c3a8825a41a4adb2590e6becbe6"
+checksum="d01f9c2021c21d484df340587e86188a59dafd0bc4c5aba2340584153d075e2f
+ 1eb84c449c2303aba31e20c3ad1354f74b31886970fe05c90c33458a392c7dfe"
 skip_extraction="drawio.tar.gz"
 
 post_extract() {
