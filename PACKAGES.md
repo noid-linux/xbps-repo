@@ -25,7 +25,7 @@
 | discord                          | 1.0.152         | ❌       |
 | distrobox                        | 1.8.2.5         | ✅       |
 | dsearch                          | 0.3.2           | ✅       |
-| emacs-lucid                      | 30.2            | ✅       |
+| emacs-lucid                      | 31.1            | ✅       |
 | feishin                          | 1.15.1          | ✅       |
 | ferdium                          | 7.2.2           | ✅       |
 | FjordLauncher                    | 11.1.0.0        | ✅       |

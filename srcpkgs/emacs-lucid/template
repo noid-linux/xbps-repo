@@ -1,6 +1,6 @@
 # Template file for 'emacs-lucid'
 pkgname=emacs-lucid
-version=30.2
+version=31.1
 revision=1
 create_wrksrc=required
 build_style=gnu-configure
@@ -31,7 +31,7 @@ license="GPL-3.0-or-later"
 homepage="http://www.gnu.org/software/emacs/"
 changelog="https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html#Releases"
 distfiles="${GNU_SITE}/emacs/emacs-${version}.tar.xz"
-checksum=b3f36f18a6dd2715713370166257de2fae01f9d38cfe878ced9b1e6ded5befd9
+checksum=1da5790d9580c81932b5bf700633114468da7b3412d69faa767daebf974f4586
 nocross=yes
 nopie=yes
 provides="emacs-${version}_${revision}"
