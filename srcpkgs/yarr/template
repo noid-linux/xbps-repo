@@ -1,6 +1,6 @@
 # Template file for 'yarr'
 pkgname=yarr
-version=2.8
+version=2.9
 revision=1
 archs="x86_64"
 build_style=gnu-makefile
@@ -11,7 +11,7 @@ license="MIT"
 homepage="https://github.com/nkanaev/yarr"
 changelog="https://github.com/nkanaev/yarr/raw/refs/heads/master/doc/changelog.md"
 distfiles="https://github.com/nkanaev/yarr/archive/refs/tags/v${version}.tar.gz"
-checksum=c15adc91c9c0ef085ce6161c81f296e96b066e99352416b920288ef9a8d0aafa
+checksum=f6e667ec25e836add55b468fa478b089c14b71fea76131e07b429a171c1984e8
 nopie=yes
 
 pre_build() {
