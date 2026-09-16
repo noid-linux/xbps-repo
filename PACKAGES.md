@@ -26,7 +26,7 @@
 | distrobox                        | 1.8.2.5         | ✅       |
 | dsearch                          | 0.3.2           | ✅       |
 | emacs-lucid                      | 31.1            | ✅       |
-| feishin                          | 1.15.1          | ✅       |
+| feishin                          | 1.16.0          | ✅       |
 | ferdium                          | 7.2.3           | ✅       |
 | FjordLauncher                    | 11.1.0.0        | ✅       |
 | flat-remix-icon-theme            | 20251119        | ✅       |
