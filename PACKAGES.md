@@ -14,7 +14,7 @@
 | brave, brave-origin              | 1.95.101        | ❌       |
 | bun                              | 1.4.2           | ❌       |
 | calamares                        | 3.4.0           | ✅       |
-| cinny-desktop                    | 4.12.6          | ✅       |
+| cinny-desktop                    | 4.12.7          | ✅       |
 | clipcat                          | 0.26.0          | ✅       |
 | cryptomator                      | 1.19.2          | ✅       |
 | dgop                             | 0.2.3           | ✅       |
