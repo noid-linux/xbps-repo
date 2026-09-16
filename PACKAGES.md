@@ -27,7 +27,7 @@
 | dsearch                          | 0.3.2           | ✅       |
 | emacs-lucid                      | 31.1            | ✅       |
 | feishin                          | 1.15.1          | ✅       |
-| ferdium                          | 7.2.2           | ✅       |
+| ferdium                          | 7.2.3           | ✅       |
 | FjordLauncher                    | 11.1.0.0        | ✅       |
 | flat-remix-icon-theme            | 20251119        | ✅       |
 | floorp                           | 12.17.2         | ❌       |
