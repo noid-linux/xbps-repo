@@ -80,7 +80,7 @@
 | themix                           | 1.15.1          | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303  | ❌       |
 | tsukimi                          | 26.9.1          | ✅       |
-| tutanota-desktop                 | 357.260812.1    | ❌       |
+| tutanota-desktop                 | 359.260904.0    | ❌       |
 | ueberzugpp                       | 2.9.10          | ✅       |
 | ungoogled-chromium               | 152.0.7977.82.1 | ❌       |
 | vscodium                         | 1.126.04524     | ❌       |
