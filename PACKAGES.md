@@ -90,5 +90,5 @@
 | xlibre-repo                      | /               | /        |
 | yarr                             | 2.9             | ✅       |
 | zap-rs                           | 0.3.1           | ✅       |
-| zen-browser                      | 1.22b           | ❌       |
+| zen-browser                      | 1.22.1b         | ❌       |
 | zig                              | 0.16            | ❌       |
