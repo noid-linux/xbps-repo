@@ -9,7 +9,7 @@
 | biome                            | 2.4.15          | ✅       |
 | bitwarden-desktop                | 2026.8.0        | ❌       |
 | blockbench                       | 5.1.6           | ✅       |
-| bottles                          | 66.2            | ✅       |
+| bottles                          | 67.4            | ✅       |
 | boxbuddy                         | 2.5.8           | ✅       |
 | brave, brave-origin              | 1.94.119        | ❌       |
 | bun                              | 1.4.2           | ❌       |
