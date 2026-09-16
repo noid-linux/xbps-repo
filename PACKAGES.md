@@ -83,7 +83,7 @@
 | tutanota-desktop                 | 359.260904.0    | ❌       |
 | ueberzugpp                       | 2.9.10          | ✅       |
 | ungoogled-chromium               | 153.0.8010.36.1 | ❌       |
-| vscodium                         | 1.135.06055     | ❌       |
+| vscodium                         | 1.126.04524     | ❌       |
 | webapp-manager                   | 1.4.6           | ❌       |
 | wine-pure                        | 11.15           | ✅       |
 | wps-office                       | 11.1.0.11733    | ✅       |
