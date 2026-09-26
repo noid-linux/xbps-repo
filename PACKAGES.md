@@ -17,7 +17,7 @@
 | cinny-desktop                    | 4.12.7          | ✅       |
 | clipcat                          | 0.26.0          | ✅       |
 | cryptomator                      | 1.19.2          | ✅       |
-| dgop                             | 1.6.2           | ✅       |
+| dgop                             | 0.2.3           | ✅       |
 | dioxus-cli                       | 0.7.10          | ✅       |
 | dms-shell                        | 1.6.2           | ✅       |
 | dms-shell-niri                   | /               | ✅       |
