@@ -1,6 +1,6 @@
 # Template file for 'blockbench'
 pkgname=blockbench
-version=5.1.6
+version=5.2.1
 revision=1
 _electronver=35
 archs="x86_64"
@@ -13,7 +13,7 @@ license="GPL-3.0-or-later"
 homepage="https://www.blockbench.net/"
 changelog="https://github.com/JannisX11/blockbench/releases"
 distfiles="https://github.com/JannisX11/blockbench/archive/refs/tags/v${version}.tar.gz"
-checksum=428bf69f6222013b89348ac92a3fb21f4f9659ef6d3d74c3e4933fb034df8d20
+checksum=fb25edcee94adf2ace1ad76e81b44ccf6a7d190c6c8c68437289a322f10d1235
 
 pre_build() {
 	npm ci
