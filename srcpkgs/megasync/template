@@ -1,7 +1,7 @@
 # Template file for 'megasync'
 pkgname=megasync
 version=6.6.2.0
-revision=1
+revision=2
 _sdkver="10.19.0"
 archs="x86_64"
 build_style=cmake
@@ -23,7 +23,7 @@ makedepends="crypto++-devel libsodium-devel sqlite-devel libcurl-devel
  icu-devel libmediainfo-devel libuv-devel readline-devel qt5-devel
  qt5-declarative-devel qt5-tools-devel qt5-x11extras-devel
  qt5-svg-devel libaio-devel"
-depends="hicolor-icon-theme"
+depends="hicolor-icon-theme qt5-quickcontrols2 qt5-graphicaleffects"
 short_desc="Easy automated syncing between your computers and your MEGA Cloud Drive"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="custom:MEGA-Limited-Code-Review-Licence"
