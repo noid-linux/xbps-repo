@@ -1,6 +1,6 @@
 # Template file for 'FjordLauncher'
 pkgname=FjordLauncher
-version=11.1.0.0
+version=11.1.1.0
 revision=1
 archs="x86_64"
 build_style=cmake
@@ -18,7 +18,7 @@ license="GPL-3.0-or-later"
 homepage="https://github.com/unmojang/FjordLauncher"
 changelog="https://github.com/unmojang/FjordLauncher/releases"
 distfiles="https://github.com/unmojang/FjordLauncher/releases/download/${version}/FjordLauncher-${version}.tar.gz"
-checksum=834539efc60df5364bb695d05379f561b2e3651ddcc8510d70bc1ff7708ff557
+checksum=c4ee4c8cf8b640e02e7d7c1d2186e7ef8bd913d2c48af63e9a37ca7be5ff2e4e
 conflicts="PrismLauncher>=0"
 replaces="PrismLauncher-Patched>=0"
 
