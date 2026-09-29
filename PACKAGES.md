@@ -30,7 +30,7 @@
 | ferdium                          | 7.2.3           | ✅       |
 | FjordLauncher                    | 11.1.1.0        | ✅       |
 | flat-remix-icon-theme            | 20251119        | ✅       |
-| floorp                           | 12.18.1         | ❌       |
+| floorp                           | 12.19.0         | ❌       |
 | fluffychat                       | 2.9.5           | ❌       |
 | fnm                              | 1.39.0          | ✅       |
 | freetube                         | 0.25.3          | ✅       |
