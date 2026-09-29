@@ -82,7 +82,7 @@
 | tsukimi                          | 26.9.2          | ✅       |
 | tutanota-desktop                 | 359.260904.0    | ❌       |
 | ueberzugpp                       | 2.9.10          | ✅       |
-| ungoogled-chromium               | 153.0.8010.52.1 | ❌       |
+| ungoogled-chromium               | 154.0.8037.57.1 | ❌       |
 | vscodium                         | 1.126.04524     | ❌       |
 | webapp-manager                   | 1.4.6           | ❌       |
 | wine-pure                        | 11.15           | ✅       |
