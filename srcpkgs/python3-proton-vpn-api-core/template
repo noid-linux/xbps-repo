@@ -1,18 +1,39 @@
 # Template file for 'python3-proton-vpn-api-core'
 pkgname=python3-proton-vpn-api-core
-version=5.5.11
+version=5.8.3
 revision=1
-archs="x86_64"
+_protunver=2.2.1
 build_style=python3-pep517
-hostmakedepends="python3-setuptools"
+build_helper=rust
+hostmakedepends="python3-setuptools cargo cargo-auditable pkg-config"
+makedepends="libmnl-devel libnftnl-devel"
 depends="python3-proton-core python3-distro python3-sentry
  python3-cryptography python3-pynacl python3-fido2 python3-packaging
- python3-gobject python3-cairo python3-Jinja2
- python3-proton-vpn-local-agent"
+ python3-gobject python3-cairo python3-Jinja2 python3-dbus-fast"
 short_desc="Acts as a facade to the other Proton VPN components"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://github.com/ProtonVPN/python-proton-vpn-api-core"
-distfiles="https://github.com/ProtonVPN/python-proton-vpn-api-core/archive/refs/tags/v${version}.tar.gz"
-checksum=4a3f2692852fda9689c581b272a5a67ccc3dd078c757038e39067272e6635b83
-provides="py3:proton-vpn-network-manager-${version}_${revision}"
+distfiles="https://github.com/ProtonVPN/python-proton-vpn-api-core/archive/refs/tags/v${version}.tar.gz
+ https://github.com/ProtonVPN/protun/archive/refs/tags/v${_protunver}.tar.gz"
+checksum="13412fa7d540ba861d904b4a208e5c51c489330edab512fcaa766536a7a97709
+ 4bf7eab3255332ffd97e1906a79d048fddb0d1bc40b6caefb899de9106e322cc"
+skip_extraction="v${_protunver}.tar.gz"
+replaces="python3-proton-vpn-local-agent>=0"
+conflicts="python3-proton-vpn-local-agent>=0"
+
+post_extract() {
+	vsrcextract -C dependencies/protun "v${_protunver}.tar.gz"
+}
+
+post_build() {
+	cargo auditable build --release --locked --target ${RUST_TARGET} \
+		  --features "python,core,local_agent,protun,kill_switch"
+
+	local _pyver=$(python3 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}')")
+
+	vinstall \
+		target/${RUST_TARGET}/release/libproton_vpn_platform.so  \
+		755 usr/lib/python${_pyver}/site-packages/proton/vpn \
+		platform.abi3.so
+}
