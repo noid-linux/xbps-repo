@@ -85,7 +85,7 @@
 | ungoogled-chromium               | 154.0.8037.57.1 | ❌       |
 | vscodium                         | 1.126.04524     | ❌       |
 | webapp-manager                   | 1.4.6           | ❌       |
-| wine-pure                        | 11.15           | ✅       |
+| wine-pure                        | 11.18           | ✅       |
 | wps-office                       | 11.1.0.11733    | ✅       |
 | xlibre-repo                      | /               | /        |
 | yarr                             | 2.9             | ✅       |
