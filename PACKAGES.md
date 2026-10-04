@@ -74,7 +74,7 @@
 | sable-desktop                    | 1.21.0          | ✅       |
 | sbm-rs                           | 0.1.0           | ✅       |
 | slack-desktop                    | 4.51.180        | ❌       |
-| spotify                          | 1.2.95          | ❌       |
+| spotify                          | 1.2.96          | ❌       |
 | sway-scroll                      | 1.12.21         | ✅       |
 | tenacity                         | 1.3.5           | ✅       |
 | themix                           | 1.15.1          | ✅       |
