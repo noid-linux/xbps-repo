@@ -48,7 +48,7 @@
 | librewolf                        | 156.0.1.1       | ❌       |
 | lutgen-cli                       | 1.0.1           | ✅       |
 | lutgen-studio                    | 0.3.0           | ✅       |
-| ly                               | 1.4.0           | ✅       |
+| ly                               | 1.5.0           | ✅       |
 | megasync                         | 6.6.2.0         | ✅       |
 | mission-center                   | 1.2.0           | ✅       |
 | ndpm                             | 0.1.5           | ✅       |
@@ -91,4 +91,4 @@
 | yarr                             | 2.9             | ✅       |
 | zap-rs                           | 0.3.1           | ✅       |
 | zen-browser                      | 1.23b           | ❌       |
-| zig                              | 0.16            | ❌       |
+| zig                              | 0.17            | ❌       |

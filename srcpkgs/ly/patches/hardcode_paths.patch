@@ -1,33 +1,25 @@
-From 578105da4f7cd0a64f6de02e16177071d861f571 Mon Sep 17 00:00:00 2001
-From: Naz <ndpm13@ch-naseem.com>
-Date: Fri, 1 May 2026 10:45:05 +0100
-Subject: [PATCH] fix: replace variable with hardcoded system paths
-
----
- res/config.ini | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
-
 diff --git a/res/config.ini b/res/config.ini
-index 86f44b4..e883fdf 100644
+index 21af637..ce81043 100644
 --- a/res/config.ini
 +++ b/res/config.ini
-@@ -102,13 +102,13 @@ border_fg = 0x00FFFFFF
+@@ -112,14 +112,14 @@ box_position_v = 0.5
  box_title = null
  
  # Brightness decrease command
 -brightness_down_cmd = $PREFIX_DIRECTORY/bin/brightnessctl -q -n s 10%-
 +brightness_down_cmd = /usr/bin/brightnessctl -q -n s 10%-
  
- # Brightness decrease key combination, or null to disable
+ # Brightness decrease key combination
+ # If null, the keybind is disabled and isn't shown
  brightness_down_key = F5
  
  # Brightness increase command
 -brightness_up_cmd = $PREFIX_DIRECTORY/bin/brightnessctl -q -n s +10%
 +brightness_up_cmd = /usr/bin/brightnessctl -q -n s +10%
  
- # Brightness increase key combination, or null to disable
- brightness_up_key = F6
-@@ -151,7 +151,7 @@ custom_bind_width = null
+ # Brightness increase key combination
+ # If null, the keybind is disabled and isn't shown
+@@ -200,7 +200,7 @@ custom_bind_width = null
  # Custom sessions directory
  # You can specify multiple directories,
  # e.g. $CONFIG_DIRECTORY/ly/custom-sessions:$PREFIX_DIRECTORY/share/custom-sessions
@@ -36,7 +28,7 @@ index 86f44b4..e883fdf 100644
  
  # Input box active by default on startup
  # Available inputs: info_line, session, login, password
-@@ -173,7 +173,7 @@ doom_middle_color = 0x00C78F17
+@@ -222,7 +222,7 @@ doom_middle_color = 0x00C78F17
  doom_bottom_color = 0x00FFFFFF
  
  # Dur file path
@@ -45,7 +37,7 @@ index 86f44b4..e883fdf 100644
  
  # Dur file alignment
  # The dur file can be aligned with a direction and centered easily with the flags below
-@@ -328,7 +328,7 @@ service_name = ly
+@@ -365,7 +365,7 @@ service_name = ly
  session_log = .local/state/ly-session.log
  
  # Setup command
@@ -54,7 +46,7 @@ index 86f44b4..e883fdf 100644
  
  # Show the shell session in the session list
  # If false, the shell session will be hidden
-@@ -356,7 +356,7 @@ sleep_key = F3
+@@ -381,7 +381,7 @@ shutdown_key = F1
  
  # Command executed when starting Ly (before the TTY is taken control of)
  # See file at path below for an example of changing the default TTY colors
@@ -63,7 +55,7 @@ index 86f44b4..e883fdf 100644
  
  # Center the session name.
  text_in_center = false
-@@ -373,11 +373,11 @@ vi_mode = false
+@@ -402,11 +402,11 @@ vi_mode = false
  # You can specify multiple directories,
  # e.g. $PREFIX_DIRECTORY/share/wayland-sessions:$PREFIX_DIRECTORY/local/share/wayland-sessions
  # If null, Wayland sessions will not be shown
@@ -77,7 +69,7 @@ index 86f44b4..e883fdf 100644
  
  # Xorg virtual terminal number
  # Mostly useful for FreeBSD where choosing the current TTY causes issues
-@@ -385,7 +385,7 @@ x_cmd = $PREFIX_DIRECTORY/bin/X
+@@ -414,7 +414,7 @@ x_cmd = $PREFIX_DIRECTORY/bin/X
  x_vt = null
  
  # Xorg xauthority edition tool
@@ -86,7 +78,7 @@ index 86f44b4..e883fdf 100644
  
  # xinitrc
  # If null, the xinitrc session will be hidden
-@@ -395,7 +395,7 @@ xinitrc = ~/.xinitrc
+@@ -424,7 +424,7 @@ xinitrc = ~/.xinitrc
  # You can specify multiple directories,
  # e.g. $PREFIX_DIRECTORY/share/xsessions:$PREFIX_DIRECTORY/local/share/xsessions
  # If null, X11 sessions will not be shown
@@ -95,6 +87,3 @@ index 86f44b4..e883fdf 100644
  
  # Custom Commands and Labels:
  # The following examples below give an outline for setting up custom commands and labels.
--- 
-2.54.0
-
