@@ -1,6 +1,6 @@
 # Template file for 'noid-dinit'
 pkgname=noid-dinit
-version=0.1.1
+version=0.1.2
 revision=1
 archs="x86_64"
 build_style=gnu-makefile
@@ -13,7 +13,7 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="BSD-2-Clause"
 homepage="https://github.com/noid-linux/noid-dinit"
 distfiles="https://github.com/noid-linux/noid-dinit/archive/refs/tags/v${version}.tar.gz"
-checksum=63ec5991e7cdf248112336073145826456a783477ff5a4ab614dcfccd46de631
+checksum=c342e458fb7ae31463c9d31ed3546485d960ba3a7948baeb1ce811bd8be05511
 conf_files="
  /etc/dinit.d/config/console.conf
  /etc/hwclock.conf"
