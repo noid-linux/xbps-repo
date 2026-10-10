@@ -1,0 +1,41 @@
+# Template file for 'twine'
+pkgname=twine
+version=2.12.1
+revision=1
+_electronver=35
+archs="x86_64"
+hostmakedepends="nodejs"
+makedepends="electron${_electronver}-devel"
+depends="electron${_electronver}"
+short_desc="GUI for creating nonlinear stories"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-only"
+homepage="https://twinery.org/"
+changelog="https://twinery.org/reference/en/release-notes/index.html"
+distfiles="https://github.com/klembot/twinejs/archive/refs/tags/${version}.tar.gz"
+checksum=6c30a0134f5284863099a7de3ebba0b3808d5ddaa48e28b0590e01a168b22a5c
+
+post_extract() {
+	sed -i "s| --mac --windows| --x64 --dir -c.electronVersion=$(cat /usr/lib/electron${_electronver}/version) -c.electronDist=/usr/lib/electron${_electronver}|" package.json
+}
+
+pre_build() {
+	npm ci
+}
+
+do_build() {
+	npm run build:electron
+}
+
+do_install() {
+	rm -f dist/electron/linux-unpacked/resources/app-update.yml
+
+	vmkdir usr/lib/${pkgname}
+	vcopy dist/electron/linux-unpacked/resources usr/lib/${pkgname}
+
+	sed "s/@electronver@/${_electronver}/g" ${FILESDIR}/${pkgname}.sh > ${TMPDIR}/${pkgname}.sh
+	vbin ${TMPDIR}/${pkgname}.sh ${pkgname}
+
+	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
+	vinstall icons/app-release-no-padding.png 644 usr/share/pixmaps ${pkgname}.png
+}

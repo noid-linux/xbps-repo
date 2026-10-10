@@ -81,6 +81,7 @@
 | thorium-browser-avx2             | 138.0.7204.303  | ❌       |
 | tsukimi                          | 26.9.2          | ✅       |
 | tutanota-desktop                 | 360.260922.0    | ❌       |
+| twine                            | 2.12.1          | ✅       |
 | ueberzugpp                       | 2.9.10          | ✅       |
 | ungoogled-chromium               | 154.0.8037.97.1 | ❌       |
 | uutils-coreutils                 | 0.12.0          | ✅       |

@@ -1,0 +1,15 @@
+diff --git a/src/electron/main-process/init-app.ts b/src/electron/main-process/init-app.ts
+index f0dc0d2..456f92d 100644
+--- a/src/electron/main-process/init-app.ts
++++ b/src/electron/main-process/init-app.ts
+@@ -41,10 +41,6 @@ async function createWindow() {
+ 		}
+ 
+ 		mainWindow!.show();
+-
+-		if (!app.isPackaged) {
+-			mainWindow!.webContents.openDevTools();
+-		}
+ 	});
+ 	mainWindow.on('closed', () => (mainWindow = null));
+ 
