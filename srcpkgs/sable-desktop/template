@@ -1,6 +1,6 @@
 # Template file for 'sable-desktop'
 pkgname=sable-desktop
-version=1.21.0
+version=1.22.11
 revision=1
 archs="x86_64"
 hostmakedepends="pnpm python3 cargo pkg-config"
@@ -13,7 +13,7 @@ license="AGPL-3.0-or-later"
 homepage="https://github.com/SableClient/Sable"
 changelog="https://github.com/SableClient/Sable/raw/refs/heads/dev/CHANGELOG.md"
 distfiles="https://github.com/SableClient/Sable/archive/refs/tags/v${version}.tar.gz"
-checksum=ba27303e62a89e283d47cef9171188fe0e0b57fdabc5b55fea085d1c13491a59
+checksum=d60ce0c9093ea63c970890d1f795b843f83e646856076bd3a84606a2574778e4
 
 pre_build() {
 	pnpm install --frozen-lockfile

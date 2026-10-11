@@ -71,7 +71,7 @@
 | qt6gtk2                          | 0.7             | ✅       |
 | quran-companion                  | 1.3.3           | ✅       |
 | rustdesk                         | 1.5.0           | ❌       |
-| sable-desktop                    | 1.21.0          | ✅       |
+| sable-desktop                    | 1.22.11         | ✅       |
 | sbm-rs                           | 0.1.0           | ✅       |
 | slack-desktop                    | 4.51.180        | ❌       |
 | spotify                          | 1.2.96          | ❌       |
