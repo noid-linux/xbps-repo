@@ -1,6 +1,6 @@
-# Template file for 'libdex-beta'
-pkgname=libdex-beta
-version=1.2
+# Template file for 'libdex'
+pkgname=libdex
+version=1.2.0
 revision=2
 build_style=meson
 build_helper=gir
@@ -13,13 +13,14 @@ hostmakedepends="pkg-config glib-devel gettext
 makedepends="glib-devel libgirepository-devel
  liburing-devel $(vopt_if vala 'vala vala-devel')"
 short_desc="Future-based programming for GLib-based applications"
-maintainer="Naz <ndpm13@ch-naseem.com>"
+maintainer="oreo639 <oreo6391@gmail.com>"
 license="LGPL-2.1-or-later"
 homepage="https://gitlab.gnome.org/GNOME/libdex"
 changelog="https://gitlab.gnome.org/GNOME/libdex/-/raw/main/NEWS"
-distfiles="${GNOME_SITE}/libdex/${version}/libdex-${version}.beta.tar.xz"
-checksum=23f8b8c3be6a35f80cf7b23f81f47f20119739bb5e9b4f55ba5ec5d9d2718b19
-conflicts="libdex>=0"
+distfiles="${GNOME_SITE}/libdex/${version%.*}/libdex-${version}.tar.xz"
+checksum=69f5b244c21f6402831c3ab8af85a01772f72fb118677388436f12f32bfb06d9
+replaces="libdex-beta>=0"
+conflicts="libdex-beta>=0"
 
 # Package build options
 build_options="gir vala gtk_doc"
@@ -36,9 +37,8 @@ else
 	configure_args+=" -Dtests=false"
 fi
 
-libdex-beta-devel_package() {
+libdex-devel_package() {
 	depends="${sourcepkg}-${version}_${revision} liburing-devel"
-	conflicts="libdex-devel>=0"
 	if [ "$XBPS_TARGET_LIBC" = "musl" ]; then
 		depends+=" libucontext-devel"
 	fi
