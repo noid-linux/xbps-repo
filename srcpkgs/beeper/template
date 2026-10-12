@@ -1,0 +1,42 @@
+# Template file for 'beeper'
+pkgname=beeper
+version=4.3.176
+revision=1
+archs="x86_64"
+depends="vulkan-loader"
+short_desc="Universal chat app"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="custom:Proprietary"
+homepage="https://www.beeper.com"
+changelog="https://www.beeper.com/changelog/desktop"
+distfiles="https://beeper-desktop.download.beeper.com/builds/Beeper-${version}-x86_64.AppImage"
+checksum=dc6c637f6a66922c8a31bc95feffb89b37be1b53f2218caf8be9a7af1b999a98
+skip_extraction="Beeper-${version}-x86_64.AppImage"
+nostrip=yes
+
+post_extract() {
+	chmod +x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/Beeper-${version}-x86_64.AppImage
+	${XBPS_SRCDISTDIR}/${pkgname}-${version}/Beeper-${version}-x86_64.AppImage --appimage-extract
+}
+
+do_patch() {
+	vsed "s|AppRun|/opt/${pkgname}/beepertexts|" -i squashfs-root/beepertexts.desktop
+}
+
+do_install() {
+	vmkdir opt/${pkgname}
+	vcopy squashfs-root/* opt/${pkgname}
+
+	vmkdir usr/bin
+	ln -sf /opt/${pkgname}/beepertexts ${DESTDIR}/usr/bin/${pkgname}
+
+	vinstall squashfs-root/usr/share/icons/hicolor/512x512/apps/beepertexts.png \
+		644 usr/share/icons/hicolor/512x512/apps
+
+	vinstall squashfs-root/beepertexts.desktop 644 usr/share/applications
+
+	rm -rf ${DESTDIR}/opt/${pkgname}/usr
+	rm -f ${DESTDIR}/opt/${pkgname}/libvulkan.so.1
+	rm -f ${DESTDIR}/opt/${pkgname}/resources/app.asar.unpacked/node_modules/better-sqlite3/prebuilds/linuxmusl-x64.node
+	rm -f ${DESTDIR}/opt/${pkgname}/resources/app.asar.unpacked/node_modules/classic-level/prebuilds/linux-x64/classic-level.musl.node
+}
