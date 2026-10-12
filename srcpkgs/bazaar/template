@@ -1,13 +1,13 @@
 # Template file for 'bazaar'
 pkgname=bazaar
-version=0.9.4
+version=0.9.7
 revision=2
 archs="x86_64"
 build_style=meson
 hostmakedepends="pkg-config glib-devel gettext cmake
  blueprint-compiler desktop-file-utils gtk4-update-icon-cache
  python3-Babel"
-makedepends="gtk4-devel glib-devel libadwaita-devel libdex-beta-devel
+makedepends="gtk4-devel glib-devel libadwaita-devel libdex-devel
  flatpak-devel AppStream-devel libxmlb-devel glycin-devel
  glycin-gtk4-devel libyaml-devel libsoup3-devel json-glib-devel
  libmd4c-devel libwebkitgtk60-devel libsecret-devel libproxy-devel
@@ -18,9 +18,9 @@ short_desc="FlatHub-first app store for GNOME"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://usebazaar.org/"
-changelog="https://github.com/bazaar-org/bazaar/releases/"
-distfiles="https://github.com/kolunmi/bazaar/archive/refs/tags/v${version}.tar.gz"
-checksum=b2521a998b84abf58b2b04a5d8bf29e41971d1f1cbaeef5cf079ba4bf516f5c2
+changelog="https://gitlab.gnome.org/World/bazaar/-/releases"
+distfiles="https://gitlab.gnome.org/World/bazaar/-/archive/v${version}/bazaar-v${version}.tar.gz"
+checksum=bc35fbcb788548562d9c3fb241f5fe6923df64398f1c2892b5980fedec1d1780
 
 post_install() {
 	rm ${DESTDIR}/usr/bin/bge-demo
