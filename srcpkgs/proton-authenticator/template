@@ -1,19 +1,45 @@
 # Template file for 'proton-authenticator'
 pkgname=proton-authenticator
-version=1.1.5
+version=1.1.6
 revision=1
 archs="x86_64"
-short_desc="2FA app from Proton to securely sync and backup 2FA codes"
+hostmakedepends="yarn cargo pkg-config"
+makedepends="glib-devel gtk+3-devel libsoup3-devel
+ libwebkit2gtk41-devel"
+short_desc="End-to-end encrypted 2FA code manager by Proton"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
 homepage="https://proton.me/authenticator"
-distfiles="https://proton.me/download/authenticator/linux/ProtonAuthenticator_${version}_amd64.deb"
-checksum=cba557cf2b6cb58057766ba30d60120bc0128503e4afeb4db68ca71a4d25de18
-nostrip=yes
+changelog="https://github.com/ProtonMail/WebClients/raw/refs/heads/main/applications/authenticator/CHANGELOG.md"
+distfiles="https://github.com/ProtonMail/WebClients/archive/refs/heads/release/proton-authenticator@${version}.tar.gz"
+checksum=08de1eb91d380e66dc5fd5aa71bf1100e8b6504d55ea721ae08834777ebd050d
+
+post_extract() {
+    # Configure Yarn workspaces to build only authenticator instead of all applications
+    sed -i 's/"applications\/\*",/"applications\/authenticator",/' package.json
+}
+
+pre_build() {
+    SENTRYCLI_SKIP_DOWNLOAD=1 yarn install
+}
+
+do_build() {
+	QA_BUILD=false yarn workspace proton-authenticator build:desktop
+}
 
 do_install() {
-	sed -i 's/Exec=proton-authenticator/Exec=env WEBKIT_DISABLE_DMABUF_RENDERER=1 proton-authenticator/' \
-		"share/applications/Proton Authenticator.desktop"
+	vbin applications/authenticator/src-tauri/target/release/${pkgname}
+	
+	vinstall ${FILESDIR}/${pkgname}.desktop 644 usr/share/applications
 
-	vcopy "*" /usr
+	for i in 32x32 64x64 128x128; do
+		vinstall applications/authenticator/src-tauri/icons/${i}.png \
+				 644 usr/share/icons/hicolor/${i}/apps/${pkgname}.png
+	done
+
+    vinstall applications/authenticator/src-tauri/icons/128x128@2x.png \
+			 644 usr/share/icons/hicolor/128x128@2/apps/${pkgname}.png
+
+    vinstall applications/authenticator/src-tauri/icons/icon.png \
+			 644 usr/share/icons/hicolor/512x512/apps/${pkgname}.png
 }
