@@ -1,6 +1,6 @@
 # Template file for 'onlyoffice'
 pkgname=onlyoffice
-version=9.4.0
+version=10.0.0
 revision=1
 archs="x86_64"
 short_desc="Office suite that combines text, spreadsheet and presentation editors"
@@ -9,16 +9,36 @@ license="AGPL-3.0-only"
 homepage="https://www.onlyoffice.com/"
 changelog="https://github.com/ONLYOFFICE/DesktopEditors/raw/refs/heads/master/CHANGELOG.md"
 distfiles="https://github.com/ONLYOFFICE/DesktopEditors/releases/download/v${version}/onlyoffice-desktopeditors_amd64.deb"
-checksum=4271434e81be42b1559fd989d24bf6d413482f278dc6a5e328202a4fc1a18649
+checksum=2190edb4022a2ac2f6eee0f78815520f0e4ece1e8a1097c645a6f9b225c8b59c
 nostrip=yes
+noshlibprovides=yes
 
 do_install() {
 	vcopy "*" /
 
 	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libqgsttools_p.so.1.0
 	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libvulkan.so.1
-	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libqgsttools_p.so.1.0.0
-	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libqgsttools_p.so
+	# rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libqgsttools_p.so.1.0.0
+	# rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libqgsttools_p.so
+
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5X11Extras.so.5
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5Gui.so.5
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5Core.so.5
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5PrintSupport.so.5
+	# rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libicudata.so.52
+	# rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libicuuc.so.52
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5XcbQpa.so.5
+	# rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libqgsttools_p.so.1
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5Widgets.so.5
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5OpenGL.so.5
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5Network.so.5
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libicui18n.so.52
+	# rm ${DESTDIR}/opt/${pkgname}/desktopeditors/converter/libicudata.so.74
+	# rm ${DESTDIR}/opt/${pkgname}/desktopeditors/converter/libicuuc.so.74
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5Multimedia.so.5
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5DBus.so.5
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5MultimediaWidgets.so.5
+	rm ${DESTDIR}/opt/${pkgname}/desktopeditors/libQt5Svg.so.5
 
 	vlicense opt/onlyoffice/desktopeditors/LICENSE.txt
 }
