@@ -86,7 +86,7 @@
 | ueberzugpp                       | 2.9.10          | ✅       |
 | ungoogled-chromium               | 155.0.8059.39.1 | ❌       |
 | uutils-coreutils                 | 0.12.0          | ✅       |
-| vscodium                         | 1.126.04524     | ❌       |
+| vscodium                         | 1.140.06880     | ❌       |
 | webapp-manager                   | 1.4.6           | ❌       |
 | wine-pure                        | 11.18           | ✅       |
 | wps-office                       | 11.1.0.11733    | ✅       |
