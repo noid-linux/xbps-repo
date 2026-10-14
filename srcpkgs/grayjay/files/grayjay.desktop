@@ -1,8 +1,12 @@
 [Desktop Entry]
-Name=Grayjay
-Comment=Privacy-respecting client for YouTube, Rumble, Twitch, Spotify etc
-Exec=/usr/bin/grayjay
-Icon=grayjay
-Terminal=false
+Version=1.0
 Type=Application
-Categories=Network;Video;AudioVideo;
+
+Name=Grayjay
+Comment=Universal media aggregator
+Categories=AudioVideo;Player;
+
+Icon=grayjay
+Exec=grayjay
+Terminal=false
+StartupWMClass=cef

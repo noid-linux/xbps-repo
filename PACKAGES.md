@@ -35,7 +35,7 @@
 | fluffychat                       | 2.10.0          | ❌       |
 | fnm                              | 1.39.0          | ✅       |
 | freetube                         | 0.25.3          | ✅       |
-| grayjay                          | 17              | ❌       |
+| grayjay                          | 20              | ❌       |
 | gruvbox-bibata-cursor-theme      | /               | ❌       |
 | gruvbox-gtk-theme                | 2.2             | ✅       |
 | gruvbox-icons-theme              | 4.0             | ✅       |
