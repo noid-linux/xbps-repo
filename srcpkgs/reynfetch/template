@@ -11,7 +11,7 @@ maintainer="ichigo"
 license="Unlicense"
 homepage="https://gitgud.io/konpaku/reynfetch"
 distfiles="https://gitgud.io/konpaku/reynfetch/-/archive/v${version}/reynfetch-v${version}.tar.gz"
-checksum="dd40e46ff4f3e0f1fedd9dd72cb46596315295d3291b06fd49c1e157f827cbe2"
+checksum="bdd853ce49d50d196937a7d0bc341e624c1349a761f8370873ea52a6d859abe4"
 
 pre_configure() {
 	# assets are embedded, no need to move files around
