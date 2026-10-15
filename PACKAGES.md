@@ -62,7 +62,7 @@
 | noid-base-system                 | 0.1             | /        |
 | noid-dinit                       | 0.1.2           | ✅       |
 | noid-welcome                     | 0.3.3           | ✅       |
-| nyancat                          | 1.2.1           | ✅       |
+| nyancat                          | 1.5.2           | ✅       |
 | nwm                              | 6.8             | ✅       |
 | obsidian                         | 1.14.4          | ❌       |
 | onlyoffice                       | 9.4.0           | ❌       |
