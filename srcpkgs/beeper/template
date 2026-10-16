@@ -1,6 +1,6 @@
 # Template file for 'beeper'
 pkgname=beeper
-version=4.3.176
+version=4.3.209
 revision=1
 archs="x86_64"
 depends="vulkan-loader"
@@ -10,9 +10,10 @@ license="custom:Proprietary"
 homepage="https://www.beeper.com"
 changelog="https://www.beeper.com/changelog/desktop"
 distfiles="https://beeper-desktop.download.beeper.com/builds/Beeper-${version}-x86_64.AppImage"
-checksum=dc6c637f6a66922c8a31bc95feffb89b37be1b53f2218caf8be9a7af1b999a98
+checksum=41da0982e557387b3cc6d48bd3012a3eff73285b9beba6dee4335a154e8a30c7
 skip_extraction="Beeper-${version}-x86_64.AppImage"
 nostrip=yes
+noshlibprovides=yes
 
 post_extract() {
 	chmod +x ${XBPS_SRCDISTDIR}/${pkgname}-${version}/Beeper-${version}-x86_64.AppImage
