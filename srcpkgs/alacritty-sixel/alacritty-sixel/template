@@ -1,0 +1,58 @@
+# Template file for 'alacritty-sixel'
+pkgname=alacritty-sixel
+version=0.17.0
+revision=1
+build_style=cargo
+make_install_args="--path alacritty"
+provides="alacritty-${version}_${revision}"
+conflicts="alacritty>=0"
+replaces="alacritty>=0"
+hostmakedepends="pkg-config python3 scdoc"
+makedepends="freetype-devel fontconfig-devel libxcb-devel libxkbcommon-devel"
+depends="libXcursor libXrandr libXi libXxf86vm ncurses
+ alacritty-sixel-terminfo-${version}_${revision} libxkbcommon-x11"
+short_desc="Patch to add support to Alacritty for graphics (Sixel and iTerm2 protocols)"
+maintainer="ichigo <orphan@voidlinux.org>"
+license="Apache-2.0"
+homepage="https://github.com/ayosec/alacritty"
+changelog="https://raw.githubusercontent.com/ayosec/alacritty/graphics/CHANGELOG.md"
+distfiles="https://github.com/ayosec/alacritty/archive/refs/tags/v${version}-graphics.tar.gz"
+checksum=6a0da03b29e33f392009c109666680fd04340f9e25309e7e6fcd10f5e82f370a
+
+case "$XBPS_TARGET_MACHINE" in
+	ppc64*) ;;
+	ppc*) broken="ftbfs: thread 'main' panicked at 'slice index starts at 4289555962 but ends at 114', /builddir/rustc-1.46.0-src/src/libstd/io/mod.rs:396:27" ;;
+	# disable doctests on i686
+	i686*) make_check_args="--tests" ;;
+esac
+
+post_install() {
+	vcompletion extra/completions/alacritty.bash bash
+	vcompletion extra/completions/alacritty.fish fish
+	vcompletion extra/completions/_alacritty zsh
+	vinstall extra/linux/Alacritty.desktop 644 usr/share/applications
+	vinstall extra/logo/alacritty-term.svg 644 usr/share/icons/hicolor/scalable/apps Alacritty.svg
+
+	scdoc < "extra/man/alacritty.1.scd" > "extra/man/alacritty.1.man"
+	scdoc < "extra/man/alacritty.5.scd" > "extra/man/alacritty.5.man"
+	scdoc < "extra/man/alacritty-msg.1.scd" > "extra/man/alacritty-msg.1.man"
+	scdoc < "extra/man/alacritty-bindings.5.scd" > "extra/man/alacritty-bindings.5.man"
+	scdoc < "extra/man/alacritty-escapes.7.scd" > "extra/man/alacritty-escapes.7.man"
+	vman "extra/man/alacritty.1.man" alacritty.1
+	vman "extra/man/alacritty.5.man" alacritty.5
+	vman "extra/man/alacritty-msg.1.man" alacritty-msg.1
+	vman "extra/man/alacritty-bindings.5.man" alacritty-bindings.5
+	vman "extra/man/alacritty-escapes.7.man" alacritty-escapes.7
+
+	tic -o ${DESTDIR}/usr/share/terminfo -xe alacritty,alacritty-direct extra/alacritty.info
+}
+
+alacritty-sixel-terminfo_package() {
+	short_desc+=" - terminfo data"
+	provides="alacritty-terminfo-${version}_${revision}"
+	conflicts="alacritty-terminfo>=0"
+	replaces="alacritty-terminfo>=0"
+	pkg_install() {
+		vmove usr/share/terminfo
+	}
+}

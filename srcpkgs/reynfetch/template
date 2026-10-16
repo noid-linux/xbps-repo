@@ -1,0 +1,22 @@
+pkgname=reynfetch
+version=1.0.0
+revision=1
+archs="x86_64"
+build_style=gnu-makefile
+hostmakedepends="binutils"
+makedepends="gcc"
+depends="mpv fastfetch chafa cowsay lolcat-c"
+short_desc="REYNFETCH BABY!!"
+maintainer="ichigo"
+license="Unlicense"
+homepage="https://gitgud.io/konpaku/reynfetch"
+distfiles="https://gitgud.io/konpaku/reynfetch/-/archive/v${version}/reynfetch-v${version}.tar.gz"
+checksum=30168f79723fe3700622e482d21067c414c321278740f043f5e40d1a7a8cdd69
+pre_configure() {
+	# assets are embedded, no need to move files around
+	:
+}
+
+do_install() {
+	vbin reynfetch
+}
