@@ -1,0 +1,17 @@
+# Template file for 'gruvbox-papirus-icon-theme'
+pkgname=gruvbox-papirus-icon-theme
+version=20260801
+revision=1
+short_desc="SVG icon theme for Linux, based on Paper Icon Set - Gruvboxed"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://github.com/noid-linux/papirus-icon-theme"
+distfiles="https://github.com/noid-linux/papirus-icon-theme/archive/${version}-gruvbox.tar.gz"
+checksum=f3e99bb73f8fc38e89d5586bdc650c2b1d040be8f1e46daf40bc2e9b954686b5
+replaces="papirus-icon-theme>=0"
+conflicts="papirus-icon-theme>=0"
+
+do_install() {
+	vmkdir usr/share/icons
+	vcopy Papirus* usr/share/icons/
+}
