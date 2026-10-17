@@ -75,7 +75,7 @@
 | rustdesk                         | 1.5.0           | ❌       |
 | sable-desktop                    | 1.22.11         | ✅       |
 | sbm-rs                           | 0.1.0           | ✅       |
-| slack-desktop                    | 4.51.180        | ❌       |
+| slack-desktop                    | 4.52.178        | ❌       |
 | spotify                          | 1.3.4           | ❌       |
 | sway-scroll                      | 1.12.21         | ✅       |
 | tenacity                         | 1.3.5           | ✅       |
