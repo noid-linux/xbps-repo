@@ -1,7 +1,7 @@
 # Template file for 'calamares'
 pkgname=calamares
-version=3.4.2
-revision=3
+version=3.4.3
+revision=1
 build_style=cmake
 configure_args="-DCMAKE_BUILD_TYPE=Release
  -DCMAKE_INSTALL_PREFIX=/usr
@@ -29,7 +29,7 @@ license="BSD-2-Clause, CC-BY-4.0, CC0-1.0, GPL-3.0-or-later, LGPL-2.1-only, LGPL
 homepage="https://calamares.io"
 changelog="https://codeberg.org/Calamares/calamares/releases/"
 distfiles="https://codeberg.org/Calamares/calamares/archive/v${version}.tar.gz"
-checksum=7b8d0ee09645ad9d625baaebe0ba9ffd5baedbe92153347fd4d0a003a2d7639c
+checksum=78784e6018097e4fe74cbd8f1530929626dcecfe303e14383bc8c074feb34eec
 
 post_install() {
 	vbin build/loadmodule
