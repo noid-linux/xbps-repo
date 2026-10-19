@@ -68,7 +68,7 @@
 | onlyoffice                       | 9.4.0           | ❌       |
 | opencode-desktop                 | 1.19.2          | ❌       |
 | proton-authenticator             | 1.1.6           | ✅       |
-| proton-vpn-gtk-app               | 4.18.7          | ✅       |
+| proton-vpn-gtk-app               | 4.18.8          | ✅       |
 | python3-curl-cffi                | 0.15.0          | ✅       |
 | qt6gtk2                          | 0.7             | ✅       |
 | quran-companion                  | 1.3.3           | ✅       |
