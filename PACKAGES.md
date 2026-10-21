@@ -3,7 +3,7 @@
 | Package                          | Version         | Compiled |
 | -------------------------------- | --------------- | -------- |
 | alacritty-graphics               | 0.17.0          | ✅       |
-| android-studio                   | 2026.1.3.8      | ❌       |
+| android-studio                   | 2026.2.1.8      | ❌       |
 | azahar                           | 2126.2          | ✅       |
 | azaharplus                       | 2126.2+A        | ✅       |
 | bazaar                           | 0.9.7           | ✅       |
