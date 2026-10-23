@@ -64,7 +64,7 @@
 | noid-welcome                     | 0.3.3           | ✅       |
 | nyancat                          | 1.5.2           | ✅       |
 | nwm                              | 6.8             | ✅       |
-| obsidian                         | 1.14.4          | ❌       |
+| obsidian                         | 1.14.5          | ❌       |
 | onlyoffice                       | 9.4.0           | ❌       |
 | opencode-desktop                 | 1.19.2          | ❌       |
 | proton-authenticator             | 1.1.6           | ✅       |
