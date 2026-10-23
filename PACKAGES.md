@@ -72,6 +72,7 @@
 | python3-curl-cffi                | 0.15.0          | ✅       |
 | qt6gtk2                          | 0.7             | ✅       |
 | quran-companion                  | 1.3.3           | ✅       |
+| reynfetch                        | 1.0.1           | ✅       |
 | rustdesk                         | 1.5.0           | ❌       |
 | sable-desktop                    | 1.22.11         | ✅       |
 | sbm-rs                           | 0.1.0           | ✅       |
