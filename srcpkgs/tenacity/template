@@ -1,7 +1,7 @@
 # Template file for 'tenacity'
 pkgname=tenacity
 version=1.3.5
-revision=1
+revision=2
 _libnyquist_hash=aaf654f44192240170cdb5ed4dc2f004dad2b1e2
 archs="x86_64"
 build_style=cmake
@@ -20,8 +20,8 @@ homepage="https://tenacityaudio.org/"
 _base_url="https://codeberg.org/tenacityteam"
 distfiles="${_base_url}/tenacity/archive/v${version}.tar.gz>${pkgname}-v${version}.tar.gz
  ${_base_url}/libnyquist/archive/${_libnyquist_hash}.tar.gz>libnyquist-${_libnyquist_hash}.tar.gz"
-checksum="f034b23996b0b7b9c2aa99a2cfd705d9bfaed453526475fdc58f8774e85d4db7
- 387f1c1afdee1b18a076880820269f7d0686709767a549cfc5730694f822b6bd"
+checksum="bf4b90e07471890fd166cebb3bb49ca62a4bde495362d7b9b747cf7e4912ef9d
+ b14b57a21d6ec267db44773c9758ae753ee7480048d048d5c6ca318b00add41a"
 skip_extraction="libnyquist-${_libnyquist_hash}.tar.gz"
 
 export WX_CONFIG=/usr/bin/wx-config-gtk3
