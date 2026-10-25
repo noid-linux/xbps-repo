@@ -1,0 +1,26 @@
+# Template file for 'go-task'
+pkgname=go-task
+version=3.54.0
+revision=1
+archs="x86_64"
+build_style=go
+go_import_path="github.com/go-task/task/v3"
+go_package="./cmd/task"
+short_desc="Task runner / simpler Make alternative written in Go"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://taskfile.dev"
+changelog="https://github.com/go-task/task/raw/refs/heads/main/CHANGELOG.md"
+distfiles="https://github.com/go-task/task/archive/refs/tags/v${version}.tar.gz"
+checksum=d9e92770c2c18f135701431d04bb24fb77b5f13464699683892bdfc0b26f2eb8
+make_check_pre="env CGO_ENABLED=0"
+
+post_install() {
+	mv ${DESTDIR}/usr/bin/task ${DESTDIR}/usr/bin/go-task
+
+	vcompletion completion/bash/task.bash bash
+	vcompletion completion/fish/task.fish fish
+	vcompletion completion/zsh/_task zsh
+
+	vlicense LICENSE
+}
