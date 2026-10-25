@@ -19,14 +19,11 @@
 | cinny-desktop                    | 4.12.7          | ✅       |
 | clipcat                          | 0.26.0          | ✅       |
 | cryptomator                      | 1.19.2          | ✅       |
-| dgop                             | 0.2.3           | ✅       |
 | dioxus-cli                       | 0.7.10          | ✅       |
-| dms-shell                        | 1.5.3           | ✅       |
-| dms-shell-niri                   | /               | ✅       |
 | drawio-desktop                   | 32.5.5          | ✅       |
+| dux-shell                        | 2.0.0           | ✅       |
 | discord                          | 1.0.162         | ❌       |
 | distrobox                        | 1.8.2.5         | ✅       |
-| dsearch                          | 0.3.2           | ✅       |
 | emacs-lucid                      | 31.1            | ✅       |
 | feishin                          | 1.16.0          | ✅       |
 | ferdium                          | 7.2.3           | ✅       |

@@ -1,0 +1,49 @@
+# Template file for 'dux-shell'
+pkgname=dux-shell
+version=2.0.0
+revision=1
+archs="x86_64"
+_qmlver=bb917ea0718892c875ca0955939f63b31dc64e1e
+build_style=gnu-makefile
+make_install_args=" PREFIX=/usr"
+hostmakedepends="tar go"
+depends="quickshell"
+short_desc="Desktop shell for wayland compositors built with Quickshell & GO"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://duxlabs.dev/"
+changelog="https://github.com/duxlabs-dev/dux-shell/raw/refs/heads/master/CHANGELOG.MD"
+distfiles="https://github.com/duxlabs-dev/dux-shell/archive/refs/tags/v${version}.tar.gz
+ https://github.com/duxlabs-dev/dux-qml-common/archive/${_qmlver}.tar.gz"
+checksum="e81b0b496b3a6a5a08a6b045ef04d79b3a36f9b07bbfdf475e7dceb80228aca4
+ dd5548aa8947584e6d045041f943940e34423e4c509a5a9892082dbba38ac644"
+skip_extraction="${_qmlver}.tar.gz"
+replaces="dms-shell>=0"
+
+post_extract() {
+	vsrcextract -C dux-qml-common "${_qmlver}.tar.gz"
+}
+
+post_install() {
+	vsv dms
+	vlicense LICENSE
+}
+
+dux-shell-niri_package() {
+	depends="${sourcepkg}>=${version}_${revision} niri"
+	short_desc+=" - Niri compositor support"
+	metapackage=yes
+	replaces="dms-shell-niri>=0"
+}
+
+dms-shell_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	metapackage=yes
+	short_desc+=" (transitional dummy package)"
+}
+
+dms-shell-niri_package() {
+	depends="dux-shell-niri>=${version}_${revision}"
+	metapackage=yes
+	short_desc+=" - Niri compositor support (transitional dummy package)"
+}

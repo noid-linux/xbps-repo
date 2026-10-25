@@ -1,0 +1,35 @@
+# Template file for 'dux-calendar'
+pkgname=dux-calendar
+version=2.0.0
+revision=1
+archs="x86_64"
+_qmlver=bb917ea0718892c875ca0955939f63b31dc64e1e
+build_style=gnu-makefile
+make_install_args=" PREFIX=/usr"
+hostmakedepends="tar go"
+short_desc="Calendar from Dux Labs"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://github.com/duxlabs-dev/dux-calendar"
+changelog="https://github.com/duxlabs-dev/dux-calendar/releases"
+distfiles="https://github.com/duxlabs-dev/dux-calendar/archive/refs/tags/v${version}.tar.gz
+ https://github.com/duxlabs-dev/dux-qml-common/archive/${_qmlver}.tar.gz"
+checksum="866ee8dfedb91639c8d13081cb52ff743eaeeb322545f67ff74f74eb85674cdb
+ dd5548aa8947584e6d045041f943940e34423e4c509a5a9892082dbba38ac644"
+skip_extraction="${_qmlver}.tar.gz"
+replaces="dcal>=0"
+
+post_extract() {
+	vsrcextract -C dux-qml-common "${_qmlver}.tar.gz"
+}
+
+post_install() {
+	vsv dcal
+	vlicense LICENSE
+}
+
+dcal_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	metapackage=yes
+	short_desc+=" (transitional dummy package)"
+}

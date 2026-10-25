@@ -1,0 +1,9 @@
+#!/bin/sh
+exec 2>&1
+
+[ -f ./conf ] && . ./conf
+
+export QS_DISABLE_CRASH_HANDLER=1
+ulimit -n ${MAX_OPEN_FILES:-16384}
+
+exec /usr/bin/dms run --session

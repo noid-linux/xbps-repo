@@ -1,0 +1,26 @@
+# Template file for 'dux-gop'
+pkgname=dux-gop
+version=2.0.0
+revision=1
+archs="x86_64"
+build_style=gnu-makefile
+hostmakedepends="go"
+short_desc="API and CLI for system and process monitoring from Dux Labs"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://github.com/duxlabs-dev/dux-gop"
+changelog="https://github.com/duxlabs-dev/dux-gop/releases"
+distfiles="https://github.com/duxlabs-dev/dux-gop/archive/refs/tags/v${version}.tar.gz"
+checksum=e5d2cee5b34c9be5098423b4ee5b602c0cc1503adbfe227df1d732c5d614837e
+replaces="dgop>=0"
+
+do_install() {
+	vbin bin/dgop
+	vlicense LICENSE
+}
+
+dgop_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	metapackage=yes
+	short_desc+=" (transitional dummy package)"
+}

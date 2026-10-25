@@ -1,0 +1,29 @@
+# Template file for 'dux-search'
+pkgname=dux-search
+version=2.0.0
+revision=1
+archs="x86_64"
+build_style=gnu-makefile
+hostmakedepends="go"
+short_desc="Indexed filesystem search from Dux Labs"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="MIT"
+homepage="https://github.com/duxlabs-dev/dux-search"
+changelog="https://github.com/duxlabs-dev/dux-search/releases"
+distfiles="https://github.com/duxlabs-dev/dux-search/archive/refs/tags/v${version}.tar.gz"
+checksum=b33665b22692e12075b23acdbe3f03e4f3d64e50223f92820117e525d18aabe4
+replaces="dsearch>=0"
+
+do_install() {
+	vbin bin/dsearch
+
+	vsv dsearch
+
+	vlicense LICENSE
+}
+
+dsearch_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	metapackage=yes
+	short_desc+=" (transitional dummy package)"
+}
