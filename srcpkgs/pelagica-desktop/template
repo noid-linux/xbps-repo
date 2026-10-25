@@ -1,0 +1,31 @@
+# Template file for 'pelagica-desktop'
+pkgname=pelagica-desktop
+version=4.14.0
+revision=1
+archs="x86_64"
+hostmakedepends="go-task go pnpm pkg-config"
+makedepends="libX11-devel libwebkitgtk60-devel gtk4-devel pango-devel
+ harfbuzz-devel gdk-pixbuf-devel cairo-devel vulkan-loader-devel
+ graphene-devel libsoup3-devel glib-devel libwebkitgtk60-devel"
+short_desc="Modern web, desktop and TV client for Jellyfin"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-or-later"
+homepage="https://pelagica.app/"
+changelog="https://github.com/PelagicaApp/pelagica/releases"
+distfiles="https://github.com/PelagicaApp/pelagica/archive/refs/tags/${version}.tar.gz"
+checksum=4c3b29a6da1f8152cca6743be623302074b57f4e299ce581c9d41e1918bfa0de
+nopie=yes
+
+do_build() {
+	go-task desktop:build
+}
+
+do_install() {
+	vbin desktop/bin/pelagica
+
+	vinstall desktop/build/linux/org.wails.pelagica.desktop \
+			 644 usr/share/applications
+
+	vinstall desktop/build/appicon.png 644 \
+			usr/share/icons/hicolor/512x512/apps pelagica.png
+}
