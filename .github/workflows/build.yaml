@@ -87,6 +87,10 @@ jobs:
           for pkg in $(< /tmp/templates); do
             sudo -Eu builder ./xbps-src -j$(nproc) -s -H ~/hostdir pkg "$pkg"
             cp ~/hostdir/binpkgs/$pkg*.xbps ~/packages/
+
+            for subpkg in $(sudo -Eu builder ./xbps-src show "$pkg" | rg subpackages | awk '{print $2}'); do
+                cp ~/hostdir/binpkgs/$subpkg*.xbps ~/packages/
+            done
           done
 
       - name: Download the rest of the packages
