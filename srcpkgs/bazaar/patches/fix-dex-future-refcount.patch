@@ -1,0 +1,123 @@
+diff --git a/src/bz-application.c b/src/bz-application.c
+index 280980f..a9909f7 100644
+--- a/src/bz-application.c
++++ b/src/bz-application.c
+@@ -589,7 +589,7 @@ bz_application_command_line (GApplication            *app,
+           bz_get_dex_stack_size (),
+           G_CALLBACK (load_groups_cache_fiber),
+           2,
+-          DEX_TYPE_FUTURE, cache_check,
++          G_TYPE_POINTER, dex_ref (cache_check),
+           BZ_TYPE_APPLICATION_MAP_FACTORY, self->entry_factory);
+       flatpak       = bz_flatpak_instance_new ();
+       installed_set = dex_scheduler_spawnv (
+@@ -597,7 +597,7 @@ bz_application_command_line (GApplication            *app,
+           bz_get_dex_stack_size (),
+           G_CALLBACK (retrieve_install_ids_fiber),
+           1,
+-          DEX_TYPE_FUTURE, flatpak);
++          G_TYPE_POINTER, dex_ref (flatpak));
+ 
+       wr   = bz_weak_ref_new (self);
+       init = dex_scheduler_spawnv (
+@@ -606,10 +606,10 @@ bz_application_command_line (GApplication            *app,
+           G_CALLBACK (init_fiber),
+           5,
+           BZ_TYPE_WEAK_REF, wr,
+-          DEX_TYPE_FUTURE, cache_check,
+-          DEX_TYPE_FUTURE, groups,
+-          DEX_TYPE_FUTURE, flatpak,
+-          DEX_TYPE_FUTURE, installed_set);
++          G_TYPE_POINTER, dex_ref (cache_check),
++          G_TYPE_POINTER, dex_ref (groups),
++          G_TYPE_POINTER, dex_ref (flatpak),
++          G_TYPE_POINTER, dex_ref (installed_set));
+       init = dex_future_finally (
+           init,
+           (DexFutureCallback) init_fiber_finally,
+@@ -1055,16 +1055,20 @@ init_fiber (BzWeakRef *wr,
+             DexFuture *flatpak,
+             DexFuture *installed_set)
+ {
+-  g_autoptr (BzApplication) self       = NULL;
+-  g_autoptr (GError) local_error       = NULL;
+-  CacheState cache_state               = 0;
+-  g_autoptr (GListModel) repos         = NULL;
+-  gboolean has_flathub                 = FALSE;
+-  gboolean cache_has_flathub           = FALSE;
+-  gboolean result                      = FALSE;
+-  g_autoptr (BzAuthState) auth_state   = NULL;
+-  g_autofree char *flathub_cache       = NULL;
+-  g_autoptr (GFile) flathub_cache_file = NULL;
++  g_autoptr (DexFuture) owned_cache_check	= cache_check;
++  g_autoptr (DexFuture) owned_groups		= groups;
++  g_autoptr (DexFuture) owned_flatpak		= flatpak;
++  g_autoptr (DexFuture) owned_installed_set = installed_set;
++  g_autoptr (BzApplication) self			= NULL;
++  g_autoptr (GError) local_error			= NULL;
++  CacheState		 cache_state            = 0;
++  g_autoptr (GListModel) repos				= NULL;
++  gboolean			 has_flathub            = FALSE;
++  gboolean			 cache_has_flathub      = FALSE;
++  gboolean			 result                 = FALSE;
++  g_autoptr (BzAuthState) auth_state		= NULL;
++  g_autofree char	*flathub_cache			= NULL;
++  g_autoptr (GFile) flathub_cache_file		= NULL;
+ 
+   bz_weak_get_or_return_reject (self, &wr->ref);
+ 
+@@ -1195,7 +1199,7 @@ init_fiber (BzWeakRef *wr,
+           G_CALLBACK (enumerate_disk_groups_fiber),
+           2,
+           BZ_TYPE_WEAK_REF, wr,
+-          DEX_TYPE_FUTURE, groups),
++          G_TYPE_POINTER, dex_ref (groups)),
+       NULL);
+ 
+   self->had_cache_on_init = g_list_model_get_n_items (G_LIST_MODEL (self->groups)) > 0;
+@@ -1348,13 +1352,14 @@ static DexFuture *
+ load_groups_cache_fiber (DexFuture               *cache_check,
+                          BzApplicationMapFactory *factory)
+ {
+-  g_autoptr (GError) local_error      = NULL;
+-  g_autofree char *groups_cache       = NULL;
+-  g_autoptr (GFile) groups_cache_file = NULL;
+-  g_autoptr (GBytes) bytes            = NULL;
+-  g_autoptr (GVariant) variant        = NULL;
+-  g_autoptr (GVariantIter) iter       = NULL;
+-  g_autoptr (GPtrArray) groups        = NULL;
++  g_autoptr (DexFuture) owned_cache_check = cache_check;
++  g_autoptr (GError) local_error		  = NULL;
++  g_autofree char	*groups_cache		  = NULL;
++  g_autoptr (GFile) groups_cache_file	  = NULL;
++  g_autoptr (GBytes) bytes				  = NULL;
++  g_autoptr (GVariant) variant			  = NULL;
++  g_autoptr (GVariantIter) iter			  = NULL;
++  g_autoptr (GPtrArray) groups			  = NULL;
+ 
+   dex_await (dex_ref (cache_check), NULL);
+ 
+@@ -1392,6 +1397,7 @@ load_groups_cache_fiber (DexFuture               *cache_check,
+ static DexFuture *
+ retrieve_install_ids_fiber (DexFuture *flatpak)
+ {
++  g_autoptr (DexFuture) owned_flatpak = flatpak;
+   g_autoptr (GError) local_error = NULL;
+   g_autoptr (BzBackend) backend  = NULL;
+ 
+@@ -1406,10 +1412,11 @@ static DexFuture *
+ enumerate_disk_groups_fiber (BzWeakRef *wr,
+                              DexFuture *groups)
+ {
+-  g_autoptr (BzApplication) self = NULL;
+-  g_autoptr (GError) local_error = NULL;
+-  g_autoptr (GPtrArray) loaded   = NULL;
+-  gboolean has_flathub_group     = FALSE;
++  g_autoptr (DexFuture) owned_groups = groups;
++  g_autoptr (BzApplication) self	 = NULL;
++  g_autoptr (GError) local_error	 = NULL;
++  g_autoptr (GPtrArray) loaded		 = NULL;
++  gboolean	has_flathub_group		 = FALSE;
+ 
+   bz_weak_get_or_return_reject (self, &wr->ref);
+ 

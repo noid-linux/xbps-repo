@@ -1,7 +1,7 @@
 # Template file for 'bazaar'
 pkgname=bazaar
-version=0.9.7
-revision=2
+version=0.9.10
+revision=1
 archs="x86_64"
 build_style=meson
 hostmakedepends="pkg-config glib-devel gettext cmake
@@ -20,7 +20,7 @@ license="GPL-3.0-or-later"
 homepage="https://usebazaar.org/"
 changelog="https://gitlab.gnome.org/World/bazaar/-/releases"
 distfiles="https://gitlab.gnome.org/World/bazaar/-/archive/v${version}/bazaar-v${version}.tar.gz"
-checksum=bc35fbcb788548562d9c3fb241f5fe6923df64398f1c2892b5980fedec1d1780
+checksum=cc9d62b7fc2b1008f3096da29c6fdeb48126d419fc5d4bed067cf72a107db7ac
 
 post_install() {
 	rm ${DESTDIR}/usr/bin/bge-demo
