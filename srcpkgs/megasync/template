@@ -1,8 +1,8 @@
 # Template file for 'megasync'
 pkgname=megasync
-version=6.6.2.0
-revision=2
-_sdkver="10.19.0"
+version=6.7.0.3
+revision=1
+_sdkver="10.21.0"
 archs="x86_64"
 build_style=cmake
 configure_args="
@@ -31,8 +31,8 @@ homepage="https://mega.io"
 changelog="https://github.com/meganz/MEGAsync/releases"
 distfiles="https://github.com/meganz/MEGAsync/archive/refs/tags/v${version}_Linux.tar.gz
  https://github.com/meganz/sdk/archive/refs/tags/v${_sdkver}.tar.gz"
-checksum="a1b03eee1342fa534c3f4ff2dda3b76d8a59e4e184473384d291afb6dbd13ca4
- dec7cc987988758e3125f39b0202113d1ae7ba0300fb76f4fd47fe5deb12209d"
+checksum="e0229be17f12f887b1ed796e0702a93247878d3e385ee5fa6537d9e84b67dffb
+ a3f51b18141b84b1083feb824b9901607a245ca1bb9b16ad0f4ebd91e12b3977"
 skip_extraction="v${_sdkver}.tar.gz"
 
 post_extract() {
