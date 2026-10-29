@@ -64,7 +64,7 @@
 | nwm                              | 6.8             | ✅       |
 | obsidian                         | 1.14.5          | ❌       |
 | onlyoffice                       | 9.4.0           | ❌       |
-| opencode-desktop                 | 1.19.4          | ❌       |
+| opencode-desktop                 | 2.2.1           | ❌       |
 | pelagica-desktop                 | 4.14.0          | ✅       |
 | proton-authenticator             | 1.1.6           | ✅       |
 | proton-vpn-gtk-app               | 4.18.8          | ✅       |
