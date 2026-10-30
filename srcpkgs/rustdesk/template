@@ -1,6 +1,6 @@
 # Template file for 'rustdesk'
 pkgname=rustdesk
-version=1.5.0
+version=1.5.1
 revision=1
 archs="x86_64"
 depends="xdotool libva libvdpau"
@@ -11,7 +11,7 @@ homepage="https://rustdesk.com/"
 changelog="https://github.com/rustdesk/rustdesk/releases"
 distfiles="https://github.com/rustdesk/rustdesk/releases/download/${version}/rustdesk-${version}-x86_64.deb
  https://github.com/rustdesk/rustdesk/raw/refs/heads/master/LICENCE>LICENSE"
-checksum="7a73ae5781827d4de78b85f1a86796c6247d23a447f1f640c5b9af4250e79fcf
+checksum="11e0af5f25e591358fa5190db96a808e14289dbe32b66e5cca8e230e28e8d479
  8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
 skip_extraction="LICENSE"
 nostrip=yes
