@@ -13,7 +13,7 @@
 | blockbench                       | 5.2.1           | ✅       |
 | bottles                          | 67.5            | ✅       |
 | boxbuddy                         | 2.5.8           | ✅       |
-| brave, brave-origin              | 1.97.57         | ❌       |
+| brave, brave-origin              | 1.98.63         | ❌       |
 | bun                              | 1.4.4           | ❌       |
 | calamares                        | 3.4.3           | ✅       |
 | cinny-desktop                    | 4.12.8          | ✅       |
