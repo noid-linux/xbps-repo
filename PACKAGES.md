@@ -85,7 +85,7 @@
 | tutanota-desktop                 | 360.260922.0    | ❌       |
 | twine                            | 2.12.1          | ✅       |
 | ueberzugpp                       | 2.9.10          | ✅       |
-| ungoogled-chromium               | 156.0.8078.47.1 | ❌       |
+| ungoogled-chromium               | 156.0.8078.73.1 | ❌       |
 | uutils-coreutils                 | 0.12.0          | ✅       |
 | vscodium                         | 1.143.17183     | ❌       |
 | webapp-manager                   | 1.4.6           | ❌       |
