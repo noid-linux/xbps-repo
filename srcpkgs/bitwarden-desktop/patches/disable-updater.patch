@@ -1,0 +1,13 @@
+diff --git a/apps/desktop/src/main/updater.main.ts b/apps/desktop/src/main/updater.main.ts
+index 7a0aa1a..4c4adab 100644
+--- a/apps/desktop/src/main/updater.main.ts
++++ b/apps/desktop/src/main/updater.main.ts
+@@ -51,8 +51,6 @@ export class UpdaterMain {
+     const windowsCanUpdate =
+       process.platform === "win32" && !isWindowsStore() && !isWindowsPortable();
+     const macCanUpdate = process.platform === "darwin" && !isMacAppStore();
+-    this.canUpdate =
+-      !this.userDisabledUpdates() && (linuxCanUpdate || windowsCanUpdate || macCanUpdate);
+   }
+ 
+   async init() {

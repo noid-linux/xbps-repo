@@ -1,24 +1,61 @@
 # Template file for 'bitwarden-desktop'
 pkgname=bitwarden-desktop
-version=2026.10.1
+version=2026.10.2
 revision=1
+_electronver=35
 archs="x86_64"
-depends="libXtst libXScrnSaver"
-short_desc="Bitwarden desktop client"
-maintainer="Naz <ndpm13@ch-naeseem.com>"
-license="GPL-3.0"
+build_helper=rust
+hostmakedepends="nodejs cargo"
+makedepends="sqlite-devel electron${_electronver}-devel"
+depends="electron${_electronver}"
+short_desc="Secure and free password manager for all of your devices"
+maintainer="Naz <ndpm13@ch-naseem.com>"
+license="GPL-3.0-only"
 homepage="https://bitwarden.com/"
-distfiles="https://github.com/bitwarden/clients/releases/download/desktop-v${version}/Bitwarden-${version}-amd64.deb"
-checksum=02cb6bc6a429d8d0da9fdf9d23739358165cf7b98a245783d6f641526f75b0a7
+changelog="https://github.com/bitwarden/clients/releases"
+distfiles="https://github.com/bitwarden/clients/archive/refs/tags/desktop-v${version}.tar.gz"
+checksum=95e298f2bf5053a5ddb024e3d640b5ea057e69394ff88d5f7fa92750a7aa1da6
+noshlibprovides=yes
+
+do_patch() {
+	# Requires newer Electron
+	vsed -i '/WasmTrapHandlers/d' apps/desktop/scripts/after-pack.js
+}
+
+pre_build() {
+	npm ci
+
+	# Build native module
+	# https://contributing.bitwarden.com/getting-started/clients/desktop/#build-native-module
+	cd apps/desktop
+	npm run build-native -- --release
+}
+
+do_build() {
+	cd apps/desktop
+	npm run dist:dir -- -- -c.electronDist="/usr/lib/electron${_electronver}" \
+		-c.electronVersion="$(cat /usr/lib/electron${_electronver}/version)"
+}
 
 do_install() {
-	vcopy "*" /
+	vmkdir opt/${pkgname}/bin
+	vinstall apps/desktop/desktop_native/dist/desktop_proxy.linux-x64 \
+			 755 opt/${pkgname}/bin
 
-    vmkdir usr/bin
-    ln -sf /opt/Bitwarden/bitwarden ${DESTDIR}/usr/bin/bitwarden
+	rm -f apps/desktop/dist/linux-unpacked/resources/app.asar.unpacked/node_modules/utf-8-validate/prebuilds/linux-x64/utf-8-validate.musl.node
 
-    chmod 4755 ${DESTDIR}/opt/Bitwarden/chrome-sandbox
+	vmkdir /usr/lib/${pkgname}
+	vcopy apps/desktop/dist/linux-unpacked/resources \
+		  usr/lib/${pkgname}/resources
 
-	rm ${DESTDIR}/opt/Bitwarden/libvulkan.so.1
-	rm ${DESTDIR}/opt/Bitwarden/resources/app-update.yml
+	sed "s/@electronver@/${_electronver}/g" ${FILESDIR}/${pkgname}.sh > ${TMPDIR}/${pkgname}.sh
+	vbin ${TMPDIR}/${pkgname}.sh bitwarden
+
+	vinstall apps/desktop/resources/com.bitwarden.desktop.desktop 644 usr/share/applications
+
+	for size in 16 32 64 128 256 512 1024; do
+		vinstall apps/desktop/resources/icons/${size}x${size}.png \
+				 644 usr/share/icons/hicolor/${size}x${size}/apps \
+				 com.bitwarden.desktop.png
+	done
 }
