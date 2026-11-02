@@ -22,7 +22,7 @@
 | dioxus-cli                       | 0.7.10          | ✅       |
 | drawio-desktop                   | 32.6.1          | ✅       |
 | dux-shell                        | 2.0.0           | ✅       |
-| discord                          | 1.0.162         | ❌       |
+| discord                          | 1.0.168         | ❌       |
 | distrobox                        | 1.8.2.5         | ✅       |
 | emacs-lucid                      | 31.1            | ✅       |
 | feishin                          | 1.16.0          | ✅       |
