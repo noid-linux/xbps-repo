@@ -67,7 +67,7 @@
 | opencode-desktop                 | 2.2.5           | ❌       |
 | pelagica-desktop                 | 4.14.0          | ✅       |
 | proton-authenticator             | 1.1.6           | ✅       |
-| proton-vpn-gtk-app               | 4.18.8          | ✅       |
+| proton-vpn-gtk-app               | 4.19.0          | ✅       |
 | python3-curl-cffi                | 0.15.0          | ✅       |
 | qt6gtk2                          | 0.7             | ✅       |
 | quran-companion                  | 1.3.3           | ✅       |

@@ -1,6 +1,6 @@
 # Template file for 'python3-proton-vpn-api-core'
 pkgname=python3-proton-vpn-api-core
-version=5.8.11
+version=6.1.1
 revision=1
 _protunver=2.2.1
 build_style=python3-pep517
@@ -16,7 +16,7 @@ license="GPL-3.0-or-later"
 homepage="https://github.com/ProtonVPN/python-proton-vpn-api-core"
 distfiles="https://github.com/ProtonVPN/python-proton-vpn-api-core/archive/refs/tags/v${version}.tar.gz
  https://github.com/ProtonVPN/protun/archive/refs/tags/v${_protunver}.tar.gz"
-checksum="97352c2d8ca8d7450eeb209e9f83250ab411fc62525dde4549790c78fd3ac2bd
+checksum="9b8a4eca0c59c53c51e95862fb00c31f146f38d2ee88bb3fbda24ed53fdefa67
  4bf7eab3255332ffd97e1906a79d048fddb0d1bc40b6caefb899de9106e322cc"
 skip_extraction="v${_protunver}.tar.gz"
 replaces="python3-proton-vpn-local-agent>=0"
