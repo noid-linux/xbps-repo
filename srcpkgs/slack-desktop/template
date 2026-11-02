@@ -1,6 +1,6 @@
 # Template file for 'slack-desktop'
 pkgname=slack-desktop
-version=4.52.178
+version=4.53.276
 revision=1
 archs="x86_64"
 depends="xdg-utils"
@@ -10,7 +10,7 @@ license="custom:Proprietary"
 homepage="https://slack.com/"
 changelog="https://slack.com/release-notes/linux"
 distfiles="https://downloads.slack-edge.com/desktop-releases/linux/x64/${version}/${pkgname}-${version}-amd64.deb"
-checksum=1f110efeeb7d82e927fa209cd767278f27a4ddc7fed4a60c23fbc4ab374e1d3a
+checksum=8974c6a9b3ffd4ef09ced4403acaa444d743d113a185504d5a1dc405be46e746
 nopie=yes
 
 do_install() {
