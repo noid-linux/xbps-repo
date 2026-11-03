@@ -62,7 +62,7 @@
 | noid-welcome                     | 0.3.3           | ✅       |
 | nyancat                          | 1.5.2           | ✅       |
 | nwm                              | 6.8             | ✅       |
-| obsidian                         | 1.14.5          | ❌       |
+| obsidian                         | 1.15.0          | ❌       |
 | onlyoffice                       | 9.4.0           | ❌       |
 | opencode-desktop                 | 2.2.5           | ❌       |
 | pelagica-desktop                 | 4.14.0          | ✅       |
