@@ -1,6 +1,6 @@
 # Template file for 'dux-shell'
 pkgname=dux-shell
-version=2.0.0
+version=2.1.0
 revision=1
 archs="x86_64"
 _qmlver=bb917ea0718892c875ca0955939f63b31dc64e1e
@@ -15,7 +15,7 @@ homepage="https://duxlabs.dev/"
 changelog="https://github.com/duxlabs-dev/dux-shell/raw/refs/heads/master/CHANGELOG.MD"
 distfiles="https://github.com/duxlabs-dev/dux-shell/archive/refs/tags/v${version}.tar.gz
  https://github.com/duxlabs-dev/dux-qml-common/archive/${_qmlver}.tar.gz"
-checksum="e81b0b496b3a6a5a08a6b045ef04d79b3a36f9b07bbfdf475e7dceb80228aca4
+checksum="0df73c2cf4ce79ab5152b88c71fdb2180f9e0f410342e39d6ab0c3fec9488254
  dd5548aa8947584e6d045041f943940e34423e4c509a5a9892082dbba38ac644"
 skip_extraction="${_qmlver}.tar.gz"
 replaces="dms-shell>=0"
