@@ -1,6 +1,6 @@
 # Template file for 'beeper'
 pkgname=beeper
-version=4.3.264
+version=4.3.276
 revision=1
 archs="x86_64"
 depends="vulkan-loader"
@@ -10,7 +10,7 @@ license="custom:Proprietary"
 homepage="https://www.beeper.com"
 changelog="https://www.beeper.com/changelog/desktop"
 distfiles="https://beeper-desktop.download.beeper.com/builds/Beeper-${version}-x86_64.AppImage"
-checksum=399ee4cd2b5e20b0d7d95039448190a98b6998a75648540149c4e5dbcce30551
+checksum=35166a35fe137cbe254b34e7da52bb34f087a1829f00c87cf0f8b4604da9d5fe
 skip_extraction="Beeper-${version}-x86_64.AppImage"
 nostrip=yes
 noshlibprovides=yes
@@ -40,4 +40,6 @@ do_install() {
 	rm -f ${DESTDIR}/opt/${pkgname}/libvulkan.so.1
 	rm -f ${DESTDIR}/opt/${pkgname}/resources/app.asar.unpacked/node_modules/better-sqlite3/prebuilds/linuxmusl-x64.node
 	rm -f ${DESTDIR}/opt/${pkgname}/resources/app.asar.unpacked/node_modules/classic-level/prebuilds/linux-x64/classic-level.musl.node
+
+	find "${DESTDIR}/opt/${pkgname}/" -type f -perm -0002 -exec chmod o-w {} +
 }
