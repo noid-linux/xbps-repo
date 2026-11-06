@@ -9,7 +9,7 @@
 | bazaar                           | 0.9.10          | ✅       |
 | beeper                           | 4.3.284         | ❌       |
 | biome                            | 2.4.15          | ✅       |
-| bitwarden-desktop                | 2026.10.3       | ✅       |
+| bitwarden-desktop                | 2026.10.4       | ✅       |
 | blockbench                       | 5.2.1           | ✅       |
 | bottles                          | 67.6            | ✅       |
 | boxbuddy                         | 2.5.8           | ✅       |
