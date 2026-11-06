@@ -7,7 +7,7 @@
 | azahar                           | 2126.2          | ✅       |
 | azaharplus                       | 2126.2+A        | ✅       |
 | bazaar                           | 0.9.10          | ✅       |
-| beeper                           | 4.3.276         | ❌       |
+| beeper                           | 4.3.284         | ❌       |
 | biome                            | 2.4.15          | ✅       |
 | bitwarden-desktop                | 2026.10.3       | ✅       |
 | blockbench                       | 5.2.1           | ✅       |
