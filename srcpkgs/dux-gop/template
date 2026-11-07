@@ -1,6 +1,6 @@
 # Template file for 'dux-gop'
 pkgname=dux-gop
-version=2.1.0
+version=2.1.1
 revision=1
 archs="x86_64"
 build_style=gnu-makefile
@@ -11,7 +11,7 @@ license="MIT"
 homepage="https://github.com/duxlabs-dev/dux-gop"
 changelog="https://github.com/duxlabs-dev/dux-gop/releases"
 distfiles="https://github.com/duxlabs-dev/dux-gop/archive/refs/tags/v${version}.tar.gz"
-checksum=141dbd1972ef149a6efce962a4741ddab5000c8813e245fb9b28b92f1c2b0bc6
+checksum=6577264abfecedd239062e61f46e838f265dd4fd9244381a28bfddc98fb2def7
 replaces="dgop>=0"
 
 do_install() {

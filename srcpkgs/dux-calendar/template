@@ -1,6 +1,6 @@
 # Template file for 'dux-calendar'
 pkgname=dux-calendar
-version=2.1.0
+version=2.1.1
 revision=1
 archs="x86_64"
 _qmlver=bb917ea0718892c875ca0955939f63b31dc64e1e
@@ -14,7 +14,7 @@ homepage="https://github.com/duxlabs-dev/dux-calendar"
 changelog="https://github.com/duxlabs-dev/dux-calendar/releases"
 distfiles="https://github.com/duxlabs-dev/dux-calendar/archive/refs/tags/v${version}.tar.gz
  https://github.com/duxlabs-dev/dux-qml-common/archive/${_qmlver}.tar.gz"
-checksum="3dc36a1fdeb5420eef327e95f142d0b97038d445525e65bf01a75658eb507f18
+checksum="999b4cf5b582b045dd3445c8a40b76b932b82ecae55b871c8e633dea92d6357c
  dd5548aa8947584e6d045041f943940e34423e4c509a5a9892082dbba38ac644"
 skip_extraction="${_qmlver}.tar.gz"
 replaces="dcal>=0"
