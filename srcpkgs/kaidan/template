@@ -1,6 +1,6 @@
 # Template file for 'kaidan'
 pkgname=kaidan
-version=0.16.0
+version=0.17.0
 revision=1
 archs="x86_64"
 build_style=cmake
@@ -19,4 +19,4 @@ license="GPL-3.0-or-later"
 homepage="https://www.kaidan.im/"
 changelog="https://invent.kde.org/network/kaidan/-/raw/master/NEWS.md/"
 distfiles="https://invent.kde.org/network/kaidan/-/archive/v${version}/kaidan-v${version}.tar.gz"
-checksum=88afb9cbed19560efbe9300678083bb19be7c41da35756c6af9744e01f4f8776
+checksum=a5ac9e26551a31f8de951976913c7572f1ac365434c8440d09e38262e8d47cd8
