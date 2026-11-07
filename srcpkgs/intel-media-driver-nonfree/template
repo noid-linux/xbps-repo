@@ -1,6 +1,6 @@
 # Template file for 'intel-media-driver-nonfree'
 pkgname=intel-media-driver-nonfree
-version=26.4.0
+version=26.4.1
 revision=1
 archs="x86_64*"
 build_style=cmake
@@ -13,7 +13,7 @@ license="MIT, BSD-3-Clause"
 homepage="https://github.com/intel/media-driver"
 changelog="https://github.com/intel/media-driver/releases"
 distfiles="https://github.com/intel/media-driver/archive/intel-media-${version}.tar.gz"
-checksum=ff70ecafe7f5efe02009b723d640a05dcce5016eaf0a6df60c2276df0deff101
+checksum=9ff79e04075fa52ad9d5bc66154f508892241a61f85192d0846de9f55b9f2ef2
 conflicts="intel-media-driver>=0"
 replaces="intel-media-driver>=0"
 

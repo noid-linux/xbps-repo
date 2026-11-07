@@ -42,7 +42,7 @@
 | helium-browser                   | 0.21.1.1        | ❌       |
 | heroic-games-launcher            | 2.22.4          | ✅       |
 | hyprland-repo                    | /               | /        |
-| intel-media-driver-nonfree       | 26.4.0          | ✅       |
+| intel-media-driver-nonfree       | 26.4.1          | ✅       |
 | intel-media-driver-nonfree-devel | /               | ✅       |
 | kaidan                           | 0.16.0          | ✅       |
 | librewolf                        | 159.0.1.1       | ❌       |
