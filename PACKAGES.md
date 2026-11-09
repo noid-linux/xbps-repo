@@ -21,7 +21,7 @@
 | cryptomator                      | 1.19.2          | ✅       |
 | dioxus-cli                       | 0.7.10          | ✅       |
 | drawio-desktop                   | 32.6.10         | ✅       |
-| dux-shell                        | 2.0.0           | ✅       |
+| dux-shell                        | 2.1.2           | ✅       |
 | discord                          | 1.0.168         | ❌       |
 | distrobox                        | 1.8.2.5         | ✅       |
 | emacs-lucid                      | 31.1            | ✅       |
