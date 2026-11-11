@@ -1,8 +1,8 @@
 # Template file for 'android-studio'
 pkgname=android-studio
-version=2026.2.1.8
+version=2026.2.2.9
 revision=1
-_version_description="rabbit1"
+_version_description="rabbit2-patch1"
 archs="x86_64"
 hostmakedepends="tar"
 depends="libbsd"
@@ -12,7 +12,7 @@ license="Apache-2.0"
 homepage="https://developer.android.com/studio/"
 changelog="https://developer.android.com/studio/releases/"
 distfiles="https://edgedl.me.gvt1.com/android/studio/ide-zips/${version}/android-studio-${_version_description}-linux.tar.gz"
-checksum=f8775c67cf899d9133712a2d7ee3ef7231e07fb16dbe0544c47e5f5babd5931b
+checksum=11ecbf0e6dc0f04a1353f797e45bf239a3ff1a82221539b1b8cdd7eab0d8d8ea
 python_version=3
 nostrip=yes
 noshlibprovides=yes
