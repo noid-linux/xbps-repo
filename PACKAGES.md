@@ -25,7 +25,7 @@
 | discord                          | 1.0.168         | ❌       |
 | distrobox                        | 1.8.2.5         | ✅       |
 | emacs-lucid                      | 31.1            | ✅       |
-| feishin                          | 1.16.0          | ✅       |
+| feishin                          | 1.17.0          | ✅       |
 | ferdium                          | 7.2.3           | ✅       |
 | FjordLauncher                    | 11.1.1.0        | ✅       |
 | flat-remix-icon-theme            | 20251119        | ✅       |
