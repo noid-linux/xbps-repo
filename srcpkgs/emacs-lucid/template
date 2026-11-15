@@ -1,8 +1,7 @@
 # Template file for 'emacs-lucid'
 pkgname=emacs-lucid
 version=31.1
-revision=1
-create_wrksrc=required
+revision=3
 build_style=gnu-configure
 configure_args="--with-file-notification=inotify --with-modules
  $(vopt_with jpeg) $(vopt_with tiff) $(vopt_with gif) $(vopt_with png)
@@ -24,7 +23,7 @@ makedepends="ncurses-devel libXaw-devel libXi-devel gtk+3-devel
  $(vopt_if cairo cairo-devel) $(vopt_if gmp gmp-devel)
  $(vopt_if treesitter tree-sitter-devel) $(vopt_if sqlite sqlite-devel)
  $(vopt_if nativecomp libgccjit-devel)"
-depends="emacs-common-30.2_2 desktop-file-utils hicolor-icon-theme"
+depends="emacs-common>=${version}"
 short_desc="GNU Emacs editor - Lucid toolkit version"
 maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-or-later"
@@ -52,24 +51,20 @@ desc_option_xpm="Enable support for XPM images"
 build_options_default="cairo gif gmp gnutls harfbuzz jpeg m17n nativecomp
  png sound sqlite svg tiff treesitter webp xml xpm"
 
-post_extract() {
-	# Just configuring in different directories results in
-	# spurious emacs rebuilds with incompatible build numbers.
-	cp -a emacs-* lucid
-}
-
 do_configure() {
-	cd $wrksrc/lucid
 	./configure --with-x-toolkit=lucid ${configure_args}
 }
 
 do_build() {
-	make ${makejobs} -C lucid
+	make ${makejobs}
 }
 
 do_install() {
-	make DESTDIR=${PKGDESTDIR} -C ${wrksrc}/lucid install
-	rm -f ${PKGDESTDIR}/usr/bin/ctags
-	rm -rf ${PKGDESTDIR}/usr/share/{emacs,man,info}
-	rm -rf ${PKGDESTDIR}/usr/lib/systemd
+	make DESTDIR=$DESTDIR install
+	rm -f ${DESTDIR}/usr/bin/ctags
+	rm -f ${DESTDIR}/usr/lib/systemd/user/emacs.service
+	rm -f ${DESTDIR}/usr/share/man/man1/ctags.1*
+	rm -f ${DESTDIR}/usr/share/info/info.info
+	rm -rf ${DESTDIR}/usr/share/applications
+	rm -rf ${DESTDIR}/usr/share/icons
 }
