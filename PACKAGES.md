@@ -65,7 +65,7 @@
 | obsidian                         | 1.15.1          | ❌       |
 | onlyoffice                       | 9.4.0           | ❌       |
 | opencode-desktop                 | 2.3.0           | ❌       |
-| pelagica-desktop                 | 4.15.0          | ✅       |
+| pelagica-desktop                 | 4.16.0          | ✅       |
 | proton-authenticator             | 1.1.6           | ✅       |
 | proton-vpn-gtk-app               | 4.19.0          | ✅       |
 | python3-curl-cffi                | 0.15.0          | ✅       |

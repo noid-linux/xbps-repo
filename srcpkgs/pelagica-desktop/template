@@ -1,6 +1,6 @@
 # Template file for 'pelagica-desktop'
 pkgname=pelagica-desktop
-version=4.15.0
+version=4.16.0
 revision=1
 archs="x86_64"
 hostmakedepends="go-task go pnpm pkg-config"
@@ -13,7 +13,7 @@ license="GPL-3.0-or-later"
 homepage="https://pelagica.app/"
 changelog="https://github.com/PelagicaApp/pelagica/releases"
 distfiles="https://github.com/PelagicaApp/pelagica/archive/refs/tags/${version}.tar.gz"
-checksum=dcca5e06a38b28dce8f0d365616c1fe3fba7a7c43e5a2ba2249653745d6f57d9
+checksum=81492233d2fbd08bc95a62372ebd380fdfc360404a2a459301b3256f86ab58c9
 nopie=yes
 
 do_build() {
