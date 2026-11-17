@@ -20,7 +20,7 @@
 | clipcat                          | 0.26.0          | ✅       |
 | cryptomator                      | 1.19.2          | ✅       |
 | dioxus-cli                       | 0.7.10          | ✅       |
-| drawio-desktop                   | 32.6.10         | ✅       |
+| drawio-desktop                   | 32.7.4          | ✅       |
 | dux-shell                        | 2.1.2           | ✅       |
 | discord                          | 1.0.168         | ❌       |
 | distrobox                        | 1.8.2.5         | ✅       |
