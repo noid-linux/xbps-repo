@@ -1,8 +1,29 @@
-# Custom XBPS Repository
-
-[![Build Packages](https://github.com/noid-linux/xbps-repo/actions/workflows/build.yaml/badge.svg)](https://github.com/noid-linux/xbps-repo/actions/workflows/build.yaml)
-
-This repository contains custom XBPS packages.
+<div align="center">
+	<img
+		src="https://github.com/noid-linux/.github/blob/main/assets/noid-logo.png?raw=true"
+		width="128"
+		alt="Noid Linux logo"
+	/>
+	<br />
+	<h1 align="center">Noid Custom XBPS Repository</h1>
+	<p align="center">
+		<a href="https://noid-linux.github.io"><b>Website</b></a>
+		-
+		<a href="https://github.com/noid-linux/xbps-repo#installation-instructions"
+			><b>Usage Instructions</b></a
+		>
+		-
+		<a
+			href="https://github.com/noid-linux/noid-packages/issues/new?template=pkg-request.yml"
+			><b>Request a Packages</b></a
+		>
+		-
+		<a href="https://matrix.to/#/#noid-support:ch-naseem.com"
+			><b>Community</b></a
+		>
+		- <a href="https://noid-linux.github.io/donate/"><b>Donate</b></a>
+	</p>
+</div>
 
 > [!NOTE]
 > Some packages in this repository are repackaged from official upstream binaries (e.g., Brave, LibreWolf, VSCodium) while others are built from source (e.g., Ferdium). Check individual package templates in `srcpkgs/` for build details.
