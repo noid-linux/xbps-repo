@@ -1,6 +1,6 @@
 # Template file for 'python3-patool'
 pkgname=python3-patool
-version=4.0.5
+version=4.1.0
 revision=1
 build_style=python3-module
 hostmakedepends="python3-setuptools"
@@ -10,4 +10,4 @@ license="GPL-3.0-or-later"
 homepage="https://github.com/wummel/patool"
 changelog="https://github.com/wummel/patool/raw/refs/heads/main/doc/changelog.txt"
 distfiles="${PYPI_SITE}/p/patool/patool-${version}.tar.gz"
-checksum=1c8bbbbe1f421181bf7055ada975befb024c1677449e9d36f42bb45ac69f8b4c
+checksum=54c669b2af0f5e46d59a53f02ca4f83d53b3a7a25d50e97778582da7cea65daf
