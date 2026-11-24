@@ -1,6 +1,6 @@
 # Template file for 'uutils-coreutils'
 pkgname=uutils-coreutils
-version=0.12.0
+version=0.13.0
 revision=1
 build_style=gnu-makefile
 build_helper="rust"
@@ -13,7 +13,7 @@ maintainer="Nafis <mnabid.25@outlook.com>"
 license="MIT"
 homepage="https://github.com/uutils/coreutils"
 distfiles="https://github.com/uutils/coreutils/archive/refs/tags/${version}.tar.gz"
-checksum=4fb327655cb4ffcbf2f16550cf9234079ffe839692f7aa1a6eda104af684e122
+checksum=5830c023555ea8e98505e8cfb09524d3097f427c5e58ef197a943e6cb73af9b0
 alternatives="
  hostname:hostname:/usr/bin/hostname-coreutils
  hostname:hostname.1:/usr/share/man/man1/hostname-coreutils.1"

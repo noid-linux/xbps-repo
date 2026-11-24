@@ -86,7 +86,7 @@
 | twine                            | 2.12.1          | ✅       |
 | ueberzugpp                       | 2.9.10          | ✅       |
 | ungoogled-chromium               | 156.0.8078.79.1 | ❌       |
-| uutils-coreutils                 | 0.12.0          | ✅       |
+| uutils-coreutils                 | 0.13.0          | ✅       |
 | vscodium                         | 1.143.17232     | ❌       |
 | webapp-manager                   | 1.4.6           | ❌       |
 | wine-pure                        | 11.18           | ✅       |
