@@ -1,6 +1,6 @@
 # Template file for 'bitwarden-desktop'
 pkgname=bitwarden-desktop
-version=2026.10.4
+version=2026.11.0
 revision=1
 _electronver=35
 archs="x86_64"
@@ -14,7 +14,7 @@ license="GPL-3.0-only"
 homepage="https://bitwarden.com/"
 changelog="https://github.com/bitwarden/clients/releases"
 distfiles="https://github.com/bitwarden/clients/archive/refs/tags/desktop-v${version}.tar.gz"
-checksum=cc209fd9fa10d79c8751c4b635ef6f66f6bbb384fd69d14388f24f8d1f2af67f
+checksum=3063af17647e0b153421586d2be2667dad0a388c76e3d4277754e3282a114a2c
 noshlibprovides=yes
 
 do_patch() {
