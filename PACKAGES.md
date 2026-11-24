@@ -23,7 +23,7 @@
 | drawio-desktop                   | 32.7.4          | ✅       |
 | dux-shell                        | 2.1.2           | ✅       |
 | discord                          | 1.0.168         | ❌       |
-| distrobox                        | 1.8.2.5         | ✅       |
+| distrobox                        | 1.8.2.6         | ✅       |
 | emacs-lucid                      | 31.1            | ✅       |
 | feishin                          | 1.17.0          | ✅       |
 | ferdium                          | 7.2.3           | ✅       |
