@@ -82,7 +82,7 @@
 | themix                           | 1.15.1          | ✅       |
 | thorium-browser-avx2             | 138.0.7204.303  | ❌       |
 | tsukimi                          | 26.11.1         | ✅       |
-| tutanota-desktop                 | 369.261117.1    | ❌       |
+| tutanota-desktop                 | 371.261123.0    | ❌       |
 | twine                            | 2.12.1          | ✅       |
 | ueberzugpp                       | 2.9.10          | ✅       |
 | ungoogled-chromium               | 156.0.8078.79.1 | ❌       |
