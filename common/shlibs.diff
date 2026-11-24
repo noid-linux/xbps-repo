@@ -1,11 +1,11 @@
 diff --git a/common/shlibs b/common/shlibs
-index 1fdd77c9bbe..de4a8cbab10 100644
+index 1a4ad11bf99..7a2fd6fa8a3 100644
 --- a/common/shlibs
 +++ b/common/shlibs
-@@ -4684,3 +4684,10 @@ libcpptrace.so.1 cpptrace-1.0.4_1
- libcgif.so.0 cgif-0.5.3_1
+@@ -4695,3 +4695,10 @@ libcgif.so.0 cgif-0.5.3_1
  libdsk.so.5 libdsk-1.5.22_1
  libblend2d.so libblend2d-0.21.2_1
+ libqjs.so.0 libquickjs-ng-0.18.0_1
 +libbge.so.0 bazaar-0.8.1_1
 +libmalcontent-0.so.0 malcontent-0.14_1
 +pam_malcontent.so malcontent-0.14_1
