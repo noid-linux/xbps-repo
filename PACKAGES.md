@@ -17,7 +17,7 @@
 | bun                              | 1.4.5           | ❌       |
 | calamares                        | 3.4.3           | ✅       |
 | cinny-desktop                    | 4.12.8          | ✅       |
-| clipcat                          | 0.26.0          | ✅       |
+| clipcat                          | 0.27.0          | ✅       |
 | cryptomator                      | 1.19.2          | ✅       |
 | dioxus-cli                       | 0.7.10          | ✅       |
 | drawio-desktop                   | 32.7.4          | ✅       |

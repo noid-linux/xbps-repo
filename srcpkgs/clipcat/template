@@ -1,6 +1,6 @@
 # Template file for 'clipcat'
 pkgname=clipcat
-version=0.26.0
+version=0.27.0
 revision=1
 archs="x86_64"
 build_style=cargo
@@ -11,16 +11,18 @@ maintainer="Naz <ndpm13@ch-naseem.com>"
 license="GPL-3.0-only"
 homepage="https://github.com/xrelkd/clipcat"
 distfiles="https://github.com/xrelkd/clipcat/archive/refs/tags/v${version}.tar.gz"
-checksum=3d20e3bbe7b5b7ac478e10e1892d3978a99f4573ed118574b4d441820cff3d7f
+checksum=0b6835c923beb45429cb10fa9eeddff423ef51f2434634cbd58366f402bbf42f
 
 do_install() {
+	: ${make_cmd:=cargo auditable}
+	: ${make_verbose:=-v}
+
+	# TODO: probably should make these into subpackages
 	for pkg in clipcatd clipcatctl clipcat-menu clipcat-notify; do
-		cargo auditable install \
-			--target "${RUST_TARGET}" \
-			--root "${DESTDIR}/usr" \
-			--offline --locked \
-			--path ${pkg}
+		${make_cmd} install ${XBPS_VERBOSE+${make_verbose}} --target ${RUST_TARGET} --root="${DESTDIR}/usr" \
+					--offline --locked ${configure_args} --path ${pkg}
 	done
+
 	rm -f "${DESTDIR}"/usr/.crates.toml
 	rm -f "${DESTDIR}"/usr/.crates2.json
 }
