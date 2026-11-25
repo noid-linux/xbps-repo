@@ -1,6 +1,6 @@
 # Template file for 'azahar'
 pkgname=azahar
-version=2127.0
+version=2126.2
 revision=1
 archs="x86_64"
 build_style=cmake
@@ -12,4 +12,4 @@ license="GPL-2.0-only"
 homepage="https://azahar-emu.org/"
 changelog="https://github.com/azahar-emu/azahar/releases"
 distfiles="https://github.com/azahar-emu/azahar/releases/download/${version}/azahar-unified-source-${version}.tar.xz"
-checksum=c817b4cd96169413165e87809cd5e7135a54f858e327abf60bfa1e55b36f71e7
+checksum=85c8b56fac703df04720125044b8ff887997911858a6cde545dfb1107ba4cd26
