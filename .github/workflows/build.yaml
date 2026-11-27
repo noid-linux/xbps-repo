@@ -172,8 +172,11 @@ jobs:
         with:
           files: /home/runner/release/*
           tag_name: latest
-          name: Latest Build
+          name: Legacy Build
           body: |
-            Latest build of XBPS packages
-            Built on: ${{ github.event.repository.updated_at }}
+            > [!CAUTION]
+            > **Migration notice:** Packages are now built and published from a new build pipeline at [noid-linux/noid-packages][noid-packages]. Follow these [instructions][migration-instructions] to migrate to the new pool. The old one will keep receiving less frequent updates than usual until late December 2026, and will be fully deprecated in 2027.
+
+            [noid-packages]: https://github.com/noid-linux/noid-packages
+            [migration-instructions]: https://github.com/noid-linux/xbps-repo#migration-instructions
           prerelease: false
