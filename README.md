@@ -25,11 +25,13 @@
 	</p>
 </div>
 
-> [!NOTE]
-> Some packages in this repository are repackaged from official
-> upstream binaries (e.g., Brave, LibreWolf, VSCodium) while others
-> are built from source (e.g., Ferdium). Check individual package
-> templates in [`srcpkgs/`][srcpkgs] for build details.
+> [!CAUTION]
+> **Migration notice:** Packages are now built and published from a
+> new build pipeline at
+> [noid-linux/noid-packages][noid-packages]. Follow these
+> [instructions][migration-instructions] to migrate to the new
+> pool. The old one will keep recieving less frequent updates than
+> usual until late December 2026, and will be fully deprecated in 2027.
 
 ## Installation Instructions
 
@@ -71,6 +73,28 @@ sudo xbps-install -Su
 sudo xbps-install brave librewolf vscodium
 ```
 
+## Migration Instructions
+
+```sh
+# Find the old config file
+noid_config=$(grep -lr noid-linux /etc/xbps.d)
+
+sudo tee $noid_config <<-EOH
+# noidlinux remote repositories
+# repository=https://github.com/noid-linux/xbps-repo/releases/download/dinit
+repository=https://github.com/noid-linux/xbps-repo/releases/download/main
+repository=https://github.com/noid-linux/xbps-repo/releases/download/nonfree
+EOH
+```
+
+If you're using Dinit, remember to uncomment the corresponding
+repo. It is important to give Noid's dinit subrepo priority over the
+Void Linux repos, this is because Noid has it's own build of
+dinit. Compare the two templates for better context:
+
+- [Void's template for dinit][void/dinit]
+- [Noid's template for dinit][noid/dinit]
+
 ## Repository public key
 
 <details>
@@ -96,3 +120,5 @@ sudo xbps-install brave librewolf vscodium
 [srcpkgs]: https://github.com/noid-linux/noid-packages/tree/master/srcpkgs
 [void/dinit]: https://github.com/void-linux/void-packages/blob/master/srcpkgs/dinit/template
 [noid/dinit]: https://github.com/noid-linux/noid-packages/blob/master/srcpkgs/dinit/template
+[noid-packages]: https://github.com/noid-linux/noid-packages
+[migration-instructions]: https://github.com/noid-linux/xbps-repo#migration-instructions
